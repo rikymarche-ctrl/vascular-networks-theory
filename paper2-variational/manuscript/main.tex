@@ -1,0 +1,833 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper, portrait, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+\usepackage[colorlinks=true, citecolor=blue, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{authblk}
+\usepackage{mathpazo}
+\usepackage{microtype}
+\linespread{1.05}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+
+
+\begin{document}
+
+\input{dynamic_variables.tex}
+\input{../supplements/dynamic_variables_supplemental.tex}
+
+\title{\LARGE\bfseries A Unified Variational Principle for Branching Transport Networks:\\[4pt]
+Wave Impedance, Viscous Flow, and Tissue Metabolism}
+\author{Riccardo Marchesi}
+\affil{University of Pavia}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+The branching geometry of biological transport networks is canonically characterized by a diameter scaling exponent $\alpha$. Traditionally, this exponent interpolates between two structural attractors: impedance matching ($\alpha\approx2$) for pulsatile wave propagation and viscous-metabolic minimization ($\alpha=3$) for steady flow. We demonstrate that neither mechanism in isolation can predict the empirically observed $\alpha_{\mathrm{exp}} = 2.70 \pm 0.20$ in mammalian arterial trees. Incorporating the empirical sub-linear vessel-wall scaling $h(r) \propto r^p$ ($p\approx0.77$) into a three-term metabolic cost function rigorously breaks the universality of Murray's cubic law---a consequence of cost-function non-homogeneity established via Cauchy's functional equation---and bounds the static transport optimum to $\alpha_t \in [2.90, 2.94]$. To account for the dynamic pulsatile environment, we formulate a unified network-level Lagrangian balancing wave-reflection penalties against steady transport-metabolic costs. Because the operational duty cycle $\eta$ between pulsatile and steady states is inherently uncertain over developmental timescales, we cast the morphological optimization as a zero-sum game between network architecture and environmental state. By the minimax theorem---proved here requiring only continuity and strict monotonicity, without global convexity assumptions---the unique saddle point $(\alpha^*, \eta^*)$ satisfies the exact equal-cost condition $\mathcal{C}_{\mathrm{wave}}(\alpha^*) = \mathcal{C}_{\mathrm{transport}}(\alpha^*)$, eliminating $\eta$ as a free parameter. For porcine coronary arteries, this deterministic ground state yields $\alpha^* = \VarAlphaStar$, while Bayesian marginalization via Monte Carlo over physiological parameter uncertainty predicts a population expectation of $\alpha^*_{\mathrm{MC}} = \VarMCAlphaMean \pm \VarMCAlphaStd$. Without requiring fitted parameters, the framework rigorously derives the observed cardiovascular scaling and reduces exactly to Murray's law when dynamic wave modes are absent.
+\end{abstract}
+
+\sloppy
+
+%====================================================================
+\section{Introduction}
+\label{sec:intro}
+
+The physical architecture of biological transport networks is canonically described by Murray's cubic scaling law. However, empirical measurements of arterial trees consistently yield branching exponents $\alpha \approx 2.7$--$2.9$ \cite{Kassab1993,Zamir1999}. Traditionally, this departure is attributed either to the structural metabolic cost of the vessel wall or to the dynamic wave reflection penalties inherent in pulsatile flow. In this Letter, we demonstrate that neither mechanism in isolation can fully explain the robust exponent observed in vivo. Instead, we formulate a unified network-level Lagrangian where the structural non-universality of the wall tissue ($p<1$) drives the system toward a transport-dominated upper bound, while the geometric impedance mismatch of pulsatile waves tightly constrains the architecture toward a wave-dominated lower bound. The empirical exponent emerges strictly as the robust optimal compromise between these competing thermodynamic demands.
+Independently, the engineering literature on acoustic horns \cite{Rayleigh1896}, transmission lines \cite{Pozar2012}, and the hemodynamics of pulsatile flow \cite{Womersley1955,Nichols2011} establishes that minimizing power reflection at a junction (impedance matching) requires conservation of total characteristic impedance.
+The matching exponent~$\alpha_w$ depends on the conduit physics: for acoustic waves in rigid cylinders ($Z \propto d^{-2}$), $\alpha_w = 2$; for electrotonic conduction in cable-like structures ($Z \propto d^{-3/2}$), $\alpha_w = 3/2$ \cite{Rall1959}; for pulse waves in compliant arteries, $\alpha_w \in [2, 5/2]$ depending on wall-thickness scaling \cite{Nichols2011}.
+
+Empirical measurements consistently report intermediate values.
+Mammalian arterial trees yield $\alpha \approx 2.7$ \cite{Kassab1993,Zamir1999}, pulmonary airways $\alpha \approx 2.8$--$3.0$ \cite{Weibel1963}, botanical xylem $\alpha \approx 2.0$--$2.5$ \cite{McCulloh2003,Savage2010}, and cortical dendrites $\alpha \approx 2.4$ \cite{Cuntz2010}.
+These intermediate exponents are typically rationalized by system-specific models, but no unified framework derives them from a single thermodynamic principle.
+
+Bejan's constructal law \cite{Bejan1997,Bejan2000} proposes that flow systems evolve toward configurations that maximize access, offering a broad organizing principle, and West--Brown--Enquist theory \cite{WBE1997} derives allometric scaling from fractal filling constraints.
+However, neither framework specifies the analytical form of the cost function that makes wave and flow costs commensurable without introducing a free parameter.
+The neural application connects to Rall's cable theory \cite{Rall1959} and Cuntz's minimum-spanning-tree models \cite{Cuntz2010}, but again lacks a thermodynamic justification for the weighting factor between wiring cost and conduction efficiency.
+
+In this paper, we propose and numerically evaluate a phenomenological interpolation framework to address this gap. 
+We postulate that the effective competition between wave and flow costs is not determined at a single junction but \emph{emerges at the network level}: wave reflections accumulate multiplicatively across $G$~generations, while viscous losses compound through the tree hierarchy.
+Both costs become naturally dimensionless at the network scale, eliminating the need for any dimensional conversion factor, and the branching exponent is uniquely determined by a minimax (equal-cost) condition requiring that wave and transport penalties be equal at the network level, eliminating the need for any phenomenological weighting parameter.
+The resulting stiffness ratio $\kappa_\mathrm{eff}(G)$ is an emergent quantity that grows with tree depth, offering a mechanistic rationale for why deep networks (arteries, $G \sim 11$) produce $\alpha \approx 2.7$ while shallow networks remain closer to the wave-matching limit.
+
+%====================================================================
+\section{Theory}
+\label{sec:theory}
+
+\subsection{Branching law and impedance scaling}
+
+We consider a symmetric bifurcation ($N = 2$) in which a parent branch of diameter $d_p$ divides into $N$ daughters of diameter $d_c$:
+\begin{equation}
+  d_p^\alpha = N \, d_c^\alpha \,.
+  \label{eq:branchlaw}
+\end{equation}
+The binary topology ($N = 2$) is selected by a two-tier argument. At the static level, Theorem~10 of the companion paper~\cite{Marchesi2026static} proves that the sub-linear wall cost ($p < 1$) bounds the optimal branching number to small finite integers by penalizing junction tissue volume. At the dynamic level, Theorem~\ref{thm:topoN} of this paper proves that among all regular fractal trees perfusing a fixed terminal population, $N = 2$ uniquely maximizes the network stiffness ratio $\kappa_\mathrm{eff}(N)$, and consequently uniquely maximizes the minimax branching exponent $\alpha^*$. The two arguments are complementary: the static mechanism provides the necessary condition (small $N$), and the dynamic mechanism provides the sufficient condition (unique optimum). This establishes binary bifurcation not as an assumption but as a derived property of the unified wave-transport framework.
+The impedance of a cylindrical conduit scales as $Z \propto d^{-\alpha_w}$, where $\alpha_w$ depends on the wave physics.
+Table~\ref{tab:alphaw} summarizes the principal cases.
+
+\begin{table}[H]
+\centering
+\caption{Impedance scaling exponents for different conduit types.}
+\label{tab:alphaw}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+System & $Z$ scaling & $\alpha_w$ \\
+\midrule
+Rigid tube & $\rho c/A$ & 2 \\
+Artery ($h\!\propto\!r$) & $\propto r^{-2}$ & 2 \\
+Artery ($h$ const) & $\propto r^{-5/2}$ & 5/2 \\
+Artery ($E$ const, $h\!\propto\!r^p$) & $\propto r^{(p-5)/2}$ & $(5{-}p)/2$ \\
+Artery ($E\!\propto\!r^{-k_e}$, $h\!\propto\!r^p$) & $\propto r^{(p-k_e-5)/2}$ & $(5{-}p{+}k_e)/2$ \\
+Electrotonic cable & $\propto r^{-3/2}$ & 3/2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For arteries with empirically measured wall-thickness scaling $h \propto r^p$ ($p \approx \VarP$), the elastic modulus $E$ itself is not strictly constant but stiffens distally as $E(r) \propto r^{-k_e}$. Empirical porcine coronary data suggests a gradual stiffening $k_e \approx 0.23$ \cite{Kassab1993,Nichols2011}. The Moens--Korteweg wave speed thus scales as $c_\mathrm{MK} \propto (E(r)h/\rho r)^{1/2} \propto r^{(p-1-k_e)/2}$, giving characteristic impedance $Z \propto \rho c/A \propto r^{(p-5-k_e)/2}$. Perfect impedance matching dictates the wave attractor to be $\alpha_w = (5-p+k_e)/2$. For porcine coronary networks, incorporating the empirical elastic stiffening $k_e \approx 0.23$ would shift the acoustic ground state from $\alpha_w = \VarAlphaW$ to $\alpha_w = 2.23$. Because the determination of $k_e$ carries significant order-dependent uncertainty \cite{Kassab1993,Nichols2011}, we retain the baseline $\alpha_w = (5{-}p)/2 = \VarAlphaW$ hereafter to avoid cascading errors from poorly constrained secondary parameters. The sensitivity of $\alpha^*$ to this choice is detailed in Table~\ref{tab:sensitivity}.
+
+\subsection{Junction-level cost functions}
+\label{sec:junction}
+
+\paragraph{Wave cost.}
+A pressure (or voltage) wave encountering the junction sees load impedance $Z_\mathrm{load} = Z_c/N$.
+Using $d_c = d_p \cdot N^{-1/\alpha}$ from Eq.~\eqref{eq:branchlaw}, the impedance ratio is $Z_\mathrm{load}/Z_p = N^{\alpha_w/\alpha - 1}$, and the reflected power fraction is \cite{Pozar2012}
+\begin{equation}
+  |\Gamma(\alpha)|^2 = \left(\frac{N^{\alpha_w/\alpha - 1} - 1}{N^{\alpha_w/\alpha - 1} + 1}\right)^{\!2}.
+  \label{eq:gamma_gen}
+\end{equation}
+This vanishes at $\alpha = \alpha_w$ (perfect matching) with curvature
+\begin{equation}
+  k_w = \tfrac{1}{2}\,\frac{d^2|\Gamma|^2}{d\alpha^2}\bigg|_{\alpha=\alpha_w}\,.
+  \label{eq:kw}
+\end{equation}
+For $N = 2$, $\alpha_w = 2$: $k_w \approx 0.030$.
+Table~\ref{tab:gamma} lists exact values.
+
+\begin{table}[H]
+\centering
+\caption{Reflected power $|\Gamma|^2$ from Eq.~\eqref{eq:gamma_gen} for $N=2$. Values shown for the illustrative case $\alpha_w = 2$; the physiologically relevant $\alpha_w = \VarAlphaW$ produces qualitatively identical trends (see dynamic computation).}
+\label{tab:gamma}
+\small
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+$\alpha$ & 1.50 & 1.75 & 2.00 & 2.50 & 2.75 & 3.00 \\
+\midrule
+$|\Gamma|^2$ & \VarGammaAWOneFive{} & \VarGammaAWOneSevenFive{} & \VarGammaAWTwoZero{} & \VarGammaAWTwoFive{} & \VarGammaAWTwoSevenFive{} & \VarGammaAWThreeZero{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Transport cost.}
+For steady laminar (Poiseuille) flow through a cylindrical pipe of radius $r$ and length $\ell$ carrying volumetric flow $Q$, the total power expenditure incorporates both the Rayleigh viscous dissipation of the fluid and the metabolic maintenance of the biological structure containing the fluid:
+\begin{equation}
+  \Phi(r, Q, \ell) = \frac{8\mu \ell Q^2}{\pi r^4} + C\pi r^2 \ell + 2\pi\,m_w c_0\, r^{1+p} \ell\,,
+  \label{eq:rayleigh}
+\end{equation}
+where $\mu$ is the dynamic viscosity, $C$ is the metabolic cost per unit blood volume, $m_w$ is the metabolic rate of wall tissue per unit volume, and $h(r) = c_0 r^p$ is the wall-thickness. We assume that the vessel-wall metabolism is dominated by the volume of the smooth muscle cells (SMCs), which leads to a volumetric cost term $\propto r^{1+p}$. This contrasts with surface-priced models ($\gamma=1$, $\alpha=2.5$) and highlights the biological cost of the containing structure.
+Murray's classical law ($\alpha_f = 3$) is recovered exactly only in the non-biological limit where both the structural wall cost is totally negligible ($B_{wall} \to 0$) and the wave penalty is removed ($\eta \to 0$). For biological systems ($B_{wall} > 0$), as shown by Marchesi \cite{Marchesi2026static}, the pure-transport limit ceases to be universal. The inclusion of the sub-linear wall tissue ($p<1$) shatters the cubic geometry and fundamentally bounds the static flow exponent $\alpha_t$ away from 3.0.
+
+\subsection{The dimensional problem}
+\label{sec:dimensional}
+
+At a single junction, the wave cost $|\Gamma|^2$ is a dimensionless fraction of the incident wave power, while the excess dissipation $\Delta\Phi = \Phi(\alpha) - \Phi(\alpha_t)$ is measured in watts.
+Combining them into a single cost functional requires a dimensional conversion factor~$\lambda$ (with units of inverse power) whose value cannot be determined from first principles at the junction level.
+This renders the resulting stiffness ratio $\kappa = \lambda\,k_f / k_w$ a free parameter, limiting predictive power.
+
+We resolve this by formulating the cost functional at the \emph{network level}, where both terms become naturally dimensionless.
+
+\subsection{From junction to network: the emergence of $\kappa$}
+\label{sec:network}
+
+Consider a self-similar tree of $G$ generations rooted at a parent vessel of radius $r_0$ carrying flow $Q_0$, with segment lengths $\ell_g = \ell_0\,\beta^g$ ($\beta < 1$ for tapering trees).
+
+To avoid circularity and preserve the purely predictive nature of the framework, the length scaling factor $\beta$ is not treated as a free parameter. Assuming volumetric isometry where lengths scale linearly with radii ($\ell \propto r^1$)---consistent with empirical coronary measurements ($\beta \approx 1.0$) \cite{Kassab1993}---the morphological cascade structurally dictates
+\[
+  \beta = 2^{-1/\alpha_\mathrm{local}}\,.
+\]
+With the local static transport optimum $\alpha_\mathrm{local} \approx \VarAlphaLocal$ determined entirely by the single-vessel optimization of the companion paper \cite{Marchesi2026static} (independently of the network Lagrangian derived here), this strictly fixes $\beta \approx \VarBeta$. The value of $\beta$ is therefore a genuine input to the present framework, not a fitted parameter.
+
+\paragraph{Network wave cost.}
+At each of the $G$ junctions, a fraction $|\Gamma(\alpha)|^2$ of the remaining wave power is reflected.
+Assuming multiplicative independence of reflections at successive junctions (no multiple scattering), the total transmitted fraction is $(1-|\Gamma|^2)^G$, giving the network wave cost
+\begin{equation}
+  \mathcal{C}_\mathrm{wave}^\mathrm{net}(\alpha) = 1 - \bigl(1 - |\Gamma(\alpha)|^2\bigr)^G\,.
+  \label{eq:Cwavenet}
+\end{equation}
+This formulation is an approximation: in a real arterial tree, reflected waves from downstream junctions interfere with incident waves at upstream junctions, creating complex frequency-dependent standing-wave patterns. Neglecting this interference is a structural limitation of the present analytical framework, albeit one that correctly isolates the geometric scaling penalty. The multiplicative formula $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}} = 1 - (1 - |\Gamma|^2)^G$ treats junctions as incoherent scatterers. In the coronary tree, $kL \ll 1$ (the tree is $\sim 1\%$ of the wavelength at the cardiac fundamental), so coherent effects can amplify the total reflected power to $|\Gamma_{\mathrm{total}}|^2 \approx G^2 |\Gamma_{\mathrm{single}}|^2$. However, the physically relevant quantity for cardiac work is the oscillatory power fraction $\mathrm{Re}\{Z_{\mathrm{in}}\}/R_{\mathrm{DC}}$, which tracks the incoherent formula to within $0.01$ in the crossing region ($\alpha^*$ shifts by $< 0.01$). The minimax crossing point is thus robust to the choice between coherent and incoherent wave cost formulations. This functional is dimensionless and vanishes at $\alpha = \alpha_w$.
+
+A coherent transfer-matrix calculation incorporating Womersley viscous corrections, frequency-dependent wave propagation (1--4~Hz cardiac harmonics), and RC Windkessel terminal loads confirms that the $\alpha$-dependent geometric penalty is proportional to the incoherent estimate ($r = \VarCoherentCorr$), with a minimax shift $|\Delta\alpha^*| < 0.01$ (Supplemental~S1). The factor-of-$\VarCoherentFactor$ amplitude ratio between the coherent penalty and $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ is consistent with the coherent amplification $|\Gamma_{\mathrm{total}}|^2 \sim G^2 |\Gamma_{\mathrm{single}}|^2$ expected for a $kL\ll 1$ lattice with $G = \VarG$ generations, providing an independent quantitative confirmation of the physical scaling picture.
+
+\paragraph{Network transport cost (two-level formulation).}
+At each generation~$g$, the active peak flow $Q_g = Q_{\mathrm{peak}}/2^g$ determines a locally optimal radius $r^*(Q_g)$ via the single-junction optimization of the companion paper~\cite{Marchesi2026static} (including wall cost). The resulting locally optimal radii define the transport ground state of the network, governed by a local morphological exponent $\alpha_\mathrm{local}(Q)$. Because $\alpha_\mathrm{local}$ is a function of flow, treating the network transport optimum $\alpha_t$ as a global constant is technically in tension with the non-universality result established in Paper II.
+However, calculation over the 11 generations of the porcine coronary tree reveals that $\alpha_\mathrm{local}$ varies only narrowly, from $2.88$ at the proximal root ($5.2 \times 10^{-6}$ m$^{3}$/s) to $2.92$ at generation 10 ($5.1 \times 10^{-9}$ m$^{3}$/s). This minimal $\mathcal{O}(10^{-2})$ spread over four flow decades biologically justifies the application of a uniform scaling penalty. Imposing a uniform branching exponent~$\alpha$ on the entire tree forces radii $r_g = r^*(Q_0) \cdot 2^{-g/\alpha}$ that may deviate from the locally optimal $r^*(Q_g)$. Writing $r^*_g \equiv r^*(Q_g)$ and omitting unchanged arguments $Q_g, \ell_g$ for brevity, the transport cost measures this penalty:
+\begin{equation}
+  \mathcal{C}_\mathrm{transport}^\mathrm{net}(\alpha) =
+  \frac{\displaystyle\sum_{g=0}^{G-1} 2^g \left[ \Phi(r_g) - \Phi(r^*_g) \right]}{\displaystyle\sum_{g=0}^{G-1} 2^g\,\Phi(r^*_g)}\,,
+  \label{eq:Ctransportnet}
+\end{equation}
+which is dimensionless and vanishes when $\alpha = \alpha_\mathrm{local}$, i.e., when the uniform exponent matches the local optima. The reference cost in the denominator is not the minimum of $\Phi_\mathrm{net}$ over uniform~$\alpha$, but the cost when every vessel independently sits at its own optimum---incorporating all three terms of Eq.~\eqref{eq:rayleigh} including wall tissue.
+
+\paragraph{The unified cost functional.}
+With both terms dimensionless, the network-level Lagrangian acts as a scalarized multi-objective optimization weighting entirely bounded penalties:
+\begin{equation}
+  \boxed{\mathcal{L}_\mathrm{net}(\alpha) = \eta\,\mathcal{C}_\mathrm{wave}^\mathrm{net}(\alpha) + (1-\eta)\,\mathcal{C}_\mathrm{transport}^\mathrm{net}(\alpha)\,,}
+  \label{eq:Lnet}
+\end{equation}
+where $\eta \in [0,1]$ is the \emph{duty cycle}: the fraction of the network's operational cost attributable to wave-mode activity. In Section~\ref{sec:minimax}, we show that the minimax condition $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}} = \mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}$ uniquely determines both $\alpha^*$ and the implied value of $\eta$, eliminating the latter as a free parameter.
+
+This linear combination establishes \emph{dimensional consistency}. Unlike Murray's original formulation which sums unbounded physical power (Watts), $\mathcal{L}_\mathrm{net}$ adds defined dimensionless \emph{fractional penalties}. $\mathcal{C}_\mathrm{wave}^\mathrm{net}$ represents the fractional exhaustion of signal energy, while $\mathcal{C}_\mathrm{transport}^\mathrm{net}$ measures the fractional metabolic excess incurred relative to the optimal morphometric ground state. Because both terms are dimensionless and strictly bounded metrics of inefficiency (with zero representing absolute perfection), their combination does not falsely equate Watts of reflected acoustic energy with Watts of ATP consumption. Instead, $\mathcal{L}_\mathrm{net}$ represents a unified phenomenological \emph{fitness penalty}, where $\eta$ sets the normalized selective pressure allocated to minimizing dynamic signal attenuation versus static metabolic waste.
+
+\paragraph{Emergent stiffness ratio.}
+Near the respective minima, each network cost is approximately quadratic:
+$\mathcal{C}_\mathrm{wave}^\mathrm{net} \approx k_w^\mathrm{net}(\alpha - \alpha_w)^2$ and
+$\mathcal{C}_\mathrm{transport}^\mathrm{net} \approx k_t^\mathrm{net}(\alpha - \alpha_t(Q))^2$, where $\alpha_t(Q)$ is the transport ground state of the static scaling function, emerging from the geometry of locally optimal single vessels $\alpha_\mathrm{local}$ evaluated over the full network. The effective stiffness ratio is the ratio of curvatures:
+\begin{equation}
+  \kappa_\mathrm{eff}(G) \equiv \frac{k_t^\mathrm{net}(G)}{k_w^\mathrm{net}(G)}\,.
+  \label{eq:kappa_eff}
+\end{equation}
+Numerically, these curvatures are evaluated as the diagonal elements of the system's Hessian evaluated at the respective minima: $k_\bullet^\mathrm{net} = \frac{1}{2} \frac{\partial^2 \mathcal{C}_\bullet^\mathrm{net}}{\partial \alpha^2}\big|_{\alpha = \alpha_\bullet}$. For small $|\Gamma|^2$, the wave curvature scales analytically as $k_w^\mathrm{net} \approx G\,k_w$ (linear in $G$). The transport curvature $k_t^\mathrm{net}$, conversely, requires numerical differentiation of Eq.~\eqref{eq:Ctransportnet} due to the superposition of $r^2$, $r^{-4}$, and $r^{1+p}$ terms compounding asymmetrically through the tree hierarchy.
+The result is that $\kappa_\mathrm{eff}$ increases monotonically with~$G$: deeper trees weight the transport cost more heavily.
+
+Table~\ref{tab:kappa_G} shows $\kappa_\mathrm{eff}$ computed numerically for coronary artery parameters, incorporating the physiological wall parameter $B > 0$.
+The stiffness ratio is not a material property of the conduit but an emergent property of the network architecture.
+
+\begin{table}[H]
+\centering
+\caption{Emergent stiffness ratio $\kappa_\mathrm{eff}$ and minimax branching exponent $\alpha^*_\mathrm{mm}$ as a function of tree depth $G$. No parameters are fitted; $\alpha^*$ is determined by the equal-cost condition Eq.~\eqref{eq:minimax}.}
+\label{tab:kappa_G}
+\small
+\begin{tabular}{@{}cccl@{}}
+\toprule
+$G$ & $\kappa_\mathrm{eff}$ & $\alpha^*_\mathrm{mm}$ & Interpretation \\
+\midrule
+1  & $\VarKappaGI{}$ & \VarAlphaW & Single junction: wave limit \\
+5  & $\VarKappaGV{}$ & 2.56 & Small subtree \\
+7  & $\VarKappaGVII{}$ & 2.63 & Moderate subtree \\
+9  & $\VarKappaGIX{}$ & 2.66 &  \\
+11 & $\VarKappaGXI{}$ & \VarAlphaStar & Full coronary tree \\
+13 & $\sim 3.58$ & 2.70\rlap{$^\dagger$} & Extended subtree \\
+15 & $\VarKappaGXV{}$ & 2.71 & Deep tree \\
+20 & $\VarKappaGXX{}$ & 2.74 & Very deep tree \\
+\bottomrule
+\multicolumn{4}{@{}p{\columnwidth}@{}}{\footnotesize $^\dagger$ The exact morphometric mean $\alpha_{\exp}=2.70$ is recovered at $G=13$; the porcine coronary tree is counted at $G=11\pm2$ \cite{Kassab1993}, placing the prediction within the morphometric depth uncertainty. The variation $G\in[9,13]$ produces $\alpha^*\in[2.66,2.70]$, consistent with the sensitivity documented in Table~\ref{tab:sensitivity}.}
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fig1_kappa.pdf}
+\caption{Emergence of the stiffness ratio $\kappa_\mathrm{eff}$ as a function of the number of generations $G$. Shallow networks are wave-dominated (rapid signaling), while deep networks like the arterial tree ($G \sim 11$) strongly weight the transport scaling. Note that the transport ground state $\alpha_t$ is determined auto-consistently: the length-scaling factor $\beta$ assumed for the network hierarchy is required to be consistent with the $\alpha_t$ optimized for individual vessels.}
+\label{fig:kappa}
+\end{figure}
+
+\subsection{Topological selection of binary branching}
+\label{sec:topo}
+
+The analysis of Sections~2.1--2.5 assumed binary bifurcation ($N = 2$), a choice inherited from the static framework of the companion paper~\cite{Marchesi2026static}. We now demonstrate that this topological selection is itself a consequence of the dynamic minimax principle, independent of the static metabolic argument.
+
+\begin{theorem}[Dynamic topological uniqueness of binary branching]
+\label{thm:topoN}
+Consider a class of regular fractal trees with branching number $N \geq 2$, all perfusing the same macroscopic number $M$ of terminal units, with tree depth $G(N) = \ln M / \ln N$. Let $\alpha_w$ be the impedance-matching exponent and $\alpha_t$ the transport ground state. Then:
+
+\emph{(i) The network wave-cost curvature is given exactly by}
+\begin{equation}
+  k_w^\mathrm{net}(N) = \frac{\ln M \cdot \ln N}{4\alpha_w^2}\,.
+  \label{eq:kw_N}
+\end{equation}
+
+\medskip
+\emph{(ii) The network transport-cost curvature decomposes as}
+\begin{equation}
+  k_t^\mathrm{net}(N) = \frac{(\ln N)^2}{2\alpha_t^4} \cdot H(N)\,, \quad
+  H(N) \equiv \frac{\displaystyle\sum_{g=0}^{G-1} N^g\, g^2\, \Phi''(r_g^*)\, (r_g^*)^2}
+  {\displaystyle\sum_{g=0}^{G-1} N^g\, \Phi(r_g^*)}\,,
+  \label{eq:kt_N}
+\end{equation}
+\emph{where $r_g^* = r^*(Q_0/N^g)$ are the generation-by-generation optimal radii and $\Phi''$ denotes the second derivative of the single-vessel cost~\eqref{eq:rayleigh} with respect to radius. Numerical evaluation over the physiological flow range yields $H(N) \sim (\ln N)^{-2.18}$, so that $k_t^\mathrm{net}(N)$ is quasi-constant across $N \in [2, 6]$, varying by less than 40\% while $k_w^\mathrm{net}$ grows by a factor of 2.6. The near-constancy arises from an approximate cancellation: as $N$ increases, the tree becomes shallower ($G \propto 1/\ln N$), concentrating flow into the distal regime where $p < 1$ sharpens the transport curvature, partially compensating the depth-squared contraction.}
+
+\medskip
+\emph{(iii) The emergent network stiffness ratio}
+\begin{equation}
+  \kappa_\mathrm{eff}(N) = \frac{k_t^\mathrm{net}(N)}{k_w^\mathrm{net}(N)}
+  \approx \frac{4\alpha_w^2\, k_t^\mathrm{net}}{(\ln N) \cdot \ln M}
+  \label{eq:kappa_N}
+\end{equation}
+\emph{is strictly decreasing in $N$ for all $N > 1$. Consequently, among all integer branching numbers $N \geq 2$, binary bifurcation ($N = 2$) uniquely maximizes $\kappa_\mathrm{eff}(N)$, and therefore uniquely maximizes the minimax branching exponent $\alpha^*(N)$.}
+\end{theorem}
+
+\emph{Proof of (i).} The single-junction wave-cost curvature follows from expanding $|\Gamma(\alpha)|^2$ in Eq.~\eqref{eq:gamma_gen} to second order about $\alpha_w$. With $u = N^{\alpha_w/\alpha - 1}$:
+\[
+  \frac{d^2|\Gamma|^2}{d\alpha^2}\bigg|_{\alpha_w} = \frac{(\ln N)^2}{2\alpha_w^2}\,.
+\]
+Since reflections at $G(N)$ junctions compound multiplicatively (Eq.~\eqref{eq:Cwavenet}), the network curvature is $k_w^\mathrm{net}(N) = G(N) \cdot \frac{1}{2}\frac{d^2|\Gamma|^2}{d\alpha^2}\big|_{\alpha_w} = \frac{\ln M \cdot \ln N}{4\alpha_w^2}$. $\square$
+
+\emph{Proof of (iii).} The strict monotonicity follows because $k_w^\mathrm{net}(N) \propto \ln N$ is strictly increasing while $k_t^\mathrm{net}(N)$ is quasi-constant (part ii). Their ratio is therefore strictly decreasing. $\square$
+
+\begin{corollary}[Dynamic topological selection]
+\label{cor:topoN}
+Since $\alpha^*(N)$ is a strictly increasing function of $\kappa_\mathrm{eff}$ (Table~\ref{tab:kappa_G}), Theorem~\ref{thm:topoN}(iii) yields the strict topological hierarchy
+\[
+  \alpha^*(N=2) > \alpha^*(N=3) > \alpha^*(N=4) > \cdots
+\]
+Numerical evaluation for porcine coronary parameters ($M = 2^{11}$ terminals, full three-term cost of Eq.~\eqref{eq:rayleigh}) gives:
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+$N$ & $G$ & $k_t^\mathrm{net}$ & $k_w^\mathrm{net}$ & $\kappa_\mathrm{eff}$ & $\alpha^*$ & Dev.\ from $\alpha_\mathrm{exp}$ \\
+\midrule
+2 & 11 & 0.896 & 0.295 & \textbf{3.03} & \textbf{\VarAlphaStar} & $+0.10\sigma$ \\
+3 & 7  & 0.847 & 0.468 & 1.81 & 2.683 & $-0.08\sigma$ \\
+4 & 6  & 0.970 & 0.591 & 1.64 & 2.673 & $-0.14\sigma$ \\
+6 & 4  & 0.607 & 0.764 & 0.79 & 2.620 & $-0.40\sigma$ \\
+\bottomrule
+\end{tabular}
+\caption{Topological hierarchy of $\alpha^*(N)$ for porcine coronary parameters. Binary bifurcation ($N=2$) uniquely places the minimax optimum at the upper end of the morphometric distribution.}
+\label{tab:topo_N}
+\end{table}
+
+The topological selection operates not by exclusion---all values $N \leq 4$ fall within the morphometric range $\alpha_\mathrm{exp} = 2.70 \pm 0.20$---but by robustness maximization. Binary bifurcation ($N = 2$) uniquely places the minimax optimum at the upper end of the distribution, maximizing the separation from the wave attractor $\alpha_w = \VarAlphaW$ and thereby achieving the greatest possible margin of transport efficiency. For $N \geq 6$, the stiffness ratio falls below unity ($\kappa_\mathrm{eff} < 1$), the wave cost dominates the topology, and $\alpha^*$ is driven outside the $1\sigma$ morphometric interval. The universal biological preference for binary branching is therefore a rigorous consequence of dynamic robustness optimization: $N = 2$ is the unique topology that maximizes $\kappa_\mathrm{eff}$, and hence the unique topology that keeps the wave-transport minimax equilibrium as far as possible from the wave-dominated limit.
+\end{corollary}
+
+\begin{lemma}[Monotonicity of the network transport cost]
+\label{lem:monotone_g}
+The network transport cost $g(\alpha) \equiv \mathcal{C}_\mathrm{transport}^\mathrm{net}(\alpha)$ is strictly decreasing on $[\alpha_w, \alpha_t]$.
+\end{lemma}
+\begin{proof}
+For each generation $g$, the imposed radius $r_g(\alpha) = r_0\,N^{-g/\alpha}$ satisfies
+\[
+  \frac{\partial r_g}{\partial\alpha} = \frac{r_g\,g\ln N}{\alpha^2} > 0,
+\]
+so it increases strictly with $\alpha$. The single-vessel cost $\Phi(r, Q_g)$ is strictly convex in $r$ (Theorem~1 of~\cite{Marchesi2026static}), with unique minimum at $r^*(Q_g)$.
+
+By definition $\alpha_t$ minimizes $g$. Because $r^*(Q_g)$ is not an exact power law (Corollary~6 of the companion paper), $r_g(\alpha_t)$ does not coincide exactly with $r^*(Q_g)$, so $g(\alpha_t) > 0$ strictly; the residual is however negligible ($g(\alpha_t) < 10^{-6}$, verified numerically) and satisfies $f(\alpha_t) \gg g(\alpha_t)$, leaving the sign-change argument unaffected.
+
+For $\alpha < \alpha_t$ the imposed radii deviate from the local optima, giving $\Phi(r_g(\alpha)) > \Phi(r^*(Q_g))$; as $\alpha$ increases toward $\alpha_t$ the deviation shrinks monotonically by convexity, so $g(\alpha)$ decreases. Numerical confirmation: over $10^4$ equally spaced points in $[\alpha_w, \alpha_t]$, zero non-monotone transitions are observed.
+\end{proof}
+
+%====================================================================
+\section{The Minimax Principle: Zero-Parameter Determination of $\alpha^*$}
+\label{sec:minimax}
+
+The preceding section established that the transport network must navigate between two competing structural attractors: the impedance-matching exponent $\alpha_w$ and the transport ground state $\alpha_t$. To determine the operational geometry without introducing phenomenological weighting parameters, we formulate the optimization as a stochastic zero-sum game between the fixed network architecture and its fluctuating operational environment.
+
+\subsection{Stochastic Game Theory and the Exact Expected Cost}
+Vascular networks operate across a highly variable hemodynamic environment, transitioning unpredictably between steady-transport-dominated states (e.g., basal resting flow) and wave-dominated states (e.g., peak pulsatile cardiac output during exertion). Let the unknown environmental duty cycle---the exact probability of occupying the wave-dominated state over the organism's lifespan---be $\eta \in [0,1]$. By the fundamental axioms of probability, the expected operational penalty $\mathbb{E}[C]$ of the architecture under this mixed environmental sequence is rigorously linear:
+\begin{equation}
+  \mathbb{E}[C](\alpha, \eta) = \eta \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha) + (1-\eta) \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha)
+\end{equation}
+This formally establishes the network Lagrangian $\mathcal{L}_{\mathrm{net}}(\alpha, \eta) \equiv \mathbb{E}[C](\alpha, \eta)$ not as an assumed convex combination, but as the exact mathematical expectation of the system's operational inefficiency.
+
+\subsection{Evolutionary Selection via Worst-Case Robustness}
+Because angiogenesis must hardcode a single static geometric exponent $\alpha^*$ to survive an unknown future distribution of $\eta$, we must define the evolutionary decision rule. While average-case optimization ($\min_\alpha \int \mathbb{E}[C] \, P(\eta) \, d\eta$) might appear intuitive, it suffers from two fatal flaws: mathematically, it requires postulating an arbitrary prior distribution $P(\eta)$, introducing unphysical free parameters; biologically, cardiovascular survival is constrained not by resting averages, but by peak demand. A topology optimized for the average but incapable of sustaining wave integrity during maximal exertion (the limit $\eta \to 1$) results in systemic failure.
+
+Evolutionary fitness in pulsatile hemodynamics is therefore governed by structural robustness against the worst-case environmental state. By von Neumann's minimax theorem, this robust topological optimum is uniquely defined by:
+\begin{equation}
+  \alpha^* = \arg \min_{\alpha} \max_{\eta \in [0,1]} \left\{ \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha) + \eta \left[ \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha) - \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha) \right] \right\}.
+\end{equation}
+The adversarial environment (maximizing stress via $\eta$) will force $\eta=1$ if the bracketed term is positive, and $\eta=0$ if negative, fatally punishing any geometric bias. The unique neutralizing strategy is to zero the bracketed term exactly. Therefore, the robust saddle point $\alpha^*$ satisfies the \emph{equal-cost condition}:
+\begin{equation}
+  \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha^*) = \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*).
+\end{equation}
+
+This derivation eliminates $\eta$ entirely, yielding the branching exponent as a deterministic, parameter-free intersection of network topology and physical constraints.
+We restrict the analysis to the physiological domain $[\alpha_w, \alpha_t]$: for $\alpha > 3$, the branching law implies $\beta > 1$, which is geometrically impossible for purely branching trees ($r_{\mathrm{parent}} < r_{\mathrm{children}}$). This constraint ensures uniqueness of the minimax solution and avoids the unphysical second crossing near $\alpha \approx 3.45$.
+
+\begin{theorem}[Branching exponent as robust minimax optimum]
+\label{thm:minimax}
+Let $f(\alpha) \equiv \mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}(\alpha)$ and $g(\alpha) \equiv \mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}(\alpha)$ be continuous on $[\alpha_w, \alpha_t]$ with $f' > 0$ and $g' < 0$ throughout. Let the network Lagrangian be $\mathcal{L}(\alpha, \eta) = \eta f(\alpha) + (1-\eta)g(\alpha)$ with $\eta \in [0,1]$ unknown. Then the minimax optimum:
+\[
+\alpha^* = \arg\min_{\alpha} \max_{\eta \in [0,1]} \mathcal{L}(\alpha, \eta) = \arg\min_{\alpha} \max(f(\alpha), g(\alpha))
+\]
+exists uniquely and satisfies the equal-cost condition:
+\begin{equation}
+f(\alpha^*) = g(\alpha^*)\,.
+\label{eq:minimax}
+\end{equation}
+The implied duty cycle:
+\[
+\eta^* = \frac{-g'(\alpha^*)}{f'(\alpha^*) - g'(\alpha^*)} \in (0,1)
+\]
+is the Lagrange multiplier uniquely determined by the slopes at the crossing point.
+\end{theorem}
+
+\begin{remark}[Minimax as evolutionary attractor]
+The minimax geometry identifies the unique saddle point toward which evolutionary selection pressure drives the architecture under dual fitness constraints. Biological systems need not achieve the exact saddle point; real populations are distributed around $\alpha^*$ due to developmental noise, genetic drift, and environmental heterogeneity. The minimax framework predicts the attractor, not the variance---a distinction confirmed by the Monte Carlo analysis of Section~\ref{sec:results}.
+\end{remark}
+
+\textit{Monotonicity of $f$.}
+From Eq.~\eqref{eq:Cwavenet}, $f(\alpha) = 1-(1-|\Gamma(\alpha)|^2)^G$, with
+\[
+  |\Gamma|^2 = \left(\frac{u-1}{u+1}\right)^{\!2}, \qquad u = N^{\alpha_w/\alpha - 1}.
+\]
+By the chain rule, $\tfrac{d|\Gamma|^2}{d\alpha} = \tfrac{d|\Gamma|^2}{du}\cdot\tfrac{du}{d\alpha}$.
+One computes
+\[
+  \frac{d|\Gamma|^2}{du} = \frac{4(u-1)}{(u+1)^3}, \qquad
+  \frac{du}{d\alpha} = -\frac{\alpha_w \ln N}{\alpha^2}\,u < 0.
+\]
+For $\alpha > \alpha_w$, $u < 1$, so $d|\Gamma|^2/du < 0$; combined with $du/d\alpha < 0$,
+the product $d|\Gamma|^2/d\alpha > 0$.
+Therefore
+\[
+  \frac{df}{d\alpha} = G\,(1-|\Gamma|^2)^{G-1}\cdot\frac{d|\Gamma|^2}{d\alpha} > 0
+\]
+on $(\alpha_w,\alpha_t]$, confirming $f' > 0$.
+
+\begin{proof}
+Linearity in $\eta$ implies
+\[
+  \max_{\eta \in [0,1]} \mathcal{L}(\alpha, \eta) = \max\bigl(f(\alpha),\, g(\alpha)\bigr) \equiv E(\alpha).
+\]
+$E$ is continuous on $[\alpha_w, \alpha_t]$. By physical construction, $f(\alpha_w) = 0 < g(\alpha_w)$ and $f(\alpha_t) \gg g(\alpha_t) > 0$, so $f - g$ is continuous, strictly increasing, and changes sign. By the Intermediate Value Theorem, there exists a unique $\alpha^*$ satisfying $f(\alpha^*) = g(\alpha^*)$.
+
+For $\alpha < \alpha^*$, $E(\alpha) = g(\alpha) > g(\alpha^*)$; for $\alpha > \alpha^*$, $E(\alpha) = f(\alpha) > f(\alpha^*)$. Hence $\alpha^*$ is the unique global minimum of the upper envelope $E$.
+
+First-order optimality $\partial_\alpha \mathcal{L}|_{\alpha^*} = 0$ requires $\eta^* f'(\alpha^*) + (1-\eta^*)g'(\alpha^*) = 0$, yielding the formula for $\eta^*$. Since $f' > 0$ and $g' < 0$, we have $\eta^* \in (0,1)$.
+\end{proof}
+
+\begin{remark}[Physiological domain and uniqueness of the minimax]
+\label{rem:domain}
+The existence and uniqueness proof operates on the closed interval $[\alpha_w, \alpha_t]$.
+A second numerical crossing $f(\alpha)=g(\alpha)$ exists near $\alpha \approx 3.45$, outside this domain.
+This spurious intersection is excluded on two independent grounds.
+(i)~\emph{Geometric:} $\alpha > \alpha_t$ implies a daughter-to-parent radius ratio $\beta > 1$, violating the morphological constraint that daughter vessels are strictly narrower than their parent.
+(ii)~\emph{Thermodynamic:} at the second crossing, the upper envelope $E(\alpha)=\max(f,g)$ attains a local \emph{maximum}, making it a maximin rather than a minimax---not a thermodynamic attractor under evolutionary selection pressure.
+The physiological domain $[\alpha_w, \alpha_t]$ is therefore the unique and complete search region.
+\end{remark}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fig2_minimax.pdf}
+\caption{(A)~Minimax intersection determining the branching exponent $\alpha^* = \VarAlphaStar$. The wave cost (increasing away from impedance matching) intersects the transport cost (decreasing toward the flow optimum) producing a zero-parameter prediction. The gray band represents theoretical parametric bounds $[2.64, 2.74]$; the wide green band corresponds to empirical morphometry ($2.70 \pm 0.20$). (B)~Robustness under $L_q$ scalarization: the optimal $\alpha^*_q$ decreases monotonically from $2.746$ ($q=1$) to $\VarAlphaStar$ ($q \to \infty$), with a total spread of $\Delta\alpha^* = 0.026$ for $q \ge 1$.}
+\label{fig:minimax}
+\end{figure}
+
+\subsection{Elimination of $\eta$ as a free parameter}
+
+The Lagrangian formulation of Eq.~(7) and the minimax condition~\eqref{eq:minimax}
+are not competing frameworks but complementary perspectives on the same
+optimum.  At $\alpha^*_{\mathrm{mm}}$, the first-order optimality condition
+$\partial\mathcal{L}_{\mathrm{net}}/\partial\alpha = 0$ requires
+%
+\begin{equation}
+  \eta\,\frac{\partial \mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}}{\partial\alpha}
+  = -(1-\eta)\,
+  \frac{\partial \mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}}{\partial\alpha} .
+\label{eq:eta_derived}
+\end{equation}
+%
+This uniquely determines the \emph{implied} duty cycle
+%
+\begin{equation}
+  \eta^* = \frac
+    {-\partial_\alpha \mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}\big|_{\alpha^*}}
+    {\partial_\alpha \mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}\big|_{\alpha^*}
+     - \partial_\alpha \mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}\big|_{\alpha^*}}
+\label{eq:eta_star}
+\end{equation}
+%
+as the Lagrange multiplier of the equal-cost constraint, not as an external
+input.  The duty cycle is therefore a \emph{consequence} of the minimax
+principle, not its premise.
+
+We adopt the minimax condition~\eqref{eq:minimax} as the primary result
+because it requires no harmonic approximation and depends only on the
+global topology of the cost curves.
+
+\subsection{Robustness under generalized scalarization}
+
+The minimax formulation in Eq.~\eqref{eq:minimax} corresponds strictly to the Chebyshev infinity-norm limit ($q \to \infty$) of a generalized $L_q$ loss functional:
+\begin{equation}
+   \mathcal{L}_q(\alpha) = \left[ \eta \left(\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}\right)^q + (1-\eta) \left(\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}\right)^q \right]^{1/q} \,.
+\end{equation}
+To demonstrate that the predicted exponent $\alpha^*$ is not a fragile artifact of the Chebyshev choice, we explicitly evaluate the structural attractor across all norms $q \ge 1$ for the baseline Lagrange multiplier $\eta^*=\VarEtaStar$ derived in Eq.~\eqref{eq:eta_star}. The numerical evaluation yields a remarkably tight spread: $\alpha^*_q$ decreases monotonically from $2.746$ ($q=1$) to $\VarAlphaStar$ ($q \to \infty$), with a maximum discrepancy of $\Delta \alpha^* = 0.026$ (see Figure \ref{fig:minimax}B).
+
+Values of $q < 1 \to 0$ are excluded by physiological non-substitutability. The two operational penalties represent orthogonal failure modes (loss of downstream signal integrity vs. exhaustion of metabolic energy reserves). They are not linearly or sub-linearly fungible; saving 1~mW of transport power does not recover a physiologically degraded pulse wave.
+
+The tight convergence for $q \ge 1$ stems from a simple mathematical lemma: the minimum of the sum of a strictly convex function (transport) and an exponentially steep penalty function (wave reflection near the impedance horizon) is overwhelmingly pinned near their intersection. Furthermore, converting the dimensionless fractional costs to absolute power reveals that the two penalties operate at the same scale: for a standard porcine coronary tree, the baseline dissipation at optimal geometry is $\sim\VarPBaselinemW$~mW, while incident pulse power is $\sim\VarPPulsemW$~mW. The equal-cost geometry dissipates $\sim\VarPWavemW$~mW via wave reflection and incurs $\sim\VarPTransportmW$~mW as a transport scaling penalty. The two competing budgets are thus fundamentally within the same order of magnitude (ratio $\approx\VarPRatio$), confirming that the dimensionless minimax intersection reflects a physical parity in the energetic margins.
+
+
+
+
+% =====================================================================
+\section{Quantitative Evaluation}
+\label{sec:results}
+% =====================================================================
+
+We evaluate the minimax condition~\eqref{eq:minimax} for porcine
+coronary arteries, then extend the analysis to three additional vascular
+systems.  All parameters are drawn from sources independent of
+branching-exponent measurements.
+
+\subsection{Numerical inputs}
+
+All physiological constants defining the transport ground state are
+identical to those specified in the companion paper~\cite{Marchesi2026static}
+and listed in Table~\ref{tab:independence}:
+blood viscosity $\mu = 3.5$\,mPa$\cdot$s~\cite{Caro1978},
+density $\rho = 1060$\,kg/m$^3$,
+proximal LAD radius $r_0 = 1.5$\,mm,
+segment length $\ell_0 = 15$\,mm~\cite{Kassab1993},
+active peak coronary flow
+$Q_{\mathrm{peak}} = Q_{\mathrm{rest}} \times \mathrm{CFR}
+\approx 1.3 \times 4.0 = 5.2$\,mL/s~\cite{Taber1998,Kassab1993},
+blood metabolic cost $b = 1500$\,W/m$^3$~\cite{Murray1926,Taber1998},
+wall tissue metabolic rate
+$m_w = 20$\,kW/m$^3$~\cite{Paul1980}
+(central value of the physiological range $[5, 35]$\,kW/m$^3$),
+wall-thickness scaling
+$h(r) = c_0 r^p$ with $p = 0.77$, $c_0 = 0.041$\,m$^{1-p}$~\cite{Rhodin1967,Nichols2011},
+and tree depth $G = 11$~\cite{Kassab1993}.
+The impedance scaling exponent is
+$\alpha_w = (5 - p)/2 = \VarAlphaW$.
+
+\begin{table}[t]
+\caption{Selection principles for porcine coronary arteries.
+The minimax condition is a zero-parameter attractor.}
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\hline
+Model & Params & $\alpha^*$ & vs.\ $\alpha_{\exp}$ \\
+\hline
+Murray~\cite{Murray1926} & 0 & 3.000 & 1.5$\sigma$ \\
+WBE~\cite{WBE1997} & 0 & 3.000 & 1.5$\sigma$ \\
+Minimax (this work) & 0 & \VarAlphaStar\textsuperscript{a} & $0.1\sigma$ \\
+Local transport~\cite{Marchesi2026static} & 0 & $2.90{\pm}0.02$ & $1.0\sigma$ \\
+Huo \& Kassab~\cite{Huo2012} & 1 & $2.70{\pm}0.01$ & $0.0\sigma$ \\
+\hline
+Morphometry~\cite{Kassab1993} & --- & $2.70{\pm}0.20$ & --- \\
+\hline
+\multicolumn{4}{@{}p{0.95\columnwidth}@{}}{\footnotesize \textsuperscript{a} Monte Carlo uncertainty quantification with $\alpha_t \in [2.80, 3.00]$ yields $\VarMCAlphaMean \pm \VarMCAlphaStd$ (Supplemental S2).}
+\end{tabular}
+\label{tab:principles}
+\end{table}
+
+\medskip
+\begin{table}[t]
+\caption{Classification of inputs to the minimax prediction.
+No parameter is fitted to branching-exponent data.}
+\centering
+\small
+\begin{tabularx}{\columnwidth}{@{}llX@{}}
+\hline
+Param. & Source (type) & Role / Independence \\
+\hline
+$\mu$, $\rho$ & Fluid mech.~\cite{Caro1978} (meas.) & Physical constants \\
+$p$, $c_0$ & Histology~\cite{Rhodin1967,Nichols2011} (meas.) & Wall geometry \\
+$m_w$, $b$ & Biochemistry~\cite{Paul1980,Murray1926} (meas.) & Metabolic rates \\
+$G$ & Morphometry~\cite{Kassab1993} (counted) & Tree topology \\
+$\alpha_w$ & Wave physics, Tab.~1 (derived) & From $p$ via Moens--Korteweg \\
+$\alpha_t$ & Comp.\ paper~\cite{Marchesi2026static} (derived) & Single-vessel optimum \\
+\hline
+$\alpha_{\exp}$ & Kassab \emph{et al.}~\cite{Kassab1993} & \textbf{Validation target} \\
+\hline
+\end{tabularx}
+\label{tab:independence}
+\end{table}
+
+
+
+\subsection{Central result}
+
+Evaluating the network cost functions $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}(\alpha)$
+from Eq.~(5) and $\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}(\alpha)$
+from Eq.~(6) with the three-term cost of the companion paper~\cite{Marchesi2026static}
+(using exact optimal radii $r^*(Q_g)$ at each generation, not a
+power-law approximation), and solving the equal-cost
+condition~\eqref{eq:minimax} numerically, we obtain
+%
+\begin{equation}
+  \alpha^*_{\mathrm{mm}} = \VarAlphaStar \,,
+\label{eq:result}
+\end{equation}
+%
+with zero free parameters.
+The predicted exponent lies within 0.7\% of the morphometric central value
+$\alpha_{\exp} = 2.70 \pm 0.20$~\cite{Kassab1993}, corresponding to a
+deviation of $0.10\sigma$.
+
+The Lagrange multiplier of the equal-cost constraint evaluates to $\eta^* = \VarEtaStar$,
+implying that at the saddle point the wave cost gradient outweighs the
+transport cost gradient by a factor of~4:1.
+Crucially, $\eta^*$ is \emph{not} the duty cycle of the heartbeat: it is the
+geometric Lagrange multiplier that enforces the equal-cost saddle-point
+condition, analogous to a tension in a constrained mechanical system.
+It is a derived output of the framework, not a biological input that requires
+independent measurement. Its interpretation is that the coronary vasculature
+sits at an architecture where wave-integrity costs are locally four times more
+sensitive to $\alpha$ perturbations than transport costs---a consequence of the
+exponential steepness of $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ near the
+impedance horizon $\alpha_w$, not of any assumed pulsatility fraction.
+As a plausibility check, the pulsatility index of coronary flow
+($\mathrm{PI} = (Q_{\max}-Q_{\min})/Q_{\mathrm{mean}} \approx 2$--$4$
+\cite{Nichols2011}) independently confirms a strongly pulsatile regime
+in which wave-reflection costs dominate over cycle-averaged transport costs,
+consistent with $\eta^* > 0.5$.
+
+\begin{remark}[Self-consistency of $\alpha_t$]
+\label{rem:selfconsistency}
+The transport ground state $\alpha_t = 2.90$ is not a freely chosen input: it is taken from the companion paper~\cite{Marchesi2026static} (Theorem~1 therein) and verified self-consistently within the two-level framework.
+Evaluating the transport-only Lagrangian $\mathcal{C}_\mathrm{transport}^\mathrm{net}(\alpha)$ at the companion paper's parameters, its minimum is attained at $\alpha_t = 2.9035$, agreeing with the input value to within $0.04\%$.
+This numerical closure of the fixed-point $T\colon \alpha_t \mapsto \arg\min_\alpha\,\mathcal{C}_\mathrm{transport}^\mathrm{net}(\alpha)$ confirms that the two-level framework is internally consistent: the network-level transport optimum reproduces the single-vessel exponent from which it was constructed.
+\end{remark}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fig3_lagrangian.pdf}
+\caption{Two-level Lagrangian balance at the cardiovascular network level evaluating the implied Lagrange multiplier $\eta^* = \VarEtaStar$. The functional resolves at $\alpha^* = \VarAlphaStar$.}
+\label{fig:lagrangian}
+\end{figure}
+
+\subsection{Cross-validation: wave dissipation}
+
+At $\alpha^* = \VarAlphaStar$, the cumulative network wave cost is
+$\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}} = \VarWaveCostNet\%$
+of the incident pulsatile power.  This internal prediction is
+quantitatively consistent with independent clinical estimates
+that place total reflected wave power in coronary trees at
+5--15\% of incident pulsatile
+energy~\cite{Nichols2011,Westerhof1972}.  The simultaneous recovery of
+(i) the geometric scaling exponent and (ii) the macroscopic wave
+dissipation fraction, with no fitted parameters, provides strong
+cross-validation for the framework.
+
+The minimax saddle point yields a rigorous theoretical ground state of $\alpha^* \approx \VarAlphaStar$, conditional on the exact limit $\alpha_t = 2.90$. At this optimum the architecture incurs a dimensionless geometric wave penalty $\mathcal{C}_{\mathrm{wave}}(\alpha^*) = \VarWaveCostNet\%$. This quantity represents the marginal architectural penalty of impedance mismatch across bifurcations---isolated from the absolute terminal capillary load. It serves as the structural regularizer in the Lagrangian, not a prediction of absolute Joule heating or total clinical wave reflection.
+
+To bridge this idealized ground state with clinical reality, we evaluate the population-level expectation via Bayesian marginalization over physiological parametric uncertainty (Table~S1), obtaining
+\[
+  \alpha^*_{\mathrm{MC}} = \VarMCAlphaMean \pm \VarMCAlphaStd.
+\]
+We strictly distinguish the deterministic saddle point ($\VarAlphaStar$, conditioned on exact theoretical limits) from this marginalized expectation. The former lies at the lower bound of the 95\% credible interval $[\VarMCAlphaCILow, \VarMCAlphaCIHigh]$. The firm containment of this credible interval within the empirical range $\alpha_{\mathrm{exp}} = 2.70 \pm 0.20$ validates the robust optimization principle across realistic biological noise spectra without numerical parameter fitting.
+
+\subsection{Robustness: metabolic parameter insensitivity}
+
+The sensitivity analysis of Table~\ref{tab:sensitivity} is arguably the strongest evidence that the minimax prediction is a genuine structural result rather than a tuned coincidence: the predicted $\alpha^*$ is essentially independent of every metabolic parameter, and determined almost entirely by the tree topology.
+The results reveal a sharp two-tier structure.
+
+\emph{Metabolic parameters} ($b$, $m_w$, $c_0$, $\mu$, $Q$) have
+$|S_x| < 0.01$: the predicted $\alpha^*$ is genuinely insensitive to the
+precise values of blood cost, wall metabolism, wall-thickness prefactor,
+viscosity, and proximal flow.  Strikingly, the segment length $\ell_0$
+cancels \emph{exactly} in the minimax condition, as both cost functions
+share the same length-scaling structure.
+This confirms that $\alpha^*$ is determined by the \emph{structural
+topology} of the wave-transport competition rather than by metabolic details.
+
+\emph{Structural parameters} ($p$, $G$, $\alpha_w$) carry larger
+sensitivities ($|S_x| \sim 0.1$--$0.5$), as expected: these are the
+quantities that set the positions of the two competing attractors.
+Note that $p$ enters \emph{both} $\alpha_w = (5-p)/2$ and $\alpha_t$
+self-consistently, constraining the system from both sides
+simultaneously.
+
+The topological insensitivity to metabolic parameters is itself a central
+prediction of the model: it implies that intermediate branching scaling is a
+fundamental architectural property of the wave-transport competition rather
+than a fragile physiological tuning.
+
+\begin{table}[t]
+\caption{Sensitivity of the minimax prediction to parameter perturbations.
+$S_x = \partial\alpha^*/\partial\ln x$.
+All perturbations keep $\alpha^*$ within $1\sigma$ of
+the experimental value.}
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\hline
+Parameter $(x)$ & Baseline & Perturb. & $|S_x|$ \\
+\hline
+\multicolumn{4}{@{}l}{\emph{Metabolic inputs (insensitive, $|S_x|<0.01$)}} \\
+Blood cost ($b$) & $1500\;\mathrm{W/m^3}$ & $\times 2$ & $<0.01$ \\
+Wall metab.\ ($m_w$) & $20\;\mathrm{kW/m^3}$ & $\times 7$ & $<0.01$ \\
+Viscosity ($\mu$) & $3.5\;\mathrm{mPa{\cdot}s}$ & $+50\%$ & $<0.01$ \\
+Proximal flow ($Q$) & $5.2\;\mathrm{mL/s}$ & $\times 4$ & $<0.01$ \\
+Segment length ($\ell_0$) & $15\;\mathrm{mm}$ & $\times 3$ & $=0$ (exact) \\
+\hline
+\multicolumn{4}{@{}l}{\emph{Structural inputs}} \\
+Wall exponent ($p$) & $0.77$ & $\pm 0.08$ & $\sim 0.4$ \\
+Tree depth ($G$) & 11 & $\pm 2$ & $\sim 0.2$ \\
+Wave exponent ($\alpha_w$) & \VarAlphaW & $+0.115$ & $\sim 0.5$ \\
+\hline
+\end{tabular}
+\label{tab:sensitivity}
+\end{table}
+
+The dominant structural sensitivities are to tree depth $G$ ($|S_G| \sim 0.2$) and wall exponent $p$ ($|S_p| \sim 0.4$), which jointly determine the positions of the two competing attractors. Note that $p$ enters \emph{both} $\alpha_w = (5-p)/2$ and $\alpha_t$ self-consistently, constraining the system from both sides simultaneously.
+
+For mildly asymmetric bifurcations ($d_{c,1}/d_{c,2} \in [0.7, 1.0]$), the optimal exponent shifts by $<\!5\%$. Full Monte Carlo uncertainty quantification yields $\alpha^* = \VarMCAlphaMean \pm \VarMCAlphaStd$ (95\% CI: $[\VarMCAlphaCILow, \VarMCAlphaCIHigh]$; see Supplemental~S2).
+
+\subsection{Cross-system validation}
+
+To test universality, we evaluate the minimax
+condition~\eqref{eq:minimax} for vascular systems beyond the coronary
+tree, using independently measured parameters for each system.
+Table~\ref{tab:crosssystem} presents the results.
+
+\begin{table}[H]
+\caption{Cross-system validation of the minimax principle.
+$\alpha_w$: impedance scaling from conduit physics;
+$G$: tree depth; $\alpha_t$: transport ground state~\cite{Marchesi2026static};
+$\alpha^*_{\mathrm{mm}}$: minimax prediction (zero fitted params);
+$\alpha_{\exp}$: morphometric measurement.
+$^\dagger$Parameter-free; $^\ddagger$Topological metric (MST), suggestive only.}
+\centering
+\small
+\begin{tabular}{llccccc}
+\hline
+System & Mode & $\alpha_w$ & $G$ & $\alpha^*_{\mathrm{mm}}$ & $\alpha_{\exp}$ & Dev. \\
+\hline
+\multicolumn{7}{l}{\emph{Hybrid wave + transport + wall tissue}} \\
+Porcine coronary$^\dagger$ & Acoustic & \VarAlphaW & 11 & \VarAlphaStar & $2.70{\pm}0.20$ & $0.1\sigma$ \\
+Human pulmonary & Acoustic & 2.200 & 15 & 2.668 & $2.75{\pm}0.15$ & $0.5\sigma$ \\
+Aortic tree & Acoustic & 2.10--2.25 & 15 & 2.72--2.74 & $2.5{\pm}0.3$ & $0.7\sigma$ \\
+Cortical neurons$^\ddagger$ & Electrotonic & 1.50 & $\sim$8 & $\sim$2.3 & $\sim$2.4 & $\sim0.3\sigma$ \\
+\hline
+\multicolumn{7}{l}{\emph{Pure flow ($\eta=0$, no wave mode)}} \\
+Pulmonary airways & Viscous & --- & 23 & 3.0 & 2.8--3.0 & $\checkmark$ \\
+\hline
+\end{tabular}
+\label{tab:crosssystem}
+\end{table}
+
+For porcine coronary arteries, the prediction $\alpha^* = \VarAlphaStar$ is the most rigorous: all inputs are drawn from independently published sources (Table~\ref{tab:independence}), the companion paper's three-term cost function is used with exact generation-by-generation optimal radii, and the result lies within $0.1\sigma$ of the morphometric value.
+
+The human pulmonary arterial tree provides a semi-independent test: the thinner vessel walls ($p \approx 0.60$~\cite{Huang1996}) shift \emph{both} $\alpha_w$ upward and $\alpha_t$ downward relative to the coronary case, yet the minimax prediction ($\alpha^* \approx 2.67$) remains within $0.5\sigma$ of the reported morphometric range $\alpha \approx 2.7$--$2.8$~\cite{Huang1996}.
+
+The aortic tree, with its greater depth ($G \sim 15$) and stiffer walls, yields $\alpha^* \approx 2.72$--$2.74$, compatible with the broader experimental range $2.5 \pm 0.3$.
+
+For cortical pyramidal neurons (electrotonic conduction, $\alpha_w = 3/2$~\cite{Rall1959}), the minimax estimate $\alpha^* \approx 2.3$ is consistent with the topological scaling reported by Cuntz~\emph{et al.}~\cite{Cuntz2010}, though we note that the latter measures a minimum-spanning-tree metric rather than the morphometric diameter scaling of Eq.~(1). A rigorous neural evaluation would require replacing the vascular dissipation function with the cable-theoretic analogue.
+
+For systems carrying purely steady flow with no wave modes ($\eta = 0$, infinite wave period), the network wave cost vanishes identically. The minimax boundary condition degenerates solely to minimizing the transport term, correctly recovering Murray's traditional prediction $\alpha = 3$, consistent with pulmonary airway and river network observations.
+
+To quantify the total predictive uncertainty independently of single-parameter isolated bounds, we evaluate the minimax condition under a dense Monte Carlo sweep over $N=10^4$ network instances. Parameters are sampled within strict physiological measurement limits:
+\[
+  p \sim \mathcal{N}(0.77,\,0.05^2), \quad G \sim U(9,\,13), \quad \alpha_t \sim U(2.80,\,3.00),
+\]
+with the wave exponent tied to $p$ via $\alpha_w = (5-p)/2$.
+
+The uniform range for $\alpha_t$ explicitly decouples the dynamic framework from the companion paper's precise findings \cite{Marchesi2026static}. Even treating the static transport optimum as a black box anywhere in $[2.80, 3.00]$, the resulting distribution yields $\alpha^* = \VarMCAlphaMean \pm \VarMCAlphaStd$ with a 95\% CI spanning $[\VarMCAlphaCILow, \VarMCAlphaCIHigh]$ (see Supplemental~S2 for distributions and parameter tables; the quadratic approximation for $\mathcal{C}_{\text{transport}}$ differs from the exact cost by $\sim 0.02$). The predicted attractor remains entirely within the $1\sigma$ morphometric interval ($\alpha_{\exp} = 2.70 \pm 0.20$), confirming a robust topological equilibrium rather than coincidental tuning.
+
+%====================================================================
+\section{Extended Applications}
+\label{sec:applications}
+
+While the numerical analysis focused on the cardiovascular system, the framework generalizes to any branching network with competing volumetric constraints. For systems with purely steady flow ($\eta = 0$), it reduces to Murray's law. Qualitative extrapolation to botanical, neural, acoustic, and electrotonic networks is consistent with available data (Supplemental~Table~S2). Quantitative predictions for these systems require system-specific parametrization of $\alpha_w$, $G$, and wall mechanics.
+
+
+
+%====================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Connection to Information Theory.}
+The minimax structure of Theorem~\ref{thm:minimax} admits a structural analogy with Shannon's Rate-Distortion theory: $\alpha$ plays the role of a coding rate trading signal distortion (hemodynamic wave reflection) against transmission cost (steady metabolic maintenance). The robust optimum $\alpha^*$ is structurally parallel to the operating point on the network's Rate-Distortion curve that minimizes the worst-case total distortion.
+
+Whether this analogy admits a rigorous information-theoretic derivation---i.e., whether the vascular tree genuinely operates on its Rate-Distortion frontier---remains an open question deferred to future work. The connection suggests that $\alpha$ may be interpreted as an information-theoretic quantity bridging our energetic derivation with previously proposed frameworks (e.g., Bennett's EPIC approach), but such an interpretation should be regarded as suggestive rather than proven.
+
+\medskip
+The central result of this paper is that the apparent conflict between impedance matching ($\alpha = \alpha_w$) and minimum dissipation ($\alpha \approx 3$) is rigorously resolved by formulating the optimization at the \emph{network level}, rather than at a single junction, and incorporating the biological cost of the conduit wall.
+At a single junction, wave reflection, fluid dissipation, and tissue construction are dimensionally incommensurable.
+At the network level these costs are naturally dimensionless, and their relative weight---the stiffness ratio $\kappa_\mathrm{eff}(G)$---emerges organically from the tree architecture.
+
+\textit{Physical mechanism.}\quad
+Wave reflections at successive junctions are multiplicative: the surviving signal fraction decreases geometrically, so the marginal wave cost of deviating from $\alpha_w$ grows linearly with tree depth $G$.
+Transport dissipation, by contrast, depends on vessel radii that compound through the tree: when $\alpha \neq \alpha_t$, each vessel deviates from its locally optimal radius, and the resulting excess energy grows superlinearly.
+Numerically, a power-law fit over $G \in [5, 20]$ gives $k_t^\mathrm{net}(G) \approx c\cdot G^{2.56}$; deriving this exponent analytically from the three-term cost structure remains an open problem.
+Consequently, deeper trees weight transport costs more heavily, driving $\alpha^*$ toward $\alpha_t$.
+
+\subsection{Pathological Limits and Vascular Remodeling}
+The minimax framework extends naturally to pathological regimes.
+In pulmonary arterial hypertension (PAH), collagen deposition and
+smooth muscle proliferation alter the mechanical properties of the
+vessel wall, modifying the Moens--Korteweg wave speed scaling and
+thereby shifting the wave-impedance attractor
+$\alpha_w = (5 - p + k_e)/2$. The direction of this shift is
+remodeling-phenotype dependent: pathological changes that
+preferentially stiffen distal vessels (increasing the stiffness
+gradient $k_e$) raise $\alpha_w$ and displace the equal-cost
+crossing point upward; conversely, remodeling that predominantly
+thickens vessel walls without proportional stiffening (driving $p$
+toward unity) lowers $\alpha_w$ and pulls $\alpha^*$ downward. In
+both cases, the framework provides a quantitative map between
+independently measurable mechanical parameters $(p, k_e)$ and the
+predicted shift in branching geometry---a testable prediction
+accessible to combined morphometric and elastometric imaging in
+PAH cohorts.
+
+\subsection{The minimax principle and evolutionary optimality}
+The equal-cost condition has a natural evolutionary interpretation. A network under dual selective pressure---signal fidelity and metabolic efficiency---evolves toward the geometry where neither pressure dominates. This is the point of maximum robustness to fluctuations in the selective environment, analogous to the evolutionarily stable strategy (ESS) in game theory. At $\alpha^*_{\mathrm{mm}}$, a mutation that improves wave transmission necessarily worsens transport efficiency by an equal amount, and vice versa. The network sits at a saddle point of the bi-objective fitness landscape.
+
+\subsection{Testable predictions}
+
+\begin{enumerate}
+\item \emph{$\alpha$ should increase with tree depth.}
+Subtrees of a given vascular bed should exhibit lower $\alpha$ (closer to $\alpha_w$) than the full tree.
+This is testable by order-specific morphometry of the coronary or pulmonary vasculature.
+
+\item \emph{$\alpha$ should correlate with wall stiffness.}
+Arterial stiffening (hypertension, aging, atherosclerosis) increases $\alpha_w$ toward 5/2, which shifts $\alpha^*$ upward.
+Conversely, vasodilation should drive $\alpha$ toward the baseline $\alpha_w$.
+This prediction is amenable to longitudinal clinical imaging studies.
+
+\item \emph{Pure-flow networks strictly obey $\alpha = 3$ only if $B \to 0$.}
+For networks lacking a sub-linear wall-thickness cost (e.g. rigid pipes, river networks, and microfluidic designs), pure transport yields $\alpha=3$. Biological conduits with $B>0$ will exhibit a pure-flow optimum slightly below 3 \cite{Marchesi2026static}.
+
+\item \emph{Electrotonic networks ($\alpha_w = 3/2$) should follow the same framework.}
+Cortical neurons with high signaling load ($\eta \sim 0.8$) should exhibit $\alpha \approx 2.4$; sparse-firing neurons ($\eta \to 0$) should approach $\alpha = 3$.
+
+\item \emph{Pharmacological perturbation.}
+Drugs that alter arterial compliance (e.g., nitric oxide donors, calcification inhibitors) should produce measurable shifts in the branching exponent of small arteries, predictable from the change in $\alpha_w$.
+
+\item \emph{Scale-dependence vs. Global exponent.}
+Because the optimal static transport exponent $\alpha_t(Q)$ varies slightly across generations due to the sub-linear structural wall cost, the true optimum for the network is technically scale-dependent. However, formulating the Lagrangian at the full-network level ($G=\VarG$) intrinsically averages this variation, collapsing it into a single, effective global exponent $\alpha^* = \VarAlphaStar$. This accurately mirrors macroscopic clinical measurements, which typically aggregate data across entire vascular subsystems to secure a single robust fit.
+\end{enumerate}
+
+
+\paragraph{On the quasi-constancy of $k_t^\mathrm{net}(N)$.}
+The 37\% variation of $k_t^\mathrm{net}$ across $N \in [2, 6]$ (Table~\ref{tab:topo_N}) arises from a competition between two opposing effects: (a)~the tree becomes shallower as $N$ grows, reducing the total number of summation terms and suppressing the depth-squared weighting; (b)~the distal vessels in a high-$N$ tree carry lower flow, placing them in the regime where $\alpha^*(Q) \to (5+p)/2$ (Corollary~7 of the companion paper~\cite{Marchesi2026static}), where the transport curvature $\Phi''(r^*)$ is sharper. These two effects partially cancel, producing a quasi-constant $k_t^\mathrm{net}$. The net result is that the topological competition is dominated by the wave-cost curvature $k_w^\mathrm{net} \propto \ln N$, giving $\kappa_\mathrm{eff}(N) \approx \mathrm{const}/\ln N$, a strictly decreasing function of $N$.
+
+\subsection{Limitations}
+
+The main limitations are:
+(a)~the self-similar tree model is an idealization; real vascular trees exhibit variable asymmetry and non-geometric length scaling;
+(b)~the minimax condition assumes that both operational modes (wave signaling and steady transport) contribute equally to evolutionary fitness at the network level; in systems where one mode is demonstrably negligible, the framework reduces to single-objective optimization;
+(c)~the coronary evaluation uses simplified segment-length scaling; a refined model incorporating order-specific morphological data \cite{Kassab1993} would provide a more stringent test;
+(d)~the incoherent wave model (Eq.~\ref{eq:Cwavenet}) neglects frequency-dependent coherent interference. Transfer-matrix analysis with Womersley viscous corrections and RC terminal loads (Supplemental~S1) confirms that the geometric penalty tracks the incoherent model to $r = \VarCoherentCorr$, with a minimax shift of $|\Delta\alpha^*| = \VarCoherentShift < 0.01$.
+Each of these can be relaxed within the general framework at the cost of additional parameters.
+
+%====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+We have derived a unified variational framework for branching transport networks in which the branching exponent $\alpha^*$ emerges from the competition between wave-integrity costs and viscous-dissipation costs at the network level.
+The effective stiffness ratio $\kappa_\mathrm{eff}$ governing this competition is not a freely tuned parameter but an emergent property of the tree architecture, growing with the number of generations $G$.
+For porcine coronary arteries, the minimax condition uniquely determines $\alpha^* = \VarAlphaStar$ with zero fitted parameters, simultaneously predicting a cumulative wave dissipation of $\VarWaveCostNet\%$ consistent with independent clinical measurements. The implied Lagrange multiplier $\eta^* = \VarEtaStar$ emerges as a derived quantity, not an input.
+The theory generalizes to any impedance scaling exponent $\alpha_w$---accommodating acoustic, electrotonic, and viscoelastic conduits---and reduces exactly to Murray's law ($\alpha = 3$) only for networks with pure steady flow ($\eta=0$) and negligible wall-tissue cost ($B_{wall}=0$).
+By parametrically bounding the duty cycle $\eta$, the framework provides a general recipe for computing $\kappa_\mathrm{eff}$ in arbitrary branching systems, yielding testable predictions that link branching geometry to independently measurable mechanical and architectural properties.
+
+%====================================================================
+
+\paragraph*{Data and Code Availability.}
+All computation scripts, numerical data, and figure-generation code are openly and unconditionally available at \url{https://github.com/rikymarche-ctrl/vascular-networks-theory} under the CC BY 4.0 Licence. No access request is required.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

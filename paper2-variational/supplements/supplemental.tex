@@ -1,0 +1,243 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper, portrait, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[hidelinks]{hyperref}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{authblk}
+\usepackage{mathpazo}
+\usepackage{microtype}
+\usepackage{multicol}
+
+\input{../manuscript/dynamic_variables.tex}
+\input{dynamic_variables_supplemental.tex}
+
+\begin{document}
+
+\title{\LARGE\bfseries Supplemental Material:\\[4pt]
+A Unified Variational Principle for Branching Transport Networks}
+\author{Riccardo Marchesi}
+\affil{University of Pavia}
+\date{\today}
+
+\maketitle
+
+\begin{multicols}{2}
+
+%====================================================================
+\section*{S1.\ Coherent Wave Reflection: Transfer-Matrix Analysis}
+\label{sec:S1}
+
+\subsection*{S1.1\ Motivation}
+
+The main text employs an incoherent multiplicative model for wave cost accumulation (Eq.~5). In the coronary tree, where $kL \ll 1$ (the tree spans $\sim$1\% of the pulse wavelength at the cardiac fundamental), coherent interference effects could in principle alter the total reflected power and shift the minimax crossing point. We address this concern with a full transfer-matrix calculation.
+
+\subsection*{S1.2\ Method}
+
+We model the coronary tree as a cascade of $G = \VarG$ transmission-line segments, each representing one generation. At each generation $g$, the segment has:
+\begin{itemize}
+\item Radius: $r_g = r_0 \cdot 2^{-g/\alpha}$
+\item Length: $\ell_g = \VarEllFactor\,r_g$ (self-similar, consistent with coronary morphometry)
+\item Wall thickness: $h_g = c_0\,r_g^p$ with $p = \VarP$
+\end{itemize}
+
+The \textbf{Moens--Korteweg wave speed} at generation $g$ is:
+\begin{equation}
+c_g = \sqrt{\frac{E\,h_g}{2\rho\,r_g}}
+\end{equation}
+with $E = \VarElasticModulusMPa$~MPa (typical coronary elastic modulus).
+
+The \textbf{Womersley velocity-profile correction} $F_{10}$ is computed using Bessel functions:
+\begin{equation}
+F_{10}(\mathrm{Wo}) = \frac{2\,J_1(\lambda)}{\lambda\,J_0(\lambda)}
+\end{equation}
+where $\lambda = \mathrm{Wo} \cdot j^{3/2}$ and $\mathrm{Wo} = r_g\sqrt{\omega\rho/\mu}$ is the Womersley number.
+
+The \textbf{characteristic impedance} and \textbf{propagation constant} of each segment are:
+\begin{equation}
+Z_{c,g} = \frac{\rho\,c_g}{\pi r_g^2}\,, \qquad \gamma_g = \frac{j\omega\sqrt{1-F_{10}}}{c_g}\,.
+\end{equation}
+
+The \textbf{terminal load} at generation $G$ is a two-element Windkessel:
+\begin{equation}
+Z_{\mathrm{term}} = \frac{R_{\mathrm{term}}}{1 + j\omega R_{\mathrm{term}} C_{\mathrm{term}}}
+\end{equation}
+with $R_{\mathrm{term}} = 8\mu\ell_{\mathrm{cap}}/(\pi r_G^4)$ (Poiseuille resistance of a capillary-length segment) and $C_{\mathrm{term}} = 3\pi r_G^3 \ell_G/(2Eh_G)$ (elastic compliance of the terminal vessel).
+
+\textbf{Backward recursion.} Starting from $Z_{\mathrm{in}} = Z_{\mathrm{term}}$, at each generation $g = G-1, \ldots, 0$:
+\begin{enumerate}
+\item Compute $Z_{\mathrm{daughters}} = Z_{\mathrm{in}}/2$ (two daughters in parallel)
+\item Apply the transmission-line input-impedance formula:
+\begin{equation}
+Z_{\mathrm{in},g} = Z_{c,g}\,\frac{Z_{\mathrm{daughters}} + Z_{c,g}\tanh(\gamma_g\ell_g)}{Z_{c,g} + Z_{\mathrm{daughters}}\tanh(\gamma_g\ell_g)}
+\end{equation}
+\end{enumerate}
+
+The \textbf{total reflection coefficient} at the root is:
+\begin{equation}
+|\Gamma_{\mathrm{total}}|^2 = \left|\frac{Z_{\mathrm{in},0} - Z_{c,\mathrm{source}}}{Z_{\mathrm{in},0} + Z_{c,\mathrm{source}}}\right|^2
+\end{equation}
+
+\subsection*{S1.3\ Results}
+
+\paragraph{Terminal-load dominance.}
+At the impedance-matching exponent $\alpha = \alpha_w = \VarAlphaW$, where all junctions are perfectly matched, the coherent model still predicts $|\Gamma_{\mathrm{total}}|^2(\alpha_w) = \VarGammaTotalAW$. This residual reflection is entirely due to the resistive terminal capillary load, not junction geometry.
+
+The physically relevant quantity for the minimax optimization is the \textbf{geometric penalty}:
+\begin{equation}
+\Delta_{\mathrm{coherent}}(\alpha) = |\Gamma_{\mathrm{total}}(\alpha)|^2 - |\Gamma_{\mathrm{total}}(\alpha_w)|^2
+\end{equation}
+which isolates the $\alpha$-dependent contribution from junction mismatches.
+
+\paragraph{Proportionality with incoherent model.}
+For $\alpha > 2.3$, $\Delta_{\mathrm{coherent}}(\alpha)$ is:
+\begin{enumerate}
+\item \textbf{Monotonically increasing} --- no Fabry--P\'erot resonances create additional crossings
+\item \textbf{Correlated with $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ at $r = \VarCoherentCorr$} --- the two measures are proportional
+\end{enumerate}
+
+The proportionality constant (factor of $\sim\VarCoherentFactor$) reflects the coherent amplification expected in a $kL\ll 1$ lattice; the minimax shift relative to the incoherent model is $|\Delta\alpha^*| = \VarCoherentShift < 0.01$.
+
+\paragraph{Per-harmonic analysis} at $\alpha = \VarAlphaStar$:
+
+\begin{center}
+\small
+\begin{tabular}{@{}cccc@{}}
+\toprule
+Harmonic & $f$ (Hz) & $|\Gamma_{\mathrm{total}}|^2$ \\
+\midrule
+1 & \VarFreqHarmonicI  & \VarGammaHarmonicI  \\
+2 & \VarFreqHarmonicII & \VarGammaHarmonicII \\
+3 & \VarFreqHarmonicIII & \VarGammaHarmonicIII \\
+4 & \VarFreqHarmonicIV & \VarGammaHarmonicIV \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The modest variation across harmonics confirms that Fabry--P\'erot resonance effects are negligible in this regime (Womersley numbers $\mathrm{Wo} < \VarWomersleyMax$ throughout the tree, providing viscous damping).
+
+Frequency-averaged geometric penalty confirms a unique crossing with shift $|\Delta\alpha^*| = \VarCoherentShift$ ($< 0.01$) relative to the incoherent model.
+
+\subsection*{S1.4\ Discussion}
+
+The incoherent model (Eq.~5 of the main text) measures the correct physical quantity: the geometric penalty for choosing $\alpha \neq \alpha_w$ at each junction, accumulated multiplicatively through the tree. The coherent transfer-matrix calculation confirms that this geometric penalty is the dominant $\alpha$-dependent component of total wave reflection, and that the large baseline reflection is a property of the terminal load boundary condition, not of junction geometry.
+
+\paragraph{Note on Architectural Consistency.}
+In this coherent transfer-matrix calculation, the network is modeled as a uniform tree defined by the global architectural parameter $\alpha$ ($r_g = r_0 \cdot 2^{-g/\alpha}$), with a representative constant elastic modulus $E=\VarElasticModulusMPa$~MPa. This is done to preserve strict structural consistency with the main text, where $\alpha$ is treated as a global topological constraint and the transport cost $\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}(\alpha)$ measures the penalty of deviating from local optima. While the sub-linear wall-thickness law $h(r) \propto r^p$ inherently implies a proximodistal impedance gradient (a ``chirped'' lattice), evaluating the wave equations on the purely uniform baseline correctly isolates the geometric penalty $\Delta_{\mathrm{coherent}}(\alpha)$ attributable to $\alpha$ alone. Fully variational optimization relaxing the global $\alpha$ constraint to locally varying branching ratios ($\rho_g$) over a chirped impedance lattice represents a natural extension of this framework.
+
+The factor-of-$\VarCoherentFactor$ ratio between $\Delta_{\mathrm{coherent}}$ and $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ reflects the coherent amplification $|\Gamma_{\mathrm{total}}|^2 \sim G^2|\Gamma_{\mathrm{single}}|^2$ expected in a $kL\ll 1$ lattice; the proportionality of their $\alpha$-dependences ($r=\VarCoherentCorr$) confirms that the geometric sensitivity of the two models is consistent despite this amplitude difference.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figS1_supplemental.png}
+\caption{Supplemental validation analyses. (A)~Coherent geometric penalty $\Delta_{\mathrm{coherent}}(\alpha)$ (dashed) versus incoherent network wave cost $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}(\alpha)$ (solid blue), showing proportionality ($r = \VarCoherentCorr$). (B)~Monte Carlo distribution of $\alpha^*$ ($N = \VarMCSamples$), yielding $\VarMCAlphaMean \pm \VarMCAlphaStd$ (95\% CI: $[\VarMCAlphaCILow, \VarMCAlphaCIHigh]$). (C)~Decoupling analysis: minimax $\alpha^*$ as a function of transport ground state $\alpha_t$, with total variation $\Delta\alpha^* = \VarMCDeltaAlpha$. (D)~Per-harmonic coherent reflection $|\Gamma_{\mathrm{total}}|^2$ for the first four cardiac harmonics, confirming negligible Fabry--P\'erot resonance effects.}
+\label{fig:S1}
+\end{figure*}
+
+\end{multicols}
+
+%====================================================================
+\section*{S2.\ Monte Carlo Parameter Distributions}
+\label{sec:S2}
+
+\subsection*{S2.1\ Sampled parameters}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Table~S1: Monte Carlo parameter distributions used in the uncertainty sweep ($N = \VarMCSamples$).}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Parameter & Distribution & Range & Correlation \\
+\midrule
+$p$ & $\mathcal{N}(0.77, 0.05^2)$ & $[0.50, 0.95]$ & Determines $\alpha_w$ \\
+$G$ & $\mathcal{U}(9, 13)$ & integer & Independent \\
+$m_w$ & Log-Normal, median 20\,kW/m$^3$ & $[5, 35]$\,kW/m$^3$ & Independent \\
+$\alpha_t$ & $\mathcal{U}(2.80, 3.00)$ & --- & Independent of $p$ \\
+$\alpha_w$ & Deterministic: $(5-p)/2$ & --- & Correlated with $p$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{multicols}{2}
+
+\subsection*{S2.2\ Results ($N = \VarMCSamples$)}
+
+\begin{equation}
+\alpha^* = \VarMCAlphaMean \pm \VarMCAlphaStd\,, \quad 95\%~\mathrm{CI}\!\!: [\VarMCAlphaCILow, \VarMCAlphaCIHigh]
+\end{equation}
+
+The entire credible interval lies within $1\sigma$ of the experimental morphometric value $\alpha_{\mathrm{exp}} = \VarAlphaExp \pm \VarAlphaExpErr$.
+
+\paragraph{Note on quadratic approximation.}
+The Monte Carlo uses $\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}(\alpha) \approx k_t(\alpha - \alpha_t)^2$ with $k_t = 0.85\,G$ for computational tractability. The coefficient $0.85$ is the numerical curvature $\frac{1}{2}\partial^2\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}/\partial\alpha^2|_{\alpha_t}/G$ evaluated from the exact three-term cost (Eq.~6 of the main text) at the baseline coronary parameters; its linear scaling with $G$ follows from the additive generation structure of Eq.~(6). Spot checks with the exact transport cost show $|\Delta\alpha^*| \lesssim 0.02$, within the Monte Carlo uncertainty.
+
+%====================================================================
+\section*{S3.\ Power Conversion to Absolute Units}
+\label{sec:S3}
+
+\subsection*{S3.1\ Wave dissipation budget}
+
+\begin{itemize}
+\item Cardiac power output at rest: $\mathrm{CPO} \approx \VarCPOWatts$~W
+\item Pulsatile fraction: $\sim\VarPulsatilePct$\% of CPO
+\item Coronary fraction: $\sim\VarCoronaryPct$\% of cardiac output
+\item Pulsatile power incident on coronary tree: $P_{\mathrm{pulse}} \approx \VarPPulsemW$~mW
+\item At $\alpha^* = \VarAlphaStar$: $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}} = \VarWaveCostNet\%$
+\item \textbf{Wave power dissipated: $P_{\mathrm{wave}} \approx \VarPWavemW$~mW}
+\end{itemize}
+
+\subsection*{S3.2\ Transport excess budget}
+
+\begin{itemize}
+\item Baseline transport power (sum of $\Phi^*(r^*_g)\cdot\ell_g$ over all vessels): $\sim\VarPBaselinemW$~mW
+\item At $\alpha^* = \VarAlphaStar$: $\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}} = \VarWaveCostNet\%$
+\item \textbf{Transport excess: $P_{\mathrm{transport}} \approx \VarPTransportmW$~mW}
+\end{itemize}
+
+\subsection*{S3.3\ Interpretation}
+
+The ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} \approx \VarPRatio$ confirms that the two competing penalties operate within the same order of magnitude ($\sim$sub-mW). The equal-cost condition at the dimensionless level maps to approximate parity in the absolute energetic margins, not to a dimensional artifact. The factor-of-three discrepancy reflects the asymmetry between multiplicative (wave) and additive (transport) cost accumulation, and is consistent with the implied Lagrange multiplier $\eta^* = \VarEtaStar$ (the system allocates more selective pressure to wave integrity because wave costs are exponentially sensitive to geometry near the impedance horizon).
+
+%====================================================================
+\section*{S4.\ Extended Applications}
+\label{sec:S4}
+
+For networks where the wave mode is absent ($\eta = 0$), the framework reduces to pure transport optimization, recovering $\alpha = 3$ (Murray's law) for systems with negligible wall cost, and $\alpha_t < 3$ for biological conduits with significant structural wall investment. Qualitative extrapolation to botanical, neural, and engineered systems is consistent with available data (Table~S1 below) but requires system-specific parametrization of $\alpha_w$, $G$, and wall mechanics for quantitative predictions.
+
+\begin{table*}[t]
+\caption{Table~S2: Qualitative framework predictions for extended systems.}
+\centering
+\small
+\begin{tabular}{@{}lcccp{5cm}@{}}
+\toprule
+System & Wave mode & $\alpha_w$ & Expected $\alpha$ & Notes \\
+\midrule
+Xylem (steady) & None & --- & $\sim 2.5$ & $\alpha_t < 3$ from wall cost \\
+HVAC ducts & Acoustic & 2 & 2.5--2.8 & Depends on duct depth \\
+Dendritic cables & Electrotonic & 3/2 & $\sim$2.3--2.5 & Topological scaling \\
+River networks & None & --- & $\sim 3$ & No biological wall cost \\
+Fiber optics & EM & 2 & $\sim 2.5$ & Splitter depth-dependent \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\paragraph{Heat exchanger networks.}
+In branching heat-sink architectures (e.g., microchannel heat sinks for electronics cooling), the ``flow cost'' is the viscous pumping power and the ``wave cost'' is thermal impedance mismatch at junctions where channel geometry changes abruptly. The branching exponent for minimum total entropy generation is predicted by the network Lagrangian (Eq.~7 of the main text) with $\Phi$ replaced by the thermal dissipation function.
+
+\paragraph{Plant root systems.}
+Root networks distribute water and nutrients from the soil to the stem. Unlike xylem (which operates under tension and is subject to cavitation---a wave-like failure mode), root hydraulic architecture is dominated by radial water uptake and axial Poiseuille flow. The theory predicts $\alpha \to 3$ for pure-transport roots and $\alpha < 3$ for roots that also transmit hydraulic signals (e.g., ABA-mediated stomatal signaling).
+
+%====================================================================
+\section*{S5.\ Reproducibility}
+\label{sec:S5}
+
+All numerical computations were performed in Python 3.11 using NumPy, SciPy (Brent root-finding, Bessel functions), and Matplotlib. The complete codebase is openly and unconditionally available at \url{https://github.com/marchesiriccardo/branching-networks} under the MIT Licence; no access request is required.
+
+\end{multicols}
+
+\end{document}

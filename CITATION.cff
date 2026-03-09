@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+type: software
+authors:
+  - family-names: Marchesi
+    given-names: Riccardo
+title: "Vascular Networks Theory"
+abstract: >
+  Source code and manuscripts for a unified theoretical framework of biological
+  branching transport networks, deriving the empirically observed branching
+  exponent α* ≈ 2.72 from first principles with zero fitted parameters.
+version: 1.0.0
+date-released: "2026-03-08"
+license: CC-BY-4.0
+repository-code: https://github.com/rikymarche-ctrl/vascular-networks-theory
+doi: 10.5281/zenodo.18916969
+references:
+  - type: article
+    authors:
+      - family-names: Marchesi
+        given-names: Riccardo
+    title: >
+      Beyond Murray's Law: Non-Universal Branching Exponents
+      from Vessel-Wall Metabolic Costs
+    year: 2026
+    doi: 10.5281/zenodo.18916969
+  - type: article
+    authors:
+      - family-names: Marchesi
+        given-names: Riccardo
+    title: "A Unified Variational Principle for Branching Transport Networks"
+    year: 2026
+    doi: 10.5281/zenodo.18917033

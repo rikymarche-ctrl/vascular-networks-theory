@@ -70,18 +70,26 @@ to explain $\alpha < 3$. Even in the purely static regime, simply completing Mur
 original metabolic cost function to include the structural tissue of the vessel wall
 is sufficient to rigorously break the universality of the cubic law.
 
-Recent work by Bennett~\cite{Bennett2024} re-derives Murray's family from an
-information-thermodynamic ratio (entropy produced per unit information cost,
-EPIC), obtaining $\alpha=(m{+}4)/2$ where $m$ is an abstract information-pricing
-exponent. For volume-priced maintenance ($m=2$) Bennett recovers $\alpha=3$;
-for surface-priced maintenance ($m=1$) he recovers $\alpha=2.5$.
-While this framework is elegant, the pricing exponent $m$ is chosen
-phenomenologically for each network class; the framework does not predict
-$m$ from independently measurable quantities.
-
-In this paper we take a different approach: we keep Murray's energy-minimization
-objective and ask what happens when the cost function is more completely
-specified.
+Recent work by Bennett~\cite{Bennett2024,Bennett2024b} develops a variational
+framework for branching networks based on two-term cost functions:
+starting from a scale-free homogeneity condition on a $Q^2 r^{-p} + b\,r^m$
+ledger, Bennett derives generalized Murray scaling $\alpha=(m{+}p)/2$,
+a Young--Herring-type junction angle balance, concave Gilbert-type flux costs,
+and a single-index ($\chi$) unification showing that all three are controlled
+by one dimensionless ratio~\cite{Bennett2024b}.
+For Poiseuille flow with volume-priced maintenance ($m=2$, $p=4$), this
+recovers $\alpha=3$; for surface-priced maintenance ($m=1$), $\alpha=5/2$.
+The two-term limit of our Theorem~\ref{thm:single}
+($\alpha = (4{+}\gamma)/2$ with $\gamma$ physically grounded)
+coincides with the generalized Murray scaling independently established
+by Bennett through abstract scale-free homogeneity, providing convergent
+validation from two distinct theoretical starting points.
+However, the structural exponent $m$ in Bennett's framework is a
+phenomenological parameter whose value is not predicted from independently
+measurable tissue quantities.
+We keep Murray's energy-minimization objective and ask what happens when
+a third biological term is added, structurally breaking the Euler homogeneity
+that underlies Bennett's two-term class.
 The key observation is that vessel walls---smooth muscle cells, extracellular
 matrix, active tension---have a non-negligible metabolic cost that scales
 differently from blood volume.
@@ -711,12 +719,22 @@ Murray~\cite{Murray1926}: two-term cost, $\alpha=3$ (exact).
 Our Corollary~\ref{cor:unique} shows this is the \emph{only} instantiation
 of the cost-function family~\eqref{eq:phi_compact} with a universal exponent.
 
-Bennett~\cite{Bennett2024}: changes the \emph{objective} from energy to
-entropy-per-information-cost (EPIC), obtaining $\alpha=(m+4)/2$.
-We change the \emph{structure} of the cost function, obtaining the same
-formula with $\gamma=1+p$ physically grounded.
-In a parallel work~\cite{Bennett2024b}, Bennett derives the identical index via a "chi index" formalism, establishing universality \emph{specifically} within the two-term constraint.
-Our Theorem~\ref{thm:bounds} and Corollary~\ref{cor:unique} go exactly beyond this, breaking the constraint: we prove that incorporating the necessary third biological term (the $h(r) \propto r^p$ sublinear conduit tissue) shatters universal exponents altogether---a non-universal regime inexpressible within solely two-term structures.
+Bennett~\cite{Bennett2024,Bennett2024b}: develops a variational framework
+for the homogeneous two-term class, deriving generalized Murray scaling,
+Young--Herring junction geometry, concave (Gilbert-type) flux costs,
+and a single-index ($\chi = m/(m{+}p)$) rigidity theorem showing that
+the two-term form is the unique quadratic scale-free ledger compatible
+with simultaneous power-law flux--radius scaling and power-law
+flux-only concavity~\cite{Bennett2024b}.
+The two-term limit of our Theorem~\ref{thm:single}
+($\alpha = (4{+}\gamma)/2$ with $\gamma=1+p$ from histological data)
+coincides with the generalized Murray scaling independently established
+by Bennett through abstract homogeneity axioms.
+Our Theorem~\ref{thm:bounds} and Corollary~\ref{cor:unique}
+address the regime that lies outside Bennett's two-term class:
+incorporating the third biological term ($h(r) \propto r^p$, sublinear
+conduit tissue) breaks Euler homogeneity altogether, producing
+a rigorously non-universal regime with scale-dependent $\alpha^*(Q)$.
 
 Liu \& Kassab~\cite{LiuKassab2007} and Kim \& Wagenseil~\cite{Kim2015} previously incorporated metabolic wall costs into branching models, but explicitly concluded that the standard scaling relations ($\alpha=3$) remained largely invariant. This discrepancy underscores our central thesis: it is specifically the \emph{sub-linear} allometric scaling of the wall ($p < 1$) that breaks the cubic law. Without it, standard three-term energy models natively recover Murray's limits.
 
@@ -741,7 +759,8 @@ parameter ranges. However, this mathematical structure strongly suggests that a 
 \section{Conclusion}
 
 We have shown that the three-term cost function~\eqref{eq:phi} leads to
-several rigorous results unavailable in the existing Murray--Bennett framework:
+several rigorous results unavailable in the existing two-term Murray framework
+(generalized by Bennett~\cite{Bennett2024,Bennett2024b} via a single-index formalism):
 unique optimal radius (Theorem~\ref{thm:unique}),
 equivalence of local optimization with global tree law (Lemma~\ref{lem:cauchy}),
 exact single-term classification $\alpha=(4+\gamma)/2$ with physical grounding
@@ -762,7 +781,7 @@ Bridging the residual gap between our exact static derivation ($\sim 2.90$) and 
 Given the strict bounds on single-mechanism scaling established in this work, formulating such a unified network-level variational principle represents the necessary definitive step to predict both fluidic cardiovascular architecture and electrotonic neural morphology.
 
 \paragraph*{Data and Code Availability.}
-All computation scripts, numerical data, and figure-generation code are openly and unconditionally available at \url{https://github.com/rikymarche-ctrl/vascular-networks-theory} under the CC BY 4.0 Licence. No access request is required.
+All computation scripts, numerical data, and figure-generation code are openly and unconditionally available at \url{https://github.com/rikymarche-ctrl/vascular-networks-theory} under the MIT Licence. No access request is required.
 
 \bibliographystyle{unsrt}
 \bibliography{references}

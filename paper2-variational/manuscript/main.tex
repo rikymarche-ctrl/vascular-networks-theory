@@ -52,7 +52,15 @@ The matching exponent~$\alpha_w$ depends on the conduit physics: for acoustic wa
 
 Empirical measurements consistently report intermediate values.
 Mammalian arterial trees yield $\alpha \approx 2.7$ \cite{Kassab1993,Zamir1999}, pulmonary airways $\alpha \approx 2.8$--$3.0$ \cite{Weibel1963}, botanical xylem $\alpha \approx 2.0$--$2.5$ \cite{McCulloh2003,Savage2010}, and cortical dendrites $\alpha \approx 2.4$ \cite{Cuntz2010}.
-These intermediate exponents are typically rationalized by system-specific models, but no unified framework derives them from a single thermodynamic principle.
+Bennett~\cite{Bennett2024,Bennett2024b} has recently established a unified
+variational framework for the \emph{static} branching optimum within the
+homogeneous two-term class, deriving generalized Murray scaling,
+junction geometry, and a single-index rigidity theorem from a scale-free
+cost ledger.
+However, this static framework does not incorporate the dynamic
+wave-reflection penalties that arise in pulsatile conduits, nor does it
+predict the intermediate exponents observed in vivo without a
+phenomenological specification of the structural exponent~$m$.
 
 Bejan's constructal law \cite{Bejan1997,Bejan2000} proposes that flow systems evolve toward configurations that maximize access, offering a broad organizing principle, and West--Brown--Enquist theory \cite{WBE1997} derives allometric scaling from fractal filling constraints.
 However, neither framework specifies the analytical form of the cost function that makes wave and flow costs commensurable without introducing a free parameter.
@@ -739,7 +747,7 @@ While the numerical analysis focused on the cardiovascular system, the framework
 \paragraph{Connection to Information Theory.}
 The minimax structure of Theorem~\ref{thm:minimax} admits a structural analogy with Shannon's Rate-Distortion theory: $\alpha$ plays the role of a coding rate trading signal distortion (hemodynamic wave reflection) against transmission cost (steady metabolic maintenance). The robust optimum $\alpha^*$ is structurally parallel to the operating point on the network's Rate-Distortion curve that minimizes the worst-case total distortion.
 
-Whether this analogy admits a rigorous information-theoretic derivation---i.e., whether the vascular tree genuinely operates on its Rate-Distortion frontier---remains an open question deferred to future work. The connection suggests that $\alpha$ may be interpreted as an information-theoretic quantity bridging our energetic derivation with previously proposed frameworks (e.g., Bennett's EPIC approach), but such an interpretation should be regarded as suggestive rather than proven.
+Whether this analogy admits a rigorous information-theoretic derivation---i.e., whether the vascular tree genuinely operates on its Rate-Distortion frontier---remains an open question deferred to future work. The connection suggests that $\alpha$ may be interpreted as an information-theoretic quantity bridging our energetic derivation with previously proposed frameworks (e.g., Bennett's EPIC approach~\cite{Bennett2024,Bennett2024b}), but such an interpretation should be regarded as suggestive rather than proven.
 
 \medskip
 The central result of this paper is that the apparent conflict between impedance matching ($\alpha = \alpha_w$) and minimum dissipation ($\alpha \approx 3$) is rigorously resolved by formulating the optimization at the \emph{network level}, rather than at a single junction, and incorporating the biological cost of the conduit wall.
@@ -825,7 +833,7 @@ By parametrically bounding the duty cycle $\eta$, the framework provides a gener
 %====================================================================
 
 \paragraph*{Data and Code Availability.}
-All computation scripts, numerical data, and figure-generation code are openly and unconditionally available at \url{https://github.com/rikymarche-ctrl/vascular-networks-theory} under the CC BY 4.0 Licence. No access request is required.
+All computation scripts, numerical data, and figure-generation code are openly and unconditionally available at \url{https://github.com/rikymarche-ctrl/vascular-networks-theory} under the MIT Licence. No access request is required.
 
 \bibliographystyle{unsrt}
 \bibliography{references}

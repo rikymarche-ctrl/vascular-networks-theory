@@ -1,8 +1,8 @@
 # Vascular Networks Theory
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![DOI Paper 1](https://zenodo.org/badge/DOI/10.5281/zenodo.18916969.svg)](https://doi.org/10.5281/zenodo.18916969)
-[![DOI Paper 2](https://zenodo.org/badge/DOI/10.5281/zenodo.18917033.svg)](https://doi.org/10.5281/zenodo.18917033)
+[![DOI Paper 1](https://zenodo.org/badge/DOI/10.5281/zenodo.18916969.svg)](https://zenodo.org/records/18959888)
+[![DOI Paper 2](https://zenodo.org/badge/DOI/10.5281/zenodo.18917033.svg)](https://zenodo.org/records/18959783)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 
 A unified theoretical framework for biological branching transport networks.
@@ -100,7 +100,7 @@ If this work is useful to you, please cite the relevant paper:
              from Vessel-Wall Metabolic Costs},
   year    = {2026},
   doi     = {10.5281/zenodo.18916969},
-  url     = {https://doi.org/10.5281/zenodo.18916969}
+  url     = {https://zenodo.org/records/18959888}
 }
 
 @article{marchesi2026variational,
@@ -108,7 +108,7 @@ If this work is useful to you, please cite the relevant paper:
   title   = {A Unified Variational Principle for Branching Transport Networks},
   year    = {2026},
   doi     = {10.5281/zenodo.18917033},
-  url     = {https://doi.org/10.5281/zenodo.18917033}
+  url     = {https://zenodo.org/records/18959783}
 }
 ```
 

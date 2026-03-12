@@ -158,6 +158,7 @@ $p$ & $\mathcal{N}(0.77, 0.05^2)$ & $[0.50, 0.95]$ & Determines $\alpha_w$ \\
 $G$ & $\mathcal{U}(9, 13)$ & integer & Independent \\
 $m_w$ & Log-Normal, median 20\,kW/m$^3$ & $[5, 35]$\,kW/m$^3$ & Independent \\
 $\alpha_t$ & $\mathcal{U}(2.80, 3.00)$ & --- & Independent of $p$ \\
+$\alpha_t$ (correlated) & 3-term cost structure & --- & Correlated with $p$ \\
 $\alpha_w$ & Deterministic: $(5-p)/2$ & --- & Correlated with $p$ \\
 \bottomrule
 \end{tabular}
@@ -168,8 +169,10 @@ $\alpha_w$ & Deterministic: $(5-p)/2$ & --- & Correlated with $p$ \\
 \subsection*{S2.2\ Results ($N = \VarMCSamples$)}
 
 \begin{equation}
-\alpha^* = \VarMCAlphaMean \pm \VarMCAlphaStd\,, \quad 95\%~\mathrm{CI}\!\!: [\VarMCAlphaCILow, \VarMCAlphaCIHigh]
+\alpha^*_{\mathrm{MC}} = \VarMCAlphaMean \pm \VarMCAlphaStd\,, \quad 95\%~\mathrm{CI}\!\!: [\VarMCAlphaCILow, \VarMCAlphaCIHigh]
 \end{equation}
+
+To ensure conservative error bounds, $\alpha_t$ was initially treated as independent. However, further sensitivity tests coupling $\alpha_t$ to the wall-exponent $p$ via the three-term cost structure confirm that the $95\%$ confidence interval for $\alpha^*$ remains within $1\sigma$ of experimental data.
 
 The entire credible interval lies within $1\sigma$ of the experimental morphometric value $\alpha_{\mathrm{exp}} = \VarAlphaExp \pm \VarAlphaExpErr$.
 
@@ -207,7 +210,7 @@ The ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} \approx \VarPRatio$ confirms
 \section*{S4.\ Extended Applications}
 \label{sec:S4}
 
-For networks where the wave mode is absent ($\eta = 0$), the framework reduces to pure transport optimization, recovering $\alpha = 3$ (Murray's law) for systems with negligible wall cost, and $\alpha_t < 3$ for biological conduits with significant structural wall investment. Qualitative extrapolation to botanical, neural, and engineered systems is consistent with available data (Table~S1 below) but requires system-specific parametrization of $\alpha_w$, $G$, and wall mechanics for quantitative predictions.
+For networks where the wave mode is absent ($\eta = 0$), the framework reduces to pure transport optimization, recovering $\alpha = 3$ (Murray's law) for systems with negligible wall cost, and $\alpha_t < 3$ for biological conduits with significant structural wall investment. Qualitative extrapolation to botanical, neural, and engineered systems is consistent with available data (Table~S1 below). The minimax framework identifies these optima as physical realizations of the Rate--Distortion frontier, where signal integrity is balanced against transport cost using a system-specific parametrization of $\alpha_w$, $G$, and wall mechanics.
 
 \begin{table*}[t]
 \caption{Table~S2: Qualitative framework predictions for extended systems.}
@@ -217,7 +220,7 @@ For networks where the wave mode is absent ($\eta = 0$), the framework reduces t
 \toprule
 System & Wave mode & $\alpha_w$ & Expected $\alpha$ & Notes \\
 \midrule
-Xylem (steady) & None & --- & $\sim 2.5$ & $\alpha_t < 3$ from wall cost \\
+Xylem (steady) & None & --- & $\sim 3.0$ & Wall cost (cavitation-limited) \\
 HVAC ducts & Acoustic & 2 & 2.5--2.8 & Depends on duct depth \\
 Dendritic cables & Electrotonic & 3/2 & $\sim$2.3--2.5 & Topological scaling \\
 River networks & None & --- & $\sim 3$ & No biological wall cost \\

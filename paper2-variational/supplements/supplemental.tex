@@ -16,6 +16,13 @@
 \input{../manuscript/dynamic_variables.tex}
 \input{dynamic_variables_supplemental.tex}
 
+% --- Dynamic Numbering (S-prefix) ---
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+
 \begin{document}
 
 \title{\LARGE\bfseries Supplemental Material:\\[4pt]
@@ -29,8 +36,8 @@ A Unified Variational Principle for Branching Transport Networks}
 \begin{multicols}{2}
 
 %====================================================================
-\section*{S1.\ Coherent Wave Reflection: Transfer-Matrix Analysis}
-\label{sec:S1}
+\section{Coherent Wave Reflection: Transfer-Matrix Analysis}
+\label{sec:coherent}
 
 \subsection*{S1.1\ Motivation}
 
@@ -96,8 +103,8 @@ which isolates the $\alpha$-dependent contribution from junction mismatches.
 \paragraph{Proportionality with incoherent model.}
 For $\alpha > 2.3$, $\Delta_{\mathrm{coherent}}(\alpha)$ is:
 \begin{enumerate}
-\item \textbf{Monotonically increasing} --- no Fabry--P\'erot resonances create additional crossings
-\item \textbf{Correlated with $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ at $r = \VarCoherentCorr$} --- the two measures are proportional
+\item \textbf{Strict monotonicity} --- the geometric penalty increases monotonically with $\alpha$ across the physiological range.
+\item \textbf{Pearson Correlation} --- the coherent and incoherent measures are highly correlated ($R = \VarCoherentCorr$), confirming the topological scaling.
 \end{enumerate}
 
 The proportionality constant (factor of $\sim\VarCoherentFactor$) reflects the coherent amplification expected in a $kL\ll 1$ lattice; the minimax shift relative to the incoherent model is $|\Delta\alpha^*| = \VarCoherentShift < 0.01$.
@@ -106,7 +113,7 @@ The proportionality constant (factor of $\sim\VarCoherentFactor$) reflects the c
 
 \begin{center}
 \small
-\begin{tabular}{@{}cccc@{}}
+\begin{tabular}{@{}ccc@{}}
 \toprule
 Harmonic & $f$ (Hz) & $|\Gamma_{\mathrm{total}}|^2$ \\
 \midrule
@@ -118,9 +125,11 @@ Harmonic & $f$ (Hz) & $|\Gamma_{\mathrm{total}}|^2$ \\
 \end{tabular}
 \end{center}
 
-The modest variation across harmonics confirms that Fabry--P\'erot resonance effects are negligible in this regime (Womersley numbers $\mathrm{Wo} < \VarWomersleyMax$ throughout the tree, providing viscous damping).
+\emph{Note:} these values reflect the total $|\Gamma|^2$ at $\alpha^* = \VarAlphaStar$, comprising the architecture-dependent geometric penalty (${\approx}0.79$, coherent amplification of $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ by the factor ${\sim}\VarCoherentFactor$) and the residual terminal Windkessel contribution (${\approx}0.03$ at $\alpha_w$, see $\VarGammaTotalAW$ above). The geometric penalty $\Delta_\mathrm{coherent}$ dominates the $\alpha$-dependent variation; see Fig.~S1A.
 
-Frequency-averaged geometric penalty confirms a unique crossing with shift $|\Delta\alpha^*| = \VarCoherentShift$ ($< 0.01$) relative to the incoherent model.
+The modest variation across harmonics confirms that standing-wave interferences are negligible in this regime (Womersley numbers $\mathrm{Wo} < \VarWomersleyMax$ throughout the tree, providing viscous damping).
+
+Frequency-averaged geometric penalty confirms a unique crossing with minimax shift $|\Delta\alpha^*| = \VarCoherentShift$, numerically indistinguishable from zero at three-decimal precision. The topological attractor is therefore fully immune to coherent standing-wave interferences in the physiological coronary regime.
 
 \subsection*{S1.4\ Discussion}
 
@@ -131,59 +140,22 @@ In this coherent transfer-matrix calculation, the network is modeled as a unifor
 
 The factor-of-$\VarCoherentFactor$ ratio between $\Delta_{\mathrm{coherent}}$ and $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ reflects the coherent amplification $|\Gamma_{\mathrm{total}}|^2 \sim G^2|\Gamma_{\mathrm{single}}|^2$ expected in a $kL\ll 1$ lattice; the proportionality of their $\alpha$-dependences ($r=\VarCoherentCorr$) confirms that the geometric sensitivity of the two models is consistent despite this amplitude difference.
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figS1_supplemental.png}
-\caption{Supplemental validation analyses. (A)~Coherent geometric penalty $\Delta_{\mathrm{coherent}}(\alpha)$ (dashed) versus incoherent network wave cost $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}(\alpha)$ (solid blue), showing proportionality ($r = \VarCoherentCorr$). (B)~Monte Carlo distribution of $\alpha^*$ ($N = \VarMCSamples$), yielding $\VarMCAlphaMean \pm \VarMCAlphaStd$ (95\% CI: $[\VarMCAlphaCILow, \VarMCAlphaCIHigh]$). (C)~Decoupling analysis: minimax $\alpha^*$ as a function of transport ground state $\alpha_t$, with total variation $\Delta\alpha^* = \VarMCDeltaAlpha$. (D)~Per-harmonic coherent reflection $|\Gamma_{\mathrm{total}}|^2$ for the first four cardiac harmonics, confirming negligible Fabry--P\'erot resonance effects.}
-\label{fig:S1}
-\end{figure*}
 
 \end{multicols}
 
-%====================================================================
-\section*{S2.\ Monte Carlo Parameter Distributions}
-\label{sec:S2}
-
-\subsection*{S2.1\ Sampled parameters}
-
-\begin{table}[H]
+\begin{figure*}[t]
 \centering
-\small
-\caption{Table~S1: Monte Carlo parameter distributions used in the uncertainty sweep ($N = \VarMCSamples$).}
-\begin{tabular}{@{}llll@{}}
-\toprule
-Parameter & Distribution & Range & Correlation \\
-\midrule
-$p$ & $\mathcal{N}(0.77, 0.05^2)$ & $[0.50, 0.95]$ & Determines $\alpha_w$ \\
-$G$ & $\mathcal{U}(9, 13)$ & integer & Independent \\
-$m_w$ & Log-Normal, median 20\,kW/m$^3$ & $[5, 35]$\,kW/m$^3$ & Independent \\
-$\alpha_t$ & $\mathcal{U}(2.80, 3.00)$ & --- & Independent of $p$ \\
-$\alpha_t$ (correlated) & 3-term cost structure & --- & Correlated with $p$ \\
-$\alpha_w$ & Deterministic: $(5-p)/2$ & --- & Correlated with $p$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+\includegraphics[width=\textwidth]{figures/figS1_supplemental.png}
+\caption{Supplemental validation analyses. (A)~Coherent geometric penalty $\Delta_{\mathrm{coherent}}(\alpha)$ (dashed) versus incoherent network wave cost $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}(\alpha)$ (solid blue), showing strict linearity and proportionality (Pearson $R = \VarCoherentCorr$). (B)~Per-harmonic total reflection coefficient $|\Gamma_{\mathrm{total}}|^2$ at $\alpha^* = \VarAlphaStar$ across cardiac harmonics (1--4~Hz), confirming the stability of the geometric attractor across the pulsatile spectrum. (C)~Absolute power budget at $\alpha^*$: wave dissipation $P_{\mathrm{wave}} \approx \VarPWavemW$~mW versus transport excess $P_{\mathrm{transport}} \approx \VarPTransportmW$~mW, confirming energetic parity ($P_{\mathrm{wave}}/P_{\mathrm{transport}} \approx \VarPRatio$).}
+\label{fig:S1}
+\end{figure*}
 
 \begin{multicols}{2}
 
-\subsection*{S2.2\ Results ($N = \VarMCSamples$)}
+\section{Power Conversion to Absolute Units}
+\label{sec:power}
 
-\begin{equation}
-\alpha^*_{\mathrm{MC}} = \VarMCAlphaMean \pm \VarMCAlphaStd\,, \quad 95\%~\mathrm{CI}\!\!: [\VarMCAlphaCILow, \VarMCAlphaCIHigh]
-\end{equation}
-
-To ensure conservative error bounds, $\alpha_t$ was initially treated as independent. However, further sensitivity tests coupling $\alpha_t$ to the wall-exponent $p$ via the three-term cost structure confirm that the $95\%$ confidence interval for $\alpha^*$ remains within $1\sigma$ of experimental data.
-
-The entire credible interval lies within $1\sigma$ of the experimental morphometric value $\alpha_{\mathrm{exp}} = \VarAlphaExp \pm \VarAlphaExpErr$.
-
-\paragraph{Note on quadratic approximation.}
-The Monte Carlo uses $\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}(\alpha) \approx k_t(\alpha - \alpha_t)^2$ with $k_t = 0.85\,G$ for computational tractability. The coefficient $0.85$ is the numerical curvature $\frac{1}{2}\partial^2\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}/\partial\alpha^2|_{\alpha_t}/G$ evaluated from the exact three-term cost (Eq.~6 of the main text) at the baseline coronary parameters; its linear scaling with $G$ follows from the additive generation structure of Eq.~(6). Spot checks with the exact transport cost show $|\Delta\alpha^*| \lesssim 0.02$, within the Monte Carlo uncertainty.
-
-%====================================================================
-\section*{S3.\ Power Conversion to Absolute Units}
-\label{sec:S3}
-
-\subsection*{S3.1\ Wave dissipation budget}
+\subsection{Wave dissipation budget}
 
 \begin{itemize}
 \item Cardiac power output at rest: $\mathrm{CPO} \approx \VarCPOWatts$~W
@@ -194,26 +166,29 @@ The Monte Carlo uses $\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}(\alpha) \a
 \item \textbf{Wave power dissipated: $P_{\mathrm{wave}} \approx \VarPWavemW$~mW}
 \end{itemize}
 
-\subsection*{S3.2\ Transport excess budget}
+\subsection{Transport excess budget}
 
 \begin{itemize}
 \item Baseline transport power (sum of $\Phi^*(r^*_g)\cdot\ell_g$ over all vessels): $\sim\VarPBaselinemW$~mW
-\item At $\alpha^* = \VarAlphaStar$: $\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}} = \VarWaveCostNet\%$
+\item At $\alpha^* = \VarAlphaStar$: $\mathcal{C}_\mathrm{transport}^\mathrm{net} \approx \VarTransportCostNet\%$
 \item \textbf{Transport excess: $P_{\mathrm{transport}} \approx \VarPTransportmW$~mW}
 \end{itemize}
 
-\subsection*{S3.3\ Interpretation}
+\subsection{Interpretation}
 
-The ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} \approx \VarPRatio$ confirms that the two competing penalties operate within the same order of magnitude ($\sim$sub-mW). The equal-cost condition at the dimensionless level maps to approximate parity in the absolute energetic margins, not to a dimensional artifact. The factor-of-three discrepancy reflects the asymmetry between multiplicative (wave) and additive (transport) cost accumulation, and is consistent with the implied Lagrange multiplier $\eta^* = \VarEtaStar$ (the system allocates more selective pressure to wave integrity because wave costs are exponentially sensitive to geometry near the impedance horizon).
+The ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} \approx \VarPRatio$ confirms that both penalties are biologically significant (both in the mW range for the coronary tree). The equal-cost condition holds at the \emph{dimensionless} level ($\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}} = \mathcal{C}^{\mathrm{net}}_{\mathrm{transport}} = \VarWaveCostNet\%$), while the absolute ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} < 1$ reflects the difference in normalization baselines: $P_{\mathrm{wave}}$ is normalized against the incident pulsatile power ($\VarPPulsemW$~mW), whereas $P_{\mathrm{transport}}$ is normalized against the full peak-flow metabolic cost ($\VarPBaselinemW$~mW). This dimensional asymmetry is consistent with the implied Lagrange multiplier $\eta^* = \VarEtaStar$: the system allocates more selective pressure to wave integrity because wave costs are exponentially sensitive to geometry near the impedance horizon.
+
+\end{multicols}
+
+For networks where the wave mode is absent ($\eta = 0$), the framework reduces to pure transport optimization, recovering $\alpha = 3$ (Murray's law) for systems with negligible wall cost, and $\alpha_t < 3$ for biological conduits with significant structural wall investment. Qualitative extrapolation to botanical, neural, and engineered systems is consistent with available data (Table~\ref{tab:extended} below). The minimax framework is structurally analogous to the Rate--Distortion frontier, where signal integrity is balanced against transport cost using a system-specific parametrization of $\alpha_w$, $G$, and wall mechanics.
 
 %====================================================================
-\section*{S4.\ Extended Applications}
-\label{sec:S4}
-
-For networks where the wave mode is absent ($\eta = 0$), the framework reduces to pure transport optimization, recovering $\alpha = 3$ (Murray's law) for systems with negligible wall cost, and $\alpha_t < 3$ for biological conduits with significant structural wall investment. Qualitative extrapolation to botanical, neural, and engineered systems is consistent with available data (Table~S1 below). The minimax framework identifies these optima as physical realizations of the Rate--Distortion frontier, where signal integrity is balanced against transport cost using a system-specific parametrization of $\alpha_w$, $G$, and wall mechanics.
+\section{Extended Applications}
+\label{sec:applications}
 
 \begin{table*}[t]
-\caption{Table~S2: Qualitative framework predictions for extended systems.}
+\caption{Qualitative framework predictions for extended systems.}
+\label{tab:extended}
 \centering
 \small
 \begin{tabular}{@{}lcccp{5cm}@{}}
@@ -229,6 +204,7 @@ Fiber optics & EM & 2 & $\sim 2.5$ & Splitter depth-dependent \\
 \end{tabular}
 \end{table*}
 
+\begin{multicols}{2}
 \paragraph{Heat exchanger networks.}
 In branching heat-sink architectures (e.g., microchannel heat sinks for electronics cooling), the ``flow cost'' is the viscous pumping power and the ``wave cost'' is thermal impedance mismatch at junctions where channel geometry changes abruptly. The branching exponent for minimum total entropy generation is predicted by the network Lagrangian (Eq.~7 of the main text) with $\Phi$ replaced by the thermal dissipation function.
 
@@ -236,11 +212,10 @@ In branching heat-sink architectures (e.g., microchannel heat sinks for electron
 Root networks distribute water and nutrients from the soil to the stem. Unlike xylem (which operates under tension and is subject to cavitation---a wave-like failure mode), root hydraulic architecture is dominated by radial water uptake and axial Poiseuille flow. The theory predicts $\alpha \to 3$ for pure-transport roots and $\alpha < 3$ for roots that also transmit hydraulic signals (e.g., ABA-mediated stomatal signaling).
 
 %====================================================================
-\section*{S5.\ Data and Code Availability}
-\label{sec:S5}
+\section{Data and Code Availability}
+\label{sec:data}
 
 All computation scripts, numerical data, and figure-generation code are openly and unconditionally available at \url{https://github.com/rikymarche-ctrl/vascular-networks-theory} under the MIT Licence. No access request is required.
 
 \end{multicols}
-
 \end{document}

@@ -1,25 +1,40 @@
 % DYNAMICALLY GENERATED -- DO NOT EDIT MANUALLY
-% Source: branching_scripts/compute_paper1.py
-% Model: Two-level (Paper 2 local + Paper 1 network wave)
-% Generated: 2026-03-12T04:35:42
+% Source: shared/scripts/compute_paper_variational.py
+% Model: Two-level minimax (equal-cost crossing)
+% Generated: 2026-03-15T04:22:30
 
 % -- Physical parameters --
 \newcommand{\VarAlphaW}{2.115}
 \newcommand{\VarP}{0.77}
 \newcommand{\VarG}{11}
-\newcommand{\VarBeta}{0.7874020718992892}
+\newcommand{\VarBeta}{0.787}
+\newcommand{\VarKe}{0.23}
+\newcommand{\VarAlphaWKe}{2.230}
+\newcommand{\VarAlphaWShift}{0.115}
 
-% -- Duty cycle --
-\newcommand{\VarEtaStar}{0.83}
+% -- Minimax results (eta* computed from derivatives at alpha*) --
+\newcommand{\VarEtaStar}{0.833}
+\newcommand{\VarGradientRatio}{5}
 
 % -- Two-level model results --
 \newcommand{\VarAlphaLocal}{2.90}
 \newcommand{\VarAlphaT}{2.90}
+\newcommand{\VarAlphaTExact}{2.9032}
+\newcommand{\VarAlphaTLow}{2.90}
+\newcommand{\VarAlphaTHigh}{2.94}
+\newcommand{\VarAlphaTConsistency}{0.03}
 \newcommand{\VarAlphaStar}{2.72}
 \newcommand{\VarAlphaExp}{2.70}
 \newcommand{\VarAlphaExpErr}{0.20}
 \newcommand{\VarPredError}{0.7}
 \newcommand{\VarWaveCostNet}{6.3}
+
+% -- Single-junction wave curvature (illustrative N=2, alpha_w=2) --
+\newcommand{\VarKwJunction}{0.030}
+
+% -- Lq robustness --
+\newcommand{\VarAlphaStarQone}{2.712}
+\newcommand{\VarDeltaAlphaLq}{0.117}
 
 % -- Reflection coefficients --
 \newcommand{\VarGammaAWOneFive}{0.0199}
@@ -29,25 +44,108 @@
 \newcommand{\VarGammaAWTwoSevenFive}{0.0064}
 \newcommand{\VarGammaAWThreeZero}{0.0104}
 
-% -- Effective stiffness ratio --
+% -- Effective stiffness ratio (G scan, N=2) --
 \newcommand{\VarKappaGI}{0.00}
-\newcommand{\VarAlphaStarGI}{2.11}
+\newcommand{\VarAlphaStarGI}{2.12}
 \newcommand{\VarAlphaQuadGI}{2.12}
-\newcommand{\VarKappaGV}{1.48}
-\newcommand{\VarAlphaStarGV}{2.49}
-\newcommand{\VarAlphaQuadGV}{2.30}
-\newcommand{\VarKappaGVII}{2.51}
-\newcommand{\VarAlphaStarGVII}{2.60}
-\newcommand{\VarAlphaQuadGVII}{2.38}
+\newcommand{\VarKappaGV}{1.47}
+\newcommand{\VarAlphaStarGV}{2.62}
+\newcommand{\VarAlphaQuadGV}{2.41}
+\newcommand{\VarKappaGVII}{2.50}
+\newcommand{\VarAlphaStarGVII}{2.67}
+\newcommand{\VarAlphaQuadGVII}{2.45}
 \newcommand{\VarKappaGIX}{3.68}
-\newcommand{\VarAlphaStarGIX}{2.67}
-\newcommand{\VarAlphaQuadGIX}{2.45}
+\newcommand{\VarAlphaStarGIX}{2.70}
+\newcommand{\VarAlphaQuadGIX}{2.48}
 \newcommand{\VarKappaGXI}{4.98}
 \newcommand{\VarAlphaStarGXI}{2.72}
 \newcommand{\VarAlphaQuadGXI}{2.51}
-\newcommand{\VarKappaGXV}{7.87}
-\newcommand{\VarAlphaStarGXV}{2.78}
-\newcommand{\VarAlphaQuadGXV}{2.60}
-\newcommand{\VarKappaGXX}{11.85}
-\newcommand{\VarAlphaStarGXX}{2.81}
-\newcommand{\VarAlphaQuadGXX}{2.67}
+\newcommand{\VarKappaGXIII}{6.38}
+\newcommand{\VarAlphaStarGXIII}{2.74}
+\newcommand{\VarAlphaQuadGXIII}{2.53}
+\newcommand{\VarKappaGXV}{7.86}
+\newcommand{\VarAlphaStarGXV}{2.75}
+\newcommand{\VarAlphaQuadGXV}{2.54}
+\newcommand{\VarKappaGXX}{11.83}
+\newcommand{\VarAlphaStarGXX}{2.78}
+\newcommand{\VarAlphaQuadGXX}{2.57}
+
+% -- Topological selection table (N scan, M=2^G fixed) --
+\newcommand{\VarGNII}{11}
+\newcommand{\VarKtNII}{1.470}
+\newcommand{\VarKwNII}{0.295}
+\newcommand{\VarKappaNII}{4.98}
+\newcommand{\VarAlphaStarNII}{2.720}
+\newcommand{\VarSigmaNII}{+0.10}
+\newcommand{\VarGNIII}{7}
+\newcommand{\VarKtNIII}{1.384}
+\newcommand{\VarKwNIII}{0.472}
+\newcommand{\VarKappaNIII}{2.93}
+\newcommand{\VarAlphaStarNIII}{2.683}
+\newcommand{\VarSigmaNIII}{-0.08}
+\newcommand{\VarGNIV}{6}
+\newcommand{\VarKtNIV}{1.601}
+\newcommand{\VarKwNIV}{0.644}
+\newcommand{\VarKappaNIV}{2.48}
+\newcommand{\VarAlphaStarNIV}{2.673}
+\newcommand{\VarSigmaNIV}{-0.14}
+\newcommand{\VarGNVI}{4}
+\newcommand{\VarKtNVI}{0.968}
+\newcommand{\VarKwNVI}{0.718}
+\newcommand{\VarKappaNVI}{1.35}
+\newcommand{\VarAlphaStarNVI}{2.621}
+\newcommand{\VarSigmaNVI}{-0.40}
+
+% -- H(N) scaling, kt variation, and k_t(G) scaling --
+\newcommand{\VarHNScalingExp}{-2.3}
+\newcommand{\VarKtVariation}{40}
+\newcommand{\VarKtGScalingExp}{2.50}
+\newcommand{\VarKappaGScalingExp}{1.50}
+\newcommand{\VarAlphaSecondCrossing}{3.30}
+
+% -- Local alpha range --
+\newcommand{\VarAlphaLocalMin}{2.898}
+\newcommand{\VarAlphaLocalMax}{2.907}
+
+% -- Cross-system validation table --
+\newcommand{\VarPPulmonary}{0.6}
+\newcommand{\VarAlphaWPulmonary}{2.200}
+\newcommand{\VarGPulmonary}{15}
+\newcommand{\VarAlphaStarPulmonary}{2.766}
+\newcommand{\VarAlphaExpPulmonary}{2.75}
+\newcommand{\VarAlphaExpErrPulmonary}{0.15}
+\newcommand{\VarAlphaExpPulmonaryLow}{2.7}
+\newcommand{\VarAlphaExpPulmonaryHigh}{2.8}
+\newcommand{\VarSigmaPulmonary}{0.1}
+\newcommand{\VarAlphaWAorticLow}{2.1}
+\newcommand{\VarAlphaWAorticHigh}{2.25}
+\newcommand{\VarGAortic}{15}
+\newcommand{\VarAlphaStarAorticLow}{2.75}
+\newcommand{\VarAlphaStarAorticHigh}{2.77}
+\newcommand{\VarAlphaExpAortic}{2.5}
+\newcommand{\VarAlphaExpErrAortic}{0.3}
+\newcommand{\VarSigmaAortic}{0.8}
+\newcommand{\VarAlphaWNeural}{1.5}
+\newcommand{\VarGNeural}{8}
+\newcommand{\VarAlphaStarNeural}{2.3}
+\newcommand{\VarAlphaExpNeural}{2.4}
+\newcommand{\VarSigmaNeural}{0.3}
+\newcommand{\VarGAirways}{23}
+\newcommand{\VarAlphaExpAirwaysLow}{2.8}
+\newcommand{\VarAlphaExpAirwaysHigh}{3.0}
+\newcommand{\VarMurrayAlpha}{3}
+
+% -- Minimax band parameter ranges --
+\newcommand{\VarPLow}{0.72}
+\newcommand{\VarPHigh}{0.82}
+\newcommand{\VarGLow}{9}
+\newcommand{\VarGHigh}{13}
+\newcommand{\VarAlphaTLowBand}{2.8}
+\newcommand{\VarAlphaTHighBand}{3.0}
+
+% -- Sensitivity table physical baselines --
+\newcommand{\VarBloodCostSens}{1500}
+\newcommand{\VarWallMetabSens}{20}
+\newcommand{\VarViscositySens}{3.5}
+\newcommand{\VarQzeroSens}{5.2}
+\newcommand{\VarSegLengthSens}{15}

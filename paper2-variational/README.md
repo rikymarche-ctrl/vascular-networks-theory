@@ -31,4 +31,4 @@ python reproduce.py paper2
 | `manuscript/figures/fig2a_minimax.pdf` | Minimax equal-cost intersection |
 | `manuscript/figures/fig2b_robustness.pdf` | Robustness under Lq scalarization |
 | `manuscript/A Unified Variational Principle for Branching Transport Networks.pdf` | Compiled manuscript |
-| `supplements/Supplemental Material - Unified Variational Principle.pdf` | Coherent analysis and UQ tables |
+| `supplements/Supplemental Material - Unified Variational Principle.pdf` | Coherent transfer-matrix analysis and absolute power budget |

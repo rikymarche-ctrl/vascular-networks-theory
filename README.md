@@ -55,9 +55,14 @@ python reproduce.py paper2    # Paper 2 only
 ```
 vascular-networks-theory/
 ├── shared/
-│   └── params.py                       # Single source of truth for all physical constants
+│   └── scripts/
+│       ├── params.py                   # Single source of truth for all physical constants
+│       ├── compute_paper_murray.py     # Paper 1 numerical computations
+│       ├── compute_paper_variational.py# Paper 2 numerical computations
+│       ├── compute_supplemental.py     # Supplemental computations
+│       └── run_all.py                  # Master script (runs all three above)
 ├── paper1-murray/
-│   ├── compute_paper_murray.py         # Generates figures + dynamic_variables.tex
+│   ├── compute_paper_murray.py         # Entry point → delegates to shared/scripts/
 │   ├── manuscript/
 │   │   ├── main.tex                    # LaTeX source
 │   │   ├── references.bib
@@ -65,7 +70,7 @@ vascular-networks-theory/
 │   │   └── figures/
 │   └── supplements/
 ├── paper2-variational/
-│   ├── compute_paper_variational.py
+│   ├── compute_paper_variational.py    # Entry point → delegates to shared/scripts/
 │   ├── manuscript/
 │   └── supplements/
 ├── reproduce.py                        # Cross-platform build script
@@ -81,7 +86,7 @@ vascular-networks-theory/
 
 Every number that appears in the manuscripts is generated automatically:
 
-1. **`shared/params.py`** defines all physical constants, each traced to its published source.
+1. **`shared/scripts/params.py`** defines all physical constants, each traced to its published source.
 2. **`compute_paper_*.py`** runs deterministic numerical computations and writes `dynamic_variables.tex`.
 3. **LaTeX** reads every quantity via `\input{dynamic_variables.tex}` — no value is typed by hand.
 

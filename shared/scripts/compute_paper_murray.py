@@ -128,7 +128,7 @@ def write_tex(results, path):
     lines = [
         "% DYNAMICALLY GENERATED — DO NOT EDIT MANUALLY",
         "% Source: shared/scripts/compute_paper_murray.py",
-        f"% Generated: {np.datetime64('now')}",
+        f"% Generated: {np.datetime64('today', 'D')}",
         "",
         "% Physical parameters",
         f"\\newcommand{{\\ParamMu}}{{{MU*1e3:.1f}}}                    % mPa·s",

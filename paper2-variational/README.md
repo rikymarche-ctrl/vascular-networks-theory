@@ -28,6 +28,7 @@ python reproduce.py paper2
 |---|---|
 | `manuscript/dynamic_variables.tex` | Numerical constants and minimax eigenvalues |
 | `manuscript/figures/fig1_kappa.pdf` | Emergence of the network stiffness ratio |
-| `manuscript/figures/fig2_minimax.pdf` | Convergence to the minimax saddle point |
+| `manuscript/figures/fig2a_minimax.pdf` | Minimax equal-cost intersection |
+| `manuscript/figures/fig2b_robustness.pdf` | Robustness under Lq scalarization |
 | `manuscript/A Unified Variational Principle for Branching Transport Networks.pdf` | Compiled manuscript |
 | `supplements/Supplemental Material - Unified Variational Principle.pdf` | Coherent analysis and UQ tables |

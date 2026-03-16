@@ -443,7 +443,7 @@ def compute_lq_values(r_local, Phi_ref, eta=0.5):
     q1_mask = q_vals >= 1.0
     idx_q1 = np.searchsorted(q_vals, 1.0)
     alpha_star_q1 = float(a_stars_q[idx_q1])
-    spread_q = float(a_stars_q[q1_mask].max() - a_stars_q[q1_mask].min())
+    spread_q = float(a_stars_q[q1_mask].max() - alpha_star_q1)
 
     return alpha_star_q1, spread_q, q_vals, a_stars_q
 
@@ -713,8 +713,8 @@ def generate_figures(results_dict, fig_dir):
     ax.annotate('', xy=(80, a_star), xytext=(80, alpha_star_q1),
                 arrowprops=dict(arrowstyle='<->', color='#1f77b4', lw=1.5))
     ax.text(95, (a_star + alpha_star_q1) / 2,
-            rf'$\Delta\alpha^* = {spread_q:.3f}$', fontsize=9,
-            color='#1f77b4', ha='left', va='center')
+        rf'$\Delta\alpha^* = {a_star - alpha_star_q1:.3f}$', fontsize=9,
+        color='#1f77b4', ha='left', va='center')
     idx_q1 = np.searchsorted(q_vals, 1.0)
     ax.plot(q_vals[idx_q1], alpha_star_q1, 'o',
             color='#d62728', ms=7, zorder=5)

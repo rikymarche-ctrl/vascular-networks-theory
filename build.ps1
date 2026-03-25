@@ -1,25 +1,10 @@
 <#
 .SYNOPSIS
-    Pipeline di build completa per Branching Networks Papers.
-
-.DESCRIPTION
-    1. Rigenera dynamic_variables.tex per tutti i paper (Python)
-    2. Compila i PDF LaTeX
-    3. Copia i PDF finali in Output_PDFs/
-    4. Pulisce i file temporanei LaTeX
-
+    Master Pipeline per Branching Networks Papers.
+    Invia i comandi ai build.ps1 dedicati in ogni cartella paper per la massima modularità.
 .PARAMETER Target
-    "all"    — tutto (default)
-    "compute"— solo step Python (rigenera variabili)
-    "latex"  — solo step LaTeX (usa variabili esistenti)
-    "paper1" / "paper2" / "paper3" — singolo paper
-    "clean"  — rimuove file temporanei da tutte le cartelle
-
-.EXAMPLE
-    .\build.ps1
-    .\build.ps1 -Target paper3
-    .\build.ps1 -Target compute
-    .\build.ps1 -Target clean
+    "all"    — compila tutti i paper abilitati
+    "paper1" / "paper2" — compila il singolo paper delegando al suo script
 #>
 
 param(
@@ -27,196 +12,57 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-
 $rootDir = $PSScriptRoot
-$scriptsDir = Join-Path $rootDir "shared\scripts"
-$outDir = Join-Path $rootDir "Output_PDFs"
 
-# ─────────────────────────────────────────────────────────────
-# Definizione paper
-# ─────────────────────────────────────────────────────────────
+# Ordine di compilazione e cartelle abilitate
 $papers = @(
-    @{
-        Id        = "paper1"
-        Dir       = "paper1-murray\manuscript"
-        MainFile  = "main"
-        FinalName = "Beyond Murray's Law.pdf"
-        HasBibtex = $true
-    },
-    @{
-        Id        = "paper2"
-        Dir       = "paper2-variational\manuscript"
-        MainFile  = "main"
-        FinalName = "A Unified Variational Principle for Branching Transport Networks.pdf"
-        HasBibtex = $true
-    },
-    @{
-        Id        = "supp2"
-        Dir       = "paper2-variational\supplements"
-        MainFile  = "supplemental"
-        FinalName = "Supplemental Material - Unified Variational Principle.pdf"
-        HasBibtex = $false
-    },
-    @{
-        Id        = "paper3"
-        Dir       = "paper3-neural\manuscript"
-        MainFile  = "main"
-        FinalName = "Universal Energy Optimization for Dendritic Morphology.pdf"
-        HasBibtex = $false
-    }
+    "paper1-murray",
+    "paper2-variational",
+    "paper3-kleiber",
+    "paper4-incommensurability"
+    # "paper5-neural"   # work in progress — excluded from default build
 )
 
-# ─────────────────────────────────────────────────────────────
-# Utility: pulizia file temporanei LaTeX
-# ─────────────────────────────────────────────────────────────
-function Remove-TexTempFiles($dir) {
-    $exts = @("*.aux", "*.log", "*.out", "*.toc", "*.bbl", "*.blg",
-        "*.fls", "*.fdb_latexmk", "*.synctex.gz", "texput.log")
-    foreach ($ext in $exts) {
-        Get-ChildItem -Path $dir -Filter $ext -ErrorAction SilentlyContinue |
-        Remove-Item -Force
-    }
-}
+Write-Host "============================================================" -ForegroundColor Magenta
+Write-Host " BRANCHING NETWORKS MASTER BUILD PIPELINE" -ForegroundColor Magenta
+Write-Host "============================================================" -ForegroundColor Magenta
 
-# ─────────────────────────────────────────────────────────────
-# Target: clean
-# ─────────────────────────────────────────────────────────────
 if ($Target -eq "clean") {
-    Write-Host "Pulizia file temporanei..." -ForegroundColor Cyan
-    foreach ($p in $papers) {
-        $d = Join-Path $rootDir $p.Dir
-        Remove-TexTempFiles $d
-        Write-Host "  [OK] $($p.Dir)" -ForegroundColor DarkGray
-    }
-    Write-Host "Pulizia completata." -ForegroundColor Green
+    Write-Host "Clean command is distributed to local repos (to be implemented)." -ForegroundColor DarkYellow
     exit 0
 }
 
-# ─────────────────────────────────────────────────────────────
-# Step 1: Python — rigenera dynamic_variables.tex
-# ─────────────────────────────────────────────────────────────
-if ($Target -eq "all" -or $Target -eq "compute") {
-    Write-Host "`n[STEP 1/2] Rigenerazione variabili dinamiche (Python)" -ForegroundColor Cyan
-
-    $runAll = Join-Path $scriptsDir "run_all.py"
-    if (-not (Test-Path $runAll)) {
-        Write-Error "Non trovo $runAll"
+$targetPapers = @()
+if ($Target -eq "all") {
+    $targetPapers = $papers
+} else {
+    $targetPapers = $papers | Where-Object { $_ -match $Target }
+    if ($targetPapers.Length -eq 0) {
+        Write-Error "Nessuna cartella corrisponde al target '$Target'."
         exit 1
     }
-
-    Push-Location $scriptsDir
-    try {
-        $result = python run_all.py 2>&1
-        Write-Host $result
-        if ($LASTEXITCODE -ne 0) {
-            Write-Error "run_all.py ha fallito (exit code $LASTEXITCODE)"
-            exit 1
-        }
-        Write-Host "  [OK] dynamic_variables.tex aggiornati per tutti i paper" -ForegroundColor Green
-    }
-    finally {
-        Pop-Location
-    }
-
-    if ($Target -eq "compute") { exit 0 }
 }
 
-# ─────────────────────────────────────────────────────────────
-# Step 2: LaTeX — compila i PDF
-# ─────────────────────────────────────────────────────────────
-if ($Target -eq "all" -or $Target -eq "latex" -or ($Target -in ($papers | ForEach-Object { $_.Id }))) {
-    Write-Host "`n[STEP 2/2] Compilazione LaTeX" -ForegroundColor Cyan
-
-    if (-not (Test-Path $outDir)) {
-        New-Item -ItemType Directory -Path $outDir | Out-Null
-    }
-
-    $errors = @()
-
-    foreach ($p in $papers) {
-        # Filtra per target specifico
-        if ($Target -ne "all" -and $Target -ne "latex" -and $Target -ne $p.Id) {
-            continue
-        }
-
-        $workDir = Join-Path $rootDir $p.Dir
-        $main = $p.MainFile
-
-        Write-Host "`n  >>> $($p.Id): $($p.FinalName)" -ForegroundColor Yellow
-
-        if (-not (Test-Path $workDir)) {
-            Write-Host "  [SKIP] Cartella non trovata: $workDir" -ForegroundColor DarkYellow
-            continue
-        }
-
-        Push-Location $workDir
+foreach ($p in $targetPapers) {
+    Write-Host "`n>>> DELEGATING BUILD TO: $p" -ForegroundColor Magenta
+    $pDir = Join-Path $rootDir $p
+    if (Test-Path (Join-Path $pDir "build.ps1")) {
+        Push-Location $pDir
         try {
-            # pdflatex scrive direttamente col nome finale (-jobname)
-            # → nessuna rinomina, nessun conflitto con file aperti nel viewer
-            $jobname = $p.FinalName -replace '\.pdf$', ''
-
-            Write-Host "      pdflatex pass 1..." -ForegroundColor DarkGray
-            pdflatex -interaction=nonstopmode -jobname "$jobname" "$main.tex" | Out-Null
-
-            if ($p.HasBibtex) {
-                Write-Host "      bibtex..." -ForegroundColor DarkGray
-                bibtex "$jobname" | Out-Null
-                Write-Host "      pdflatex pass 2..." -ForegroundColor DarkGray
-                pdflatex -interaction=nonstopmode -jobname "$jobname" "$main.tex" | Out-Null
+            # Chiama lo script locale
+            .\build.ps1
+            if ($LASTEXITCODE -ne 0) {
+                Write-Error "Build fallita nel modulo $p"
             }
-
-            Write-Host "      pdflatex pass finale..." -ForegroundColor DarkGray
-            pdflatex -interaction=nonstopmode -jobname "$jobname" "$main.tex" | Out-Null
-
-            # Verifica errori fatali nel log
-            $logFile = "$jobname.log"
-            $fatalErrors = @()
-            if (Test-Path $logFile) {
-                $fatalErrors = @(Select-String -Path $logFile -Pattern "^!")
-            }
-            if ($fatalErrors.Count -gt 0) {
-                Write-Host "  [ERRORE] $($p.Id): $($fatalErrors.Count) errori fatali nel log" -ForegroundColor Red
-                $fatalErrors | Select-Object -First 5 | ForEach-Object {
-                    Write-Host "    $($_.Line)" -ForegroundColor DarkRed
-                }
-                $errors += $p.Id
-            }
-
-            # Copia in Output_PDFs
-            $pdf = "$jobname.pdf"
-            $dest = Join-Path $outDir $p.FinalName
-            if (Test-Path $pdf) {
-                Copy-Item -Path $pdf -Destination $dest -Force
-                Write-Host "  [OK] $($p.FinalName)" -ForegroundColor Green
-            }
-            else {
-                Write-Host "  [ERRORE] PDF non generato per $($p.Id)" -ForegroundColor Red
-                $errors += $p.Id
-            }
-
-            # Pulizia temporanei (i .aux/.log hanno il jobname, non "main")
-            Remove-TexTempFiles $workDir
-
-        }
-        catch {
-            Write-Host "  [ERRORE] $($p.Id): $_" -ForegroundColor Red
-            $errors += $p.Id
-        }
-        finally {
+        } finally {
             Pop-Location
         }
+    } else {
+        Write-Host "  [SKIP] Script build.ps1 non trovato in $p" -ForegroundColor DarkYellow
     }
-
-    # ─── Riepilogo finale ───
-    Write-Host "`n════════════════════════════════════" -ForegroundColor Cyan
-    if ($errors.Count -eq 0) {
-        Write-Host "BUILD COMPLETATA SENZA ERRORI" -ForegroundColor Green
-        Write-Host "PDF pronti in: Output_PDFs\" -ForegroundColor Green
-    }
-    else {
-        Write-Host "BUILD COMPLETATA CON ERRORI in: $($errors -join ', ')" -ForegroundColor Red
-        Write-Host "Controlla i file .log nelle cartelle sorgente" -ForegroundColor Red
-        exit 1
-    }
-    Write-Host "════════════════════════════════════" -ForegroundColor Cyan
 }
+
+Write-Host "`n============================================================" -ForegroundColor Magenta
+Write-Host " MASTER PIPELINE COMPLETATA" -ForegroundColor Magenta
+Write-Host " Tutti i PDF sono stati aggiornati globalmente in /Output_PDFs" -ForegroundColor Magenta
+Write-Host "============================================================" -ForegroundColor Magenta

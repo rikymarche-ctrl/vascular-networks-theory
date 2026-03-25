@@ -35,7 +35,9 @@ A Unified Variational Principle for Branching Transport Networks}
 
 \begin{multicols}{2}
 
-%====================================================================
+% ====================================================================
+% SECTION 1: Coherent Wave Reflection: Transfer-Matrix Analysis
+% ====================================================================
 \section{Coherent Wave Reflection: Transfer-Matrix Analysis}
 \label{sec:coherent}
 
@@ -58,13 +60,16 @@ c_g = \sqrt{\frac{E\,h_g}{2\rho\,r_g}}
 \end{equation}
 with $E = \VarElasticModulusMPa$~MPa (typical coronary elastic modulus).
 
-The \textbf{Womersley velocity-profile correction} $F_{10}$ is computed using Bessel functions:
+The \textbf{Womersley velocity-profile correction} $F_{10}$ is computed using
+Bessel functions:
 \begin{equation}
 F_{10}(\mathrm{Wo}) = \frac{2\,J_1(\lambda)}{\lambda\,J_0(\lambda)}
 \end{equation}
-where $\lambda = \mathrm{Wo} \cdot j^{3/2}$ and $\mathrm{Wo} = r_g\sqrt{\omega\rho/\mu}$ is the Womersley number.
+where $\lambda = \mathrm{Wo} \cdot j^{3/2}$ and $\mathrm{Wo} =
+r_g\sqrt{\omega\rho/\mu}$ is the Womersley number.
 
-The \textbf{characteristic impedance} and \textbf{propagation constant} of each segment are:
+The \textbf{characteristic impedance} and \textbf{propagation constant} of each
+segment are:
 \begin{equation}
 Z_{c,g} = \frac{\rho\,c_g}{\pi r_g^2}\,, \qquad \gamma_g = \frac{j\omega\sqrt{1-F_{10}}}{c_g}\,.
 \end{equation}
@@ -73,7 +78,9 @@ The \textbf{terminal load} at generation $G$ is a two-element Windkessel:
 \begin{equation}
 Z_{\mathrm{term}} = \frac{R_{\mathrm{term}}}{1 + j\omega R_{\mathrm{term}} C_{\mathrm{term}}}
 \end{equation}
-with $R_{\mathrm{term}} = 8\mu\ell_{\mathrm{cap}}/(\pi r_G^4)$ (Poiseuille resistance of a capillary-length segment) and $C_{\mathrm{term}} = 3\pi r_G^3 \ell_G/(2Eh_G)$ (elastic compliance of the terminal vessel).
+with $R_{\mathrm{term}} = 8\mu\ell_{\mathrm{cap}}/(\pi r_G^4)$ (Poiseuille
+resistance of a capillary-length segment) and $C_{\mathrm{term}} = 3\pi r_G^3
+\ell_G/(2Eh_G)$ (elastic compliance of the terminal vessel).
 
 \textbf{Backward recursion.} Starting from $Z_{\mathrm{in}} = Z_{\mathrm{term}}$, at each generation $g = G-1, \ldots, 0$:
 \begin{enumerate}
@@ -92,9 +99,14 @@ The \textbf{total reflection coefficient} at the root is:
 \subsection*{S1.3\ Results}
 
 \paragraph{Terminal-load dominance.}
-At the impedance-matching exponent $\alpha = \alpha_w = \VarAlphaW$, where all junctions are perfectly matched, the coherent model still predicts $|\Gamma_{\mathrm{total}}|^2(\alpha_w) = \VarGammaTotalAW$. This residual reflection is entirely due to the resistive terminal capillary load, not junction geometry.
+At the impedance-matching exponent $\alpha = \alpha_w = \VarAlphaW$, where all
+junctions are perfectly matched, the coherent model still predicts
+$|\Gamma_{\mathrm{total}}|^2(\alpha_w) = \VarGammaTotalAW$. This residual
+reflection is entirely due to the resistive terminal capillary load, not
+junction geometry.
 
-The physically relevant quantity for the minimax optimization is the \textbf{geometric penalty}:
+The physically relevant quantity for the minimax optimization is the
+\textbf{geometric penalty}:
 \begin{equation}
 \Delta_{\mathrm{coherent}}(\alpha) = |\Gamma_{\mathrm{total}}(\alpha)|^2 - |\Gamma_{\mathrm{total}}(\alpha_w)|^2
 \end{equation}
@@ -107,7 +119,10 @@ For $\alpha > 2.3$, $\Delta_{\mathrm{coherent}}(\alpha)$ is:
 \item \textbf{Pearson Correlation} --- the coherent and incoherent measures are highly correlated ($R = \VarCoherentCorr$), confirming the topological scaling.
 \end{enumerate}
 
-The proportionality constant (factor of $\sim\VarCoherentFactor$) reflects the coherent amplification expected in a $kL\ll 1$ lattice; the minimax shift relative to the incoherent model is $|\Delta\alpha^*| = \VarCoherentShift < 0.01$.
+The proportionality constant (factor of $\sim\VarCoherentFactor$) reflects the
+coherent amplification expected in a $kL\ll 1$ lattice; the minimax shift
+relative to the incoherent model is $|\Delta\alpha^*| = \VarCoherentShift <
+0.01$.
 
 \paragraph{Per-harmonic analysis} at $\alpha = \VarAlphaStar$:
 
@@ -127,18 +142,49 @@ Harmonic & $f$ (Hz) & $|\Gamma_{\mathrm{total}}|^2$ \\
 
 \emph{Note:} these values reflect the total $|\Gamma|^2$ at $\alpha^* = \VarAlphaStar$, comprising the architecture-dependent geometric penalty (${\approx}0.79$, coherent amplification of $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ by the factor ${\sim}\VarCoherentFactor$) and the residual terminal Windkessel contribution (${\approx}0.03$ at $\alpha_w$, see $\VarGammaTotalAW$ above). The geometric penalty $\Delta_\mathrm{coherent}$ dominates the $\alpha$-dependent variation; see Fig.~S1A.
 
-The modest variation across harmonics confirms that standing-wave interferences are negligible in this regime (Womersley numbers $\mathrm{Wo} < \VarWomersleyMax$ throughout the tree, providing viscous damping).
+The modest variation across harmonics confirms that standing-wave interferences
+are negligible in this regime (Womersley numbers $\mathrm{Wo} <
+\VarWomersleyMax$ throughout the tree, providing viscous damping).
 
-Frequency-averaged geometric penalty confirms a unique crossing with minimax shift $|\Delta\alpha^*| = \VarCoherentShift$, numerically indistinguishable from zero at three-decimal precision. The topological attractor is therefore fully immune to coherent standing-wave interferences in the physiological coronary regime.
+Frequency-averaged geometric penalty confirms a unique crossing with minimax
+shift $|\Delta\alpha^*| = \VarCoherentShift$, numerically indistinguishable from
+zero at three-decimal precision. The topological attractor is therefore fully
+immune to coherent standing-wave interferences in the physiological coronary
+regime.
 
 \subsection*{S1.4\ Discussion}
 
-The incoherent model (Eq.~5 of the main text) measures the correct physical quantity: the geometric penalty for choosing $\alpha \neq \alpha_w$ at each junction, accumulated multiplicatively through the tree. The coherent transfer-matrix calculation confirms that this geometric penalty is the dominant $\alpha$-dependent component of total wave reflection, and that the large baseline reflection is a property of the terminal load boundary condition, not of junction geometry.
+The incoherent model (Eq.~5 of the main text) measures the correct physical
+quantity: the geometric penalty for choosing $\alpha \neq \alpha_w$ at each
+junction, accumulated multiplicatively through the tree. The coherent
+transfer-matrix calculation confirms that this geometric penalty is the dominant
+$\alpha$-dependent component of total wave reflection, and that the large
+baseline reflection is a property of the terminal load boundary condition, not
+of junction geometry.
 
 \paragraph{Note on Architectural Consistency.}
-In this coherent transfer-matrix calculation, the network is modeled as a uniform tree defined by the global architectural parameter $\alpha$ ($r_g = r_0 \cdot 2^{-g/\alpha}$), with a representative constant elastic modulus $E=\VarElasticModulusMPa$~MPa. This is done to preserve strict structural consistency with the main text, where $\alpha$ is treated as a global topological constraint and the transport cost $\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}(\alpha)$ measures the penalty of deviating from local optima. While the sub-linear wall-thickness law $h(r) \propto r^p$ inherently implies a proximodistal impedance gradient (a ``chirped'' lattice), evaluating the wave equations on the purely uniform baseline correctly isolates the geometric penalty $\Delta_{\mathrm{coherent}}(\alpha)$ attributable to $\alpha$ alone. Fully variational optimization relaxing the global $\alpha$ constraint to locally varying branching ratios ($\rho_g$) over a chirped impedance lattice represents a natural extension of this framework.
+In this coherent transfer-matrix calculation, the network is modeled as a
+uniform tree defined by the global architectural parameter $\alpha$ ($r_g = r_0
+\cdot 2^{-g/\alpha}$), with a representative constant elastic modulus
+$E=\VarElasticModulusMPa$~MPa. This is done to preserve strict structural
+consistency with the main text, where $\alpha$ is treated as a global
+topological constraint and the transport cost
+$\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}}(\alpha)$ measures the penalty
+of deviating from local optima. While the sub-linear wall-thickness law $h(r)
+\propto r^p$ inherently implies a proximodistal impedance gradient (a
+``chirped'' lattice), evaluating the wave equations on the purely uniform
+baseline correctly isolates the geometric penalty
+$\Delta_{\mathrm{coherent}}(\alpha)$ attributable to $\alpha$ alone. Fully
+variational optimization relaxing the global $\alpha$ constraint to locally
+varying branching ratios ($\rho_g$) over a chirped impedance lattice represents
+a natural extension of this framework.
 
-The factor-of-$\VarCoherentFactor$ ratio between $\Delta_{\mathrm{coherent}}$ and $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ reflects the coherent amplification $|\Gamma_{\mathrm{total}}|^2 \sim G^2|\Gamma_{\mathrm{single}}|^2$ expected in a $kL\ll 1$ lattice; the proportionality of their $\alpha$-dependences ($r=\VarCoherentCorr$) confirms that the geometric sensitivity of the two models is consistent despite this amplitude difference.
+The factor-of-$\VarCoherentFactor$ ratio between $\Delta_{\mathrm{coherent}}$
+and $\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}}$ reflects the coherent
+amplification $|\Gamma_{\mathrm{total}}|^2 \sim G^2|\Gamma_{\mathrm{single}}|^2$
+expected in a $kL\ll 1$ lattice; the proportionality of their
+$\alpha$-dependences ($r=\VarCoherentCorr$) confirms that the geometric
+sensitivity of the two models is consistent despite this amplitude difference.
 
 
 \end{multicols}
@@ -152,9 +198,15 @@ The factor-of-$\VarCoherentFactor$ ratio between $\Delta_{\mathrm{coherent}}$ an
 
 \begin{multicols}{2}
 
+% ====================================================================
+% SECTION 2: Power Conversion to Absolute Units
+% ====================================================================
 \section{Power Conversion to Absolute Units}
 \label{sec:power}
 
+% --------------------------------------------------------------------
+% SUBSECTION 2.1: Wave dissipation budget
+% --------------------------------------------------------------------
 \subsection{Wave dissipation budget}
 
 \begin{itemize}
@@ -166,6 +218,9 @@ The factor-of-$\VarCoherentFactor$ ratio between $\Delta_{\mathrm{coherent}}$ an
 \item \textbf{Wave power dissipated: $P_{\mathrm{wave}} \approx \VarPWavemW$~mW}
 \end{itemize}
 
+% --------------------------------------------------------------------
+% SUBSECTION 2.2: Transport excess budget
+% --------------------------------------------------------------------
 \subsection{Transport excess budget}
 
 \begin{itemize}
@@ -174,15 +229,40 @@ The factor-of-$\VarCoherentFactor$ ratio between $\Delta_{\mathrm{coherent}}$ an
 \item \textbf{Transport excess: $P_{\mathrm{transport}} \approx \VarPTransportmW$~mW}
 \end{itemize}
 
+% --------------------------------------------------------------------
+% SUBSECTION 2.3: Interpretation
+% --------------------------------------------------------------------
 \subsection{Interpretation}
 
-The ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} \approx \VarPRatio$ confirms that both penalties are biologically significant (both in the mW range for the coronary tree). The equal-cost condition holds at the \emph{dimensionless} level ($\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}} = \mathcal{C}^{\mathrm{net}}_{\mathrm{transport}} = \VarWaveCostNet\%$), while the absolute ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} < 1$ reflects the difference in normalization baselines: $P_{\mathrm{wave}}$ is normalized against the incident pulsatile power ($\VarPPulsemW$~mW), whereas $P_{\mathrm{transport}}$ is normalized against the full peak-flow metabolic cost ($\VarPBaselinemW$~mW). This dimensional asymmetry is consistent with the implied Lagrange multiplier $\eta^* = \VarEtaStar$: the system allocates more selective pressure to wave integrity because wave costs are exponentially sensitive to geometry near the impedance horizon.
+The ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} \approx \VarPRatio$ confirms
+that both penalties are biologically significant (both in the mW range for the
+coronary tree). The equal-cost condition holds at the \emph{dimensionless} level
+($\mathcal{C}^{\mathrm{net}}_{\mathrm{wave}} =
+\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}} = \VarWaveCostNet\%$), while the
+absolute ratio $P_{\mathrm{wave}}/P_{\mathrm{transport}} < 1$ reflects the
+difference in normalization baselines: $P_{\mathrm{wave}}$ is normalized against
+the incident pulsatile power ($\VarPPulsemW$~mW), whereas
+$P_{\mathrm{transport}}$ is normalized against the full peak-flow metabolic cost
+($\VarPBaselinemW$~mW). This dimensional asymmetry is consistent with the
+implied Lagrange multiplier $\eta^* = \VarEtaStar$: the system allocates more
+selective pressure to wave integrity because wave costs are exponentially
+sensitive to geometry near the impedance horizon.
 
 \end{multicols}
 
-For networks where the wave mode is absent ($\eta = 0$), the framework reduces to pure transport optimization, recovering $\alpha = 3$ (Murray's law) for systems with negligible wall cost, and $\alpha_t < 3$ for biological conduits with significant structural wall investment. Qualitative extrapolation to botanical, neural, and engineered systems is consistent with available data (Table~\ref{tab:extended} below). The minimax framework is structurally analogous to the Rate--Distortion frontier, where signal integrity is balanced against transport cost using a system-specific parametrization of $\alpha_w$, $G$, and wall mechanics.
+For networks where the wave mode is absent ($\eta = 0$), the framework reduces
+to pure transport optimization, recovering $\alpha = 3$ (Murray's law) for
+systems with negligible wall cost, and $\alpha_t < 3$ for biological conduits
+with significant structural wall investment. Qualitative extrapolation to
+botanical, neural, and engineered systems is consistent with available data
+(Table~\ref{tab:extended} below). The minimax framework is structurally
+analogous to the Rate--Distortion frontier, where signal integrity is balanced
+against transport cost using a system-specific parametrization of $\alpha_w$,
+$G$, and wall mechanics.
 
-%====================================================================
+% ====================================================================
+% SECTION 3: Extended Applications
+% ====================================================================
 \section{Extended Applications}
 \label{sec:applications}
 
@@ -206,16 +286,31 @@ Fiber optics & EM & 2 & $\sim 2.5$ & Splitter depth-dependent \\
 
 \begin{multicols}{2}
 \paragraph{Heat exchanger networks.}
-In branching heat-sink architectures (e.g., microchannel heat sinks for electronics cooling), the ``flow cost'' is the viscous pumping power and the ``wave cost'' is thermal impedance mismatch at junctions where channel geometry changes abruptly. The branching exponent for minimum total entropy generation is predicted by the network Lagrangian (Eq.~7 of the main text) with $\Phi$ replaced by the thermal dissipation function.
+In branching heat-sink architectures (e.g., microchannel heat sinks for
+electronics cooling), the ``flow cost'' is the viscous pumping power and the
+``wave cost'' is thermal impedance mismatch at junctions where channel geometry
+changes abruptly. The branching exponent for minimum total entropy generation is
+predicted by the network Lagrangian (Eq.~7 of the main text) with $\Phi$
+replaced by the thermal dissipation function.
 
 \paragraph{Plant root systems.}
-Root networks distribute water and nutrients from the soil to the stem. Unlike xylem (which operates under tension and is subject to cavitation---a wave-like failure mode), root hydraulic architecture is dominated by radial water uptake and axial Poiseuille flow. The theory predicts $\alpha \to 3$ for pure-transport roots and $\alpha < 3$ for roots that also transmit hydraulic signals (e.g., ABA-mediated stomatal signaling).
+Root networks distribute water and nutrients from the soil to the stem. Unlike
+xylem (which operates under tension and is subject to cavitation---a wave-like
+failure mode), root hydraulic architecture is dominated by radial water uptake
+and axial Poiseuille flow. The theory predicts $\alpha \to 3$ for pure-transport
+roots and $\alpha < 3$ for roots that also transmit hydraulic signals (e.g.,
+ABA-mediated stomatal signaling).
 
-%====================================================================
+% ====================================================================
+% SECTION 4: Data and Code Availability
+% ====================================================================
 \section{Data and Code Availability}
 \label{sec:data}
 
-All computation scripts, numerical data, and figure-generation code are openly and unconditionally available at \url{https://github.com/rikymarche-ctrl/vascular-networks-theory} under the MIT Licence. No access request is required.
+All computation scripts, numerical data, and figure-generation code are openly
+and unconditionally available at
+\url{https://github.com/rikymarche-ctrl/vascular-networks-theory} under the MIT
+Licence. No access request is required.
 
 \end{multicols}
 \end{document}

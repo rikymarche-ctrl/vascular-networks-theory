@@ -13,7 +13,9 @@ version: 1.1.0
 date-released: "2026-03-15"
 license: CC-BY-4.0
 repository-code: https://github.com/rikymarche-ctrl/vascular-networks-theory
-doi: 10.5281/zenodo.18975093
+identifiers:
+  - type: doi
+    value: 10.48550/arXiv.2603.13687
 references:
   - type: article
     authors:
@@ -23,11 +25,11 @@ references:
       Beyond Murray's Law: Non-Universal Branching Exponents
       from Vessel-Wall Metabolic Costs
     year: 2026
-    doi: 10.5281/zenodo.18975093
+    doi: 10.48550/arXiv.2603.13687
   - type: article
     authors:
       - family-names: Marchesi
         given-names: Riccardo
     title: "A Unified Variational Principle for Branching Transport Networks"
     year: 2026
-    doi: 10.5281/zenodo.19027393
+    doi: 10.48550/arXiv.2603.14691

@@ -1,47 +1,58 @@
-% DYNAMICALLY GENERATED — DO NOT EDIT MANUALLY
-% Source: shared/scripts/compute_paper_murray.py
-% Generated: 2026-03-15T04:22:20
+% ====================================================================
+% DYNAMIC VARIABLES
+% ====================================================================
+% Source: paper1-murray/scripts/compute.py
+% Generated: 2026-03-25
+% ====================================================================
 
-% Physical parameters
-\newcommand{\ParamMu}{3.5}                    % mPa·s
-\newcommand{\ParamB}{1500}                          % W/m³
-\newcommand{\ParamMwLow}{5}             % kW/m3
-\newcommand{\ParamMwMid}{20}             % kW/m3
-\newcommand{\ParamMwHigh}{35}           % kW/m3
-\newcommand{\ParamCzero}{0.041}
-\newcommand{\ParamP}{0.77}
-\newcommand{\ParamQ}{1.3}            % mL/s
-\newcommand{\ParamRzero}{1.5}        % mm
+% --------------------------------------------------------------------
+% 1. PHYSICAL PARAMETERS
+% --------------------------------------------------------------------
+\newcommand{\ParamMu}{3.5}                         % [mPa s   ] Dynamic viscosity of blood
+\newcommand{\ParamB}{1500}                         % [W/m³    ] Metabolic cost per unit blood volume
+\newcommand{\ParamMwLow}{5}                        % [kW/m³   ] Lower bound: Metabolic rate of wall tissue
+\newcommand{\ParamMwMid}{20}                       % [kW/m³   ] Reference: Metabolic rate of wall tissue
+\newcommand{\ParamMwHigh}{35}                      % [kW/m³   ] Upper bound: Metabolic rate of wall tissue
+\newcommand{\ParamCzero}{0.041}                    % [m^{1-p} ] Histological wall thickness pre-factor
+\newcommand{\ParamP}{0.77}                         % [-       ] Histological wall thickness exponent
+\newcommand{\ParamQ}{1.3}                          % [mL/s    ] Inlet volumetric flow rate for coronary artery
+\newcommand{\ParamRzero}{1.5}                      % [mm      ] Inlet radius for coronary artery
 
-% Table 2: Predicted alpha*
-\newcommand{\AlphaStarLow}{2.938}
-\newcommand{\AlphaStarMid}{2.905}
-\newcommand{\AlphaStarHigh}{2.897}
-\newcommand{\RstarLow}{1.200}
-\newcommand{\RstarMid}{1.019}
-\newcommand{\RstarHigh}{0.937}
-\newcommand{\AlphaMurrayLimit}{3.000000}
+% --------------------------------------------------------------------
+% 2. PREDICTED EXPONENTS AND GEOMETRY (TABLE 2)
+% --------------------------------------------------------------------
+\newcommand{\AlphaStarLow}{2.938}                  % [-       ] Optimum branching exponent at MW_LOW
+\newcommand{\AlphaStarMid}{2.905}                  % [-       ] Optimum branching exponent at MW_MID
+\newcommand{\AlphaStarHigh}{2.897}                 % [-       ] Optimum branching exponent at MW_HIGH
+\newcommand{\RstarLow}{1.200}                      % [mm      ] Optimum parent radius at MW_LOW
+\newcommand{\RstarMid}{1.019}                      % [mm      ] Optimum parent radius at MW_MID
+\newcommand{\RstarHigh}{0.937}                     % [mm      ] Optimum parent radius at MW_HIGH
+\newcommand{\AlphaMurrayLimit}{3.000000}           % [-       ] Branching exponent in the pure Murray limit ($m_w \to 0$)
 
-% Bounds
-\newcommand{\BoundLower}{2.885}
-\newcommand{\BoundUpper}{3.000}
+% --------------------------------------------------------------------
+% 3. THEORETICAL BOUNDS
+% --------------------------------------------------------------------
+\newcommand{\BoundLower}{2.885}                    % [-       ] Strict lower bound for the exponent $\alpha^* > (5+p)/2$
+\newcommand{\BoundUpper}{3.000}                    % [-       ] Strict upper bound for the exponent $\alpha^* < 3$
 
-% Classification table
-\newcommand{\ClassImpedance}{2.000}
-\newcommand{\ClassDaVinci}{2.500}
-\newcommand{\ClassWall}{2.885}
-\newcommand{\ClassMurray}{3.000}
+% --------------------------------------------------------------------
+% 4. SINGLE-TERM CLASSIFICATION TABLE
+% --------------------------------------------------------------------
+\newcommand{\ClassImpedance}{2.000}                % [-       ] Exponent for impedance matching ($\gamma=0$)
+\newcommand{\ClassDaVinci}{2.500}                  % [-       ] Exponent for Da Vinci surface law ($\gamma=1$)
+\newcommand{\ClassWall}{2.885}                     % [-       ] Exponent for pure wall cost ($\gamma=1+p$)
+\newcommand{\ClassMurray}{3.000}                   % [-       ] Exponent for pure Murray volume cost ($\gamma=2$)
 
-% Angle bounds
-\newcommand{\AngleMurrayFull}{74.9}
-\newcommand{\AngleWallFull}{80.2}
+% --------------------------------------------------------------------
+% 5. OPTIMAL BIFURCATION ANGLES
+% --------------------------------------------------------------------
+\newcommand{\AngleMurrayFull}{74.9}                % [deg     ] Full bifurcation angle $2\theta$ in Murray limit
+\newcommand{\AngleWallFull}{80.2}                  % [deg     ] Full bifurcation angle $2\theta$ in Wall limit
 
-% Delta-alpha
-\newcommand{\DeltaAlphaMurray}{0.30}
-\newcommand{\DeltaAlphaOurs}{0.20}
-
-% Scale range
-\newcommand{\AlphaScaleRange}{0.012}
-
-% Cross-network
-\newcommand{\AlphaPulmonaryLimit}{2.800}
+% --------------------------------------------------------------------
+% 6. MACROSCOPIC COMPARISONS
+% --------------------------------------------------------------------
+\newcommand{\DeltaAlphaMurray}{0.30}               % [-       ] Discrepancy: Murray law vs. Empirical mean (3.0 - 2.7)
+\newcommand{\DeltaAlphaOurs}{0.20}                 % [-       ] Remaining Discrepancy: Our model vs. Empirical mean
+\newcommand{\AlphaScaleRange}{0.012}               % [-       ] Variation of $\alpha^*$ over 4 decades of flow scale
+\newcommand{\AlphaPulmonaryLimit}{2.800}           % [-       ] Theoretical wall limit for the pulmonary network

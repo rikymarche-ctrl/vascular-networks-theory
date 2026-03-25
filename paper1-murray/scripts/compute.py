@@ -1,10 +1,45 @@
 """
-compute_paper_murray.py — Compute all numerical results for the Paper: Beyond Murray's Law.
+compute.py — Paper I: Beyond Murray's Law
+==========================================
+Generates dynamic_variables.tex containing all LaTeX \\newcommand definitions
+used in the manuscript, together with the manuscript figure. Every calculated
+quantity in the .tex file originates here; no numerical values are hardcoded
+in the source.
 
-Generates: dynamic_variables.tex for the Paper
-           fig_alpha_scale.pdf
+Model: Three-term single-vessel cost minimisation
+--------------------------------------------------
+The metabolic cost per unit length of a cylindrical vessel of radius r
+carrying volumetric flow Q is:
 
-All outputs are deterministic and reproducible.
+    Φ(r, Q) = (8μQ²/πr⁴)  +  bπr²  +  2π m_w c_0 r^{1+p}
+               viscous          blood       wall tissue
+
+where the wall term is derived from integrating the volumetric metabolic
+rate m_w over the thin-wall cross-section 2πr·h(r), with h(r) = c_0 r^p
+taken from histological measurements (Rhodin 1967, p ≈ 0.77).
+
+Strict convexity of Φ guarantees a unique optimal radius r*(Q) at every
+flow (Theorem 1). The branching exponent α*(Q) is defined by the symmetric
+bifurcation condition r*(Q)^α = 2·r*(Q/2)^α and satisfies the strict
+bounds (5+p)/2 < α*(Q) < 3 for all Q > 0 (Theorem 4).
+
+All parameters are drawn from independent literature sources; no value is
+fitted to morphometric branching-exponent data.
+
+Empirical inputs (literature sources, not derived here)
+-------------------------------------------------------
+    μ    = 3.5 mPa·s        blood dynamic viscosity        (Caro 1978)
+    b    = 1500 W/m³         blood-volume metabolic cost    (Murray 1926; Taber 1998)
+    m_w  ∈ [5, 35] kW/m³    wall tissue metabolic rate     (Paul 1980)
+    c_0  = 0.041 m^{1−p}    wall-thickness prefactor       (Rhodin 1967)
+    p    = 0.77              wall-thickness exponent        (Rhodin 1967; Kassab 1993)
+    Q_0  = 1.3 mL/s          proximal coronary flow         (Kassab 1993)
+    r_0  = 1.5 mm            proximal coronary radius       (Kassab 1993)
+
+Outputs
+-------
+    ../manuscript/dynamic_variables.tex
+    ../manuscript/figures/fig_alpha_scale.pdf
 """
 
 import numpy as np
@@ -124,55 +159,71 @@ def compute_all():
 # Generate LaTeX dynamic variables
 # ═══════════════════════════════════════════════════════════════
 
+def format_macro(name, value, unit, description):
+    """Helper to format LaTeX macro definitions consistently."""
+    macro = f"\\newcommand{{\\{name}}}{{{value}}}"
+    return f"{macro:<50s} % [{unit:<8}] {description}"
+
 def write_tex(results, path):
     lines = [
-        "% DYNAMICALLY GENERATED — DO NOT EDIT MANUALLY",
-        "% Source: shared/scripts/compute_paper_murray.py",
+        "% ====================================================================",
+        "% DYNAMIC VARIABLES",
+        "% ====================================================================",
+        "% Source: paper1-murray/scripts/compute.py",
         f"% Generated: {np.datetime64('today', 'D')}",
+        "% ====================================================================\n",
+        
+        "% --------------------------------------------------------------------",
+        "% 1. PHYSICAL PARAMETERS",
+        "% --------------------------------------------------------------------",
+        format_macro("ParamMu", f"{MU*1e3:.1f}", "mPa s", "Dynamic viscosity of blood"),
+        format_macro("ParamB", f"{b:.0f}", "W/m³", "Metabolic cost per unit blood volume"),
+        format_macro("ParamMwLow", f"{MW_LOW/1e3:.0f}", "kW/m³", "Lower bound: Metabolic rate of wall tissue"),
+        format_macro("ParamMwMid", f"{MW_MID/1e3:.0f}", "kW/m³", "Reference: Metabolic rate of wall tissue"),
+        format_macro("ParamMwHigh", f"{MW_HIGH/1e3:.0f}", "kW/m³", "Upper bound: Metabolic rate of wall tissue"),
+        format_macro("ParamCzero", f"{c0}", "m^{1-p}", "Histological wall thickness pre-factor"),
+        format_macro("ParamP", f"{p}", "-", "Histological wall thickness exponent"),
+        format_macro("ParamQ", f"{Q0_coronary*1e6:.1f}", "mL/s", "Inlet volumetric flow rate for coronary artery"),
+        format_macro("ParamRzero", f"{r0_coronary*1e3:.1f}", "mm", "Inlet radius for coronary artery"),
         "",
-        "% Physical parameters",
-        f"\\newcommand{{\\ParamMu}}{{{MU*1e3:.1f}}}                    % mPa·s",
-        f"\\newcommand{{\\ParamB}}{{{b:.0f}}}                          % W/m³",
-        f"\\newcommand{{\\ParamMwLow}}{{{MW_LOW/1e3:.0f}}}             % kW/m3",
-        f"\\newcommand{{\\ParamMwMid}}{{{MW_MID/1e3:.0f}}}             % kW/m3",
-        f"\\newcommand{{\\ParamMwHigh}}{{{MW_HIGH/1e3:.0f}}}           % kW/m3",
-        f"\\newcommand{{\\ParamCzero}}{{{c0}}}",
-        f"\\newcommand{{\\ParamP}}{{{p}}}",
-        f"\\newcommand{{\\ParamQ}}{{{Q0_coronary*1e6:.1f}}}            % mL/s",
-        f"\\newcommand{{\\ParamRzero}}{{{r0_coronary*1e3:.1f}}}        % mm",
+        "% --------------------------------------------------------------------",
+        "% 2. PREDICTED EXPONENTS AND GEOMETRY (TABLE 2)",
+        "% --------------------------------------------------------------------",
+        format_macro("AlphaStarLow", f"{results['alpha_mw_low']:.3f}", "-", "Optimum branching exponent at MW_LOW"),
+        format_macro("AlphaStarMid", f"{results['alpha_mw_mid']:.3f}", "-", "Optimum branching exponent at MW_MID"),
+        format_macro("AlphaStarHigh", f"{results['alpha_mw_high']:.3f}", "-", "Optimum branching exponent at MW_HIGH"),
+        format_macro("RstarLow", f"{results['rstar_mw_low']:.3f}", "mm", "Optimum parent radius at MW_LOW"),
+        format_macro("RstarMid", f"{results['rstar_mw_mid']:.3f}", "mm", "Optimum parent radius at MW_MID"),
+        format_macro("RstarHigh", f"{results['rstar_mw_high']:.3f}", "mm", "Optimum parent radius at MW_HIGH"),
+        format_macro("AlphaMurrayLimit", f"{results['alpha_murray']:.6f}", "-", "Branching exponent in the pure Murray limit ($m_w \\to 0$)"),
         "",
-        "% Table 2: Predicted alpha*",
-        f"\\newcommand{{\\AlphaStarLow}}{{{results['alpha_mw_low']:.3f}}}",
-        f"\\newcommand{{\\AlphaStarMid}}{{{results['alpha_mw_mid']:.3f}}}",
-        f"\\newcommand{{\\AlphaStarHigh}}{{{results['alpha_mw_high']:.3f}}}",
-        f"\\newcommand{{\\RstarLow}}{{{results['rstar_mw_low']:.3f}}}",
-        f"\\newcommand{{\\RstarMid}}{{{results['rstar_mw_mid']:.3f}}}",
-        f"\\newcommand{{\\RstarHigh}}{{{results['rstar_mw_high']:.3f}}}",
-        f"\\newcommand{{\\AlphaMurrayLimit}}{{{results['alpha_murray']:.6f}}}",
+        "% --------------------------------------------------------------------",
+        "% 3. THEORETICAL BOUNDS",
+        "% --------------------------------------------------------------------",
+        format_macro("BoundLower", f"{results['bound_lower']:.3f}", "-", "Strict lower bound for the exponent $\\alpha^* > (5+p)/2$"),
+        format_macro("BoundUpper", f"{results['bound_upper']:.3f}", "-", "Strict upper bound for the exponent $\\alpha^* < 3$"),
         "",
-        "% Bounds",
-        f"\\newcommand{{\\BoundLower}}{{{results['bound_lower']:.3f}}}",
-        f"\\newcommand{{\\BoundUpper}}{{{results['bound_upper']:.3f}}}",
+        "% --------------------------------------------------------------------",
+        "% 4. SINGLE-TERM CLASSIFICATION TABLE",
+        "% --------------------------------------------------------------------",
+        format_macro("ClassImpedance", f"{results['class_impedance']:.3f}", "-", "Exponent for impedance matching ($\\gamma=0$)"),
+        format_macro("ClassDaVinci", f"{results['class_davinci']:.3f}", "-", "Exponent for Da Vinci surface law ($\\gamma=1$)"),
+        format_macro("ClassWall", f"{results['class_wall']:.3f}", "-", "Exponent for pure wall cost ($\\gamma=1+p$)"),
+        format_macro("ClassMurray", f"{results['class_murray']:.3f}", "-", "Exponent for pure Murray volume cost ($\\gamma=2$)"),
         "",
-        "% Classification table",
-        f"\\newcommand{{\\ClassImpedance}}{{{results['class_impedance']:.3f}}}",
-        f"\\newcommand{{\\ClassDaVinci}}{{{results['class_davinci']:.3f}}}",
-        f"\\newcommand{{\\ClassWall}}{{{results['class_wall']:.3f}}}",
-        f"\\newcommand{{\\ClassMurray}}{{{results['class_murray']:.3f}}}",
+        "% --------------------------------------------------------------------",
+        "% 5. OPTIMAL BIFURCATION ANGLES",
+        "% --------------------------------------------------------------------",
+        format_macro("AngleMurrayFull", f"{results['angle_murray_full']:.1f}", "deg", "Full bifurcation angle $2\\theta$ in Murray limit"),
+        format_macro("AngleWallFull", f"{results['angle_wall_full']:.1f}", "deg", "Full bifurcation angle $2\\theta$ in Wall limit"),
         "",
-        "% Angle bounds",
-        f"\\newcommand{{\\AngleMurrayFull}}{{{results['angle_murray_full']:.1f}}}",
-        f"\\newcommand{{\\AngleWallFull}}{{{results['angle_wall_full']:.1f}}}",
-        "",
-        "% Delta-alpha",
-        f"\\newcommand{{\\DeltaAlphaMurray}}{{{results['delta_alpha_murray']:.2f}}}",
-        f"\\newcommand{{\\DeltaAlphaOurs}}{{{abs(results['delta_alpha_ours']):.2f}}}",
-        "",
-        "% Scale range",
-        f"\\newcommand{{\\AlphaScaleRange}}{{{results['alpha_scale_range']:.3f}}}",
-        "",
-        "% Cross-network",
-        f"\\newcommand{{\\AlphaPulmonaryLimit}}{{{results['alpha_pulmonary_limit']:.3f}}}",
+        "% --------------------------------------------------------------------",
+        "% 6. MACROSCOPIC COMPARISONS",
+        "% --------------------------------------------------------------------",
+        format_macro("DeltaAlphaMurray", f"{results['delta_alpha_murray']:.2f}", "-", "Discrepancy: Murray law vs. Empirical mean (3.0 - 2.7)"),
+        format_macro("DeltaAlphaOurs", f"{abs(results['delta_alpha_ours']):.2f}", "-", "Remaining Discrepancy: Our model vs. Empirical mean"),
+        format_macro("AlphaScaleRange", f"{results['alpha_scale_range']:.3f}", "-", "Variation of $\\alpha^*$ over 4 decades of flow scale"),
+        format_macro("AlphaPulmonaryLimit", f"{results['alpha_pulmonary_limit']:.3f}", "-", "Theoretical wall limit for the pulmonary network"),
     ]
     
     with open(path, 'w', encoding='utf-8') as f:

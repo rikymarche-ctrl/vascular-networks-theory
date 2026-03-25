@@ -1,36 +1,47 @@
-% DYNAMICALLY GENERATED -- DO NOT EDIT MANUALLY
-% Source: shared/scripts/compute_supplemental.py
-% Generated: 2026-03-16T00:42:02
+% ====================================================================
+% DYNAMIC VARIABLES (SUPPLEMENTAL)
+% ====================================================================
+% Source: paper2-variational/scripts/compute_supp.py
+% Generated: 2026-03-25
+% ====================================================================
 
-% ── Physical constants re-exported for supplemental ──
-\newcommand{\VarElasticModulusMPa}{0.4}
-\newcommand{\VarHeartRateHz}{1.2}
-\newcommand{\VarEllFactor}{10}
-\newcommand{\VarCPOWatts}{1.0}
-\newcommand{\VarPulsatilePct}{15}
-\newcommand{\VarCoronaryPct}{5}
+% --------------------------------------------------------------------
+% PHYSICAL CONSTANTS (RE-EXPORTED)
+% --------------------------------------------------------------------
+\newcommand{\VarElasticModulusMPa}{0.4}            % [MPa     ] Young's modulus of vessel wall
+\newcommand{\VarHeartRateHz}{1.2}                  % [Hz      ] Cardiac fundamental frequency
+\newcommand{\VarEllFactor}{10}                     % [-       ] Length-to-radius proportionality factor
+\newcommand{\VarCPOWatts}{1.0}                     % [W       ] Cardiac Power Output (total)
+\newcommand{\VarPulsatilePct}{15}                  % [%       ] Pulsatile fraction of CPO
+\newcommand{\VarCoronaryPct}{5}                    % [%       ] Coronary fraction of cardiac output
 
-% ── S1: Transfer-matrix results ──
-\newcommand{\VarGammaTotalAW}{0.026}
-\newcommand{\VarCoherentCorr}{0.91}
-\newcommand{\VarCoherentShift}{0.000}
-\newcommand{\VarCoherentFactor}{12}
-\newcommand{\VarWomersleyMax}{2.3}
+% --------------------------------------------------------------------
+% S1: TRANSFER-MATRIX ANALYSIS
+% --------------------------------------------------------------------
+\newcommand{\VarGammaTotalAW}{0.026}               % [-       ] |Gamma_total|^2 at alpha_w (terminal load contribution)
+\newcommand{\VarCoherentCorr}{0.91}                % [-       ] Correlation coherent vs incoherent penalty
+\newcommand{\VarCoherentShift}{0.000}              % [-       ] Shift in alpha* due to coherence (delta_alpha)
+\newcommand{\VarCoherentFactor}{12}                % [-       ] Coh/Incoh scaling factor K
+\newcommand{\VarWomersleyMax}{2.3}                 % [-       ] Root-vessel Womersley number
 
-% ── S1: Per-harmonic table ──
-\newcommand{\VarFreqHarmonicI}{1.2}
-\newcommand{\VarGammaHarmonicI}{0.814}
-\newcommand{\VarFreqHarmonicII}{2.4}
-\newcommand{\VarGammaHarmonicII}{0.856}
-\newcommand{\VarFreqHarmonicIII}{3.6}
-\newcommand{\VarGammaHarmonicIII}{0.891}
-\newcommand{\VarFreqHarmonicIV}{4.8}
-\newcommand{\VarGammaHarmonicIV}{0.921}
+% --------------------------------------------------------------------
+% S1: PER-HARMONIC REFLECTION
+% --------------------------------------------------------------------
+\newcommand{\VarFreqHarmonicI}{1.2}                % [Hz      ] frequency of harmonic I
+\newcommand{\VarGammaHarmonicI}{0.814}             % [-       ] |Gamma_total|^2 for harmonic I
+\newcommand{\VarFreqHarmonicII}{2.4}               % [Hz      ] frequency of harmonic II
+\newcommand{\VarGammaHarmonicII}{0.856}            % [-       ] |Gamma_total|^2 for harmonic II
+\newcommand{\VarFreqHarmonicIII}{3.6}              % [Hz      ] frequency of harmonic III
+\newcommand{\VarGammaHarmonicIII}{0.891}           % [-       ] |Gamma_total|^2 for harmonic III
+\newcommand{\VarFreqHarmonicIV}{4.8}               % [Hz      ] frequency of harmonic IV
+\newcommand{\VarGammaHarmonicIV}{0.921}            % [-       ] |Gamma_total|^2 for harmonic IV
 
-% ── S2: Power budget ──
-\newcommand{\VarPPulsemW}{7.5}
-\newcommand{\VarPWavemW}{0.47}
-\newcommand{\VarPBaselinemW}{90}
-\newcommand{\VarPTransportmW}{5.7}
-\newcommand{\VarPRatio}{0.08}
-\newcommand{\VarTransportCostNet}{6.3}
+% --------------------------------------------------------------------
+% S2: POWER BUDGET DECOMPOSITION
+% --------------------------------------------------------------------
+\newcommand{\VarPPulsemW}{7.5}                     % [mW      ] Pulsatile incident power
+\newcommand{\VarPWavemW}{0.47}                     % [mW      ] Predicted wave dissipation
+\newcommand{\VarPBaselinemW}{90}                   % [mW      ] Transport baseline energy (local optima)
+\newcommand{\VarPTransportmW}{5.7}                 % [mW      ] Transport excess energy at alpha*
+\newcommand{\VarPRatio}{0.08}                      % [-       ] Balancing ratio P_wave / P_transport
+\newcommand{\VarTransportCostNet}{6.3}             % [%       ] Network transport cost C_transport(alpha*)

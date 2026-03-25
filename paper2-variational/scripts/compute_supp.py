@@ -1,12 +1,23 @@
 """
-compute_supplemental.py — All supplemental computations for Paper 2.
+compute_supplemental.py — Supplemental material for Paper II
+=============================================================
+Generates all numerical results and figures for Supplemental Sections S1–S2.
 
-Generates:
-  1. dynamic_variables_supplemental.tex  (macros for S1 + S2)
-  2. figS1_supplemental.png              (3-panel validation figure)
+S1: Coherent wave analysis (transfer-matrix validation)
+    Full transmission-line model with Womersley viscous corrections and
+    RC Windkessel terminal loads. Verifies that the incoherent multiplicative
+    approximation captures the α-dependent geometric penalty with Pearson
+    R = 0.91 and minimax shift |Δα*| < 0.01.
 
-S1: Coherent transfer-matrix wave analysis
 S2: Power conversion to absolute units
+    Translates the dimensionless equal-cost condition C_wave = C_transport = 6.3%
+    into physical power budgets (P_wave ≈ 0.47 mW, P_transport ≈ 5.7 mW)
+    using independently tabulated cardiac output fractions.
+
+Outputs
+-------
+    ../manuscript/dynamic_variables_supplemental.tex
+    ../manuscript/figures/figS1_supplemental.png
 """
 
 import numpy as np
@@ -28,7 +39,7 @@ from params import (
     CPO_watts, pulsatile_fraction, coronary_fraction,
     B_blood, B_wall, A_of_Q,
 )
-from compute_paper_variational import (
+from compute import (
     wave_loss_network, find_alpha_star,
     r_star, phi_cost, reference_cost,
     locally_optimal_radii, two_level_lagrangian,
@@ -222,43 +233,59 @@ def write_tex(s1, s2, path):
     """Write all supplemental macros to a LaTeX file."""
     roman = ['I', 'II', 'III', 'IV']
 
+    def f(name, val, unit, desc):
+        """Format a LaTeX command with aligned unit and comment."""
+        cmd = f"\\newcommand{{\\{name}}}{{{val}}}"
+        return f"{cmd:<50} % [{unit:<8}] {desc}"
+
     lines = [
-        "% DYNAMICALLY GENERATED -- DO NOT EDIT MANUALLY",
-        "% Source: shared/scripts/compute_supplemental.py",
-        f"% Generated: {np.datetime64('now')}",
+        "% " + "=" * 68,
+        "% DYNAMIC VARIABLES (SUPPLEMENTAL)",
+        "% " + "=" * 68,
+        "% Source: paper2-variational/scripts/compute_supp.py",
+        f"% Generated: {np.datetime64('now').astype(str).split('T')[0]}",
+        "% " + "=" * 68,
         "",
-        "% ── Physical constants re-exported for supplemental ──",
-        f"\\newcommand{{\\VarElasticModulusMPa}}{{{E_elastic/1e6:.1f}}}",
-        f"\\newcommand{{\\VarHeartRateHz}}{{{f0_cardiac:.1f}}}",
-        f"\\newcommand{{\\VarEllFactor}}{{{ell_factor}}}",
-        f"\\newcommand{{\\VarCPOWatts}}{{{CPO_watts:.1f}}}",
-        f"\\newcommand{{\\VarPulsatilePct}}{{{int(pulsatile_fraction*100)}}}",
-        f"\\newcommand{{\\VarCoronaryPct}}{{{int(coronary_fraction*100)}}}",
+        "% " + "-" * 68,
+        "% PHYSICAL CONSTANTS (RE-EXPORTED)",
+        "% " + "-" * 68,
+        f("VarElasticModulusMPa", f"{E_elastic/1e6:.1f}", "MPa", "Young's modulus of vessel wall"),
+        f("VarHeartRateHz", f"{f0_cardiac:.1f}", "Hz", "Cardiac fundamental frequency"),
+        f("VarEllFactor", f"{ell_factor}", "-", "Length-to-radius proportionality factor"),
+        f("VarCPOWatts", f"{CPO_watts:.1f}", "W", "Cardiac Power Output (total)"),
+        f("VarPulsatilePct", f"{int(pulsatile_fraction*100)}", "%", "Pulsatile fraction of CPO"),
+        f("VarCoronaryPct", f"{int(coronary_fraction*100)}", "%", "Coronary fraction of cardiac output"),
         "",
-        "% ── S1: Transfer-matrix results ──",
-        f"\\newcommand{{\\VarGammaTotalAW}}{{{s1['gamma_at_aw']:.3f}}}",
-        f"\\newcommand{{\\VarCoherentCorr}}{{{s1['r_corr']:.2f}}}",
-        f"\\newcommand{{\\VarCoherentShift}}{{{s1['delta_alpha']:.3f}}}",
-        f"\\newcommand{{\\VarCoherentFactor}}{{{round(s1['coh_factor']):.0f}}}",
-        f"\\newcommand{{\\VarWomersleyMax}}{{{s1['wo_max']:.1f}}}",
+        "% " + "-" * 68,
+        "% S1: TRANSFER-MATRIX ANALYSIS",
+        "% " + "-" * 68,
+        f("VarGammaTotalAW", f"{s1['gamma_at_aw']:.3f}", "-", "|Gamma_total|^2 at alpha_w (terminal load contribution)"),
+        f("VarCoherentCorr", f"{s1['r_corr']:.2f}", "-", "Correlation coherent vs incoherent penalty"),
+        f("VarCoherentShift", f"{s1['delta_alpha']:.3f}", "-", "Shift in alpha* due to coherence (delta_alpha)"),
+        f("VarCoherentFactor", f"{round(s1['coh_factor']):.0f}", "-", "Coh/Incoh scaling factor K"),
+        f("VarWomersleyMax", f"{s1['wo_max']:.1f}", "-", "Root-vessel Womersley number"),
         "",
-        "% ── S1: Per-harmonic table ──",
+        "% " + "-" * 68,
+        "% S1: PER-HARMONIC REFLECTION",
+        "% " + "-" * 68,
     ]
 
     for i, row in enumerate(s1['per_harmonic']):
         n = roman[i]
-        lines.append(f"\\newcommand{{\\VarFreqHarmonic{n}}}{{{row['f_hz']:.1f}}}")
-        lines.append(f"\\newcommand{{\\VarGammaHarmonic{n}}}{{{row['gamma_sq']:.3f}}}")
+        lines.append(f(f"VarFreqHarmonic{n}", f"{row['f_hz']:.1f}", "Hz", f"frequency of harmonic {n}"))
+        lines.append(f(f"VarGammaHarmonic{n}", f"{row['gamma_sq']:.3f}", "-", f"|Gamma_total|^2 for harmonic {n}"))
 
     lines += [
         "",
-        "% ── S2: Power budget ──",
-        f"\\newcommand{{\\VarPPulsemW}}{{{s2['P_pulse_mW']:.1f}}}",
-        f"\\newcommand{{\\VarPWavemW}}{{{s2['P_wave_mW']:.2f}}}",
-        f"\\newcommand{{\\VarPBaselinemW}}{{{s2['P_baseline_mW']:.0f}}}",
-        f"\\newcommand{{\\VarPTransportmW}}{{{s2['P_transport_mW']:.1f}}}",
-        f"\\newcommand{{\\VarPRatio}}{{{s2['ratio']:.2f}}}",
-        f"\\newcommand{{\\VarTransportCostNet}}{{{s2['C_transport_pct']:.1f}}}",
+        "% " + "-" * 68,
+        "% S2: POWER BUDGET DECOMPOSITION",
+        "% " + "-" * 68,
+        f("VarPPulsemW", f"{s2['P_pulse_mW']:.1f}", "mW", "Pulsatile incident power"),
+        f("VarPWavemW", f"{s2['P_wave_mW']:.2f}", "mW", "Predicted wave dissipation"),
+        f("VarPBaselinemW", f"{s2['P_baseline_mW']:.0f}", "mW", "Transport baseline energy (local optima)"),
+        f("VarPTransportmW", f"{s2['P_transport_mW']:.1f}", "mW", "Transport excess energy at alpha*"),
+        f("VarPRatio", f"{s2['ratio']:.2f}", "-", "Balancing ratio P_wave / P_transport"),
+        f("VarTransportCostNet", f"{s2['C_transport_pct']:.1f}", "%", "Network transport cost C_transport(alpha*)"),
     ]
 
     with open(path, 'w', encoding='utf-8') as f:

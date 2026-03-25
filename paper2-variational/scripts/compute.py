@@ -1,13 +1,36 @@
 """
-compute_paper_variational.py -- Compute all numerical results for Paper 2.
+compute.py — Paper II: A Unified Variational Principle for Branching Transport Networks
+========================================================================================
+Generates dynamic_variables.tex containing all LaTeX \\newcommand definitions
+used in the manuscript. Every calculated quantity in the .tex file originates
+here; no numerical values are hardcoded in the source.
 
-Uses the TWO-LEVEL MODEL:
-  Level 1 (Paper 2): Each vessel locally optimizes r*(Q) including wall cost.
-  Level 2 (Paper 1): Network Lagrangian balances transport deviation
-                     from local optima against wave matching cost.
+Model: Two-level minimax framework
+-----------------------------------
+Level 1 — Single-vessel optimisation (Paper I):
+    Each vessel independently minimises the three-term cost Φ(r, Q),
+    yielding a locally optimal radius r*(Q) that depends on wall-scaling
+    exponent p. This defines the transport ground state α_t and the
+    length-scaling factor β = 2^{−1/α_local}.
 
-Generates: dynamic_variables.tex for Paper 2
-           fig1_kappa.pdf, fig2_minimax.pdf, fig3_lagrangian.pdf
+Level 2 — Network Lagrangian (this paper):
+    The branching exponent α is optimised over the full G-generation tree
+    by balancing two dimensionless fractional penalties:
+
+        C_wave(α)      = 1 − (1 − |Γ(α)|²)^G
+        C_transport(α) = Σ_g w_g [Φ(r_g) − Φ(r*_g)] / Σ_g w_g Φ(r*_g)
+
+    where w_g = N^g ℓ_0 β^g, r_g = r*(Q_0)·N^{−g/α}, r*_g = r*(Q_g).
+    The minimax saddle point α* satisfies C_wave(α*) = C_transport(α*).
+
+Physical parameters correspond to the porcine coronary tree (Kassab 1993).
+
+Outputs
+-------
+    ../manuscript/dynamic_variables.tex
+    ../manuscript/figures/fig1_kappa.pdf
+    ../manuscript/figures/fig2_minimax.pdf
+    ../manuscript/figures/fig3_lagrangian.pdf
 """
 
 import numpy as np
@@ -470,46 +493,50 @@ def write_tex(results_dict, tex_path):
     kappa_names = {1: 'I', 5: 'V', 7: 'VII', 9: 'IX', 11: 'XI', 13: 'XIII', 15: 'XV', 20: 'XX'}
     N_names = {2: 'II', 3: 'III', 4: 'IV', 6: 'VI'}
 
+    def f(name, val, unit, desc):
+        """Format a LaTeX command with aligned unit and comment."""
+        cmd = f"\\newcommand{{\\{name}}}{{{val}}}"
+        return f"{cmd:<50} % [{unit:<8}] {desc}"
+
     lines = [
-        "% DYNAMICALLY GENERATED -- DO NOT EDIT MANUALLY",
-        "% Source: shared/scripts/compute_paper_variational.py",
-        "% Model: Two-level minimax (equal-cost crossing)",
-        f"% Generated: {np.datetime64('now')}",
+        "% " + "=" * 68,
+        "% DYNAMIC VARIABLES",
+        "% " + "=" * 68,
+        "% Source: paper2-variational/scripts/compute.py",
+        f"% Generated: {np.datetime64('now').astype(str).split('T')[0]}",
+        "% " + "=" * 68,
         "",
-        "% -- Physical parameters --",
-        f"\\newcommand{{\\VarAlphaW}}{{{alpha_w:.3f}}}",
-        f"\\newcommand{{\\VarP}}{{{p}}}",
-        f"\\newcommand{{\\VarG}}{{{G_coronary}}}",
-        f"\\newcommand{{\\VarBeta}}{{{beta_coronary:.3f}}}",
-        f"\\newcommand{{\\VarKe}}{{{ke}}}",
-        f"\\newcommand{{\\VarAlphaWKe}}{{{(5-p+ke)/2:.3f}}}",
-        f"\\newcommand{{\\VarAlphaWShift}}{{{ke/2:.3f}}}",
+        "% " + "-" * 68,
+        "% 1. PHYSICAL PARAMETERS",
+        "% " + "-" * 68,
+        f("VarAlphaW", f"{alpha_w:.3f}", "-", "Acoustic impedance matching exponent (baseline)"),
+        f("VarP", f"{p}", "-", "Histological wall-thickness scaling exponent"),
+        f("VarG", f"{G_coronary}", "-", "Number of generations in coronary tree"),
+        f("VarBeta", f"{beta_coronary:.3f}", "-", "Length-scaling factor (theoretical)"),
+        f("VarKe", f"{ke}", "-", "Distal stiffening exponent (coronary)"),
+        f("VarAlphaWKe", f"{(5-p+ke)/2:.3f}", "-", "Acoustic ground state including distal stiffening"),
+        f("VarAlphaWShift", f"{ke/2:.3f}", "-", "Shift in alpha_w due to stiffening"),
         "",
-        "% -- Minimax results (eta* computed from derivatives at alpha*) --",
-        f"\\newcommand{{\\VarEtaStar}}{{{r['eta_star']:.3f}}}",
-        f"\\newcommand{{\\VarGradientRatio}}{{{r['gradient_ratio']}}}",
+        "% " + "-" * 68,
+        "% 2. MINIMAX AND TRANSPORT RESULTS",
+        "% " + "-" * 68,
+        f("VarAlphaT", f"{r['alpha_t']:.2f}", "-", "Network-level transport optimum alpha_t"),
+        f("VarAlphaTExact", f"{r['alpha_t']:.4f}", "-", "Network-level transport optimum (exact)"),
+        f("VarAlphaStar", f"{r['alpha_star']:.2f}", "-", "Unified minimax branching exponent alpha*"),
+        f("VarEtaStar", f"{r['eta_star']:.3f}", "-", "Emergent operational duty cycle eta*"),
+        f("VarGradientRatio", f"{r['gradient_ratio']}", "-", "Gradient ratio |g'|/f' at alpha*"),
+        f("VarWaveCostNet", f"{r['wave_cost_net']:.1f}", "%", "Cumulative network wave cost at alpha*"),
+        f("VarAlphaLocal", f"{r['alpha_local_mean']:.2f}", "-", "Companion paper's single-vessel optimum"),
+        f("VarAlphaTLow", f"{r['alpha_t_low']:.2f}", "-", "Transport optimum (lower metabolic bound)"),
+        f("VarAlphaTHigh", f"{r['alpha_t_high']:.2f}", "-", "Transport optimum (upper metabolic bound)"),
+        f("VarAlphaTConsistency", f"{r['alpha_t_consistency']:.2f}", "%", "Discrepancy between single-vessel and network models"),
+        f("VarAlphaExp", "2.70", "-", "Empirical cardiovascular mean (Kassab 1993)"),
+        f("VarAlphaExpErr", "0.20", "-", "Empirical standard deviation"),
+        f("VarPredError", f"{r['pred_error']:.1f}", "%", "Prediction error vs clinical mean"),
         "",
-        "% -- Two-level model results --",
-        f"\\newcommand{{\\VarAlphaLocal}}{{{r['alpha_local_mean']:.2f}}}",
-        f"\\newcommand{{\\VarAlphaT}}{{{r['alpha_t']:.2f}}}",
-        f"\\newcommand{{\\VarAlphaTExact}}{{{r['alpha_t']:.4f}}}",
-        f"\\newcommand{{\\VarAlphaTLow}}{{{r['alpha_t_low']:.2f}}}",
-        f"\\newcommand{{\\VarAlphaTHigh}}{{{r['alpha_t_high']:.2f}}}",
-        f"\\newcommand{{\\VarAlphaTConsistency}}{{{r['alpha_t_consistency']:.2f}}}",
-        f"\\newcommand{{\\VarAlphaStar}}{{{r['alpha_star']:.2f}}}",
-        f"\\newcommand{{\\VarAlphaExp}}{{2.70}}",
-        f"\\newcommand{{\\VarAlphaExpErr}}{{0.20}}",
-        f"\\newcommand{{\\VarPredError}}{{{r['pred_error']:.1f}}}",
-        f"\\newcommand{{\\VarWaveCostNet}}{{{r['wave_cost_net']:.1f}}}",
-        "",
-        "% -- Single-junction wave curvature (illustrative N=2, alpha_w=2) --",
-        f"\\newcommand{{\\VarKwJunction}}{{{compute_kw_junction():.3f}}}",
-        "",
-        "% -- Lq robustness --",
-        f"\\newcommand{{\\VarAlphaStarQone}}{{{r['alpha_star_q1']:.3f}}}",
-        f"\\newcommand{{\\VarDeltaAlphaLq}}{{{r['delta_alpha_lq']:.3f}}}",
-        "",
-        "% -- Reflection coefficients --",
+        "% " + "-" * 68,
+        "% 3. REFLECTION COEFFICIENTS AND SCALING",
+        "% " + "-" * 68,
     ]
 
     gamma_names_map = {
@@ -518,97 +545,72 @@ def write_tex(results_dict, tex_path):
     }
     for row in r['gamma_table']:
         lines.append(
-            f"\\newcommand{{\\VarGammaAW{gamma_names_map[row['alpha']]}}}{{{row['gamma_aw']:.4f}}}"
+            f(f"VarGammaAW{gamma_names_map[row['alpha']]}", f"{row['gamma_aw']:.4f}", "-", f"|Gamma|^2 at alpha={row['alpha']}")
         )
 
     lines += [
         "",
-        "% -- Effective stiffness ratio (G scan, N=2) --",
+        "% " + "-" * 68,
+        "% 4. EFFECTIVE STIFFNESS RATIO (G SCAN, N=2)",
+        "% " + "-" * 68,
     ]
     for row in r['kappa_table']:
         G = row['G']
         name = kappa_names[G]
-        lines.append(f"\\newcommand{{\\VarKappaG{name}}}{{{row['kappa']:.2f}}}")
-        lines.append(f"\\newcommand{{\\VarAlphaStarG{name}}}{{{row['alpha_star']:.2f}}}")
-        lines.append(f"\\newcommand{{\\VarAlphaQuadG{name}}}{{{row['alpha_quad']:.2f}}}")
+        lines.append(f(f"VarKappaG{name}", f"{row['kappa']:.2f}", "-", f"Stiffness ratio at G={G}"))
+        lines.append(f(f"VarAlphaStarG{name}", f"{row['alpha_star']:.2f}", "-", f"Minimax alpha* at G={G}"))
+        lines.append(f(f"VarAlphaQuadG{name}", f"{row['alpha_quad']:.2f}", "-", f"Quadratic approximation at G={G}"))
 
     lines += [
         "",
-        "% -- Topological selection table (N scan, M=2^G fixed) --",
+        "% " + "-" * 68,
+        "% 5. TOPOLOGICAL SELECTION (N SCAN, M=2048 terminals)",
+        "% " + "-" * 68,
     ]
     for row in r['topo_N_table']:
         N = row['N']
         name = N_names[N]
         sign = '+' if row['sigma_dev'] >= 0 else ''
-        lines.append(f"\\newcommand{{\\VarGN{name}}}{{{row['G']}}}")
-        lines.append(f"\\newcommand{{\\VarKtN{name}}}{{{row['k_t']:.3f}}}")
-        lines.append(f"\\newcommand{{\\VarKwN{name}}}{{{row['k_w']:.3f}}}")
-        lines.append(f"\\newcommand{{\\VarKappaN{name}}}{{{row['kappa']:.2f}}}")
-        lines.append(f"\\newcommand{{\\VarAlphaStarN{name}}}{{{row['alpha_star']:.3f}}}")
-        lines.append(
-            f"\\newcommand{{\\VarSigmaN{name}}}{{{sign}{row['sigma_dev']:.2f}}}"
-        )
+        lines.append(f(f"VarGN{name}", f"{row['G']}", "-", f"generations for N={N}"))
+        lines.append(f(f"VarKtN{name}", f"{row['k_t']:.3f}", "-", f"Transport curvature for N={N}"))
+        lines.append(f(f"VarKwN{name}", f"{row['k_w']:.3f}", "-", f"Wave curvature for N={N}"))
+        lines.append(f(f"VarKappaN{name}", f"{row['kappa']:.2f}", "-", f"Stiffness ratio for N={N}"))
+        lines.append(f(f"VarAlphaStarN{name}", f"{row['alpha_star']:.3f}", "-", f"Minimax alpha* for N={N}"))
+        lines.append(f(f"VarSigmaN{name}", f"{sign}{row['sigma_dev']:.2f}", "sigma", "Deviation from exp (units of sigma)"))
 
     lines += [
         "",
-        "% -- H(N) scaling, kt variation, and k_t(G) scaling --",
-        f"\\newcommand{{\\VarHNScalingExp}}{{{r['hn_scaling_exp']:.1f}}}",
-        f"\\newcommand{{\\VarKtVariation}}{{{r['kt_variation']:.0f}}}",
-        f"\\newcommand{{\\VarKtGScalingExp}}{{{r['kt_G_exp']:.2f}}}",
-        f"\\newcommand{{\\VarKappaGScalingExp}}{{{r['kt_G_exp'] - 1:.2f}}}",
-        f"\\newcommand{{\\VarAlphaSecondCrossing}}{{{r['alpha2_crossing']:.2f}}}",
-        "",
-        "% -- Local alpha range --",
-        f"\\newcommand{{\\VarAlphaLocalMin}}{{{r['alpha_local_min']:.3f}}}",
-        f"\\newcommand{{\\VarAlphaLocalMax}}{{{r['alpha_local_max']:.3f}}}",
+        "% " + "-" * 68,
+        "% 6. CROSS-SYSTEM VALIDATION",
+        "% " + "-" * 68,
     ]
 
-    # Cross-system table
     cs = r['cross']
     lines += [
+        f("VarAlphaStarPulmonary", f"{cs['alpha_star_pulmonary']:.3f}", "-", "Predicted alpha* for Pulmonary"),
+        f("VarAlphaExpPulmonary", f"{cs['alpha_exp_pulmonary']}", "-", "Clinical alpha for Pulmonary"),
+        f("VarSigmaPulmonary", f"{cs['sigma_pulmonary']:.1f}", "sigma", "Prediction error (sigma)"),
+        f("VarAlphaStarAorticLow", f"{cs['alpha_star_aortic_low']:.2f}", "-", "Aortic prediction (lower bound)"),
+        f("VarAlphaStarAorticHigh", f"{cs['alpha_star_aortic_high']:.2f}", "-", "Aortic prediction (upper bound)"),
+        f("VarSigmaAortic", f"{cs['sigma_aortic']:.1f}", "sigma", "Prediction error (sigma)"),
+        f("VarAlphaStarNeural", f"{cs['alpha_star_neural']:.1f}", "-", "Dendritic prediction (indicative)"),
+        f("VarAlphaExpNeural", f"{cs['alpha_exp_neural']}", "-", "Clinical alpha for cortical dendrites"),
+        f("VarSigmaNeural", f"{cs['sigma_neural']}", "sigma", "Prediction error (sigma)"),
         "",
-        "% -- Cross-system validation table --",
-        f"\\newcommand{{\\VarPPulmonary}}{{{cs['p_pulmonary']}}}",
-        f"\\newcommand{{\\VarAlphaWPulmonary}}{{{cs['alpha_w_pulmonary']:.3f}}}",
-        f"\\newcommand{{\\VarGPulmonary}}{{{cs['G_pulmonary']}}}",
-        f"\\newcommand{{\\VarAlphaStarPulmonary}}{{{cs['alpha_star_pulmonary']:.3f}}}",
-        f"\\newcommand{{\\VarAlphaExpPulmonary}}{{{cs['alpha_exp_pulmonary']}}}",
-        f"\\newcommand{{\\VarAlphaExpErrPulmonary}}{{{cs['alpha_exp_err_pulmonary']}}}",
-        f"\\newcommand{{\\VarAlphaExpPulmonaryLow}}{{{cs['alpha_exp_pul_low']}}}",
-        f"\\newcommand{{\\VarAlphaExpPulmonaryHigh}}{{{cs['alpha_exp_pul_high']}}}",
-        f"\\newcommand{{\\VarSigmaPulmonary}}{{{cs['sigma_pulmonary']:.1f}}}",
-        f"\\newcommand{{\\VarAlphaWAorticLow}}{{{cs['alpha_w_aortic_low']}}}",
-        f"\\newcommand{{\\VarAlphaWAorticHigh}}{{{cs['alpha_w_aortic_high']}}}",
-        f"\\newcommand{{\\VarGAortic}}{{{cs['G_aortic']}}}",
-        f"\\newcommand{{\\VarAlphaStarAorticLow}}{{{cs['alpha_star_aortic_low']:.2f}}}",
-        f"\\newcommand{{\\VarAlphaStarAorticHigh}}{{{cs['alpha_star_aortic_high']:.2f}}}",
-        f"\\newcommand{{\\VarAlphaExpAortic}}{{{cs['alpha_exp_aortic']}}}",
-        f"\\newcommand{{\\VarAlphaExpErrAortic}}{{{cs['alpha_exp_err_aortic']}}}",
-        f"\\newcommand{{\\VarSigmaAortic}}{{{cs['sigma_aortic']:.1f}}}",
-        f"\\newcommand{{\\VarAlphaWNeural}}{{{cs['alpha_w_neural']}}}",
-        f"\\newcommand{{\\VarGNeural}}{{{cs['G_neural']}}}",
-        f"\\newcommand{{\\VarAlphaStarNeural}}{{{cs['alpha_star_neural']:.1f}}}",
-        f"\\newcommand{{\\VarAlphaExpNeural}}{{{cs['alpha_exp_neural']}}}",
-        f"\\newcommand{{\\VarSigmaNeural}}{{{cs['sigma_neural']}}}",
-        f"\\newcommand{{\\VarGAirways}}{{{cs['G_airways']}}}",
-        f"\\newcommand{{\\VarAlphaExpAirwaysLow}}{{{cs['alpha_exp_airways_low']}}}",
-        f"\\newcommand{{\\VarAlphaExpAirwaysHigh}}{{{cs['alpha_exp_airways_high']}}}",
-        f"\\newcommand{{\\VarMurrayAlpha}}{{3}}",
+        "% " + "-" * 68,
+        "% 7. ANALYTICAL SCALING EXPONENTS",
+        "% " + "-" * 68,
+        f("VarKtGScalingExp", f"{r['kt_G_exp']:.2f}", "-", "Power law: kt_net ~ G^2.5"),
+        f("VarKappaGScalingExp", f"{r['kt_G_exp'] - 1:.2f}", "-", "Power law: kappa_eff ~ G^1.5"),
+        f("VarKtVariation", f"{r['kt_variation']:.0f}", "%", "Variation of kt across N values"),
+        f("VarAlphaSecondCrossing", f"{r['alpha2_crossing']:.2f}", "-", "Spurious second crossing alpha_2 > 3"),
         "",
-        "% -- Minimax band parameter ranges --",
-        f"\\newcommand{{\\VarPLow}}{{{p_low}}}",
-        f"\\newcommand{{\\VarPHigh}}{{{p_high}}}",
-        f"\\newcommand{{\\VarGLow}}{{{G_low}}}",
-        f"\\newcommand{{\\VarGHigh}}{{{G_high}}}",
-        f"\\newcommand{{\\VarAlphaTLowBand}}{{{alpha_t_low_band}}}",
-        f"\\newcommand{{\\VarAlphaTHighBand}}{{{alpha_t_high_band}}}",
-        "",
-        "% -- Sensitivity table physical baselines --",
-        f"\\newcommand{{\\VarBloodCostSens}}{{{b_Wm3}}}",
-        f"\\newcommand{{\\VarWallMetabSens}}{{{MW_MID_kWm3}}}",
-        f"\\newcommand{{\\VarViscositySens}}{{{MU_mPas}}}",
-        f"\\newcommand{{\\VarQzeroSens}}{{{Q_sensitivity_mL}}}",
-        f"\\newcommand{{\\VarSegLengthSens}}{{{ell0_mm}}}",
+        "% " + "-" * 68,
+        "% 8. PHYSICAL PARAMETER SENSITIVITY BASELINES",
+        "% " + "-" * 68,
+        f("VarBloodCostSens", f"{b_Wm3}", "W/m³", "Metabolic cost of blood"),
+        f("VarWallMetabSens", f"{MW_MID_kWm3}", "kW/m³", "Metabolic rate of wall tissue"),
+        f("VarViscositySens", f"{MU_mPas}", "mPas", "Dynamic viscosity"),
     ]
 
     with open(tex_path, 'w', encoding='utf-8') as f:

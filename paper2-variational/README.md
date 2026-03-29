@@ -14,7 +14,7 @@ The core result: the apparent conflict between impedance matching ($\alpha \appr
 The paper demonstrates:
 - Deterministic prediction of $\alpha^* = 2.72$ for porcine coronary arteries.
 - A proof that binary branching ($N=2$) is the unique dynamic stiffness maximizer.
-- Derivation of the minimax duty cycle $\eta^* \approx 0.83$ as a structural invariant rather than a variable parameter.
+- Derivation of the minimax duty cycle $\eta^* \approx 0.833$ as a structural invariant rather than a variable parameter.
 
 ---
 
@@ -23,10 +23,10 @@ The paper demonstrates:
 | Quantity | Value | Source |
 |---|---|---|
 | Predicted optimal exponent $\alpha^*$ | 2.72 | Minimax game |
-| Empirical value $\alpha_{\exp}$ | 2.70 ± 0.20 | Kassab 1993 |
-| Minimax duty cycle $\eta^*$ | ~0.83 | Network equilibrium |
+| Empirical value $\alpha_{\exp}$ | $2.70 \pm 0.20$ | Kassab 1993 |
+| Minimax duty cycle $\eta^*$ | 0.833 | Network equilibrium |
 | Peak transport exponent $\alpha_t$ | 2.90 | Single-vessel static optimum |
-| Network wave dissipation | ~4.88% | Predicted marginal penalty |
+| Network wave cost $\mathcal{C}_\mathrm{wave}^\mathrm{net}$ at $\alpha^*$ | 6.3% | Predicted marginal penalty |
 
 ---
 
@@ -83,5 +83,5 @@ Or, simply use the unified PowerShell script (Windows) from the `paper2-variatio
 
 ## License
 
-Research & Code: CC BY 4.0  
+Research & Code: CC BY 4.0
 All manuscripts, scripts, numerical data, and figure-generation code: [github.com/rikymarche-ctrl/vascular-networks-theory](https://github.com/rikymarche-ctrl/vascular-networks-theory)

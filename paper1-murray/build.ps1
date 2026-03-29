@@ -67,7 +67,8 @@ try {
     $DestFile = Join-Path $OutputDir "Beyond Murray's Law.pdf"
     if (Test-Path "main.pdf") {
         try {
-            Move-Item -Path "main.pdf" -Destination $DestFile -Force -ErrorAction Stop
+            [System.IO.File]::Copy((Resolve-Path "main.pdf").Path, $DestFile, $true)
+            Remove-Item -Path "main.pdf" -Force
             
             $GlobalOutputDir = Join-Path (Split-Path $ScriptFolder -Parent) "Output_PDFs"
             if (-not (Test-Path $GlobalOutputDir)) {

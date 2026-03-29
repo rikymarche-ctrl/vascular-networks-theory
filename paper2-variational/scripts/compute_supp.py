@@ -27,7 +27,7 @@ from scipy.stats import pearsonr
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'shared', 'scripts'))
 
 from params import (
     # fluid / wall
@@ -250,7 +250,6 @@ def write_tex(s1, s2, path):
         "% PHYSICAL CONSTANTS (RE-EXPORTED)",
         "% " + "-" * 68,
         f("VarElasticModulusMPa", f"{E_elastic/1e6:.1f}", "MPa", "Young's modulus of vessel wall"),
-        f("VarHeartRateHz", f"{f0_cardiac:.1f}", "Hz", "Cardiac fundamental frequency"),
         f("VarEllFactor", f"{ell_factor}", "-", "Length-to-radius proportionality factor"),
         f("VarCPOWatts", f"{CPO_watts:.1f}", "W", "Cardiac Power Output (total)"),
         f("VarPulsatilePct", f"{int(pulsatile_fraction*100)}", "%", "Pulsatile fraction of CPO"),

@@ -2,7 +2,7 @@
 % DYNAMIC VARIABLES
 % ====================================================================
 % Source: paper2-variational/scripts/compute.py
-% Generated: 2026-03-25
+% Generated: 2026-03-29
 % ====================================================================
 
 % --------------------------------------------------------------------
@@ -48,28 +48,20 @@
 % --------------------------------------------------------------------
 \newcommand{\VarKappaGI}{0.00}                     % [-       ] Stiffness ratio at G=1
 \newcommand{\VarAlphaStarGI}{2.12}                 % [-       ] Minimax alpha* at G=1
-\newcommand{\VarAlphaQuadGI}{2.12}                 % [-       ] Quadratic approximation at G=1
 \newcommand{\VarKappaGV}{1.47}                     % [-       ] Stiffness ratio at G=5
 \newcommand{\VarAlphaStarGV}{2.62}                 % [-       ] Minimax alpha* at G=5
-\newcommand{\VarAlphaQuadGV}{2.41}                 % [-       ] Quadratic approximation at G=5
 \newcommand{\VarKappaGVII}{2.50}                   % [-       ] Stiffness ratio at G=7
 \newcommand{\VarAlphaStarGVII}{2.67}               % [-       ] Minimax alpha* at G=7
-\newcommand{\VarAlphaQuadGVII}{2.45}               % [-       ] Quadratic approximation at G=7
 \newcommand{\VarKappaGIX}{3.68}                    % [-       ] Stiffness ratio at G=9
 \newcommand{\VarAlphaStarGIX}{2.70}                % [-       ] Minimax alpha* at G=9
-\newcommand{\VarAlphaQuadGIX}{2.48}                % [-       ] Quadratic approximation at G=9
 \newcommand{\VarKappaGXI}{4.98}                    % [-       ] Stiffness ratio at G=11
 \newcommand{\VarAlphaStarGXI}{2.72}                % [-       ] Minimax alpha* at G=11
-\newcommand{\VarAlphaQuadGXI}{2.51}                % [-       ] Quadratic approximation at G=11
 \newcommand{\VarKappaGXIII}{6.38}                  % [-       ] Stiffness ratio at G=13
 \newcommand{\VarAlphaStarGXIII}{2.74}              % [-       ] Minimax alpha* at G=13
-\newcommand{\VarAlphaQuadGXIII}{2.53}              % [-       ] Quadratic approximation at G=13
 \newcommand{\VarKappaGXV}{7.86}                    % [-       ] Stiffness ratio at G=15
 \newcommand{\VarAlphaStarGXV}{2.75}                % [-       ] Minimax alpha* at G=15
-\newcommand{\VarAlphaQuadGXV}{2.54}                % [-       ] Quadratic approximation at G=15
 \newcommand{\VarKappaGXX}{11.83}                   % [-       ] Stiffness ratio at G=20
 \newcommand{\VarAlphaStarGXX}{2.78}                % [-       ] Minimax alpha* at G=20
-\newcommand{\VarAlphaQuadGXX}{2.57}                % [-       ] Quadratic approximation at G=20
 
 % --------------------------------------------------------------------
 % 5. TOPOLOGICAL SELECTION (N SCAN, M=2048 terminals)
@@ -126,3 +118,62 @@
 \newcommand{\VarBloodCostSens}{1500}               % [W/m³    ] Metabolic cost of blood
 \newcommand{\VarWallMetabSens}{20}                 % [kW/m³   ] Metabolic rate of wall tissue
 \newcommand{\VarViscositySens}{3.5}                % [mPas    ] Dynamic viscosity
+\newcommand{\VarQzeroSens}{5.2}                    % [mL/s    ] Peak pulsatile flow (4×resting, params.py Q0_peak)
+\newcommand{\VarSegLengthSens}{15}                 % [mm      ] Proximal segment length (params.py ell0_coronary)
+
+% --------------------------------------------------------------------
+% 9. LOCAL ALPHA RANGE (from script output: alpha_local = 2.9023 [2.8985, 2.9065])
+% --------------------------------------------------------------------
+\newcommand{\VarAlphaLocalMin}{2.8985}             % [-       ] Local alpha_t minimum across flow range
+\newcommand{\VarAlphaLocalMax}{2.9065}             % [-       ] Local alpha_t maximum across flow range
+
+% --------------------------------------------------------------------
+% 10. Lq ROBUSTNESS (from script output: alpha*(q=1)=2.847, spread=0.126)
+% --------------------------------------------------------------------
+\newcommand{\VarAlphaStarQone}{2.847}              % [-       ] Minimax alpha* under L1 norm (Lq robustness)
+\newcommand{\VarDeltaAlphaLq}{0.126}               % [-       ] Spread of alpha* across Lq norms
+
+% --------------------------------------------------------------------
+% 11. SINGLE-JUNCTION WAVE CURVATURE (formula: (ln N)^2 / (4 alpha_w^2), N=2, alpha_w=2)
+% --------------------------------------------------------------------
+\newcommand{\VarKwJunction}{0.030}                 % [-       ] Wave curvature at single junction (illustrative, alpha_w=2)
+
+% --------------------------------------------------------------------
+% 12. H(N) SCALING EXPONENT (from script output: H(N) scaling exponent: -2.3)
+% --------------------------------------------------------------------
+\newcommand{\VarHNScalingExp}{-2.3}                % [-       ] H(N) ~ (ln N)^exp scaling exponent
+
+% --------------------------------------------------------------------
+% 13. WALL-THICKNESS PARAMETER RANGE (from params.py)
+% --------------------------------------------------------------------
+\newcommand{\VarPLow}{0.72}                        % [-       ] Wall-thickness exponent lower bound
+\newcommand{\VarPHigh}{0.82}                       % [-       ] Wall-thickness exponent upper bound
+\newcommand{\VarPPulmonary}{0.6}                   % [-       ] Wall-thickness exponent (pulmonary, Huang 1996)
+
+% --------------------------------------------------------------------
+% 14. MINIMAX BAND — G AND p RANGES (from params.py)
+% --------------------------------------------------------------------
+\newcommand{\VarGLow}{9}                           % [-       ] Lower generation count for minimax band
+\newcommand{\VarGHigh}{13}                         % [-       ] Upper generation count for minimax band
+\newcommand{\VarAlphaTLowBand}{2.80}               % [-       ] Transport optimum lower bound (band)
+\newcommand{\VarAlphaTHighBand}{3.00}              % [-       ] Transport optimum upper bound (band)
+
+% --------------------------------------------------------------------
+% 15. CROSS-SYSTEM VALIDATION — EXTENDED (from params.py)
+% --------------------------------------------------------------------
+\newcommand{\VarAlphaWPulmonary}{2.200}            % [-       ] Wave attractor (pulmonary, p=0.60)
+\newcommand{\VarGPulmonary}{15}                    % [-       ] Tree depth (pulmonary)
+\newcommand{\VarAlphaExpErrPulmonary}{0.15}        % [-       ] Empirical std dev (pulmonary)
+\newcommand{\VarAlphaExpPulmonaryLow}{2.70}        % [-       ] Empirical alpha lower bound (pulmonary)
+\newcommand{\VarAlphaExpPulmonaryHigh}{2.80}       % [-       ] Empirical alpha upper bound (pulmonary)
+\newcommand{\VarAlphaWAorticLow}{2.10}             % [-       ] Wave attractor lower bound (aortic)
+\newcommand{\VarAlphaWAorticHigh}{2.25}            % [-       ] Wave attractor upper bound (aortic)
+\newcommand{\VarGAortic}{15}                       % [-       ] Tree depth (aortic)
+\newcommand{\VarAlphaExpAortic}{2.5}               % [-       ] Empirical alpha (aortic, human)
+\newcommand{\VarAlphaExpErrAortic}{0.3}            % [-       ] Empirical std dev (aortic)
+\newcommand{\VarAlphaWNeural}{1.50}                % [-       ] Wave attractor (neural, electrotonic Rall 1959)
+\newcommand{\VarGNeural}{8}                        % [-       ] Tree depth (dendritic, indicative)
+\newcommand{\VarGAirways}{23}                      % [-       ] Weibel 1963 bronchial tree generations
+\newcommand{\VarAlphaExpAirwaysLow}{2.8}           % [-       ] Empirical alpha lower bound (airways)
+\newcommand{\VarAlphaExpAirwaysHigh}{3.0}          % [-       ] Empirical alpha upper bound (airways)
+\newcommand{\VarMurrayAlpha}{3.0}                  % [-       ] Murray cubic law exponent

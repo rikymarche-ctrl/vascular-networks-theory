@@ -57,7 +57,8 @@ try {
     
     $DestMain = Join-Path $OutputDir "A Unified Variational Principle for Branching Transport Networks.pdf"
     if (Test-Path "main.pdf") {
-        Move-Item -Path "main.pdf" -Destination $DestMain -Force -ErrorAction Stop
+        [System.IO.File]::Copy((Resolve-Path "main.pdf").Path, $DestMain, $true)
+        Remove-Item -Path "main.pdf" -Force
         Copy-Item -Path $DestMain -Destination (Join-Path $GlobalOutputDir "A Unified Variational Principle for Branching Transport Networks.pdf") -Force -ErrorAction SilentlyContinue
         Write-Host " -> Main Manuscript Built: $DestMain" -ForegroundColor Green
     } else {
@@ -84,7 +85,8 @@ try {
     
     $DestSupp = Join-Path $OutputDir "Supplemental Material - Unified Variational Principle.pdf"
     if (Test-Path "supplemental.pdf") {
-        Move-Item -Path "supplemental.pdf" -Destination $DestSupp -Force -ErrorAction Stop
+        [System.IO.File]::Copy((Resolve-Path "supplemental.pdf").Path, $DestSupp, $true)
+        Remove-Item -Path "supplemental.pdf" -Force
         Copy-Item -Path $DestSupp -Destination (Join-Path $GlobalOutputDir "Supplemental Material - Unified Variational Principle.pdf") -Force -ErrorAction SilentlyContinue
         Write-Host " -> Supplemental Material Built: $DestSupp" -ForegroundColor Green
     } else {

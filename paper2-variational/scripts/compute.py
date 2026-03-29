@@ -30,8 +30,12 @@ Outputs
     ../manuscript/dynamic_variables.tex
     ../manuscript/figures/fig1_kappa.pdf
     ../manuscript/figures/fig2_minimax.pdf
-    ../manuscript/figures/fig3_lagrangian.pdf
+    ../manuscript/figures/fig3_robustness.pdf
+    ../manuscript/figures/fig4_lagrangian.pdf
 """
+
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'shared', 'scripts'))
 
 import numpy as np
 from scipy.optimize import minimize_scalar, brentq
@@ -466,7 +470,7 @@ def compute_lq_values(r_local, Phi_ref, eta=0.5):
     q1_mask = q_vals >= 1.0
     idx_q1 = np.searchsorted(q_vals, 1.0)
     alpha_star_q1 = float(a_stars_q[idx_q1])
-    spread_q = float(a_stars_q[q1_mask].max() - alpha_star_q1)
+    spread_q = float(alpha_star_q1 - a_stars_q[q1_mask].min())
 
     return alpha_star_q1, spread_q, q_vals, a_stars_q
 
@@ -559,7 +563,6 @@ def write_tex(results_dict, tex_path):
         name = kappa_names[G]
         lines.append(f(f"VarKappaG{name}", f"{row['kappa']:.2f}", "-", f"Stiffness ratio at G={G}"))
         lines.append(f(f"VarAlphaStarG{name}", f"{row['alpha_star']:.2f}", "-", f"Minimax alpha* at G={G}"))
-        lines.append(f(f"VarAlphaQuadG{name}", f"{row['alpha_quad']:.2f}", "-", f"Quadratic approximation at G={G}"))
 
     lines += [
         "",
@@ -611,6 +614,65 @@ def write_tex(results_dict, tex_path):
         f("VarBloodCostSens", f"{b_Wm3}", "W/m³", "Metabolic cost of blood"),
         f("VarWallMetabSens", f"{MW_MID_kWm3}", "kW/m³", "Metabolic rate of wall tissue"),
         f("VarViscositySens", f"{MU_mPas}", "mPas", "Dynamic viscosity"),
+        f("VarQzeroSens", f"{Q_sensitivity_mL:.1f}", "mL/s", "Peak pulsatile flow (4×resting, params.py Q0_peak)"),
+        f("VarSegLengthSens", f"{ell0_mm}", "mm", "Proximal segment length (params.py ell0_coronary)"),
+        "",
+        "% " + "-" * 68,
+        f"% 9. LOCAL ALPHA RANGE (from script output: alpha_local = {r['alpha_local_mean']:.4f} [{r['alpha_local_min']:.4f}, {r['alpha_local_max']:.4f}])",
+        "% " + "-" * 68,
+        f("VarAlphaLocalMin", f"{r['alpha_local_min']:.4f}", "-", "Local alpha_t minimum across flow range"),
+        f("VarAlphaLocalMax", f"{r['alpha_local_max']:.4f}", "-", "Local alpha_t maximum across flow range"),
+        "",
+        "% " + "-" * 68,
+        f"% 10. Lq ROBUSTNESS (from script output: alpha*(q=1)={r['alpha_star_q1']:.3f}, spread={r['delta_alpha_lq']:.3f})",
+        "% " + "-" * 68,
+        f("VarAlphaStarQone", f"{r['alpha_star_q1']:.3f}", "-", "Minimax alpha* under L1 norm (Lq robustness)"),
+        f("VarDeltaAlphaLq", f"{r['delta_alpha_lq']:.3f}", "-", "Spread of alpha* across Lq norms"),
+        "",
+        "% " + "-" * 68,
+        "% 11. SINGLE-JUNCTION WAVE CURVATURE (formula: (ln N)^2 / (4 alpha_w^2), N=2, alpha_w=2)",
+        "% " + "-" * 68,
+        f("VarKwJunction", f"{(np.log(2)**2 / (4 * 2.0**2)):.3f}", "-", "Wave curvature at single junction (illustrative, alpha_w=2)"),
+        "",
+        "% " + "-" * 68,
+        f"% 12. H(N) SCALING EXPONENT (from script output: H(N) scaling exponent: {r['hn_scaling_exp']:.1f})",
+        "% " + "-" * 68,
+        f("VarHNScalingExp", f"{r['hn_scaling_exp']:.1f}", "-", "H(N) ~ (ln N)^exp scaling exponent"),
+        "",
+        "% " + "-" * 68,
+        "% 13. WALL-THICKNESS PARAMETER RANGE (from params.py)",
+        "% " + "-" * 68,
+        f("VarPLow", f"{p_low}", "-", "Wall-thickness exponent lower bound"),
+        f("VarPHigh", f"{p_high}", "-", "Wall-thickness exponent upper bound"),
+        f("VarPPulmonary", f"{p_pulmonary}", "-", "Wall-thickness exponent (pulmonary, Huang 1996)"),
+        "",
+        "% " + "-" * 68,
+        "% 14. MINIMAX BAND — G AND p RANGES (from params.py)",
+        "% " + "-" * 68,
+        f("VarGLow", f"{G_low}", "-", "Lower generation count for minimax band"),
+        f("VarGHigh", f"{G_high}", "-", "Upper generation count for minimax band"),
+        f("VarAlphaTLowBand", f"{alpha_t_low_band:.2f}", "-", "Transport optimum lower bound (band)"),
+        f("VarAlphaTHighBand", f"{alpha_t_high_band:.2f}", "-", "Transport optimum upper bound (band)"),
+        "",
+        "% " + "-" * 68,
+        "% 15. CROSS-SYSTEM VALIDATION — EXTENDED (from params.py)",
+        "% " + "-" * 68,
+        f("VarAlphaWPulmonary", f"{alpha_w_pulmonary:.3f}", "-", "Wave attractor (pulmonary, p=0.60)"),
+        f("VarGPulmonary", f"{G_pulmonary}", "-", "Tree depth (pulmonary)"),
+        f("VarAlphaExpErrPulmonary", f"{alpha_exp_err_pulmonary}", "-", "Empirical std dev (pulmonary)"),
+        f("VarAlphaExpPulmonaryLow", f"{alpha_exp_pulmonary_low:.2f}", "-", "Empirical alpha lower bound (pulmonary)"),
+        f("VarAlphaExpPulmonaryHigh", f"{alpha_exp_pulmonary_high:.2f}", "-", "Empirical alpha upper bound (pulmonary)"),
+        f("VarAlphaWAorticLow", f"{alpha_w_aortic_low:.2f}", "-", "Wave attractor lower bound (aortic)"),
+        f("VarAlphaWAorticHigh", f"{alpha_w_aortic_high:.2f}", "-", "Wave attractor upper bound (aortic)"),
+        f("VarGAortic", f"{G_aortic}", "-", "Tree depth (aortic)"),
+        f("VarAlphaExpAortic", f"{alpha_exp_aortic}", "-", "Empirical alpha (aortic, human)"),
+        f("VarAlphaExpErrAortic", f"{alpha_exp_err_aortic}", "-", "Empirical std dev (aortic)"),
+        f("VarAlphaWNeural", f"{alpha_w_neural:.2f}", "-", "Wave attractor (neural, electrotonic Rall 1959)"),
+        f("VarGNeural", f"{G_neural}", "-", "Tree depth (dendritic, indicative)"),
+        f("VarGAirways", f"{G_airways}", "-", "Weibel 1963 bronchial tree generations"),
+        f("VarAlphaExpAirwaysLow", f"{alpha_exp_airways_low}", "-", "Empirical alpha lower bound (airways)"),
+        f("VarAlphaExpAirwaysHigh", f"{alpha_exp_airways_high}", "-", "Empirical alpha upper bound (airways)"),
+        f("VarMurrayAlpha", "3.0", "-", "Murray cubic law exponent"),
     ]
 
     with open(tex_path, 'w', encoding='utf-8') as f:
@@ -678,61 +740,80 @@ def generate_figures(results_dict, fig_dir):
     y_cross   = (C_w_raw[idx_cross] + C_t_raw[idx_cross]) / 2.0
 
     # Panel A: fig2a_minimax.pdf
-    fig_a, ax = plt.subplots(1, 1, figsize=(7, 5))
+    fig_a, ax = plt.subplots(1, 1, figsize=(7, 5.4))
     ax.plot(alpha_arr, C_w_raw, '-', color='#1f77b4', lw=2.5,
             label=r'$\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha)$')
     ax.plot(alpha_arr, C_t_raw, '-', color='#d62728', lw=2.5,
             label=r'$\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha)$')
-    ax.axvspan(2.50, 2.90, alpha=0.15, color='#2ca02c',
+    ax.axvspan(2.50, 2.90, alpha=0.12, color='#2ca02c',
                label=r'$\alpha_{\exp} = 2.70 \pm 0.20$')
-    ax.axvspan(mm_lo, mm_hi, alpha=0.40, color='gray',
+    ax.axvspan(mm_lo, mm_hi, alpha=0.35, color='gray',
                label=f'Minimax band [{mm_lo:.2f}, {mm_hi:.2f}]')
-    ax.axvline(a_star, color='k', ls='--', lw=1, alpha=0.7)
-    ax.plot(a_star, y_cross, 'ko', ms=8)
-    ax.annotate(rf'$\alpha^*_{{\mathrm{{mm}}}} = {a_star:.3f}$',
-                xy=(a_star, y_cross),
-                xytext=(a_star - 0.30, y_cross + 0.05),
-                fontsize=12, fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color='k'))
-    ax.set_xlabel(r'Branching exponent $\alpha$')
-    ax.set_ylabel('Fractional cost')
-    ax.set_title('Minimax equal-cost intersection')
+    ax.axvline(a_star, color='k', ls='--', lw=1.2, alpha=0.6)
+    ax.plot(a_star, y_cross, 'ko', ms=9, zorder=10)
+    # Label: right of dot, slightly above — no arrow
+    ax.text(a_star + 0.04, y_cross,
+            rf'$\alpha^*_{{\mathrm{{mm}}}} = {a_star:.3f}$',
+            fontsize=11, fontweight='bold', va='top', ha='left')
+    ax.set_xlabel(r'Branching exponent $\alpha$', fontsize=13)
+    ax.set_ylabel('Fractional cost', fontsize=13)
+    ax.set_title('Minimax equal-cost intersection', fontsize=13)
     ax.set_xlim(2.1, 3.0)
     ax.set_ylim(-0.005, 0.26)
-    ax.legend(loc='upper left', fontsize=9)
     ax.grid(True, alpha=0.2)
+    # Legend below — full width, 2 columns, larger font
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.14),
+              ncol=2, fontsize=11, framealpha=0.92,
+              handlelength=1.8, columnspacing=2.0)
     fig_a.tight_layout()
-    fig_a.savefig(f'{fig_dir}/fig2a_minimax.pdf', bbox_inches='tight')
+    fig_a.subplots_adjust(bottom=0.25)
+    fig_a.savefig(f'{fig_dir}/fig2_minimax.pdf', bbox_inches='tight')
     plt.close(fig_a)
-    print(f"  [OK] Wrote {fig_dir}/fig2a_minimax.pdf")
+    print(f"  [OK] Wrote {fig_dir}/fig2_minimax.pdf")
 
     # Panel B: fig2b_robustness.pdf
-    fig_b, ax = plt.subplots(1, 1, figsize=(7, 5))
+    # NOTE: alpha_star_q1 > a_star  (q=1 gives the HIGHEST optimum; minimax is lowest)
+    delta_q = alpha_star_q1 - a_star          # positive by construction
+    q_lo    = min(a_star, alpha_star_q1)
+    q_hi    = max(a_star, alpha_star_q1)
+
+    fig_b, ax = plt.subplots(1, 1, figsize=(7, 5.4))
     phys = q_vals >= 1.0
-    ax.semilogx(q_vals[phys], a_stars_q[phys], 'ko-', ms=5, lw=1.8)
-    ax.axhline(a_star, color='#888', ls=':', lw=1.5,
+    # Shaded robustness band
+    ax.axhspan(q_lo, q_hi, alpha=0.10, color='#1f77b4')
+    # Reference asymptotes
+    ax.axhline(a_star, color='#555', ls=':', lw=1.5,
                label=rf'$q\to\infty$ (minimax): $\alpha^* = {a_star:.3f}$')
-    ax.annotate('', xy=(80, a_star), xytext=(80, alpha_star_q1),
-                arrowprops=dict(arrowstyle='<->', color='#1f77b4', lw=1.5))
-    ax.text(95, (a_star + alpha_star_q1) / 2,
-        rf'$\Delta\alpha^* = {a_star - alpha_star_q1:.3f}$', fontsize=9,
-        color='#1f77b4', ha='left', va='center')
+    ax.axhline(alpha_star_q1, color='#d62728', ls='--', lw=1.2, alpha=0.7,
+               label=rf'$q = 1$: $\alpha^* = {alpha_star_q1:.3f}$')
+    # Curve
+    ax.semilogx(q_vals[phys], a_stars_q[phys], 'ko-', ms=4, lw=1.8)
+    # q=1 highlight dot
     idx_q1 = np.searchsorted(q_vals, 1.0)
     ax.plot(q_vals[idx_q1], alpha_star_q1, 'o',
-            color='#d62728', ms=7, zorder=5)
-    ax.text(1.15, alpha_star_q1 + 0.003,
-            rf'$q=1$: $\alpha^* = {alpha_star_q1:.3f}$', fontsize=9, color='#d62728')
-    ax.set_xlabel('Norm exponent $q$')
-    ax.set_ylabel(r'$\alpha^*(q)$')
-    ax.set_title(r'Robustness under $L_q$ scalarization ($q \geq 1$)')
+            color='#d62728', ms=8, zorder=5)
+    # Δα* arrow on the central vertical gridline (x=10 on log scale)
+    ax_x = 10.0
+    ax.annotate('', xy=(ax_x, a_star), xytext=(ax_x, alpha_star_q1),
+                arrowprops=dict(arrowstyle='<->', color='#1f77b4', lw=2.0))
+    ax.text(ax_x * 1.35, (a_star + alpha_star_q1) / 2,
+            rf'$\Delta\alpha^* = {delta_q:.3f}$', fontsize=11,
+            color='#1f77b4', ha='left', va='center', fontweight='bold')
+    ax.set_xlabel('Norm exponent $q$', fontsize=13)
+    ax.set_ylabel(r'$\alpha^*(q)$', fontsize=13)
+    ax.set_title(r'Robustness under $L_q$ scalarization ($q \geq 1$)', fontsize=13)
     ax.set_xlim(0.9, 110)
-    ax.set_ylim(alpha_star_q1 - 0.005, a_star + 0.010)
-    ax.legend(loc='upper right', fontsize=9)
+    ax.set_ylim(q_lo - 0.020, q_hi + 0.020)
     ax.grid(True, alpha=0.2)
+    # Legend below — full width, 1 row
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.14),
+              ncol=2, fontsize=11, framealpha=0.92,
+              handlelength=1.8, columnspacing=2.0)
     fig_b.tight_layout()
-    fig_b.savefig(f'{fig_dir}/fig2b_robustness.pdf', bbox_inches='tight')
+    fig_b.subplots_adjust(bottom=0.25)
+    fig_b.savefig(f'{fig_dir}/fig3_robustness.pdf', bbox_inches='tight')
     plt.close(fig_b)
-    print(f"  [OK] Wrote {fig_dir}/fig2b_robustness.pdf")
+    print(f"  [OK] Wrote {fig_dir}/fig3_robustness.pdf")
 
     # --- Figure 3: fig3_lagrangian.pdf ---
     alpha_arr3 = np.linspace(2.50, 3.0, 500)
@@ -745,7 +826,7 @@ def generate_figures(results_dict, fig_dir):
     a_min   = alpha_arr3[min_idx]
     L_min   = L3[min_idx]
 
-    fig, ax = plt.subplots(figsize=(7, 5))
+    fig, ax = plt.subplots(figsize=(7, 5.4))
     ax.plot(alpha_arr3, eta * C_w3, '-', color='#1f77b4', lw=2.5,
             label=rf'$\eta^*\,\mathcal{{C}}^{{\mathrm{{net}}}}_{{\mathrm{{wave}}}}$'
                   rf'$\;(\eta^* = {eta:.3f})$')
@@ -756,20 +837,26 @@ def generate_figures(results_dict, fig_dir):
     ax.axvline(a_min, color='#555', ls='--', lw=1.4, alpha=0.8,
                label=rf'$\alpha^* = {a_min:.3f}$ (minimax)')
     ax.plot(a_min, L_min, 'ko', ms=8, zorder=5)
-    ax.text(a_min + 0.012, L_min + 0.004, rf'$\alpha^* = {a_min:.3f}$',
-            fontsize=11, fontweight='bold', color='k')
-    ax.set_xlabel(r'Branching exponent $\alpha$')
-    ax.set_ylabel('Weighted cost')
-    ax.set_title(r'Network Lagrangian Decomposition')
+    # Label at ~1:30 (upper-right, ~45°) — no arrow
+    ax.text(a_min + 0.010, L_min + 0.006,
+            rf'$\alpha^* = {a_min:.3f}$',
+            fontsize=11, fontweight='bold', color='k', va='bottom', ha='left')
+    ax.set_xlabel(r'Branching exponent $\alpha$', fontsize=13)
+    ax.set_ylabel('Weighted cost', fontsize=13)
+    ax.set_title(r'Network Lagrangian Decomposition', fontsize=13)
     ax.set_xlim(2.50, 3.0)
     y_max = float(np.max(L3)) * 1.08
     ax.set_ylim(-0.002, y_max)
-    ax.legend(loc='upper right', fontsize=10)
     ax.grid(True, alpha=0.2)
+    # Legend below — full width, 2 columns, larger font
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.14),
+              ncol=2, fontsize=11, framealpha=0.92,
+              handlelength=1.8, columnspacing=2.0)
     plt.tight_layout()
-    plt.savefig(f'{fig_dir}/fig3_lagrangian.pdf', bbox_inches='tight')
+    plt.subplots_adjust(bottom=0.25)
+    plt.savefig(f'{fig_dir}/fig4_lagrangian.pdf', bbox_inches='tight')
     plt.close()
-    print(f"  [OK] Wrote {fig_dir}/fig3_lagrangian.pdf")
+    print(f"  [OK] Wrote {fig_dir}/fig4_lagrangian.pdf")
 
 
 # ==============================================================
@@ -846,7 +933,7 @@ if __name__ == '__main__':
     # 8. Lq robustness
     r_local = locally_optimal_radii()
     Phi_ref = reference_cost(r_local)
-    alpha_star_q1, delta_alpha_lq, q_vals_arr, a_stars_q_arr = compute_lq_values(r_local, Phi_ref, eta=eta_star_val)
+    alpha_star_q1, delta_alpha_lq, q_vals_arr, a_stars_q_arr = compute_lq_values(r_local, Phi_ref, eta=0.5)
     print(f"\nLq robustness: alpha*(q=1)={alpha_star_q1:.3f}, spread={delta_alpha_lq:.3f}")
 
     # 9. Collect results

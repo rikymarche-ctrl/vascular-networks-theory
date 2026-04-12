@@ -3,6 +3,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![arXiv Paper 1](https://img.shields.io/badge/arXiv-2603.13687-b31b1b.svg)](https://arxiv.org/abs/2603.13687)
 [![arXiv Paper 2](https://img.shields.io/badge/arXiv-2603.14691-b31b1b.svg)](https://arxiv.org/abs/2603.14691)
+[![arXiv Paper 3](https://img.shields.io/badge/arXiv-Submitted-b31b1b.svg)]()
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 
 A unified theoretical framework for biological branching transport networks.
@@ -16,6 +17,7 @@ Starting from measured tissue properties alone — with **zero fitted parameters
 |---|---|---|---|
 | **1** | [*Beyond Murray's Law: Non-Universal Branching Exponents from Vessel-Wall Metabolic Costs*](paper1-murray/output/) | [arXiv:2603.13687](https://arxiv.org/abs/2603.13687) | Wall sub-linearity (*p* < 1) rigorously breaks Murray's universality; α\* ∈ [2.90, 2.94] |
 | **2** | [*A Unified Variational Principle for Branching Transport Networks*](paper2-variational/output/) | [arXiv:2603.14691](https://arxiv.org/abs/2603.14691) | Minimax game between wave and transport costs yields **α\* = 2.72** with zero free parameters |
+| **3** | [*The Dynamic Origin of Kleiber's Law*](paper3-kleiber/output/) | [arXiv:Submitted]() | Parameter-free exact prediction of macroscopic metabolic scaling laws across five phyla |
 
 ---
 
@@ -33,6 +35,7 @@ pip install -r requirements.txt
 # Or one paper at a time:
 .\build.ps1 -Target paper1
 .\build.ps1 -Target paper2
+.\build.ps1 -Target paper3
 ```
 
 > **Note:** The `build.ps1` script acts as a master dispatcher, delegating to the modular PowerShell scripts inside each paper's directory. LaTeX compilation requires a standard TeX distribution (TeX Live, MacTeX, or MiKTeX) with `pdflatex` and `bibtex`.
@@ -66,6 +69,13 @@ vascular-networks-theory/
     │   └── compute.py                  # Generates dynamic variables
     ├── manuscript/
     ├── supplements/
+    └── output/                         # Compiled PDFs
+
+└── paper3-kleiber/
+    ├── build.ps1                       # Local build script
+    ├── scripts/
+    │   └── compute.py                  # Generates dynamic variables
+    ├── manuscript/
     └── output/                         # Compiled PDFs
 ```
 
@@ -103,6 +113,14 @@ If this work is useful to you, please cite the relevant paper:
   journal = {arXiv preprint arXiv:2603.14691},
   year    = {2026},
   url     = {https://arxiv.org/abs/2603.14691}
+}
+
+@article{marchesi2026kleiber,
+  author  = {Marchesi, Riccardo},
+  title   = {The Dynamic Origin of Kleiber's Law},
+  journal = {arXiv preprint arXiv:Submitted},
+  year    = {2026},
+  url     = {}
 }
 ```
 

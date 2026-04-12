@@ -1,0 +1,155 @@
+% ====================================================================
+% DYNAMIC VARIABLES
+% ====================================================================
+% Source: paper3-kleiber/scripts/compute.py
+% Generated: 2026-04-12T07:40
+% ====================================================================
+
+% Wall-maintenance exponents (m = 1+p, derived from literature p)
+\newcommand{\mCoronary}{1.770}
+\newcommand{\mPulmonary}{1.600}
+\newcommand{\mBronchial}{1.700}
+
+% Non-vascular maintenance exponents
+\newcommand{\mNeuron}{1.000}
+\newcommand{\mTrachea}{0.500}
+\newcommand{\mXylemLo}{1.000}
+\newcommand{\mXylemHi}{2.000}
+\newcommand{\mLeaf}{1.000}
+\newcommand{\mSponge}{1.000}
+
+% Theoretical branching exponents alpha_t = (n+m)/2
+\newcommand{\atCoronary}{2.885}
+\newcommand{\atPulmonary}{2.800}
+\newcommand{\atCerebral}{2.885}
+\newcommand{\atBronchial}{2.850}
+\newcommand{\atNeuron}{2.500}
+\newcommand{\atTrachea}{2.250}
+\newcommand{\atXylemLo}{2.500}
+\newcommand{\atXylemHi}{3.000}
+\newcommand{\atLeaf}{2.500}
+\newcommand{\atSponge}{2.500}
+
+% Untested predictions (Table 2)
+\newcommand{\atFishGill}{2.500}
+\newcommand{\atConstructal}{1.500}
+\newcommand{\atLymphatic}{2.500}
+\newcommand{\atCoral}{2.250}
+
+% Theorem 4 viscous sub-bound: beta(5/2, 3) = 15/17
+\newcommand{\betaSurfaceBound}{0.882}
+
+% Theorem 5: Womersley transition
+\newcommand{\omegaRef}{7.330}
+\newcommand{\WoRef}{18.919}
+\newcommand{\Mstar}{8.74}
+\newcommand{\MstarRounded}{\ensuremath{\approx 8.74~\mathrm{g}}}
+
+% Theorem 6 verification table
+\newcommand{\betaFourTwoThree}{1.000}
+\newcommand{\betaFourOneThree}{0.882}
+\newcommand{\betaFourHalfThree}{0.818}
+\newcommand{\betaTwoHalfThree}{0.517}
+\newcommand{\betaFourOneTwo}{0.769}
+
+% Diffusion tracheole limit (n=2, m=0.5)
+\newcommand{\atTracheoleDiff}{1.250}
+
+% Leaf venation beta (d=2, n=4, m=1)
+\newcommand{\betaLeaf}{0.769}
+
+% Leaf venation dimensionality caveat (d_eff = 2.1)
+\newcommand{\betaLeafEff}{0.784}
+\newcommand{\Deff}{2.1}
+
+% Minimax exponent alpha*
+\newcommand{\alphastar}{2.720}
+\newcommand{\alphastarNeural}{2.380}
+
+% Reflection coefficients — dynamic selection of alpha_w
+\newcommand{\TcumMinimax}{0.912}
+\newcommand{\TcumMurray}{0.864}
+\newcommand{\TlossMinimax}{8.830}
+\newcommand{\TlossMurray}{13.626}
+
+% Dimensional universality β(α_w=2, d) = d/(d+1)
+\newcommand{\betaDimOne}{0.500}
+\newcommand{\betaDimTwo}{0.667}
+\newcommand{\betaDimThree}{0.750}
+\newcommand{\betaDimFour}{0.800}
+
+% Allometric universality classes
+\newcommand{\betaSfourFive}{0.818}
+
+% Fixed point uniqueness exponent
+
+% Monotonicity of rho — double optimality
+\newcommand{\rhoWave}{0.794}
+
+% Convergence table — dynamic values (K=11, N=2, d=3)
+\newcommand{\rhoAlphaWave}{0.794}
+\newcommand{\epsAlphaWave}{0.063}
+\newcommand{\volAlphaWave}{93.8}
+\newcommand{\rhoAlphaNeuralMinimax}{0.887}
+\newcommand{\epsAlphaNeuralMinimax}{0.236}
+\newcommand{\volAlphaNeuralMinimax}{76.4}
+\newcommand{\rhoAlphaVascMinimax}{0.954}
+\newcommand{\epsAlphaVascMinimax}{0.565}
+\newcommand{\volAlphaVascMinimax}{43.5}
+\newcommand{\rhoWaveTwoDp}{0.79}
+\newcommand{\VolCaptWaveRound}{94}
+
+\newcommand{\MstarWocLo}{2.8}
+\newcommand{\MstarWocHi}{21.3}
+\newcommand{\MstarWocLoVal}{1.5}
+\newcommand{\MstarWocHiVal}{2.5}
+
+\newcommand{\betaAlphaWTwoPointOne}{0.778}
+\newcommand{\deltaBetaAlphaWTwoPointOne}{0.028}
+
+% ============================================================
+% Section 18: His-Purkinje resonance analysis
+% ============================================================
+\newcommand{\mHP}{2.000}
+\newcommand{\atHP}{2.000}
+\newcommand{\betaHP}{0.750}
+\newcommand{\betaHPfrac}{3/4}
+
+% ============================================================
+% Section 19: Clade-shifting of the Womersley Transition
+% ============================================================
+\newcommand{\rZeroOneKg}{2.541}
+\newcommand{\MstarBird}{23.0}
+\newcommand{\WoRefBird}{5.135}
+\newcommand{\MstarReptLo}{217}
+\newcommand{\MstarReptHi}{956}
+\newcommand{\WoRefReptLo}{2.022}
+\newcommand{\WoRefReptHi}{2.929}
+\newcommand{\betaViscousReptile}{0.974}
+
+% ============================================================
+% Section 20: Physical minimax α* (no free parameters)
+% ============================================================
+\newcommand{\alphastarPhys}{2.77}
+\newcommand{\betaMinimaxPhys}{0.947}
+\newcommand{\fstarPhys}{9.7}
+
+% ============================================================
+% Section 21: Pulmonary minimax α*
+% ============================================================
+\newcommand{\rZeroPulm}{15}
+\newcommand{\omegaPulm}{7.54}
+\newcommand{\WoPulm}{24}
+\newcommand{\alphastarPulm}{2.688}
+\newcommand{\fstarPulm}{8.28}
+
+% ============================================================
+% Section 23: Cerebral autoregulation minimax α*(ε)
+% ============================================================
+\newcommand{\epsilonCerebralLow}{0.15}
+\newcommand{\epsilonCerebralHigh}{0.2}
+\newcommand{\alphaStarCerebralLow}{2.863}
+\newcommand{\alphaStarCerebralHigh}{2.856}
+\newcommand{\alphaStarCerebral}{2.859}
+
+

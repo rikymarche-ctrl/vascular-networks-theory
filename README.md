@@ -3,7 +3,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![arXiv Paper 1](https://img.shields.io/badge/arXiv-2603.13687-b31b1b.svg)](https://arxiv.org/abs/2603.13687)
 [![arXiv Paper 2](https://img.shields.io/badge/arXiv-2603.14691-b31b1b.svg)](https://arxiv.org/abs/2603.14691)
-[![arXiv Paper 3](https://img.shields.io/badge/arXiv-Submitted-b31b1b.svg)]()
+[![arXiv Paper 3](https://img.shields.io/badge/arXiv-2604.10476-b31b1b.svg)](https://arxiv.org/abs/2604.10476)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 
 A unified theoretical framework for biological branching transport networks.
@@ -13,11 +13,11 @@ Starting from measured tissue properties alone — with **zero fitted parameters
 
 ## Papers
 
-| # | Title | Links | Key result |
-|---|---|---|---|
-| **1** | [*Beyond Murray's Law: Non-Universal Branching Exponents from Vessel-Wall Metabolic Costs*](paper1-murray/output/) | [arXiv:2603.13687](https://arxiv.org/abs/2603.13687) | Wall sub-linearity (*p* < 1) rigorously breaks Murray's universality; α\* ∈ [2.90, 2.94] |
-| **2** | [*A Unified Variational Principle for Branching Transport Networks*](paper2-variational/output/) | [arXiv:2603.14691](https://arxiv.org/abs/2603.14691) | Minimax game between wave and transport costs yields **α\* = 2.72** with zero free parameters |
-| **3** | [*The Dynamic Origin of Kleiber's Law*](paper3-kleiber/output/) | [arXiv:Submitted]() | Parameter-free exact prediction of macroscopic metabolic scaling laws across five phyla |
+| #           | Title                                                                                                             | Links                                             | Key result                                                                                          |
+| ----------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **1** | [*Beyond Murray's Law: Non-Universal Branching Exponents from Vessel-Wall Metabolic Costs*](paper1-murray/output/) | [arXiv:2603.13687](https://arxiv.org/abs/2603.13687) | Wall sub-linearity (*p* < 1) rigorously breaks Murray's universality; α\* ∈ [2.90, 2.94]        |
+| **2** | [*A Unified Variational Principle for Branching Transport Networks*](paper2-variational/output/)                   | [arXiv:2603.14691](https://arxiv.org/abs/2603.14691) | Minimax game between wave and transport costs yields**α\* = 2.72** with zero free parameters |
+| **3** | [*The Dynamic Origin of Kleiber's Law*](paper3-kleiber/output/)                                                    | [arXiv:2604.10476](https://arxiv.org/abs/2604.10476) | Parameter-free exact prediction of macroscopic metabolic scaling laws across five phyla             |
 
 ---
 
@@ -44,39 +44,27 @@ pip install -r requirements.txt
 
 ## Repository Structure
 
-```
+```text
 vascular-networks-theory/
-├── build.ps1                           # Master build pipeline
+├── build.ps1                       # Master build pipeline (delegates to per-paper scripts)
 ├── requirements.txt
 ├── CITATION.cff
 ├── LICENSE
 ├── shared/
 │   └── scripts/
-│       └── params.py                   # Single source of truth for all physical constants
-├── paper1-murray/
-│   ├── build.ps1                       # Local build script
-│   ├── scripts/
-│   │   └── compute.py                  # Generates dynamic variables
+│       └── params.py               # Single source of truth for all physical constants
+│
+├── paper[N]-[id]/                  # One directory per paper — identical template
+│   ├── build.ps1                   # Local build script
 │   ├── manuscript/
-│   │   ├── main.tex                    # LaTeX source
+│   │   ├── main.tex                # LaTeX source
 │   │   ├── references.bib
-│   │   ├── dynamic_variables.tex       # Auto-generated — do not edit by hand
+│   │   ├── dynamic_variables.tex   # Auto-generated numbers — do not edit by hand
 │   │   └── figures/
-│   └── output/                         # Compiled PDFs
-└── paper2-variational/
-    ├── build.ps1                       # Local build script
-    ├── scripts/
-    │   └── compute.py                  # Generates dynamic variables
-    ├── manuscript/
-    ├── supplements/
-    └── output/                         # Compiled PDFs
-
-└── paper3-kleiber/
-    ├── build.ps1                       # Local build script
-    ├── scripts/
-    │   └── compute.py                  # Generates dynamic variables
-    ├── manuscript/
-    └── output/                         # Compiled PDFs
+│   ├── scripts/
+│   │   └── compute.py              # Deterministic numerical pipeline
+│   ├── output/                     # Compiled PDFs
+│   └── [supplements/ | data/ | …]  # Optional — paper-specific appendices or datasets
 ```
 
 ---
@@ -118,9 +106,9 @@ If this work is useful to you, please cite the relevant paper:
 @article{marchesi2026kleiber,
   author  = {Marchesi, Riccardo},
   title   = {The Dynamic Origin of Kleiber's Law},
-  journal = {arXiv preprint arXiv:Submitted},
+  journal = {arXiv preprint arXiv:2604.10476},
   year    = {2026},
-  url     = {}
+  url     = {https://arxiv.org/abs/2604.10476}
 }
 ```
 

@@ -33,3 +33,10 @@ references:
     title: "A Unified Variational Principle for Branching Transport Networks"
     year: 2026
     doi: 10.48550/arXiv.2603.14691
+  - type: article
+    authors:
+      - family-names: Marchesi
+        given-names: Riccardo
+    title: "The Dynamic Origin of Kleiber's Law"
+    year: 2026
+    doi: 10.48550/arXiv.2604.10476

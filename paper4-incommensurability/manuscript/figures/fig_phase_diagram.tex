@@ -1,0 +1,43 @@
+\begin{tikzpicture}[>=stealth, font=\small]
+
+  % Spine
+  \draw[-] (-0.5,0) -- (11,0);
+
+  % Axis indicators
+  \draw[->] (11.3, 0.25) -- (12.3, 0.25) node[right] {$\alpha$};
+  \draw[->] (12.3,-0.25) -- (11.3,-0.25) node[left]  {$\eta$};
+
+  % Nodes
+  \node[circle, fill=blue!70!black, text=white,
+        minimum size=1.6cm, align=center] (W) at (1,0)
+        {$\alpha_w = \VarAlphaWFig$};
+
+  \node[circle, fill=orange!80!black, text=white,
+        minimum size=2.2cm, align=center] (M) at (5.5,0)
+        {$\eta^* \approx \VarEtaStar$\\[0.4ex]$\alpha^* = \VarAlphaStar$};
+
+  \node[circle, fill=green!50!black, text=white,
+        minimum size=1.6cm, align=center] (T) at (10,0)
+        {$\alpha_t \approx \VarAlphaTFig$};
+
+  % Labels below nodes
+  \node[align=center, below=0.5cm of W]
+        {Wave attractor\\[0.2ex]\textit{$\eta \to 1$}};
+  \node[align=center, below=0.6cm of M]
+        {\textbf{Minimax saddle point}};
+  \node[align=center, below=0.5cm of T]
+        {Transport attractor\\[0.2ex]\textit{$\eta \to 0$}};
+
+  % Evolutionary pressure arrows
+  \draw[->, dashed, bend left=30] (W.north east)
+        to node[above, yshift=1mm, font=\footnotesize\itshape]
+        {evolutionary pressure} (M.north west);
+  \draw[->, dashed, bend right=30] (T.north west)
+        to node[above, yshift=1mm, font=\footnotesize\itshape]
+        {evolutionary pressure} (M.north east);
+
+  % Bottom label
+  \node[below=1.6cm of M, font=\footnotesize, text=gray]
+        {unique robust interior point};
+
+\end{tikzpicture}

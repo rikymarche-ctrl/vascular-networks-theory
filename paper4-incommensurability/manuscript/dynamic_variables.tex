@@ -1,0 +1,75 @@
+% ====================================================================
+% DYNAMIC VARIABLES
+% ====================================================================
+% Source: paper4-incommensurability/scripts/compute.py
+% Generated: 2026-05-05T00:32
+% ====================================================================
+
+% --------------------------------------------------------------------
+% 1. PHYSICAL PARAMETERS (porcine coronary tree)
+% --------------------------------------------------------------------
+\newcommand{\VarG}{11}                             % [-       ] Tree depth (junctions)
+\newcommand{\VarN}{2}                              % [-       ] Bifurcation number
+\newcommand{\VarP}{0.77}                           % [-       ] Wall-thickness exponent (Rhodin 1967)
+\newcommand{\VarAlphaW}{2.115}                     % [-       ] Wave-impedance attractor (Paper II)
+\newcommand{\VarAlphaWFig}{2}                      % [-       ] Wave attractor for figures (integer)
+
+% --------------------------------------------------------------------
+% 2. METABOLIC PARAMETERS (baseline, SI units)
+% --------------------------------------------------------------------
+\newcommand{\VarMuFmPas}{3.5}                      % [mPa s   ] Blood dynamic viscosity
+\newcommand{\VarBblood}{1500}                      % [W/m3    ] Blood-volume metabolic cost
+\newcommand{\VarMwallKW}{20}                       % [kW/m3   ] Wall metabolic cost
+\newcommand{\VarQZeroML}{5.2}                      % [mL/s    ] Proximal flow
+\newcommand{\VarEllZeroMm}{15}                     % [mm      ] Root segment length
+
+% --------------------------------------------------------------------
+% 3. MINIMAX RESULTS (inputs from Paper II)
+% --------------------------------------------------------------------
+\newcommand{\VarAlphaStar}{2.72}                   % [-       ] Minimax exponent (Kassab 1993 calibration)
+\newcommand{\VarEtaStar}{0.833}                    % [-       ] Duty cycle (saddle point)
+\newcommand{\VarAlphaTFig}{2.90}                   % [-       ] Transport optimum for figures
+
+% --------------------------------------------------------------------
+% 4. COMPUTED BASELINE (two-level model, this script)
+% --------------------------------------------------------------------
+\newcommand{\VarAlphaStarModel}{2.676}             % [-       ] Minimax exponent (model)
+
+% --------------------------------------------------------------------
+% 5. TRANSPORT OPTIMUM RANGE (physiological p)
+% --------------------------------------------------------------------
+\newcommand{\VarAlphaTLow}{2.86}                   % [-       ] alpha_t at p = 0.72
+\newcommand{\VarAlphaTHigh}{2.92}                  % [-       ] alpha_t at p = 0.82
+
+% --------------------------------------------------------------------
+% 6. NO-GO THEOREM: COUPLING VARIATION
+% --------------------------------------------------------------------
+\newcommand{\VarMuCouplingExp}{{2-3}}              % [-       ] Decades of mu variation across hierarchy
+
+% --------------------------------------------------------------------
+% 7. SENSITIVITY VALUES (Table 1)
+% --------------------------------------------------------------------
+\newcommand{\VarSMuF}{${<}0.01$}                   % [-       ] Sensitivity: blood viscosity
+\newcommand{\VarSB}{${<}0.01$}                     % [-       ] Sensitivity: blood metabolic cost
+\newcommand{\VarSMW}{${<}0.01$}                    % [-       ] Sensitivity: wall metabolic cost
+\newcommand{\VarSQZ}{${<}0.01$}                    % [-       ] Sensitivity: proximal flow
+\newcommand{\VarSEll}{$=0$ (exact)}                % [-       ] Sensitivity: segment length (exact zero)
+\newcommand{\VarSP}{$0.27$}                        % [-       ] Sensitivity: wall exponent p
+\newcommand{\VarSG}{$0.10$}                        % [-       ] Sensitivity: tree depth G
+\newcommand{\VarSAlphaW}{$0.54$}                   % [-       ] Sensitivity: wave attractor alpha_w
+
+% --------------------------------------------------------------------
+% 9. TABLE PERTURBATION MAGNITUDES
+% --------------------------------------------------------------------
+\newcommand{\VarPertB}{$\times 2$}
+\newcommand{\VarPertMW}{$\times 7$}
+\newcommand{\VarPertMuF}{$+50\%$}
+\newcommand{\VarPertQZ}{$\times 4$}
+\newcommand{\VarPertEll}{$\times 3$}
+\newcommand{\VarPertP}{$\pm 0.08$}
+\newcommand{\VarPertG}{$\pm 2$}
+\newcommand{\VarPertAlphaW}{$+0.115$}
+
+% ====================================================================
+% END OF AUTO-GENERATED FILE
+% ====================================================================

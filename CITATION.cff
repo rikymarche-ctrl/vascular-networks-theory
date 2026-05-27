@@ -9,8 +9,8 @@ abstract: >
   Source code and manuscripts for a unified theoretical framework of biological
   branching transport networks, deriving the empirically observed branching
   exponent α* ≈ 2.72 from first principles with zero fitted parameters.
-version: 1.1.0
-date-released: "2026-03-15"
+version: 1.2.0
+date-released: "2026-05-27"
 license: CC-BY-4.0
 repository-code: https://github.com/rikymarche-ctrl/vascular-networks-theory
 identifiers:
@@ -40,3 +40,10 @@ references:
     title: "The Dynamic Origin of Kleiber's Law"
     year: 2026
     doi: 10.48550/arXiv.2604.10476
+  - type: article
+    authors:
+      - family-names: Marchesi
+        given-names: Riccardo
+    title: "The Incommensurability Principle in Biological Transport"
+    year: 2026
+    doi: 10.48550/arXiv.2605.03219

@@ -1,0 +1,675 @@
+% ====================================================================
+% SECTION 03: ATP STOICHIOMETRY AND CHEMICAL GAUGE INVARIANCE
+% ====================================================================
+\section{ATP Stoichiometry and Metabolic Scaling Symmetry}
+\label{sec:gauge}
+
+\subsection{The Principle of Linear Energy Transduction}
+
+The choice of a cost functional for vascular optimization is not an arbitrary
+modeling decision but a consequence of the fundamental \emph{ATP stoichiometry}
+of biological transport. In any system operating under metabolic pressure, every
+additional Watt of dissipated power $\Delta \Phi$ corresponds to a fixed,
+extensive quantity of glucose consumed per unit time. Because glucose is a
+fungible good with a constant caloric density, the fitness cost of vascular
+inefficiency is strictly proportional to the absolute energetic excess.
+
+This physical constraint imposes a \emph{Metabolic Scaling
+Symmetry}\footnote{Not a field-theoretic gauge symmetry (like U(1) or SU(2) in
+physics), but a global scaling invariance of the cost functional. In biological
+transport, this reflects the fact that fitness selection depends on relative
+metabolic excess, not absolute power consumption.}: the fitness penalty must be
+invariant under a uniform multiplicative rescaling of the basal metabolism,
+$\Phi_{\mathrm{opt}} \to \lambda\Phi_{\mathrm{opt}}$ where $\lambda \in
+\mathbb{R}^+$. To satisfy this invariance while maintaining allometric scale
+independence (i.e., a dimensionless penalty that allows a shrew and a whale to
+be governed by the same adaptive rules), the functional must take the form of a
+fractional excess. The linear penalty is thus not a modeling choice, but a
+consequence grounded in ATP stoichiometry and constrained by the first law of
+thermodynamics.
+
+\subsection{Thermodynamic Linearity and the Physical Occam's Razor}
+
+The linear form of the cost functional $F = (\Phi - \Phi^*)/\Phi^*$ is not an
+arbitrary mathematical choice, but a strict consequence of oxidative
+phosphorylation stoichiometry and near-equilibrium thermodynamics. At the
+cellular level, excess fluidic dissipation is paid in units of ATP. Because this
+metabolic accounting is strictly additive---one extra Joule of dissipated
+physical work requires a strictly proportional increase in oxidative
+metabolism---the evolutionary fitness penalty must scale linearly with excess
+entropy production. Imposing non-linear penalties (e.g., quadratic or
+logarithmic) would imply unphysical non-stoichiometric metabolic costs,
+equivalent to postulating ``compound interest'' on ATP molecules.
+
+Furthermore, numerical sensitivity analysis shows that imposing artificial
+non-linear penalties alters the theoretical attractor $\alpha^*$ by less than
+$0.3\%$. It is crucial to note that these alternative penalties are merely
+counterfactual numerical robustness tests, not physically admissible
+alternatives. Their negligible impact is the signature of Prigogine's minimum
+entropy production principle in the Onsager regime: because the evolutionary
+attractor is strongly confining, the mature vascular network operates in the
+immediate vicinity of the fundamental physical lower bound ($\Phi \to \Phi^*$).
+In this near-optimal regime, any smooth evolutionary cost landscape is
+analytically dominated by its first-order (linear) term.
+
+Finally, the Gauge Invariance (normalization by the intrinsic absolute minimum
+$\Phi^*$) represents the allometric ``Occam's razor'': it ensures that the
+selective pressure acting on a $30$\,g mouse is mathematically isomorphic to the
+pressure acting on a $3000$\,kg elephant, rendering the optimization topology
+scale-free and permitting universal scaling laws such as Kleiber's metabolic
+rate to emerge naturally.
+
+We formalize this thermodynamic necessity as a first-order response principle:
+
+\begin{theorem}[Onsager Linearity of Fitness Penalty]
+\label{thm:onsager}
+Consider a vascular network characterized by a state vector $\vec{x} = (r_0,
+\ldots, r_G, \alpha, \beta)$ describing vessel radii and branching exponents.
+Let $\vec{x}^*$ be the configuration minimizing total dissipation
+$\Phi(\vec{x})$ subject to morphometric constraints (fixed total volume,
+hierarchical structure, etc.).
+
+For small deviations $\delta\vec{x} = \vec{x} - \vec{x}^*$ from the optimum, the
+fitness penalty $\mathcal{L}_{\mathrm{fitness}}$ associated with increased
+metabolic cost is:
+\begin{equation}
+    \mathcal{L}_{\mathrm{fitness}}(\vec{x})
+    = \lambda_{\mathrm{bio}} \frac{\Phi(\vec{x}) - \Phi(\vec{x}^*)}{\Phi(\vec{x}^*)}
+    + O\left(\|\delta\vec{x}\|^2\right)
+\end{equation}
+where $\lambda_{\mathrm{bio}} > 0$ is a phenotype-specific selection
+coefficient, and the linearity holds to first order in $\|\delta\vec{x}\|$.
+
+Moreover, the functional form $(\Phi - \Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$
+is the \emph{uniquely consistent} scale-invariant measure of dissipative excess
+satisfying the joint requirements of scale invariance, thermodynamic
+extensivity, and normalization.
+\end{theorem}
+
+\begin{proof}[Proof sketch; see Supplemental Material, Section S5 for full derivation]
+\textbf{Step 1: Near-equilibrium expansion.} For small deviations from the
+optimum:
+\begin{equation}
+    \Phi(\vec{x}^* + \delta\vec{x})
+    = \Phi(\vec{x}^*)
+    + \frac{1}{2} \delta\vec{x}^T \mathbf{H} \delta\vec{x} + O(\|\delta\vec{x}\|^3),
+\end{equation}
+where $\mathbf{H}$ is the Hessian matrix (positive semi-definite at a minimum).
+
+\textbf{Step 2: Onsager entropy production.} The excess entropy production rate
+is:
+\begin{equation}
+    \Delta\dot{S} = \frac{\Delta\Phi}{T_{\mathrm{body}}}
+    \propto \|\delta\vec{x}\|^2,
+\end{equation}
+quadratic in deviations (Onsager's theorem for near-equilibrium
+systems~\cite{onsager1931}).
+
+\textbf{Step 3: Fractional fitness cost.} Evolutionary selection acts on
+fractional metabolic increase, not absolute power (allometric invariance):
+\begin{equation}
+    \mathcal{L}_{\mathrm{fitness}}
+    \sim \frac{\Delta\Phi}{\Phi_{\mathrm{opt}}}.
+\end{equation}
+
+The fractional form is necessary because absolute dissipation varies by $10^{5}$
+across species (mouse $\sim 0.1$\,W, elephant $\sim 10^4$\,W), but fitness
+selection is dimensionless.
+
+\textbf{Step 4: Uniqueness via Compositionality.} The functional $(\Phi -
+\Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$ is the simplest form satisfying:
+\begin{itemize}
+    \item
+Scale invariance: $F(\Lambda\Phi, \Lambda\Phi_{\mathrm{opt}}) = F(\Phi,
+\Phi_{\mathrm{opt}})$,
+    \item
+Normalization: $F(\Phi_{\mathrm{opt}}, \Phi_{\mathrm{opt}}) = 0$,
+    \item
+Monotonicity: $\partial F/\partial\Phi > 0$.
+\end{itemize}
+While these axioms allow any monotonic $F(x/x_{opt})$, the additional
+requirement of \textbf{Compositionality}---that the optimality ranking of
+independent subsystems remains invariant under aggregation---singles out the
+linear (affine) form.
+
+From scale invariance, $F$ depends only on $\Phi/\Phi_{\mathrm{opt}}$. Write
+$F(x) = f(x/1)$ where $x = \Phi/\Phi_{\mathrm{opt}}$. For small $\epsilon = x -
+1$:
+\begin{equation}
+    f(1 + \epsilon) = f(1) + f'(1)\epsilon + O(\epsilon^2) = f'(1)\epsilon,
+\end{equation}
+using $f(1) = 0$. Setting $f'(1) = 1$ (absorbing into $\lambda_{\mathrm{bio}}$):
+\begin{equation}
+    \mathcal{C}_{\mathrm{met}} \propto \frac{\Phi - \Phi_{\mathrm{opt}}}{\Phi_{\mathrm{opt}}}.
+\end{equation}
+\end{proof}
+
+\begin{remark}[Robustness of Linearization in Physiological Regime]
+Empirical morphometry (Murray exponent $\alpha = 2.39 \pm 0.15$,
+meta-analysis~\cite{taylor2024}) suggests $\|\delta\vec{x}\|/\|\vec{x}^*\|
+\lesssim 0.1$, confirming operation in the linear response regime. Explicit
+calculation for the human vasculature at $\alpha = 2.39$ yields:
+\begin{equation}
+    \frac{\Delta\Phi}{\Phi_{\mathrm{opt}}} =
+    \frac{\Phi(2.39) - \Phi(2.33)}{\Phi(2.33)} \approx 0.18\text{--}0.22,
+\end{equation}
+where $\alpha_{\mathrm{opt}} \approx 2.33$ for static transport. This fractional
+excess lies well within the regime where second-order corrections $O(\epsilon^2)
+\lesssim 0.05$ remain negligible, validating the linear approximation regardless
+of the specific functional form $(x-1)$, $(x-1)^2$, or $\ln x$.
+
+While biological systems are fundamentally far-from-equilibrium, the Local
+Equilibrium Hypothesis (LEH) is well-justified for vascular remodeling, as the
+timescale of angiogenic adaptation is slow relative to the metabolic flux. This
+"angiogenic linearity" justifies the quadratic expansion of the excess entropy
+production, identifying the selection coefficient as a thermodynamic restoring
+force. $\lambda_{\mathrm{bio}} \sim 0.2$--$0.3$ is consistent with
+cardiovascular traits under stabilizing selection.
+\end{remark}
+
+\subsection{Extensivity and Conditional Uniqueness of the Linear Form}
+
+Before establishing the full scale-invariant functional, we prove that the
+additivity (extensivity) of metabolic costs, when assumed, selects the linear
+penalty functional as the uniquely consistent form. This \textbf{Canonical
+Selection} provides a strong theoretical anchor for the exactness of the
+results, though we note that alternative functionals are numerically
+near-degenerate: the logarithmic penalty shifts $\alpha^*$ by $\Delta \alpha^*
+\approx -0.004$, while the quadratic case yields $\Delta \alpha^* \approx
++0.007$.
+
+\textbf{Biological justification for extensivity.} In evolutionary biology,
+fitness costs associated with quantitative traits are commonly assumed to be
+additive when measured on fractional or logarithmic scales~\cite{lande1983}. For
+metabolic traits, this reflects the stoichiometry of oxidative phosphorylation:
+each additional watt of excess dissipation costs a fixed number of ATP
+molecules, independent of the baseline metabolic flux. When two independent
+vascular networks $A$ and $B$ supply metabolically independent tissues, the
+total fitness penalty is the sum of the individual penalties, each normalized by
+its respective baseline consumption. Since the total baseline is
+$\Phi_{A,\mathrm{opt}} + \Phi_{B,\mathrm{opt}}$, the fractional excess of the
+combined system is naturally the weighted average
+\begin{equation}
+    \mathcal{C}_{A+B} = w_A \mathcal{C}_A + w_B \mathcal{C}_B, \quad
+    w_i = \frac{\Phi_{i,\mathrm{opt}}}{\Phi_{A,\mathrm{opt}} + \Phi_{B,\mathrm{opt}}}.
+\end{equation}
+This \emph{extensibility} principle is an established framework in quantitative
+genetics and provides a thermodynamic foundation for the separability condition
+invoked below.
+
+\paragraph{Compositionality and Segmentation Invariance.} 
+Beyond metabolic stoichiometry, the linear form is uniquely required by the
+requirement of \textbf{Segmentation Invariance}. If the vascular network is
+partitioned into arbitrary sub-networks (e.g., separating the arterial tree from
+the microvascular capillary bed), the total metabolic penalty must be
+independent of this arbitrary segmentation. As proven in Supplementary
+Section~\ref{S-sec:S7_segmentation}, any nonlinear penalty (e.g., quadratic or
+logarithmic) would introduce an artificial scaling dependence on the number of
+partitions, making the optimal exponent a function of the observer's chosen
+segmentation. The linear scaling form is the unique ``Compositional Point''
+where the global optimization is scale-invariant under hierarchical
+partitioning.
+
+\begin{theorem}[Conditional Uniqueness of Linear Penalty Given Extensivity]
+\label{thm:additivity}
+Let $\mathcal{C}(\alpha)$ be a dimensionless penalty functional for the total
+metabolic cost, defined on the extensive dissipation power
+$\Phi_{\mathrm{net}}(\alpha)$. \emph{If} the following extensivity condition
+holds:
+\begin{enumerate}
+    \item
+\textbf{Extensivity}: For two independent vascular subsystems $A$ and $B$ with
+dissipations $\Phi_A(\alpha)$ and $\Phi_B(\alpha)$, the total penalty satisfies:
+    \begin{equation}
+        \mathcal{C}_{A+B} =
+        \frac{\Phi_A + \Phi_B - (\Phi_{A,\mathrm{opt}} + \Phi_{B,\mathrm{opt}})}
+        {\Phi_{A,\mathrm{opt}} + \Phi_{B,\mathrm{opt}}}
+        = \frac{\Phi_{A+B} - \Phi_{A+B,\mathrm{opt}}}{\Phi_{A+B,\mathrm{opt}}}.
+    \end{equation}
+    \item
+\textbf{Separability}: The penalty for the composite system can be expressed in
+terms of the individual penalties and their weights:
+    \begin{equation}
+        \mathcal{C}_{A+B}(\alpha) = w_A \mathcal{C}_A(\alpha) + w_B \mathcal{C}_B(\alpha),
+    \end{equation}
+where $w_A = \Phi_{A,\mathrm{opt}}/\Phi_{A+B,\mathrm{opt}}$ and $w_B =
+\Phi_{B,\mathrm{opt}}/\Phi_{A+B,\mathrm{opt}}$.
+\end{enumerate}
+Then $\mathcal{C}(\alpha)$ must be the affine (linear) functional:
+\begin{equation}
+    \mathcal{C}(\alpha) = \frac{\Phi(\alpha) - \Phi_{\mathrm{opt}}}{\Phi_{\mathrm{opt}}}.
+    \label{eq:additivity_unique}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By the representation lemma (proven in the concluding step), scale invariance
+requires $\mathcal{C}(\alpha) = F(\Phi/\Phi_{\mathrm{opt}})$ for some function
+$F$ with $F(1) = 0$. Write $x = \Phi/\Phi_{\mathrm{opt}}$.
+
+From condition (2), for subsystems $A$ and $B$:
+\begin{equation}
+    F\left(\frac{\Phi_A + \Phi_B}{\Phi_{A,\mathrm{opt}} + \Phi_{B,\mathrm{opt}}}\right)
+    = w_A F\left(\frac{\Phi_A}{\Phi_{A,\mathrm{opt}}}\right)
+    + w_B F\left(\frac{\Phi_B}{\Phi_{B,\mathrm{opt}}}\right).
+\end{equation}
+
+Substitute $\Phi_A = x_A \Phi_{A,\mathrm{opt}}$ and $\Phi_B = x_B
+\Phi_{B,\mathrm{opt}}$:
+\begin{equation}
+    F(w_A x_A + w_B x_B) = w_A F(x_A) + w_B F(x_B).
+\end{equation}
+
+This is Jensen's functional equation. Assuming $F$ is differentiable,
+differentiating both sides with respect to $x_A$ yields:
+\begin{equation}
+    w_A F'(w_A x_A + w_B x_B) = w_A F'(x_A).
+\end{equation}
+Dividing by $w_A$ gives $F'(w_A x_A + w_B x_B) = F'(x_A)$. Since this relation
+must hold independently of the value of $x_B$, the derivative $F'$ must be a
+global constant $c$. Consequently, the second derivative is identically zero
+($F''(x) = 0$), forcing $F$ to be strictly affine:
+\begin{equation}
+    F(x) = c(x - 1),
+\end{equation}
+where the constant $c$ is absorbed into the selection coefficient. Setting $c =
+1$:
+\begin{equation}
+    \mathcal{C}(\alpha) = \frac{\Phi(\alpha)}{\Phi_{\mathrm{opt}}} - 1
+    = \frac{\Phi(\alpha) - \Phi_{\mathrm{opt}}}{\Phi_{\mathrm{opt}}}.
+\end{equation}
+\end{proof}
+
+\begin{remark}[Stochastic Expected Cost Interpretation]
+An alternative justification for the linear form emerges from a stochastic
+game-theoretic framework (Paper~II~\cite{paperII}): if the vascular network
+faces uncertain metabolic loads with probability distribution $p(\eta)$, then
+minimizing the \emph{expected} total cost
+$\mathbb{E}_\eta[\mathcal{C}_{\mathrm{transport}} + \eta
+\mathcal{C}_{\mathrm{wave}}]$ naturally leads to the linear combination of
+penalties. This provides a second, independent pathway to linearity beyond
+extensivity.
+\end{remark}
+
+\begin{remark}[Physical Interpretation]
+The extensivity condition reflects the fundamental additivity of metabolic
+costs: if two independent vascular networks each waste a fraction $\epsilon$ of
+their baseline metabolism, the combined system also wastes a fraction
+$\epsilon$. This is a physical constraint from oxidative phosphorylation
+stoichiometry: each additional watt of excess dissipation costs a fixed number
+of ATP molecules, independent of the baseline flux.
+
+This extensivity constraint strongly disfavors nonlinear alternatives:
+\begin{itemize}
+    \item
+\textbf{Logarithmic penalty} $\ln(\Phi/\Phi_{\mathrm{opt}})$: Violates
+extensivity due to Jensen's Inequality. Because the logarithmic function is
+strictly concave, the weighted average of the arguments strictly exceeds the
+weighted average of the logarithms: $\ln(w_A x_A + w_B x_B) > w_A \ln x_A + w_B
+\ln x_B$. This implies that the total penalty of the composite system grows
+superlinearly compared to the sum of its independent parts, introducing an
+unphysical compounding effect where larger aggregated systems are penalized
+disproportionately more than smaller subsystems. This violates the additive
+stoichiometry of ATP consumption, which scales linearly with absolute metabolic
+waste regardless of system size.
+    \item
+\textbf{Quadratic penalty} $(\Phi/\Phi_{\mathrm{opt}} - 1)^2$: Violates
+extensivity due to its strict convexity. By Jensen's Inequality, the quadratic
+penalty of a composite system with unequal subsystem performance ($\epsilon_A
+\neq \epsilon_B$) is always strictly lower than the weighted average of the
+individual penalties: $(w_A\epsilon_A + w_B\epsilon_B)^2 < w_A\epsilon_A^2 +
+w_B\epsilon_B^2$. This unphysically discounts the evolutionary penalty of
+unequal performance, violating the requirement that fitness costs scale
+additively with absolute metabolic waste.
+\end{itemize}
+The linear form emerges as the natural functional compatible with the
+thermodynamic requirement that fitness penalties scale with absolute metabolic
+waste. While the weighted-average extensivity condition is physically motivated
+by Gibbs additivity of free energy rather than rigorously derived from a
+variational principle, it provides a strong constraint that singles out the
+linear penalty as the simplest consistent form.
+
+\textbf{Physical basis and limitations.} The extensivity condition reflects the
+stoichiometric additivity of ATP costs in oxidative phosphorylation and is
+consistent with quantitative genetics theory~\cite{lande1983}. However, it is
+not mathematically derivable from first principles alone—it represents a
+biophysical hypothesis grounded in metabolic biochemistry. The uniqueness result
+(Theorem~\ref{thm:additivity}) is therefore \emph{conditional} on this
+extensivity assumption. Alternative fitness landscapes (e.g., those involving
+resource competition or threshold effects) might violate extensivity, in which
+case the logarithmic or quadratic penalties could be biologically relevant.
+Empirical robustness tests (Supplemental Material, Section S7) show that
+alternative forms shift $\alpha^*$ by less than 0.3\%, suggesting the linear
+form is effectively unique within the physiological regime.
+\end{remark}
+
+\subsection{Representation Theorem and Gauge Invariance}
+
+\begin{lemma}[Representation Theorem for Gauge-Invariant Functionals]
+Let $\mathcal{C}(\alpha)$ be a dimensionless functional of the branching
+exponent $\alpha$ defined on the network's total extensive transport power
+$\Phi_{\mathrm{net}}(\alpha; \vec{\theta})$, where $\vec{\theta} = \{\mu_f, b,
+m_w, Q_0\}$ is the vector of scale and metabolic parameters. If $\mathcal{C}$
+satisfies:
+\begin{enumerate}
+    \item
+\textbf{Gauge Invariance:} $\mathcal{C}(\alpha; \Lambda\vec{\theta}) =
+\mathcal{C}(\alpha; \vec{\theta})$ for all scale transformations $\Lambda > 0$,
+    \item
+\textbf{Ground State Normalization:} $\mathcal{C}(\alpha_{\mathrm{opt}}) = 0$,
+\end{enumerate}
+then $\mathcal{C}$ must have the form:
+\begin{equation}
+    \mathcal{C}(\alpha) = F\left(\frac{\Phi_{\mathrm{net}}(\alpha)}{\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})}\right),
+\end{equation}
+where $F: \mathbb{R}^+ \to \mathbb{R}$ is an arbitrary function with $F(1) = 0$.
+\end{lemma}
+
+\begin{proof}
+By Euler's theorem for homogeneous functions, if $\Phi_{\mathrm{net}}(\alpha;
+\vec{\theta})$ transforms under global scaling as $\Phi_{\mathrm{net}}(\alpha;
+\Lambda\vec{\theta}) = f(\Lambda)\,\Phi_{\mathrm{net}}(\alpha; \vec{\theta})$
+for some function $f$, then scale invariance (condition 1) requires:
+\begin{equation}
+    \mathcal{C}(\alpha; \Lambda\vec{\theta}) =
+    \mathcal{C}(\alpha; \vec{\theta}).
+\end{equation}
+
+By the Buckingham $\Pi$ theorem, any scale-invariant quantity must be
+expressible as a function of dimensionless ratios formed from
+$\Phi_{\mathrm{net}}(\alpha)$ and other quantities transforming identically
+under $\Lambda$. To avoid introducing arbitrary external parameters, the
+reference scale must be intrinsic to the network's phase space. The unique such
+reference state is the global transport minimum
+$\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})$, which also transforms as
+$\Phi_{\mathrm{opt}}(\Lambda\vec{\theta}) =
+f(\Lambda)\,\Phi_{\mathrm{opt}}(\vec{\theta})$.
+
+Therefore, $\mathcal{C}(\alpha)$ depends only on the dimensionless ratio $x =
+\Phi_{\mathrm{net}}(\alpha)/\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})$:
+\begin{equation}
+    \mathcal{C}(\alpha) = F(x), \quad x = \frac{\Phi_{\mathrm{net}}(\alpha)}{\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})}.
+    \label{eq:ratio_form}
+\end{equation}
+
+Condition 2 (ground state normalization) requires $F(1) = 0$, completing the
+proof of Eq.~\eqref{eq:ratio_form} and establishing the representation lemma.
+\end{proof}
+
+\begin{theorem}[Scale-Free Normalization and Linearity of the Transport Penalty]
+\label{thm:gauge}
+At fixed body mass $M$ (and thus fixed heart rate $f_H \propto M^{-1/4}$), let
+$\Phi_{\mathrm{net}}(\alpha; \vec{\theta})$ be the total extensive transport and
+metabolic power dissipated by the network. A valid dimensionless network-level
+penalty functional $\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha)$
+must satisfy:
+\begin{enumerate}
+    \item
+\textbf{Gauge Invariance (Scale Independence):} $\mathcal{C}(\alpha;
+\Lambda\vec{\theta}) = \mathcal{C}(\alpha; \vec{\theta})$.
+    \item
+\textbf{Positivity and Ground State:} $\mathcal{C}(\alpha) \ge 0$, with
+$\mathcal{C}(\alpha_{\mathrm{opt}}) = 0$.
+    \item
+\textbf{Thermodynamic Linearity (Axiom~3):} The penalty is strictly linear in
+the fractional excess dissipation. This linearity is supported by three
+independent arguments: (i) extensivity of metabolic costs selects the linear
+form as the unique consistent functional (Theorem~\ref{thm:additivity},
+conditional on the extensivity hypothesis); (ii) near-equilibrium thermodynamics
+(Onsager regime, Theorem~\ref{thm:onsager}); (iii) robustness in the
+physiological regime where $|\Delta\Phi/\Phi_{\mathrm{opt}}| \sim 0.2$ makes
+higher-order corrections negligible (see Remark following
+Theorem~\ref{thm:onsager}).
+\end{enumerate}
+The canonical functional satisfying these axioms is the fractional excess:
+\begin{equation}
+    \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha) =
+    \frac{\Phi_{\mathrm{net}}(\alpha) - \Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})}
+    {\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})}.
+    \label{eq:gauge_invariant_cost}
+\end{equation}
+\end{theorem}
+
+
+\begin{proof}
+\textbf{Independence of the three axioms.} Axioms~1 and~2 together permit any
+positive-definite function of the dimensionless ratio $x =
+\Phi_{\mathrm{net}}(\alpha)/\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})$
+satisfying $F(1)=0$, such as $(x-1)^2$ or $\ln x$. Axiom~3 is therefore
+logically independent and strictly necessary to isolate the affine form.
+
+\textbf{Justification of linearity.} The linear penalty is not axiomatically
+imposed but follows from either:
+\begin{enumerate}[label=(\alph*)]
+    \item
+\textbf{Extensivity} (Theorem~\ref{thm:additivity}): if assumed, uniquely
+selects linear form;
+    \item
+\textbf{Onsager near-equilibrium regime} (Theorem~\ref{thm:onsager}):
+empirically verified for vascular remodeling timescales;
+    \item
+\textbf{Physiological near-optimality}: $|\Delta\alpha/\alpha| \sim 0.1$ ensures
+higher-order corrections $O(\epsilon^2) \lesssim 0.05$ remain negligible.
+\end{enumerate}
+Since (b) and (c) are empirical facts, linearity is \emph{conditionally
+necessary} rather than axiomatically imposed.
+
+\textbf{Derivation.} By Euler's theorem for homogeneous functions and the
+Buckingham $\Pi$ theorem, Axiom~1 requires $\mathcal{C}(\alpha) =
+F(\Phi_{\mathrm{net}}(\alpha)/\Phi_{\mathrm{ref}})$, where $\Phi_{\mathrm{ref}}$
+transforms identically under $\Lambda$. To avoid introducing arbitrary external
+parameters, $\Phi_{\mathrm{ref}}$ must be an intrinsic property of the network's
+phase space. The unique such reference state is the global transport minimum
+$\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})$.
+
+By the representation lemma, $\mathcal{C}(\alpha) = F(x)$ with $x =
+\Phi/\Phi_{\mathrm{opt}}$. Axiom~2 gives $F(1) = 0$ and $F(x) \ge 0$ for $x \ge
+1$.
+
+To determine the unique form of $F$, write $x = 1 +
+\Delta\Phi/\Phi_{\mathrm{opt}}$. Axiom~3 (thermodynamic linearity) requires that
+the penalty be strictly linear in the extensive excess entropy production
+$\Delta\Phi$, meaning $\partial\mathcal{C}/\partial\Phi$ is constant. This
+forces $F$ to be affine in $x$:
+\begin{equation}
+    F(x) = a(x - 1) + b, \quad a, b \in \mathbb{R}.
+\end{equation}
+
+Applying the ground state normalization $F(1) = 0$ gives $b = 0$. Requiring
+$F(x) > 0$ for $x > 1$ (positivity of penalty for excess dissipation) gives $a >
+0$. Up to a positive multiplicative constant, the unique solution is:
+\begin{equation}
+    F(x) = x - 1,
+\end{equation}
+yielding Eq.~\eqref{eq:gauge_invariant_cost}.
+
+\textbf{Consistency established:} The fractional excess $(\Phi_{\mathrm{net}} -
+\Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$ is the \emph{uniquely consistent}
+functional satisfying the thermodynamic requirements of extensivity and
+scale-invariant selection.
+
+\textbf{Exclusion of the logarithm.} The logarithmic map
+$\ln(\Phi/\Phi_{\mathrm{opt}})$, for instance, introduces a concave profile that
+dampens the evolutionary penalty for large structural deviations, decoupling it
+from the linear stoichiometry of oxidative phosphorylation.
+\end{proof}
+
+\begin{remark}[Epistemological Status: Parsimony Assumption vs. First Principle]
+\label{rem:gauge_parsimony}
+Metabolic duty cycle invariance---requiring the cost functional to be unchanged
+under $\vec{\theta} \to \Lambda \vec{\theta}$---is not a first principle but an
+\textbf{assumption of parsimony} justified by allometric universality. Empirical
+metabolic rate scales as $M^{3/4}$ across $10^5$-fold mass
+range~\cite{savage2004}. Any violation (i.e., penalty functional depending on
+absolute $\theta$) would require a biologically privileged reference scale
+(e.g., $M_{\mathrm{human}} = 70\,$kg) that is absent from the data. We therefore
+impose scale-freeness as the simplest hypothesis consistent with observation.
+Alternative formulations introducing absolute thresholds
+$\theta_0(\mathrm{taxon})$ could be tested if future data reveal systematic
+species-specific deviations from $M^{3/4}$ scaling; current evidence shows no
+such structure.
+\end{remark}
+
+\begin{remark}[Heart Rate as External Control Parameter]
+The heart rate $f_H$ is \emph{not} part of the scaling group $\vec{\theta}$
+because it enters the Womersley number $\mathrm{Wo} = r\sqrt{2\pi f_H/\nu}$
+through the pulsatile frequency, not as a metabolic cost factor. The allometric
+scaling $f_H \propto M^{-1/4}$ acts as an \emph{external control parameter} that
+drives the system through the viscous-to-wave transition as body mass varies.
+This explains why $\alpha^*$ is universal \emph{within} a given mass class
+(e.g., all 70 kg mammals) but varies \emph{between} mass classes (shrew vs.
+elephant). The scale invariance ensures universality at fixed $M$; the
+allometric transition arises from the $M$-dependence of $f_H$.
+\end{remark}
+
+\begin{remark}
+Theorem~\ref{thm:gauge} establishes that
+$\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}$ is not a phenomenological
+ansatz but the \emph{only} dimensionless functional consistent with the symmetry
+of the biological optimization problem. The ground state $\Phi_{\mathrm{opt}}$
+plays the role of a natural gauge: it is intrinsic to the network, transforms
+homogeneously with $\vec{\theta}$, and produces the unique invariant ratio.
+Paper~III~\cite{paperIII} rigorously derives the metabolic scaling exponent
+$\beta(\alpha,d) = d\alpha/(2d+\alpha)$ from proximal dominance (Theorem~1),
+showing that scale invariance uniquely maps local branching geometry to global
+organismal scaling laws.
+\end{remark}
+
+\begin{remark}[Gauge Invariance vs.\ Dimensional Homogeneity]
+\label{rem:gauge_vs_dimensional}
+It is crucial to distinguish \textbf{Scale-Free Normalization} (Axiom~1) from
+simple dimensional homogeneity. Dimensional analysis (Buckingham $\Pi$ theorem)
+merely requires that the functional depend on dimensionless combinations of
+variables---but it does \emph{not} uniquely specify which combinations or how
+they enter.
+
+Scale invariance is a \emph{physical symmetry principle}: the cost functional
+must remain invariant under global rescaling transformations $\vec{\theta} \to
+\Lambda\vec{\theta}$ that leave the physiological state unchanged (e.g.,
+doubling all metabolic rates while doubling all flow rates). This symmetry
+\emph{constrains the functional form}: it forces the cost to depend only on
+ratios $\Phi(\alpha)/\Phi_{\mathrm{opt}}$, not on their absolute magnitudes or
+arbitrary external scales.
+
+Combined with the linearity axiom (Axiom~3), scale invariance uniquely
+determines the cost functional to be the fractional excess $(\Phi -
+\Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$, excluding all other dimensionless
+forms (e.g., logarithmic, quadratic). This is strictly stronger than dimensional
+analysis, which would permit any function $F(\Phi/\Phi_{\mathrm{opt}})$.
+\end{remark}
+
+\begin{remark}[Gauge Invariance vs.\ Field Theory Gauge]
+\label{rem:gauge_terminology}
+The term ``scale invariance'' here refers to the freedom to choose the reference
+scale $\Phi_{\mathrm{opt}}$ as the metabolic duty cycle—analogous to fixing the
+zero of the electrostatic potential in classical electrodynamics, not to local
+gauge symmetries (U(1), SU(2)) of field theory. The invariance
+$\mathcal{C}(\Lambda\vec{\theta}) = \mathcal{C}(\vec{\theta})$ is a \emph{global
+scaling symmetry} that, combined with normalization $F(1)=0$, uniquely
+determines the functional form—precisely the role of gauge-fixing in physics.
+This terminology emphasizes that the cost functional depends only on
+dimensionless ratios, not on arbitrary external scales.
+\end{remark}
+
+\begin{remark}[Non-substitutability and aggregation robustness]
+The linear combination in $\mathcal{L}_{\mathrm{net}}$ is the unique aggregation
+operator consistent with the physical non-substitutability of the two cost
+modes: wave energy loss and metabolic excess are orthogonal failure modes that
+cannot compensate each other. A multiplicative combination $\mathcal{L} \propto
+\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}} \cdot
+\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}$ would permit arbitrarily large
+wave dissipation to be offset by arbitrarily efficient transport---a
+biologically inadmissible trade-off in a system where signal propagation and
+metabolic supply are independently required for viability. The minimax of a
+linear combination is the canonical robust-optimization formulation for
+non-fungible constraints~\cite{ben-tal2009}, and the $L_q$ robustness analysis
+of Paper~II~\cite{paperII} confirms that the saddle point $\alpha^* =
+\VarAlphaStar$ is stable across all convex aggregations $q \geq 1$, with a total
+spread $\Delta\alpha^* = 0.008$.
+\end{remark}
+
+\begin{remark}[Third Commensurable Costs]
+One might ask whether the inclusion of a third physiological cost could render
+the optimization commensurable. The answer depends strictly on its physical
+dimensions. If the third cost is commensurable with metabolism (e.g., another
+energetic loss measured in watts), it is simply absorbed linearly into the
+transport gauge $\Phi_{\mathrm{net}}$, leaving the dimensionless structure of
+the Lagrangian unchanged. If it is incommensurable, it cannot linearly rescue
+the local optimization; rather, it introduces a third orthogonal axis to the
+minimax phase space, requiring a generalized zero-sum game over three competing
+invariants.
+\end{remark}
+
+\subsection{Architectural Decoupling: A Consistency Check}
+
+The scale invariance established above has a direct mathematical consequence:
+the minimax branching exponent $\alpha^*$ is determined entirely by
+dimensionless structural quantities and is \emph{independent of every absolute
+metabolic parameter}. This architectural decoupling serves as a consistency
+check on the theory.
+
+\begin{corollary}[Structural Ground State and Scale-Free Normalization]
+\label{thm:rigidity}
+Let $\alpha^*$ be the minimax saddle point of the network Lagrangian
+$\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ for an idealized symmetric,
+non-tapering vascular tree. Then $\alpha^*$ depends primarily on the
+dimensionless structural parameters $\mathcal{S} = (G, N, p, \alpha_w, A)$ and
+exhibits the following scaling behavior:
+\begin{equation}
+    \alpha^* = \alpha^*_{\mathrm{ground}}(\mathcal{S}) + \delta\alpha^*_{\mathrm{pert}}(\mu_f, \rho, \dots)
+    \label{eq:ground_state}
+\end{equation}
+
+\textbf{Pure metabolic parameters} ($b$, $Q_0$, $\ell_0$, $\Delta
+G_{\mathrm{ATP}}$) exhibit scale invariance: $|S_{\theta_i}| < 0.01$
+(Table~\ref{tab:sensitivity}), confirming that the architecture is decoupled
+from absolute metabolic scales.
+
+\textbf{Fluid-mechanical parameters} ($\mu_f$, $\rho$) show moderate sensitivity
+($|S_x| \approx 0.15$--$0.20$), reflecting their role in defining boundary
+conditions and the viscous-wave transition regime. The predicted ground state
+$\alpha^*_{\mathrm{ground}} \approx \VarAlphaStarModel$ represents the idealized
+symmetric attractor; structural heterogeneities (asymmetry, taper, elastic wall
+compliance) introduce perturbations $\delta\alpha^* \approx +\VarAlphaResidual$,
+shifting large-mammal values toward the observed $\alpha^* \approx
+\VarAlphaStar$.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:gauge}, the transport cost
+$\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha)$ is degree-zero
+homogeneous in pure metabolic parameters $\vec{\theta}_{\mathrm{met}}$, which
+cancel identically in the ratio $(\Phi_{\mathrm{net}} -
+\Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$. The wave cost
+$\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha)$ depends on the Womersley
+number $\mathrm{Wo} \propto r \sqrt{2\pi f_H / \nu}$ (where $\nu = \mu_f/\rho$
+is kinematic viscosity) and geometric branching ratios determined by
+$\mathcal{S}$. Changes in viscosity shift the viscous-wave transition boundary,
+introducing moderate sensitivity to the minimax balance point. The ground state
+$\alpha^*_{\mathrm{ground}}(\mathcal{S})$ is the solution for the idealized
+symmetric model; real biological systems exhibit perturbative shifts due to
+morphometric heterogeneity and fluid-mechanical variations.
+\end{proof}
+
+\begin{remark}[Numerical Verification]
+Table~\ref{tab:sensitivity} confirms the two-regime structure: pure metabolic
+parameters show $|S_x| < 0.01$ (scale invariance), while fluid-mechanical and
+structural parameters show moderate sensitivity ($0.04 \leq |S_x| \leq 1.2$)
+across all mammalian species, confirming the robustness of the minimax
+attractor.
+\end{remark}
+
+\begin{remark}[Physical Interpretation]
+The Structural Ground State theorem establishes that the branching exponent is
+an \emph{architectural attractor} rather than a rigidly fixed eigenvalue. The
+ground state $\alpha^*_{\mathrm{ground}} \approx \VarAlphaStarModel$ emerges
+from the network topology and dimensionless structural parameters, while
+moderate perturbations from fluid-mechanical variations and morphometric
+heterogeneities shift real systems toward $\alpha^* \approx \VarAlphaStar$. This
+two-scale structure---a robust topological attractor with physiological
+perturbations---explains why the same approximate value appears across species
+whose metabolic rates and cardiac outputs differ by orders of magnitude, while
+still allowing for the subtle allometric trends observed in empirical data. The
+architecture is not \emph{tuned} to the physiology; it is \emph{attracted} to a
+structural ground state and modulated by biological perturbations.
+\end{remark}

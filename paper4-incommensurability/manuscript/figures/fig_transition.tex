@@ -1,0 +1,67 @@
+\begin{tikzpicture}
+\begin{semilogxaxis}[
+    width=\columnwidth,
+    height=0.70\columnwidth,
+    xlabel={Body Mass $M$ (g)},
+    ylabel={Branching Exponent $\alpha^*$},
+    xmin=0.1, xmax=10000000,
+    ymin=1.8, ymax=3.2,
+    grid=both,
+    grid style={line width=.1pt, draw=gray!10},
+    legend style={at={(0.5,-0.18)}, anchor=north,
+                  legend columns=-1, font=\footnotesize},
+    ytick={1.8, 2.0, 2.2, 2.4, 2.8, 3.0, 3.2},
+    tick label style={font=\small},
+    label style={font=\normalsize},
+    extra y ticks={2.50, 2.60, 2.70, 2.75, 2.85, 2.95},
+    extra y tick style={
+        grid=none,
+        tick label style={font=\tiny, color=blue!70!black, xshift=-1pt}
+    }
+]
+
+% Heterogeneity band (symmetric minimax +/- 0.10)
+\addplot[name path=upper, draw=none, forget plot]
+    table [x=Mass, y expr=\thisrow{Alpha}+0.10]
+    {figures/transition_alpha.dat};
+\addplot[name path=lower, draw=none, forget plot]
+    table [x=Mass, y expr=\thisrow{Alpha}-0.10]
+    {figures/transition_alpha.dat};
+\addplot[fill=blue!12, forget plot]
+    fill between[of=upper and lower];
+
+\addlegendimage{area legend, fill=blue!12, draw=none}
+\addlegendentry{Heterogeneity Corridor}
+
+% Symmetric minimax theory curve
+\addplot[blue, line width=1.2pt]
+    table [x=Mass, y=Alpha] {figures/transition_alpha.dat};
+\addlegendentry{Symmetric Minimax}
+
+% Transport (viscous) attractor: alpha_t
+\addplot[green!60!black, dashed, domain=0.1:10000000]
+    {\VarAlphaTFig};
+\addlegendentry{Transport $\alpha_t$}
+
+% Wave (inertial) attractor: alpha_w = 2
+\addplot[purple!70, dashed, domain=0.1:10000000]
+    {\VarAlphaW};
+\addlegendentry{Wave $\alpha_w$}
+
+% Transition mass M* vertical marker
+\addplot[gray, densely dotted, line width=0.8pt]
+    coordinates {(\VarMStar, 1.8) (\VarMStar, 3.2)};
+\node[gray, font=\footnotesize, anchor=center, fill=white, inner sep=2pt, rotate=90]
+    at (axis cs:\VarMStar, 2.5)
+    {$M^* \approx \VarMStar\,$g};
+
+% Horizontal dashed guides for landing values at M = 10^7 g
+\draw[blue!35, densely dashed, line width=0.4pt]
+    (axis cs:0.1, 2.50) -- (axis cs:10000000, 2.50);
+\draw[blue!35, densely dashed, line width=0.4pt]
+    (axis cs:0.1, 2.60) -- (axis cs:10000000, 2.60);
+\draw[blue!35, densely dashed, line width=0.4pt]
+    (axis cs:0.1, 2.70) -- (axis cs:10000000, 2.70);
+
+\end{semilogxaxis}
+\end{tikzpicture}

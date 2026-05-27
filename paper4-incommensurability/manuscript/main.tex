@@ -1,8 +1,6 @@
-% ====================================================================
-% DOCUMENT CLASS & SETUP
-% ====================================================================
 \documentclass[11pt,a4paper]{article}
 \usepackage[a4paper, portrait, margin=2.5cm]{geometry}
+
 % ====================================================================
 % PACKAGES
 % ====================================================================
@@ -10,17 +8,29 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage{booktabs}
-\usepackage[colorlinks=true, citecolor=blue, linkcolor=blue,
-            urlcolor=blue]{hyperref}
+\usepackage{tabularx}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} \usepgfplotslibrary{fillbetween}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true, citecolor=blue, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage[numbers,sort]{natbib}
+\usepackage{doi}
+\externaldocument[S-]{../supplements/supplemental} \AtBeginDocument{%
+\DeclareRobustCommand{\doi}[1]{doi:~\href{https://doi.org/#1}{\nolinkurl{#1}}}%
+}
 \usepackage{authblk}
 \usepackage{mathpazo}
 \usepackage{microtype}
+\usepackage{enumitem}
+
 \usepackage{float}
 \usepackage{bm}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
-% Typography adjustments
+
 \linespread{1.05}
+
 % ====================================================================
 % THEOREM ENVIRONMENTS
 % ====================================================================
@@ -30,738 +40,95 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
+\newtheorem{postulate}[theorem]{Postulate}
+
 % ====================================================================
 % MAIN DOCUMENT
 % ====================================================================
 \begin{document}
 \input{dynamic_variables.tex}
 
+% ====================================================================
 % TITLE & AUTHORS
-
-\title{\LARGE\bfseries The Incommensurability Principle in Biological
-       Transport:\\[4pt]
-       A No-Go Theorem, Metabolic Gauge Invariance,\\
-       and the Architectural Origin of the Minimax}
+% ====================================================================
+\title{\LARGE\bfseries The Incommensurability Principle in Biological Transport:\\[4pt]
+Scale-Free Formulation, Topological Rigidity, and the Minimax Origin of Vascular
+Scaling}
 \author{Riccardo Marchesi}
 \affil{University of Pavia}
 \date{\today}
 
 \maketitle
 
+% ====================================================================
+% ABSTRACT
+% ====================================================================
 \begin{abstract}
-Biological vascular networks exhibit branching exponents
-($\alpha^* \approx \VarAlphaStar$) conserved across developmental stages and
-observed in multiple mammalian species~\cite{kassab1993,zamir1999},
-despite vast metabolic and anatomical variation. We prove this universality
-is a mathematical necessity arising from the physical incommensurability of
-optimization constraints.
-
-We establish three theorems. \textbf{(1)} \emph{No-Go Theorem}: Local
-optimization combining extensive metabolic costs with dimensionless
-wave-reflection penalties requires a coupling parameter varying by
-$10^2$--$10^3$ across the hierarchy, precluding universal exponents.
-\textbf{(2)} \emph{Metabolic Gauge Invariance}: The unique dimensionless
-cost functional consistent with scale invariance and thermodynamic linearity
-is the fractional metabolic excess; alternative penalties (logarithmic
-measures) fail empirical validation.
-\textbf{(3)} \emph{Architectural Invariance}: The minimax duty cycle
-$\eta^*$ is an exact invariant of the allometric class
-$\mathcal{A}(G,p,\alpha_w)$, orthogonal to absolute metabolic
-scales---explaining developmental stability.
-
-The minimax emerges as the unique attractor for networks optimizing
-physically incommensurable costs, unifying previous single-mechanism results
-as degenerate boundary cases.
+Why does the mammalian vascular tree maintain a conserved branching exponent
+$\alpha^* \approx \VarAlphaStar$ across a $10^7$-fold range in body mass,
+despite a fundamental shift in the underlying physics from viscous to
+wave-dominated transport? We demonstrate that this universality cannot emerge
+from local optimization under symmetric rules, as any junction-level coupling of
+incommensurable costs would require scale-dependent fine-tuning varying by
+$O(10^2$--$10^3)$ across the hierarchy---a biologically implausible constraint.
+Real vascular networks resolve this bound through structural heterogeneity. We
+show that vascular geometry emerges as a scale-free attractor of a
+\emph{network-level minimax} principle.
+    
+By grounding the fitness penalty in ATP stoichiometry, we derive a scale-free
+cost functional and prove a Topological Rigidity theorem: the optimal branching
+exponent depends only on dimensionless structural parameters $(G, N, p,
+\alpha_w)$ and is independent of all pure metabolic quantities---blood oxygen
+cost, cardiac output, segment length, ATP stoichiometry. A self-consistency
+condition on the viscous--inertial energy partition at each bifurcation yields a
+dual-threshold framework with fluid threshold $\mathrm{Wo}_c^{\mathrm{fluid}} =
+\sqrt{3}$ and wave threshold $\mathrm{Wo}_c^{\mathrm{wave}} = 3/\sqrt{2}$ in
+mammalian vascular trees. The symmetric model yields $\alpha^*_{\mathrm{model}}
+\approx \VarAlphaStarModel$, in quantitative agreement with mammals near the
+allometric transition; scale-dependent morphometric heterogeneities shift
+large-mammal values toward $\VarAlphaStar$. The framework explains the
+developmental stability of cardiovascular networks as a consequence of the
+architecture being decoupled from the biochemistry.
 \end{abstract}
 
 % ====================================================================
-% SECTION 1: Introduction
+% MAIN SECTIONS: CORE THEORY
 % ====================================================================
-\section{Introduction}
-
-Papers~I and~II of this series established that the physiological branching
-exponent $\alpha^* \approx \VarAlphaStar$ of the porcine coronary tree
-emerges as the unique minimax saddle point of a network-level Lagrangian
-that combines viscous transport costs and wave-reflection
-penalties~\cite{paperI, paperII}.
-The Lagrangian was constructed by normalising both cost functions to
-dimensionless fractional excesses before optimising jointly over the
-branching exponent $\alpha$ and a duty cycle $\eta$ weighting pulsatile
-against steady-flow regimes.
-The result reproduced the Kassab~\cite{kassab1993} dataset without free
-parameters.
-Paper~III~\cite{paperIII} extended the framework to derive Kleiber's
-metabolic scaling law as a corollary of the same branching geometry.
-These successes, however, left a foundational question unanswered: \emph{why}
-must the network-level Lagrangian take precisely this form?
-Is the fractional-excess normalisation a modelling convenience, or the
-\emph{only} admissible choice consistent with the underlying physics?
-
-The branching geometry of biological transport networks is governed by a
-competition between physically incommensurable cost functions. In arterial
-trees, viscous dissipation and wall-tissue metabolic maintenance enter as
-extensive quantities measured in watts, while wave-reflection penalties
-enter as dimensionless reflection coefficients --- a global network
-observable. These two quantities cannot be added directly; they inhabit
-different physical spaces.
-
-Previous work has addressed this tension by introducing phenomenological
-weighting parameters~\cite{murray1926, sherman1981, paperI, paperII, west1997}
-or alternative coupling indices~\cite{bennett2025a, bennett2025b}, but no study has
-asked whether such a local combination is mathematically \emph{admissible}
-in the first place. The present paper answers this question negatively and
-constructively: we prove that local incommensurable optimization is
-\emph{impossible} (\hyperref[thm:nogo]{Theorem~1}), identify the
-\emph{unique} admissible network-level functional
-(\hyperref[thm:gauge]{Theorem~2}), and show that the resulting minimax
-saddle point produces an architectural invariant that resolves a
-long-standing biological paradox (\hyperref[thm:arch]{Theorem~3}).
-
-The logical chain is as follows. The No-Go Theorem (Section~\ref{sec:nogo})
-establishes that any coupling parameter $\mu$ required by dimensional
-consistency at a single junction must vary by several orders of magnitude
-(${\sim}10^2$--$10^3$) across the vascular hierarchy, precluding a universal
-$\alpha^*$. This impossibility forces the optimization to the network level,
-where both costs
-become dimensionless. The Metabolic Gauge Invariance Theorem
-(Section~\ref{sec:gauge}) proves that the normalization used in Paper~II
-is the \emph{only} one consistent with scale invariance and thermodynamic
-linearity. The Architectural Invariance Theorem (Section~\ref{sec:arch})
-then shows that the minimax duty cycle $\eta^*$ emerging from this
-framework is immune to metabolic fluctuations, providing a first-principles
-explanation for the developmental stability of vascular geometry. Finally,
-the corollary (Section~\ref{sec:corollary}) demonstrates that Papers~I
-and~II are the exact limiting cases of a single variational principle.
+\input{sections/Section-01-Introduction}
+\input{sections/Section-02-Scaling-Conflict}
+\input{sections/Section-03-Gauge-Invariance}
+\input{sections/Section-04-Architectural-Invariance}
 
 % ====================================================================
-% SECTION 2: The No-Go Theorem for Local Optimization
+% REGIME ANALYSIS & TRANSITIONS
 % ====================================================================
-\section{The No-Go Theorem for Local Optimization}
-\label{sec:nogo}
-
-\begin{theorem}[No-Go Theorem for Local Incommensurable Optimization]
-\label{thm:nogo}
-Let $\mathcal{L}_{\mathrm{local}}(\alpha; r_p, Q_p) = \Delta\Phi(\alpha; r_p,
-Q_p)
-+ \mu\,|\Gamma(\alpha)|^2$ be any Lagrangian defined at an isolated vascular
-junction
-with parent radius $r_p$ and parent flow $Q_p$, where:
-\begin{itemize}
-    \item $\Delta\Phi = \Phi(\alpha) - \Phi(\alpha_t)$ is the excess transport-metabolic
-    cost per unit length $[\mathrm{W\,m^{-1}}]$, evaluated at the daughter
-vessel
-    $r_c(\alpha) = r_p N^{-1/\alpha}$;
-    \item $|\Gamma(\alpha)|^2 = \left(\frac{N^{\alpha_w/\alpha - 1}-1}{N^{\alpha_w/\alpha - 1}+1}
-    \right)^2 \in [0,1]$ is the dimensionless wave-reflection penalty, with generalized
-    impedance attractor $\alpha_w$ depending on wall-scaling exponent $p$;
-    \item $\mu\,[\mathrm{W\,m^{-1}}]$ is a coupling parameter required by dimensional
-    consistency.
-\end{itemize}
-Then the first-order optimality condition $\partial\mathcal{L}_{\mathrm{local}}/
-\partial\alpha = 0$ requires:
-\begin{equation}
-    \mu = -\frac{\partial\Delta\Phi/\partial\alpha}{\partial|\Gamma|^2/\partial\alpha},
-    \label{eq:mu_local}
-\end{equation}
-which depends explicitly on $(r_p, Q_p)$. Since these vary across hierarchical
-generations, no fixed $\mu$ can yield a universal branching exponent $\alpha^*$
-throughout the network.
-\end{theorem}
-
-\begin{proof}
-\textbf{Local transport derivative.}
-The daughter radius satisfies $r_c(\alpha) = r_p N^{-1/\alpha}$, with:
-\begin{equation}
-    \frac{\partial r_c}{\partial\alpha} = r_c\,\frac{\ln N}{\alpha^2}.
-\end{equation}
-The transport-metabolic cost per unit length at a single daughter vessel
-carrying flow $Q_c = Q_p/N$ is:
-\begin{equation}
-    \Phi = \frac{8\mu_f Q_c^2}{\pi}\,r_c^{-4} + b\pi r_c^2 + m_w\,r_c^{1+p}.
-\end{equation}
-By the chain rule:
-\begin{equation}
-    \frac{\partial\Phi}{\partial\alpha} = \frac{\ln N}{\alpha^2}\left[
-    -\frac{32\mu_f Q_c^2}{\pi}\,r_c^{-4}
-    + 2b\pi\,r_c^2 + (1+p)\,m_w\,r_c^{1+p}\right].
-    \label{eq:dPhi_local}
-\end{equation}
-In the viscous-dominated regime this reduces to:
-\begin{equation}
-    \frac{\partial\Phi}{\partial\alpha}\bigg|_{\mathrm{visc}}
-    \propto Q_c^2\,r_c^{-4} = Q_p^2\,r_p^{-4}\,N^{4/\alpha - 2}.
-    \label{eq:dPhi_visc}
-\end{equation}
-
-\textbf{Local wave-reflection derivative.}
-Setting $x = N^{\alpha_w/\alpha - 1}$:
-\begin{equation}
-    \frac{\partial|\Gamma|^2}{\partial\alpha}
-    = -\frac{4\alpha_w\ln N}{\alpha^2}
-    \,\frac{N^{\alpha_w/\alpha - 1}(N^{\alpha_w/\alpha - 1}-1)}{(N^{\alpha_w/\alpha - 1}+1)^3},
-    \label{eq:dGamma_local}
-\end{equation}
-which depends only on $N$, $\alpha_w$, and $\alpha$ --- no extensive variables.
-
-\textbf{Scale-dependence of $\mu$.}
-Substituting Eqs.~\eqref{eq:dPhi_visc} and~\eqref{eq:dGamma_local}
-into Eq.~\eqref{eq:mu_local}:
-\begin{equation}
-    \mu \propto Q_c^2\,r_c^{-4} = Q_p^2\,N^{-2}\,r_p^{-4}\,N^{4/\alpha}.
-    \label{eq:mu_scaling}
-\end{equation}
-This is an explicit function of the junction's extensive variables.
-Assuming standard morphometric scaling laws ($Q_p \propto N^{-g}$,
-$r_p \propto N^{-g/\alpha}$) for the porcine coronary tree ($N=2$,
-$\alpha \approx 2.72$, $G = 11$ generations), the quantity
-$\mu$ scales as $N^{g(4/\alpha - 2)}$ per generation.
-However, empirical morphometric data from Kassab et al.~\cite{kassab1993}
-indicate more complex scaling due to vessel-specific hemodynamic parameters
-(viscosity, wall shear modulation, Fahraeus-Lindqvist effect), yielding
-an effective variation:
-\[
-  \frac{\mu(g=11)}{\mu(g=0)} \sim 10^2\text{--}10^3
-\]
-between the proximal coronary and terminal arterioles. A fixed $\mu$ therefore
-produces a scale-dependent $\alpha^*(r_p, Q_p)$, not a network-wide
-architectural constant. Crucially, even restricting to the wave-dominated
-generations ($g = 0, 1$, where $\mathrm{Wo} > 1$), $\mu$ varies by a factor
-${\sim}2$, rendering a locally universal $\alpha^*$ impossible within the
-pulsatile regime itself.
-\end{proof}
-
-\begin{remark}
-Eq.~\eqref{eq:mu_scaling} exposes the physical impossibility of local
-incommensurable optimization: the coupling between metabolic and wave costs
-is not a material property of the vascular wall, but an artifact of the
-hierarchical scale at which the junction is evaluated.
-The network-level Lagrangian framework introduced in Paper~II~\cite{paperII}
-resolves this
-pathology by normalizing both cost terms to dimensionless fractional
-excesses before optimization, rendering the minimax saddle point
-$(\alpha^*, \eta^*)$ independent of the absolute scale $(r_p, Q_p)$ at which the
-junction is evaluated.
-The remainder of this paper establishes \emph{why} that normalization
-is the unique admissible choice.
-Theorem~1 applies to networks whose transport-metabolic cost takes the
-power-law form $\Delta\Phi \propto Q^n r^{-(n+m)}$; extension to other
-cost structures requires case-specific verification that $\mu$ exhibits
-analogous scale-dependence across the hierarchy.
-Moreover, even allowing $\mu$ to vary freely across generations,
-$\mu(g)$, would produce a systematically drifting local optimum
-$\alpha^*(g)$ rather than the generation-invariant morphometry
-observed by Kassab~\cite{kassab1993}; the only escape from this
-drift is the network-level formulation developed below.
-\end{remark}
+\input{sections/Section-05-Single-Mechanism-Limits}
+\input{sections/Section-06-Architectural-Transition}
 
 % ====================================================================
-% SECTION 3: Metabolic Gauge Invariance
+% DISCUSSION & EVIDENCE
 % ====================================================================
-\section{Metabolic Gauge Invariance}
-\label{sec:gauge}
-
-\begin{theorem}[Metabolic Gauge Invariance and Linearity of the Transport Penalty]
-\label{thm:gauge}
-Let $\Phi_{\mathrm{net}}(\alpha; \vec{\theta})$ be the total extensive transport
-and metabolic power dissipated by the network, where
-$\vec{\theta} = \{\mu_f, b, m_w, Q_0\}$ is the vector of scale and metabolic
-parameters. Under a global scaling $\vec{\theta} \to \Lambda\vec{\theta}$,
-the total power transforms homogeneously:
-$\Phi_{\mathrm{net}}(\alpha; \Lambda\vec{\theta}) =
-f(\Lambda)\,\Phi_{\mathrm{net}}(\alpha; \vec{\theta})$.
-
-A valid dimensionless network-level penalty functional
-$\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha)$ must satisfy three
-independent axioms:
-\begin{enumerate}
-    \item \textbf{Gauge Invariance (Scale Independence):}
-    $\mathcal{C}(\alpha; \Lambda\vec{\theta}) = \mathcal{C}(\alpha;
-\vec{\theta})$.
-    \item \textbf{Positivity and Ground State:}
-    $\mathcal{C}(\alpha) \ge 0$, with $\mathcal{C}(\alpha_{\mathrm{opt}}) = 0$.
-    \item \textbf{Thermodynamic Linearity:} The penalty is strictly linear
-    in the extensive excess entropy production $\Delta\Phi =
-    \Phi^{\mathrm{net}}(\alpha) - \Phi^{\mathrm{net}}(\alpha_{\mathrm{opt}})$,
-    so that the marginal cost of metabolic dissipation is constant.
-    This axiom has a direct biochemical interpretation: ATP is a discrete
-    linear energy currency---each additional watt of excess dissipation
-    costs a fixed number of ATP molecules per unit time, independently of
-    the network's total metabolic budget. A logarithmic penalty
-    $\ln(\Phi/\Phi_{\mathrm{opt}})$ would instead imply diminishing
-    marginal ATP cost for large structural deviations, contradicting the
-    stoichiometric linearity of oxidative phosphorylation.
-\end{enumerate}
-The unique functional satisfying all three axioms, up to a positive multiplicative constant, is:
-\begin{equation}
-    \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha) =
-    \frac{\Phi_{\mathrm{net}}(\alpha) - \Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})}
-    {\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})}.
-    \label{eq:gauge_invariant_cost}
-\end{equation}
-\end{theorem}
-
-\begin{proof}
-\textbf{Independence of the three axioms.}
-Axioms~1 and~2 together permit any positive-definite function of the
-dimensionless ratio $x =
-\Phi_{\mathrm{net}}(\alpha)/\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})$
-satisfying $F(1)=0$, such as $(x-1)^2$ or $\ln x$.
-Axiom~3 is therefore logically independent and strictly necessary
-to isolate the affine form.
-
-\textbf{Derivation.}
-By Euler's theorem for homogeneous functions and the Buckingham $\Pi$ theorem,
-Axiom~1 requires $\mathcal{C}(\alpha) =
-F(\Phi_{\mathrm{net}}(\alpha)/\Phi_{\mathrm{ref}})$,
-where $\Phi_{\mathrm{ref}}$ transforms identically under $\Lambda$.
-To avoid introducing arbitrary external parameters, $\Phi_{\mathrm{ref}}$ must
-be an intrinsic property of the network's phase space.
-The unique such reference state is the global transport minimum
-$\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})$.
-
-Thus $\mathcal{C}(\alpha) = F(x)$ with $x = \Phi/\Phi_{\mathrm{opt}}$.
-Axiom~2 gives $F(1) = 0$ and $F(x) \ge 0$ for $x \ge 1$.
-Writing $x = 1 + \Delta\Phi/\Phi_{\mathrm{opt}}$, Axiom~3 requires
-$F$ to be affine in $x$. Since $F(1)=0$, the unique solution
-(up to a positive multiplicative constant) is $F(x) = x - 1$,
-yielding Eq.~\eqref{eq:gauge_invariant_cost}.
-
-\textbf{Exclusion of the logarithm.}
-The logarithmic map $\ln(\Phi/\Phi_{\mathrm{opt}})$ satisfies
-Axioms~1 and~2 but violates Axiom~3: it introduces spurious concavity
-($\partial^2\mathcal{C}/\partial\Phi^2 < 0$), artificially dampening
-the evolutionary penalty for large structural deviations and decoupling
-it from the linear thermodynamics of irreversible entropy
-production~\cite{onsager1931}.
-\end{proof}
-
-\begin{remark}
-Theorem~\ref{thm:gauge} establishes that
-$\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}$ is not a
-phenomenological ansatz but the \emph{only} dimensionless functional
-consistent with the symmetry of the biological optimization problem.
-The ground state $\Phi_{\mathrm{opt}}$ plays the role of a natural
-gauge: it is intrinsic to the network, transforms homogeneously with
-$\vec{\theta}$, and produces the unique invariant ratio.
-\end{remark}
-
-\begin{remark}[Non-substitutability and aggregation robustness]
-The linear combination in $\mathcal{L}_{\mathrm{net}}$ is the unique
-aggregation operator consistent with the physical non-substitutability
-of the two cost modes: wave energy loss and metabolic excess are
-orthogonal failure modes that cannot compensate each other.
-A multiplicative combination
-$\mathcal{L} \propto \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}} \cdot
-\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}$ would permit
-arbitrarily large wave dissipation to be offset by arbitrarily
-efficient transport---a biologically inadmissible trade-off in a
-system where signal propagation and metabolic supply are independently
-required for viability. The minimax of a linear combination is the
-canonical robust-optimization formulation for non-fungible
-constraints~\cite{ben-tal2009}, and the $L_q$ robustness analysis of
-Paper~II~\cite{paperII} confirms that the saddle point $\alpha^* = 2.72$ is
-stable across all convex aggregations $q \geq 1$, with a total
-spread $\Delta\alpha^* = 0.008$.
-\end{remark}
+\input{sections/Section-07-Discussion}
+\input{sections/Section-09-Retinal-Paradox}
+\input{sections/Section-08-Conclusion}
 
 % ====================================================================
-% SECTION 4: Architectural Invariance of the Duty Cycle
+% BACK MATTER
 % ====================================================================
-\section{Architectural Invariance of the Duty Cycle}
-\label{sec:arch}
-
-\begin{theorem}[Architectural Invariance of the Biological Duty Cycle]
-\label{thm:arch}
-Let $(\alpha^*, \eta^*)$ be the unique saddle point of the unified zero-sum
-network Lagrangian:
-\begin{equation}
-    \mathcal{L}_{\mathrm{net}}(\alpha, \eta) =
-    \eta\,\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha)
-    + (1-\eta)\,\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha).
-\end{equation}
-The emergent duty cycle $\eta^*$ is an exact invariant of the network's
-allometric class $\mathcal{A}(G, p, \alpha_w)$, strictly orthogonal to
-the absolute scale of the extensive metabolic parameters $\Lambda\vec{\theta}$.
-\end{theorem}
-
-\begin{proof}
-By von Neumann's minimax theorem~\cite{vonneumann1928}, the saddle-point
-condition
-$\partial\mathcal{L}_{\mathrm{net}}/\partial\alpha = 0$ yields:
-\begin{equation}
-    \eta^* = \left( 1 + \frac{\partial \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}
-    (\alpha^*) / \partial \alpha}
-    {|\partial \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*)
-    / \partial \alpha|} \right)^{-1}.
-    \label{eq:eta_star}
-\end{equation}
-The numerator derives from the acoustic impedance mismatch at bifurcations
-and is a strictly geometric function of $(G, N, \alpha_w, \alpha^*)$
-containing no metabolic parameters.
-
-By Theorem~\ref{thm:gauge}, $\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}$
-is a degree-zero homogeneous function of $\vec{\theta}$.
-Its derivative with respect to $\alpha$ is therefore identically
-gauge-invariant:
-\begin{equation}
-    \frac{\partial\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}}
-    {\partial\alpha}(\alpha; \Lambda\vec{\theta})
-    = \frac{\partial\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}}
-    {\partial\alpha}(\alpha; \vec{\theta}).
-\end{equation}
-In Eq.~\eqref{eq:eta_star} the watts cancel identically in the
-gradient ratio. The duty cycle $\eta^*$ is therefore a pure
-structural invariant, determined solely by $(G, p, \alpha_w)$
-through the geometric evaluation of both derivatives at $\alpha^*$.
-\end{proof}
-
-\begin{remark}
-This provides a first-principles explanation for the empirical
-observation that vascular branching exponents are conserved
-across developmental stages within a species, as suggested by the
-generation-invariant morphometry of~\cite{kassab1993} and the
-developmental convergence reported in~\cite{kiemen2026}.
-\end{remark}
-
-\begin{remark}[Allometric vs.\ angiogenic invariance]
-The invariance of $\eta^*$ established in Theorem~3 is an
-\emph{allometric} invariance: it holds under rescaling of the
-metabolic parameters $\vec{\theta}$ at fixed network topology
-$(G, N, \alpha_w, p)$. It does not apply to \emph{angiogenic}
-changes in $G$ (addition or pruning of vascular generations), which
-alter $\kappa_{\mathrm{eff}}(G)$ and thereby shift $\alpha^*$.
-The two types of invariance are physically and mathematically
-distinct; only the former is established here.
-\end{remark}
-
-\begin{remark}[Physical status of $\Phi_{\mathrm{opt}}$]
-The reference state $\Phi^{\mathrm{net}}(\alpha_{\mathrm{opt}})$ is
-the cost attained when every vessel independently sits at its
-locally optimal radius $r^*(Q_g)$---a configuration achievable only
-if the network is allowed to violate the global self-similar
-constraint $r_g = r_0 N^{-g/\alpha}$. It is therefore a mathematical
-lower bound (a gauge baseline), not a physiologically realizable
-state of the intact tree. The fractional excess
-$\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}} =
-(\Phi^{\mathrm{net}} - \Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$
-measures the architectural cost of imposing global self-similarity,
-not a deviation from a physically accessible optimum.
-\end{remark}
+\input{sections/Section-10-Data-Availability}
 
 % ====================================================================
-% SECTION 5: Recovery of Single-Mechanism Limits
-% ====================================================================
-\section{Recovery of Single-Mechanism Limits}
-\label{sec:corollary}
-
-\begin{corollary}[Recovery of Single-Mechanism Limits]
-\label{cor:limits}
-Let $\eta \in [0,1]$ be the duty cycle of the unified Lagrangian
-$\mathcal{L}_{\mathrm{net}}(\alpha, \eta)$. Then:
-\begin{enumerate}
-    \item \textbf{Static limit} ($\eta \to 0$): The wave penalty vanishes and
-    $\mathcal{L}_{\mathrm{net}} \to
-\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha)$.
-    The unique minimizer is $\alpha^* = \alpha_t \in [\VarAlphaTLow,
-\VarAlphaTHigh]$, recovering
-    the result of Paper~I~\cite{paperI} exactly.
-    \item \textbf{Wave-dominated limit} ($\eta \to 1$): The transport penalty
-    vanishes and $\mathcal{L}_{\mathrm{net}} \to
-\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha)$.
-    The unique minimizer is $\alpha^* = \alpha_w = 2$, the impedance-matching
-    attractor of Paper~II~\cite{paperII}.
-    (Note: $\alpha_w = \VarAlphaWFig$ is the theoretical binary-branching
-    limit for area-conserving junctions with $N=2$; the empirically
-    calibrated value on the porcine coronary tree~\cite{kassab1993} is
-    $\alpha_w = \VarAlphaW$, used as the sensitivity baseline in
-    Table~\ref{tab:sensitivity}.)
-    \item \textbf{Minimax interior} ($\eta = \eta^*$): Neither mechanism
-    dominates. By Theorem~\ref{thm:arch}, the saddle point $(\alpha^*, \eta^*)$
-    is the unique interior solution, with $\alpha^* = \VarAlphaStar$ for the
-porcine
-    coronary tree (Kassab 1993 dataset~\cite{kassab1993}).
-\end{enumerate}
-The unified framework therefore contains Papers~I and~II as degenerate
-boundary cases of a single variational principle, with the physiological
-exponent occupying the unique robust interior point.
-\end{corollary}
-
-\begin{proof}
-Cases (i) and (ii) follow directly from the definition of
-$\mathcal{L}_{\mathrm{net}}$: setting $\eta = 0$ or $\eta = 1$
-annihilates one term, reducing the problem to single-objective
-minimization. The minimizers $\alpha_t$ and $\alpha_w$ are the
-unique global minima of $\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}$
-and $\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}$ respectively,
-established in Papers~I and~II~\cite{paperI, paperII}.
-Case (iii) follows from Theorem~\ref{thm:arch}: at $\eta = \eta^*$
-the equal-cost condition
-$\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha^*) =
-\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*)$ holds
-uniquely, with $\alpha^* \in (\alpha_w, \alpha_t)$ guaranteed by
-the strict monotonicity of the two cost curves established in
-Paper~II~\cite{paperII}.
-\end{proof}
-
-Figure~\ref{fig:phase_diagram} illustrates the one-dimensional phase
-diagram of the unified Lagrangian, with the two boundary attractors and
-the unique robust interior saddle point.
-
-
-% Sensitivity table (Theorem 2 numerical verification)
-
-\bigskip
-
-\noindent
-Theorem~\ref{thm:gauge} predicts that $\alpha^*$ is invariant to all
-absolute metabolic scales and sensitive only to structural parameters.
-Table~\ref{tab:sensitivity} confirms this numerically on the porcine
-coronary tree ($G = \VarG$, $p = \VarP$, $\alpha_w = \VarAlphaW$,
-$N = \VarN$) using the generation-by-generation network-level
-Lagrangian, which yields $\alpha^*_{\mathrm{model}} = \VarAlphaStarModel$.
-The residual $\Delta\alpha^* = 0.044$ relative to the empirically
-calibrated value ($\alpha^* = \VarAlphaStar$) reflects the simplified
-length-taper approximation $\ell_g = \ell_0\beta^g$ used in the
-sensitivity model; the full morphometric model of
-Paper~II~\cite{paperII} recovers $\alpha^* = \VarAlphaStar$ exactly.
-
-\begin{table}[H]
-\centering
-\caption{\textbf{Architectural invariance of $\eta^*$: metabolic
-orthogonality.} Log-sensitivity $S_x = \partial\alpha^*/\partial\ln x$
-computed numerically on the porcine coronary tree ($G=\VarG$, $p=\VarP$,
-$\alpha_w=\VarAlphaW$, $N=\VarN$) with the network-level cost functions
-of Paper~II~\cite{paperII}. Metabolic parameters yield $|S_x| < 0.01$,
-confirming Theorem~\ref{thm:gauge}. Structural parameters carry larger
-sensitivities, as expected.}
-\label{tab:sensitivity}
-\smallskip
-\begin{tabular}{llll}
-\toprule
-Parameter ($x$) & Baseline & Perturbation & $|S_x|$ \\
-\midrule
-\multicolumn{4}{l}{\textit{Metabolic inputs (gauge-invariant: $|S_x|<0.01$)}} \\[2pt]
-Blood cost ($b$)           & $\VarBblood\ \mathrm{W\,m^{-3}}$    & \VarPertB
-& \VarSB   \\
-Wall metabolism ($m_w$)    & $\VarMwallKW\ \mathrm{kW\,m^{-3}}$  & \VarPertMW
-& \VarSMW  \\
-Viscosity ($\mu_f$)        & $\VarMuFmPas\ \mathrm{mPa{\cdot}s}$ & \VarPertMuF
-& \VarSMuF \\
-Proximal flow ($Q_0$)      & $\VarQZeroML\ \mathrm{mL\,s^{-1}}$  & \VarPertQZ
-& \VarSQZ  \\
-Segment length ($\ell_0$)  & $\VarEllZeroMm\ \mathrm{mm}$        & \VarPertEll
-& \VarSEll \\
-\midrule
-\multicolumn{4}{l}{\textit{Structural inputs (architecture-dependent)}} \\[2pt]
-Wall exponent ($p$)        & $\VarP$      & \VarPertP      & \VarSP      \\
-Tree depth ($G$)           & $\VarG$      & \VarPertG      & \VarSG      \\
-Wave exponent ($\alpha_w$) & $\VarAlphaW$ & \VarPertAlphaW & \VarSAlphaW \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{figure}[t]
-\centering
-\input{figures/fig_phase_diagram.tex}
-\caption{\textbf{One-dimensional phase diagram of the unified network
-Lagrangian.} The wave-impedance attractor ($\alpha_w = \VarAlphaWFig$, $\eta\to
-1$)
-and the static transport attractor ($\alpha_t \approx \VarAlphaTFig$, $\eta\to
-0$)
-are the two degenerate boundary cases of the unified Lagrangian
-$\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$. The physiological branching
-exponent $\alpha^*=\VarAlphaStar$ emerges as the unique robust minimax saddle
-point
-at duty cycle $\eta^*\approx\VarEtaStar$, stabilised by evolutionary selection
-pressure from both extremes. The axis $\eta$ runs in physical opposition
-to $\alpha$: as $\alpha$ increases (left to right), $\eta$ decreases.}
-\label{fig:phase_diagram}
-\end{figure}
-
-% ====================================================================
-% SECTION 6: Discussion: The Minimax as a Universal Biological Attractor
-% ====================================================================
-\section{Discussion: The Minimax as a Universal Biological Attractor}
-\label{sec:discussion}
-
-The three theorems of this paper form a complete logical chain.
-Theorem~\ref{thm:nogo} proves that local optimization of physically
-incommensurable costs is ill-posed: any coupling parameter must
-diverge across the hierarchy, destroying the universality of the
-branching exponent. This is not a failure of a specific model but
-a structural mathematical impossibility.
-
-Theorem~\ref{thm:gauge} identifies the unique escape from this
-impossibility: lifting the optimization to the network level, where
-both cost functions become dimensionless fractional excesses. This is
-not a modelling convenience; it is the only normalization consistent
-with scale invariance and thermodynamic linearity. The analogy with
-gauge theories in physics is precise: just as electrodynamics is
-forced to be gauge-invariant by the requirement that physical
-observables be independent of the choice of potential, biological
-transport optimization is forced to be metabolically gauge-invariant
-by the requirement that architectural decisions be independent of
-absolute physiological scale.
-
-Theorem~\ref{thm:arch} reveals the deepest consequence: once both
-costs are gauge-invariant, their minimax balance $\eta^*$ becomes an
-architectural eigenvalue of the allometric class --- immune to the
-fluctuations of body mass, metabolic rate, and haemodynamic load
-that characterize ontogenesis. This explains why $\alpha^*$ is
-conserved across developmental stages: not because the organism
-actively maintains it, but because the minimax saddle point is
-topologically stable under metabolic perturbations.
-
-It bears emphasis that Axiom~3 of Theorem~\ref{thm:gauge} is a
-statement about the physical cost of entropy production, grounded in
-the stoichiometric linearity of oxidative phosphorylation, not about
-the fitness landscape. The evolutionary interpretation of the minimax
-as a selected optimum relies on the additional assumption that fitness
-penalties are monotonically increasing in thermodynamic excess --- a
-condition satisfied by any organism for which metabolic waste is not
-advantageous.
-
-Independent empirical support for the two-attractor structure comes
-from recent whole-organism 3D vascular mapping: Forjaz, Kiemen \&
-Wirtz~\cite{kiemen2026} report branching exponents converging to
-$\gamma \approx 3$ in mature vasculature and $\gamma \approx 2$ in
-immature developmental networks, corresponding to the static
-($\eta \to 0$) and wave-dominated ($\eta \to 1$) limits of the
-unified Lagrangian predicted by the Corollary.
-
-Within the class of hierarchical networks subject to a power-law
-transport cost $\Delta\Phi \propto Q^n r^{-(n+m)}$ and a dimensionless
-wave-reflection penalty, the minimax is the unique mathematically
-consistent attractor. Whether this conclusion extends to other classes
-of incommensurable biological costs---such as information capacity
-versus structural investment in neural networks---requires
-case-specific verification that the coupling parameter $\mu$ exhibits
-the requisite scale-dependence across the relevant hierarchy, and
-constitutes an open problem beyond the scope of this work.
-
-\begin{remark}[Incommensurability and channel distinguishability]
-We say two cost channels are incommensurable if and only if they are
-\emph{distinguishable} under the gauge group $\Lambda$: no rescaling
-$\vec{\theta}\to\Lambda\vec{\theta}$ maps one cost function to the other
-while preserving the scale-independence of the optimisation.
-This is exactly the condition that prevents $\mu$ from being
-absorbed into a redefinition of either cost, and it is the content
-of Theorem~2 that each distinguishable channel contributes an
-independently gauge-invariant fractional excess.
-Extending this correspondence to networks in which the distinguishable
-cost dimensions are information capacity and structural investment
-requires verifying that their coupling exhibits the scale-dependence
-of Eq.~(7) across the relevant hierarchy; this constitutes an open
-problem that the present framework renders sharply well-posed~\cite{bennett2025a, bennett2025b}.
-\end{remark}
-
-This perspective connects the present framework to the theory of
-robust optimization~\cite{ben-tal2009} and to Prigogine's theorem
-of minimum entropy production~\cite{prigogine1967}: biological
-networks appear to minimize not absolute dissipation (which would
-require a single incommensurable cost) but the worst-case fractional
-excess across incommensurable cost dimensions. The minimax is,
-in this sense, the thermodynamic signature of life.
-
-% ====================================================================
-% SECTION 7: Conclusion
-% ====================================================================
-\section{Conclusion}
-
-We have proved that the network-level minimax framework of Papers~I--II
-is not an elegant choice but a mathematical necessity. Three theorems
-establish this progression:
-
-\begin{enumerate}
-    \item \textbf{No-Go Theorem}: local incommensurable optimization
-    requires a coupling parameter varying by $10^2$--$10^3$ across the
-    vascular hierarchy, rendering a universal $\alpha^*$ impossible.
-    \item \textbf{Metabolic Gauge Invariance}: the fractional excess
-    cost is the unique dimensionless functional consistent with scale
-    invariance and thermodynamic linearity.
-    \item \textbf{Architectural Invariance}: the minimax duty cycle
-    $\eta^*$ is an exact invariant of the allometric class, explaining
-    the developmental stability of vascular geometry from first
-    principles.
-\end{enumerate}
-
-The corollary recovers Papers~I and~II as the exact limiting cases
-$\eta \to 0$ and $\eta \to 1$, confirming that the unified
-variational principle subsumes all previous single-mechanism
-results. The companion study~\cite{paperIII} extends the minimax
-framework to whole-organism allometric scaling, recovering
-Kleiber's $3/4$-power law as a network-geometric consequence.
-Beyond vascular biology, the incommensurability argument
-applies to any biological network optimizing across physically
-distinct cost dimensions, suggesting that the minimax is the
-universal thermodynamic signature of adaptive biological
-architecture.
-
-\bigskip
-\noindent\textbf{Data and Code Availability.}
-All computation scripts and figure-generation code are openly
-available at \url{https://github.com/rikymarche-ctrl/vascular-networks-theory}
-under the MIT Licence.
-
-% ====================================================================
-% APPENDIX: Counterfactual Analysis
+% APPENDICES
 % ====================================================================
 \appendix
-\section{Counterfactual Analysis: Alternative Penalty Functionals}
-\label{app:counterfactual}
+\input{sections/Appendix-A-Fragility}
+\input{sections/Appendix-B-Transfer-Matrix}
+\input{sections/Appendix-C-Sensitivity}
 
-To probe the empirical consequences of Axiom~3 (Thermodynamic Linearity)
-in Theorem~\ref{thm:gauge}, we compute the minimax branching exponent
-$\alpha^*$ under an alternative transport penalty that violates linearity:
-the logarithmic functional
-\begin{equation}
-    \mathcal{C}_{\mathrm{transport}}^{\mathrm{log}}(\alpha) =
-    \ln\left(\frac{\Phi_{\mathrm{net}}(\alpha)}{\Phi_{\mathrm{net}}(\alpha_{\mathrm{opt}})}\right).
-\end{equation}
-This satisfies Axioms~1 (gauge invariance) and~2 (positivity), but introduces
-spurious concavity ($\partial^2\mathcal{C}/\partial\Phi^2 < 0$) in the
-metabolic cost landscape, dampening the architectural penalty at large
-deviations from the transport optimum.
-
-Using the simplified generation-by-generation network model on the porcine
-coronary tree ($G=11$, $p=0.77$, $\alpha_w=2.115$, $N=2$), we find:
-\begin{align*}
-    \alpha^*_{\mathrm{frac.\ excess}} &= 2.676 \quad \text{(simplified model)}, \\
-    \alpha^*_{\mathrm{log}} &= 2.674 \quad \text{(simplified model)}, \\
-    \alpha^*_{\mathrm{empirical}} &= 2.72 \quad \text{(Kassab 1993)}.
-\end{align*}
-Within the simplified length-taper model, the incremental shift due to the
-logarithmic penalty is $-0.002$, much smaller than the model's own residual
-($\Delta\alpha^* = 0.044$ relative to the empirical value). The two
-penalties are therefore \emph{indistinguishable} at this level of
-approximation.
-
-However, three observations support the theoretical rejection of the
-logarithmic penalty:
-\begin{enumerate}
-    \item \textbf{Sign consistency:} The logarithmic penalty shifts $\alpha^*$
-    \emph{downward} (away from the empirical value), as predicted by its
-    concave structure. The direction of the shift is model-independent.
-    \item \textbf{Full-model discrimination:} The full morphometric model of
-    Paper~II~\cite{paperII}---which includes generation-specific lengths,
-    taper, and hemodynamic corrections---reproduces $\alpha^* = 2.72$ exactly
-    with the fractional-excess functional. The same model with the logarithmic
-    penalty would inherit the downward shift, producing a deviation resolvable
-    against the empirical dataset.
-    \item \textbf{Theoretical necessity:} The rejection of the logarithm does
-    not rest on this numerical test alone. Axiom~3 is grounded in the
-    stoichiometric linearity of oxidative phosphorylation: each additional
-    watt of excess dissipation costs a fixed number of ATP molecules per unit
-    time, a physical constraint that the concave logarithm violates on
-    principle.
-\end{enumerate}
-The primary force of the counterfactual is therefore theoretical, not
-empirical: the fractional excess is the unique functional consistent with
-the linear thermodynamics of biological energy transduction
-(Theorem~\ref{thm:gauge}), and the simplified model confirms that violating
-this linearity shifts $\alpha^*$ in the wrong direction.
-
-\bibliographystyle{unsrt}
+% ====================================================================
+% BIBLIOGRAPHY
+% ====================================================================
+\bibliographystyle{unsrtnat}
 \bibliography{references}
 
 \end{document}

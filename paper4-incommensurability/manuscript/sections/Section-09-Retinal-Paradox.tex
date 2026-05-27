@@ -1,0 +1,97 @@
+% ====================================================================
+% SECTION 09: MECHANICAL-FLUIDIC DECOUPLING
+% ====================================================================
+\section{The Retinal Paradox: Mechanical-Fluidic Decoupling}
+\label{sec:retinal}
+
+The human retina provides a unique test case for the incommensurability
+principle. Unlike three-dimensional vascular beds (coronary, pulmonary), retinal
+vessels are constrained to a quasi-two-dimensional manifold (the retinal
+surface). According to the dual-threshold framework derived from the Kinematic
+Matching Criterion (Theorem~\ref{thm:kinematic_matching},
+Section~\ref{sec:womersley_minimax}), this dimensional constraint produces a
+profound qualitative shift:
+
+\subsection{Predicted Dimensional Scaling}
+
+The fluid and wave thresholds scale differently with dimension $d$:
+\begin{itemize}
+    \item
+\textbf{Fluid threshold (local admittance $Y_L$):}
+$\mathrm{Wo}_c^{\mathrm{fluid}}(d) = \sqrt{6/(d-1)}$
+
+For $d=3$: $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3} \approx 1.732$
+
+For $d=2$: $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{6} \approx \VarWoCTwo$
+
+    \item
+\textbf{Wave threshold (characteristic admittance $Y_c \propto \sqrt{Y_L}$):}
+$\mathrm{Wo}_c^{\mathrm{wave}}(d) = \sqrt{3d(d-2)/(d-1)}$
+
+For $d=3$: $\mathrm{Wo}_c^{\mathrm{wave}} = 3/\sqrt{2} \approx 2.121$
+
+For $d=2$: $\mathrm{Wo}_c^{\mathrm{wave}} = 0$ (collapses identically)
+\end{itemize}
+
+The collapse of $\mathrm{Wo}_c^{\mathrm{wave}}$ to zero in planar topology
+implies that \emph{any} finite Womersley number in 2D networks places the wave
+permanently above its kinematic matching threshold ($\mathcal{Q}^{-1}_{Y_c} \ge
+1$ for all $\mathrm{Wo} > 0$). This geometric constraint forces retinal vessels
+into a permanent wave-dominated regime.
+
+Because the human retinal vasculature is embedded in a systemic tree operating
+well above the 2D transition mass ($M \gg M^*_{d=2}$), the dimensional
+constraint shifts the minimax diameter attractor toward the area-preserving
+limit. The minimax prediction is:
+\begin{itemize}
+    \item
+\textbf{Diameters:} $\alpha_{\text{retina}} \approx 2.0$ (area-preserving limit)
+    \item
+\textbf{Angles:} $\varphi_{\text{retina}} \approx 90^\circ$ (planar constraint:
+$\tan^2(\varphi/2) = 1$)
+\end{itemize}
+
+For comparison, Murray's law in 3D predicts $\alpha_{\mathrm{3D}} \approx 3.0$
+(viscous) and $\varphi_{\mathrm{3D}} \approx \VarAngleTetrahedralCalcDeg^\circ$
+(derived from the energy-minimization condition $\cos(\varphi/2) = 2^{-1/3}$ for
+symmetric bifurcations).
+
+\subsection{Observational Evidence}
+
+\citet{luo2017} measured 342 bifurcations in healthy human retinal vessels:
+\begin{itemize}
+    \item
+\textbf{Diameters:} $\alpha_{\text{obs}} \approx 2.0$--$2.7$ (range across
+vessel types; consistent with area-preserving limit)
+    \item
+\textbf{Angles:} $\varphi_{\text{obs}} = \VarAngleRetinalObs^\circ \pm
+\VarAngleRetinalErr^\circ$ (SE), with standard deviation $\sigma =
+\VarAngleRetinalSD^\circ$
+\end{itemize}
+
+The diameter scaling ($\alpha_{\text{obs}} \approx 2.0$--$2.7$) is consistent
+with the area-preserving attractor predicted by the 2D dimensional constraint.
+The observed mean angle $\VarAngleRetinalObs^\circ$ lies between the 3D Murray
+prediction ($\VarAngleRetinalCalcDeg^\circ$) and the 2D planar limit
+($90^\circ$), offset from the latter by only $\VarAngleRetinalOffset /
+\VarAngleRetinalSD \approx 0.20\sigma$; however, given the large biological
+variance ($\sigma = \VarAngleRetinalSD^\circ$), the angular data do not
+discriminate between the two predictions. The high variance likely reflects
+stochastic angiogenesis in vivo, where local biochemical gradients (VEGF, shear
+stress) obscure the geometric signal at individual junctions.
+
+\subsection{Effective Viscous Limit and the Fåhræus-Lindqvist Effect}
+
+An additional subtlety arises from the reduction of apparent blood viscosity in
+small vessels (Fåhræus-Lindqvist effect). In retinal capillaries ($r <
+10\,\mu\text{m}$), the effective viscosity drops by $\sim 30\%$, shifting the
+effective transport exponent from $\alpha_t = 3.0$ (Murray) to
+$\alpha_{\text{eff}} \approx \VarAlphaFahraeusEff$. This places retinal diameter
+scaling between the wave attractor ($\alpha_w = 2.0$) and the corrected viscous
+limit ($\alpha_{\text{eff}} = \VarAlphaFahraeusEff$), further confirming the
+transition-regime interpretation.
+
+Taken together, the retinal data provide a case study in which the diameter
+scaling unambiguously supports the dimensional decoupling predicted by the
+incommensurability framework, while the angular evidence remains inconclusive
+due to biological variance.

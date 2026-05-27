@@ -1,0 +1,61 @@
+% ====================================================================
+% APPENDIX A: STRUCTURAL FRAGILITY OF LOCAL OPTIMIZATION
+% ====================================================================
+\section{Appendix A: Structural Fragility of Local Optimization}
+\label{app:fragility}
+
+Proposition~\ref{thm:nogo} establishes that local optimization requires cells to
+maintain precise coupling between metabolic and wave costs that depends on
+global network parameters. Here we formalize why such local coupling is
+structurally fragile and evolutionarily disfavored.
+
+\subsection{The Sensitivity Amplification Problem}
+
+Let the local coupling parameter $a$ relate to the emergent branching exponent
+$\alpha^*$ via the vessel-wall metabolic optimality condition:
+\begin{equation}
+    a = \frac{1}{1-(\alpha^*)^2} - 2 \quad \implies \quad \alpha^* = \sqrt{1 - \frac{1}{a+2}}.
+\end{equation}
+Differentiating with respect to $a$ yields the sensitivity coefficient:
+\begin{equation}
+    \sigma \equiv \frac{1}{\alpha^*}\frac{\partial \alpha^*}{\partial a} = \frac{1}{2(a+2)(a+1)}.
+\end{equation}
+For a porcine coronary tree where $\alpha^* \approx \VarAlphaStar$, the matching
+parameter is $a \approx \VarSensitivityA$, yielding $\sigma \approx
+\VarSensitivitySigma$.
+
+\textbf{Cumulative error amplification.} Over a vascular tree of depth $G =
+\VarG$, small perturbations in local sensing accumulate multiplicatively over
+the $G-1$ internal junctions:
+\begin{equation}
+    \frac{\delta \alpha^*}{\alpha^*} \approx (G-1) \cdot \sigma \cdot \delta a \approx 27.7 \cdot \delta a.
+\end{equation}
+To maintain architectural stability within $\delta\alpha^*/\alpha^* < 0.05$ (5\%
+tolerance), the required local precision is $\delta a <
+\VarSensitivityDeltaA$---a demanding constraint given physiological noise in
+shear stress and pressure over the cardiac cycle.
+
+\subsection{Why the Minimax Avoids This Fragility}
+
+In contrast, the network-level minimax requires no local parameter estimation of
+global invariants. The saddle point $(\alpha^*, \eta^*)$ emerges from the
+\emph{topological structure} of the optimization landscape: it is the unique
+point where metabolic cost equals wave cost, determined entirely by
+dimensionless structural parameters $(G, N, p, \alpha_w)$.
+
+Mechanotransduction-driven remodeling based on local shear stress $\tau$ and
+circumferential strain $\epsilon$ converges spontaneously to this attractor
+because the equal-cost condition is a stationary point of the global energy
+landscape. The network does not \emph{compute} the optimal state; it
+\emph{relaxes} toward it via gradient descent on a robust cost functional.
+
+\textbf{Robustness vs fragility.} Local optimization requires fine-tuned
+sensitivity to global parameters and is vulnerable to cumulative error
+amplification. Network-level minimax optimization is topologically robust: the
+attractor $\alpha^* \approx \VarAlphaStar$ emerges from structural constraints
+and remains stable across seven orders of magnitude in body mass, despite
+massive variations in metabolic rate, blood viscosity, and cardiac output.
+
+This structural robustness explains why evolution favors the minimax solution:
+it achieves near-optimal performance without requiring cells to "know" the
+global scale of the organism.

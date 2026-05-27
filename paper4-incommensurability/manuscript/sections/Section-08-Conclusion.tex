@@ -1,0 +1,134 @@
+\section{Conclusion}
+
+We have demonstrated that the conserved branching exponent $\alpha^*$ observed
+in biological transport networks is not merely an empirical curiosity, but a
+mathematical necessity of scale-free evolution. The transition from local
+junctional control to global network coordination is forced by the fundamental
+incommensurability of the physical costs governing the vascular tree.
+
+The logical edifice of the incommensurability principle rests on three
+interlocking pillars. First, the \textbf{informational cost of local
+optimization} (Proposition~\ref{thm:nogo}) reveals that for a cell to maintain
+architectural universality through local sensing, it would need to measure and
+compensate for non-local invariants with a precision that exceeds the capacity
+of molecular receptors. The vascular tree avoids this cost by converging to the
+\emph{network-level minimax}.
+
+Second, the functional form of this attractor is uniquely dictated by
+\textbf{Metabolic Scaling Symmetry}. By grounding the fitness landscape in the
+ATP stoichiometry of metabolism, we have shown that the linear fractional excess
+is the only cost functional consistent with the first law of thermodynamics and
+the fungibility of glucose.
+
+Third, the transition between physical regimes is governed by the
+\textbf{Kinematic Matching Criterion} (Theorem~\ref{thm:kinematic_matching}).
+The topologically grounded dual-threshold framework---with fluid threshold
+$\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3}$ and wave threshold
+$\mathrm{Wo}_c^{\mathrm{wave}} = 3/\sqrt{2}$---is derived from the evanescent
+nature of the transverse velocity component at the bifurcation junction,
+combined with the Navier-Stokes expression for viscous absorption capacity
+($\mathcal{Q}^{-1} = 6/\mathrm{Wo}^2$). The critical condition $\mathcal{Q}^{-1}
+= d-1$---the vascular analogue of the Ioffe-Regel criterion---marks the
+threshold where geometric scattering overwhelms viscous damping, establishing
+the onset of coherent wave propagation. The agreement with the observed
+allometric transition in mammals confirms that the fundamental asymptotics of
+fluid kinematics constrain the coarse-grained architecture of cardiovascular
+systems.
+
+The incommensurability principle thus provides a unified framework that subsumes
+Murray's Law and the area-preserving limit as the two viscous and inertial
+boundaries of a single minimax landscape. Beyond vascular biology, this
+principle applies to any adaptive network forced to reconcile physically
+distinct cost dimensions.
+
+As confirmed by the Topological Rigidity corollary
+(Corollary~\ref{thm:rigidity}), the minimax saddle point requires no
+fine-tuning: the branching exponent $\alpha^*$ depends only on the dimensionless
+structural parameters $(G, N, p, \alpha_w, A)$ and is completely independent of
+all pure metabolic parameters---blood oxygen cost, proximal flow, segment
+length, ATP stoichiometry, cardiac output ($|S_x| < 0.01$,
+Table~\ref{tab:sensitivity})---while exhibiting only weak residual sensitivity
+to fluid-mechanical parameters (viscosity, wall metabolism: $|S_x| < 0.2$). The
+architecture is effectively decoupled from the biochemistry.
+
+\begin{table}[H]
+\centering
+\caption{Separation of genuine predictions from fitted parameters}
+\begin{tabular}{lccc}
+\toprule
+Quantity & Value & Epistemological Status & Source \\
+\midrule
+\multicolumn{4}{l}{\textbf{Genuine Predictions (no adjustable parameters)}} \\
+$\mathrm{Wo}_c$ (3D fluid) & $\sqrt{3} \approx 1.732$ & Deductive theorem & Eq.~\eqref{eq:woc_closed_form} \\
+$\mathrm{Wo}_c$ (2D fluid) & $\sqrt{6} \approx 2.449$ & Deductive theorem & Eq.~\eqref{eq:woc_closed_form} \\
+$M^*$ (transition mass) & $0.8$\,g & First-principles calculation & Eq.~\eqref{eq:wo_scaling} \\
+$\alpha^*$ (symmetric) & $2.626$ & Minimax solution & Eq.~\eqref{eq:eta_star} \\
+\midrule
+\multicolumn{4}{l}{\textbf{Empirical Inputs (measured independently)}} \\
+$p$ (duty cycle) & $0.77$ & Physiological measurement & Huo \& Kassab 2012 \\
+$\alpha^*$ (empirical target) & $2.72$ & Morphometric measurement & Kassab et al. 1993 \\
+\midrule
+\multicolumn{4}{l}{\textbf{Postdictions (explained by measured heterogeneity)}} \\
+$\Delta\alpha$ (residual) & $0.094$ & Asymmetry + taper & Appendix C \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{A Critical Falsifiable Test: Ontogenetic Phase Transition}
+
+The theory makes a sharp, falsifiable prediction regarding vascular
+morphogenesis. In early embryonic development, the aortic radius is sufficiently
+small that the Womersley number satisfies $\mathrm{Wo} \ll
+\mathrm{Wo}_c^{\mathrm{fluid}}$ throughout the nascent arterial tree. Under
+these conditions, wave reflections are negligible, and the network should
+spontaneously adopt Murray's viscous-optimal scaling $\alpha \approx 3.0$. As
+the organism grows and the aortic Womersley number crosses the critical fluid
+threshold $\mathrm{Wo}_0(M^*) = \sqrt{3}$ (corresponding to a body mass $M^*
+\approx \VarMStar\,$g in mammals), the theory predicts an abrupt structural
+remodeling: the branching exponent must shift from the viscous attractor
+($\alpha \approx 3.0$) to the wave-influenced minimax attractor ($\alpha^*
+\approx \VarAlphaStar$).
+
+This prediction is directly testable via time-resolved morphometry of developing
+embryos. Two-photon microscopy of zebrafish embryos (transparent, rapid
+development) or synchrotron micro-CT of staged mouse embryos can measure the
+generation-by-generation branching exponent $\alpha(t)$ as a function of
+developmental time (and thus body mass). The critical measurement is whether
+$\alpha$ exhibits a systematic transition from $\sim 3.0$ at early stages (when
+$M < M^*$) to $\sim \VarAlphaStar$ at later stages (when $M > M^*$).
+
+\textbf{Falsification Criterion:} If embryonic vasculature exhibits $\alpha
+\approx \VarAlphaStar$ from the earliest stages of angiogenesis---when wave
+reflections are physically absent---the theory is falsified. Such an observation
+would demonstrate that the branching exponent is a genetically hard-coded
+blueprint rather than an emergent hydrodynamic attractor, invalidating both the
+Epistemic Bound (Proposition~\ref{thm:nogo}) and the necessity of network-level
+minimax optimization. Conversely, observation of the predicted viscous-to-wave
+transition would constitute direct experimental confirmation that vascular
+geometry is indeed sculpted by the incommensurability principle.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Falsifiable Prediction: Ontogenetic Transition of $\alpha$}
+\emph{No experimental data currently available; this constitutes a direct test
+of the incommensurability principle.}}
+\label{tab:ontogenetic}
+\begin{tabular}{lcccl}
+\toprule
+Stage & Mass $M$ (g) & $\mathrm{Wo}_0$ & $\alpha_{\mathrm{pred}}$ & Regime \\
+\midrule
+E10 (early embryo) & 0.1  & 0.5  & 2.95 & Viscous \\
+E15                & 0.5  & 1.0  & 2.85 & Transition onset \\
+E20                & 2.0  & 1.8  & 2.70 & Minimax attractor \\
+Neonate            & 25   & 3.5  & 2.70 & Minimax (stable) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The convergence of evolution toward a scale-free attractor that emerges from the
+irreconcilability of physical costs is not unique to biology. Wherever adaptive
+systems must navigate incommensurable constraints---whether in neural networks
+optimizing speed versus accuracy, or ecological food webs balancing energy
+acquisition versus predation risk---the minimax principle offers a universal
+resolution. Universality, in this view, does not require fine-tuning; it
+requires only that the costs be incommensurable.

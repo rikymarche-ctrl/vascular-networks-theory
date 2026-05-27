@@ -35,12 +35,14 @@ Shows that Kleiber's 3/4 scaling emerges from the wave-impedance attractor
 state β(α, d) = dα/(2d+α).
 
 ### Paper IV — *The Incommensurability Principle in Biological Transport*
-> `paper4-incommensurability/` · arXiv preprint
+> `paper4-incommensurability/` · [arXiv:2605.03219](https://arxiv.org/abs/2605.03219)
 
-Establishes the theoretical foundation for the Paper II Lagrangian via
-three theorems: No-Go (local incommensurable optimization is impossible),
-Metabolic Gauge Invariance (unique admissible network functional), and
-Architectural Invariance (η* is an exact allometric class invariant).
+Proves that universal vascular branching exponents cannot emerge from local
+optimization: any junction-level coupling of incommensurable costs requires
+scale-dependent fine-tuning varying by O(10²–10³) across the hierarchy.
+Establishes Topological Rigidity (optimal exponent depends only on dimensionless
+structural parameters) and Architectural Invariance (η* is an exact allometric
+class invariant), with a dual-threshold Womersley framework.
 
 ---
 

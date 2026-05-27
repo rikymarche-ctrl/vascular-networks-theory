@@ -1,0 +1,51 @@
+% ====================================================================
+% APPENDIX C: SENSITIVITY ANALYSIS OF M*
+% ====================================================================
+
+\section{Appendix C: Sensitivity Analysis of the Transition Mass $M^*$}
+\label{app:sensitivity_mstar}
+
+The critical allometric mass $M^*$ marking the Womersley transition
+(Theorem~\ref{thm:emergent_transition}) is grounded in the reference state of a
+healthy adult human. A purely dimensional scaling relation, $M \propto
+\mathrm{Wo}^4$, yields an order-of-magnitude upper bound ($M \sim
+5\text{--}10\,$g). However, the precise theoretical centroid $M^* \approx
+\VarMStar\,$g is determined numerically as the inflection point of the full
+sigmoidal wave-cost transition $\alpha^*(M)$ governed by the symmetry-motivated
+fluid threshold $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3} \approx \VarWoC$.
+While we report this numerical value with precision, the physical significance
+of $M^*$ resides in its order of magnitude ($\sim\!1\,$g) and its role as a
+universal topological separator.
+
+However, $\mathrm{Wo}_0$ inherits a sensitivity to physiological parameters:
+$\mathrm{Wo}_0 \propto r_0 \sqrt{f_H/\nu}$. Consequently, the predicted mass
+threshold scales as $M^* \propto f_H^{-2} \nu^{2}$. To assess the robustness of
+the minimax allometric threshold, we compute the shift in $M^*$ under a $\pm
+10\%$ perturbation of the heart rate:
+\begin{itemize}
+    \item
+\textbf{Tachycardic shift ($+10\% f_H$):} The transition mass shifts downward to
+$M^* \approx \VarMStarLow\,$g.
+    \item
+\textbf{Bradycardic shift ($-10\% f_H$):} The transition mass shifts upward to
+$M^* \approx \VarMStarHigh\,$g.
+\end{itemize}
+While the absolute threshold exhibits an asymmetric $[-17\%, +23\%]$ sensitivity
+to heart rate fluctuations (as expected from the inverse-square relation $M^*
+\propto f_H^{-2}$ where $1.1^{-2} \approx 0.83$ and $0.9^{-2} \approx 1.23$),
+the "logarithmic sharpness" of the jump remains invariant. Even under extreme
+physiological noise, the theory predicts that the metabolic transition remains
+confined to the sub-gram to few-gram range, insensitive to physiological
+variability, distinguishing it clearly from stochastic metabolic noise.
+
+Finally, we address the robustness of the thin-wall approximation. In the
+terminal microvasculature ($h/r \approx \VarThicknessRatioArterioles$), the
+classical Moens-Korteweg model requires a thick-wall correction via the Lamé
+elastic solution. However, as established in the Supplemental Material, the
+network exhibits a \emph{Topological Shielding Principle}: because the
+wave-reflection penalty vanishes as $\mathrm{Wo} \to 0$, the architectural
+impact of modelling errors in distal generations is asymptotically suppressed.
+Numerical sensitivity analysis (see Supplemental Material, Table S3) confirms
+that the global minimax $\alpha^*$ is structurally decoupled from the breakdown
+of the thin-wall model, ensuring the universality of the incommensurability
+principle across the entire vascular hierarchy.

@@ -1,75 +1,102 @@
-% ====================================================================
 % DYNAMIC VARIABLES
-% ====================================================================
-% Source: paper4-incommensurability/scripts/compute.py
-% Generated: 2026-05-05T00:32
-% ====================================================================
-
-% --------------------------------------------------------------------
-% 1. PHYSICAL PARAMETERS (porcine coronary tree)
-% --------------------------------------------------------------------
-\newcommand{\VarG}{11}                             % [-       ] Tree depth (junctions)
-\newcommand{\VarN}{2}                              % [-       ] Bifurcation number
-\newcommand{\VarP}{0.77}                           % [-       ] Wall-thickness exponent (Rhodin 1967)
-\newcommand{\VarAlphaW}{2.115}                     % [-       ] Wave-impedance attractor (Paper II)
-\newcommand{\VarAlphaWFig}{2}                      % [-       ] Wave attractor for figures (integer)
-
-% --------------------------------------------------------------------
-% 2. METABOLIC PARAMETERS (baseline, SI units)
-% --------------------------------------------------------------------
-\newcommand{\VarMuFmPas}{3.5}                      % [mPa s   ] Blood dynamic viscosity
-\newcommand{\VarBblood}{1500}                      % [W/m3    ] Blood-volume metabolic cost
-\newcommand{\VarMwallKW}{20}                       % [kW/m3   ] Wall metabolic cost
-\newcommand{\VarQZeroML}{5.2}                      % [mL/s    ] Proximal flow
-\newcommand{\VarEllZeroMm}{15}                     % [mm      ] Root segment length
-
-% --------------------------------------------------------------------
-% 3. MINIMAX RESULTS (inputs from Paper II)
-% --------------------------------------------------------------------
-\newcommand{\VarAlphaStar}{2.72}                   % [-       ] Minimax exponent (Kassab 1993 calibration)
-\newcommand{\VarEtaStar}{0.833}                    % [-       ] Duty cycle (saddle point)
-\newcommand{\VarAlphaTFig}{2.90}                   % [-       ] Transport optimum for figures
-
-% --------------------------------------------------------------------
-% 4. COMPUTED BASELINE (two-level model, this script)
-% --------------------------------------------------------------------
-\newcommand{\VarAlphaStarModel}{2.676}             % [-       ] Minimax exponent (model)
-
-% --------------------------------------------------------------------
-% 5. TRANSPORT OPTIMUM RANGE (physiological p)
-% --------------------------------------------------------------------
-\newcommand{\VarAlphaTLow}{2.86}                   % [-       ] alpha_t at p = 0.72
-\newcommand{\VarAlphaTHigh}{2.92}                  % [-       ] alpha_t at p = 0.82
-
-% --------------------------------------------------------------------
-% 6. NO-GO THEOREM: COUPLING VARIATION
-% --------------------------------------------------------------------
-\newcommand{\VarMuCouplingExp}{{2-3}}              % [-       ] Decades of mu variation across hierarchy
-
-% --------------------------------------------------------------------
-% 7. SENSITIVITY VALUES (Table 1)
-% --------------------------------------------------------------------
-\newcommand{\VarSMuF}{${<}0.01$}                   % [-       ] Sensitivity: blood viscosity
-\newcommand{\VarSB}{${<}0.01$}                     % [-       ] Sensitivity: blood metabolic cost
-\newcommand{\VarSMW}{${<}0.01$}                    % [-       ] Sensitivity: wall metabolic cost
-\newcommand{\VarSQZ}{${<}0.01$}                    % [-       ] Sensitivity: proximal flow
-\newcommand{\VarSEll}{$=0$ (exact)}                % [-       ] Sensitivity: segment length (exact zero)
-\newcommand{\VarSP}{$0.27$}                        % [-       ] Sensitivity: wall exponent p
-\newcommand{\VarSG}{$0.10$}                        % [-       ] Sensitivity: tree depth G
-\newcommand{\VarSAlphaW}{$0.54$}                   % [-       ] Sensitivity: wave attractor alpha_w
-
-% --------------------------------------------------------------------
-% 9. TABLE PERTURBATION MAGNITUDES
-% --------------------------------------------------------------------
-\newcommand{\VarPertB}{$\times 2$}
-\newcommand{\VarPertMW}{$\times 7$}
-\newcommand{\VarPertMuF}{$+50\%$}
-\newcommand{\VarPertQZ}{$\times 4$}
-\newcommand{\VarPertEll}{$\times 3$}
-\newcommand{\VarPertP}{$\pm 0.08$}
-\newcommand{\VarPertG}{$\pm 2$}
-\newcommand{\VarPertAlphaW}{$+0.115$}
-
-% ====================================================================
-% END OF AUTO-GENERATED FILE
-% ====================================================================
+% Generated 2026-05-27T04:12:42.741601
+\newcommand{\VarMassShrew}{3.0}
+\newcommand{\VarBetaShrewWocThree}{0.7807}
+\newcommand{\VarMassMouseHuo}{25.0}
+\newcommand{\VarAlphaMouseHuo}{2.741}
+\newcommand{\VarBetaMouseHuoWocThree}{0.7765}
+\newcommand{\VarMassRat}{430.0}
+\newcommand{\VarBetaRatWocThree}{0.7721}
+\newcommand{\VarMassGuineaPig}{700.0}
+\newcommand{\VarBetaGuineaPigWocThree}{0.7715}
+\newcommand{\VarMassRabbit}{3000.0}
+\newcommand{\VarBetaRabbitWocThree}{0.7701}
+\newcommand{\VarMassHuman}{70000.0}
+\newcommand{\VarBetaHumanWocThree}{0.7680}
+\newcommand{\VarMassHorse}{500000.0}
+\newcommand{\VarBetaHorseWocThree}{0.7672}
+\newcommand{\VarAlphaStar}{2.72}
+\newcommand{\VarAlphaStarModel}{2.626}
+\newcommand{\VarAlphaResidual}{0.094}
+\newcommand{\VarAlphaT}{2.920}
+\newcommand{\VarAlphaTFig}{2.920}
+\newcommand{\VarAlphaTLow}{2.900}
+\newcommand{\VarAlphaTHigh}{2.940}
+\newcommand{\VarAlphaW}{2.000}
+\newcommand{\VarAlphaWFig}{2.115}
+\newcommand{\VarAlphaWTwo}{2.115}
+\newcommand{\VarMStar}{0.84}
+\newcommand{\VarMStarLow}{0.69}
+\newcommand{\VarMStarHigh}{1.04}
+\newcommand{\VarMStarTwo}{3.4}
+\newcommand{\VarHeartRateHuman}{70}
+\newcommand{\VarWoCoeffHuman}{1490}
+\newcommand{\VarRadiusCritMm}{1.16}
+\newcommand{\VarAngleTetrahedralDeg}{109.5}
+\newcommand{\VarAngleTetrahedralCalcDeg}{75}
+\newcommand{\VarAnglePlanarDeg}{90}
+\newcommand{\VarLameCorrectionPercent}{4}
+\newcommand{\VarHeteroAsymmetryA}{0.85}
+\newcommand{\VarHeteroTaperPercent}{2}
+\newcommand{\VarAlphaHeteroBase}{2.628}
+\newcommand{\VarAlphaHeteroAsym}{2.625}
+\newcommand{\VarAlphaHeteroTaper}{2.622}
+\newcommand{\VarAlphaHeteroCombined}{2.619}
+\newcommand{\VarAlphaHeteroAsymShift}{-0.003}
+\newcommand{\VarAlphaHeteroTaperShift}{-0.006}
+\newcommand{\VarAlphaHeteroCombinedShift}{-0.009}
+\newcommand{\VarAlphaStarElastic}{2.659}
+\newcommand{\VarAlphaStarElasticShift}{+0.033}
+\newcommand{\VarAlphaHeteroBaseElastic}{2.655}
+\newcommand{\VarAlphaHeteroCombinedElastic}{2.647}
+\newcommand{\VarAlphaHeteroCombinedElasticShift}{-0.008}
+\newcommand{\VarAngleRetinalObs}{78.6}
+\newcommand{\VarAngleRetinalErr}{0.9}
+\newcommand{\VarAngleRetinalSD}{18}
+\newcommand{\VarAlphaFahraeusEff}{2.84}
+\newcommand{\VarAngleRetinalCalcDeg}{75.0}
+\newcommand{\VarAngleRetinalOffset}{3.6}
+\newcommand{\VarThicknessRatioAorta}{0.08}
+\newcommand{\VarThicknessRatioArterioles}{0.42}
+\newcommand{\VarSensitivityA}{-2.156}
+\newcommand{\VarSensitivitySigma}{2.77}
+\newcommand{\VarSensitivityDeltaA}{0.0018}
+\newcommand{\VarWoC}{1.732}
+\newcommand{\VarWoCTwo}{2.449}
+\newcommand{\VarEtaStar}{0.777}
+\newcommand{\VarMuFmPas}{3.5}
+\newcommand{\VarRho}{1060.0}
+\newcommand{\VarBblood}{1500.0}
+\newcommand{\VarMwallKW}{20.0}
+\newcommand{\VarN}{2}
+\newcommand{\VarG}{11}
+\newcommand{\VarP}{0.77}
+\newcommand{\VarQZeroML}{1.3}
+\newcommand{\VarEllZeroMm}{15.0}
+\newcommand{\VarBetaShrewObs}{0.82}
+\newcommand{\VarBetaRatObs}{0.79}
+\newcommand{\VarBetaGuineaPigObs}{0.785}
+\newcommand{\VarBetaRabbitObs}{0.78}
+\newcommand{\VarBetaHumanObs}{0.77}
+\newcommand{\VarBetaHorseObs}{0.765}
+\newcommand{\VarBetaElephantObs}{0.76}
+\newcommand{\VarBetaMouseObs}{0.80}
+\newcommand{\VarAlphaMouseHuoObs}{2.60}
+\newcommand{\VarAlphaMouseHuoErr}{0.10}
+\newcommand{\VarAlphaRatObs}{2.68}
+\newcommand{\VarPertB}{\ensuremath{\pm10\%}}
+\newcommand{\VarPertMW}{\ensuremath{\pm10\%}}
+\newcommand{\VarPertMuF}{\ensuremath{\pm10\%}}
+\newcommand{\VarPertQZ}{\ensuremath{\pm10\%}}
+\newcommand{\VarPertEll}{\ensuremath{\pm10\%}}
+\newcommand{\VarPertP}{\ensuremath{\pm10\%}}
+\newcommand{\VarPertG}{\ensuremath{\pm 1}}
+\newcommand{\VarPertAlphaW}{\ensuremath{\pm10\%}}
+\newcommand{\VarSB}{0.0061}
+\newcommand{\VarSMW}{0.1748}
+\newcommand{\VarSMuF}{0.1823}
+\newcommand{\VarSQZ}{0.0084}
+\newcommand{\VarSEll}{0.0084}
+\newcommand{\VarSP}{1.1183}
+\newcommand{\VarSG}{0.1555}
+\newcommand{\VarSAlphaW}{0.0378}

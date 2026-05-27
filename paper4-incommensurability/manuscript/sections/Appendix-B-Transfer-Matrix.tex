@@ -1,0 +1,103 @@
+% ====================================================================
+% APPENDIX B: TRANSFER MATRIX AND WAVE COHERENCE
+% ====================================================================
+
+\section{Appendix B: Transfer Matrix Formalism and Wave Coherence}
+\label{app:transfer}
+
+To justify the multiplicative "incoherent" reflection penalty used in the main
+text, we consider the propagation of a pressure wave $P(z, \omega)$ through a
+branching junction using the transfer matrix approach. For a single vascular
+segment $j$ of length $L_j$ and complex wave number $k_j$, the relation between
+the state vector $(P, Q)$ at the proximal ($p$) and distal ($d$) ends is:
+\begin{equation}
+    \begin{pmatrix} P_j \\ Q_j \end{pmatrix}_p = 
+    \begin{pmatrix} \cosh(i k_j L_j) & Z_j \sinh(i k_j L_j) \\ \frac{1}{Z_j} \sinh(i k_j L_j) & \cosh(i k_j L_j) \end{pmatrix}
+    \begin{pmatrix} P_j \\ Q_j \end{pmatrix}_d
+\end{equation}
+where $Z_j$ is the characteristic impedance. In a hierarchical tree, the total
+reflection coefficient at the root $\Gamma_{\mathrm{net}}$ is obtained by the
+recursive nesting of these matrices.
+
+\subsection{Derivation of the Incoherent Power Limit}
+
+Let us establish the formal conditions under which the coherent transfer matrix
+formulation converges to the multiplicative power penalty. The global net
+reflection coefficient $\Gamma_{\mathrm{net}}(\omega)$ of a 1D chain of $G$
+junctions can be written via a first-order scattering expansion (neglecting
+second-order internal reflections, valid when local reflection coefficients
+$\gamma_j^2 \ll 1$):
+\begin{equation}
+    \Gamma_{\mathrm{net}}(\omega) = \sum_{j=1}^{G} \gamma_j e^{-2 i \sum_{m=1}^{j} k_m L_m},
+\end{equation}
+where $\gamma_j$ is the local reflection coefficient at the $j$-th junction. The
+coherent power reflection $|\Gamma_{\mathrm{net}}(\omega)|^2$ is:
+\begin{equation}
+    |\Gamma_{\mathrm{net}}(\omega)|^2 = \sum_{j=1}^{G} \gamma_j^2 + 2 \sum_{1 \le j < j' \le G} \gamma_j \gamma_{j'} \cos(2 \Delta\theta_{j,j'}) \exp(-2 \Delta\kappa_{j,j'}),
+\end{equation}
+where the cumulative phase shift and attenuation between junctions $j$ and $j'$
+are $\Delta\theta_{j,j'} = \operatorname{Re}\{ \sum_{m=j+1}^{j'} k_m L_m \}$ and
+$\Delta\kappa_{j,j'} = \operatorname{Im}\{ \sum_{m=j+1}^{j'} k_m L_m \}$.
+
+\textbf{Physical Hypothesis.} The Random-Phase Approximation (RPA) assumption,
+requiring length variance $\sigma_L \gg \lambda / (2\pi)$, is a modeling
+hypothesis justified by the stochastic variability observed in morphometric
+studies. While individual vascular networks are deterministic structures, the
+complex spatial constraints of space-filling tissue beds produce an effective
+randomization of segment lengths across the ensemble. Full coherent validation
+using measured morphometry is performed in Paper~II~\cite{paperII}. Let us
+therefore model the segment lengths as independent random variables with mean
+$\langle L \rangle$ and variance $\sigma_L^2$. If the length variance is large
+compared to the wave coherence length, i.e., $\sigma_L \gg \lambda / (2\pi)$
+(where $\lambda = 2\pi / \operatorname{Re}\{k\}$ is the wavelength), the phase
+factors of the cross-terms fluctuate rapidly.
+
+Applying the Random-Phase Approximation (RPA), the ensemble expectation value of
+the interference terms vanishes identically:
+\begin{equation}
+    \mathbb{E}\left[ \cos(2 \Delta\theta_{j,j'}) \right] = 0 \quad \text{for } j \neq j'.
+\end{equation}
+Consequently, the ensemble-averaged net power reflection is simply the sum of
+individual junction reflection powers:
+\begin{equation}
+    \mathbb{E}\left[ |\Gamma_{\mathrm{net}}(\omega)|^2 \right] = \sum_{j=1}^{G} \gamma_j^2.
+\end{equation}
+For a symmetric tree where all junctions have identical local reflection power
+$\gamma^2$, this expectation simplifies to:
+\begin{equation}
+    \mathbb{E}\left[ |\Gamma_{\mathrm{net}}(\omega)|^2 \right] = G \gamma^2.
+\end{equation}
+
+\subsection{Connection to the Multiplicative Geometric Penalty}
+
+Our main text metabolic cost model represents the global wave reflection penalty
+through the multiplicative geometric form:
+\begin{equation}
+    C_{\mathrm{wave}} = 1 - (1 - \gamma^2)^G.
+\end{equation}
+Performing a Taylor expansion of this geometric penalty in powers of the local
+reflection coefficient $\gamma^2$ (valid for the physiologically typical
+weak-reflection regime where amplitude reflection is $\gamma \approx 0.05$):
+\begin{equation}
+    C_{\mathrm{wave}} = 1 - \left( 1 - G \gamma^2 + \frac{G(G-1)}{2} \gamma^4 - \dots \right) = G \gamma^2 - \mathcal{O}(\gamma^4).
+\end{equation}
+For typical physiological values $\gamma \approx 0.05$ (meaning $\gamma^2
+\approx 0.0025$) and $G = 11$, the second-order truncation term
+$G(G-1)\gamma^4/2 \approx 3.4 \times 10^{-4}$ represents only a $\sim 1.25\%$
+correction to the leading-order effect $G\gamma^2 \approx 0.0275$. This
+explicitly confirms the validity of the first-order truncation in physiological
+regimes.
+
+Thus, the multiplicative geometric penalty $C_{\mathrm{wave}}$ is mathematically
+equivalent to the ensemble-averaged incoherent scattering power reflection to
+first order in $\gamma^2$:
+\begin{equation}
+    C_{\mathrm{wave}} = \mathbb{E}\left[ |\Gamma_{\mathrm{net}}(\omega)|^2 \right] - \mathcal{O}(\gamma^4).
+\end{equation}
+
+Spectral averaging over a broad-band cardiac pulse containing multiple harmonics
+is expected to further suppress residual coherent interference. Full coherent
+wave simulations (Paper~II~\cite{paperII}) confirm that the incoherent geometric
+penalty provides an accurate representation of mean reflection losses, with
+deviation $\langle |\Delta\alpha^*| \rangle < 0.01$ across physiological
+parameter ranges.

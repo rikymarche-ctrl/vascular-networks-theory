@@ -1,0 +1,188 @@
+% ====================================================================
+% SECTION 04: ARCHITECTURAL INVARIANCE
+% ====================================================================
+
+\section{Architectural Invariance of the Duty Cycle}
+\label{sec:arch}
+
+\textbf{Mathematical foundation: Robust Optimization.} A Lagrangian structure of
+the form $\mathcal{L}_{\mathrm{net}}(\alpha,\eta) =
+\eta\,\mathcal{C}_{\mathrm{wave}} + (1-\eta)\,\mathcal{C}_{\mathrm{transport}}$
+with $\eta\in[0,1]$ corresponds, in the language of robust control
+theory~\cite{ben-tal2009}, to a \emph{Minimax Fractional Excess} problem: one
+minimizes, with respect to $\alpha$, the worst-case fractional excess among
+incommensurable cost channels. The selection of $\eta$ as a linear weight is the
+dual representation of a \emph{worst-case} scenario uncertainty, where Nature
+selects the regime (metabolic or pulsatile) that produces the maximum penalty.
+The saddle point $(\alpha^*,\eta^*)$ satisfies the cost-balancing condition,
+which is the analog of the robust optimality condition for non-fungible
+constraints. Hereafter, we use "minimax" as a synonym for this construction,
+consistent with the terminology of robust programming.
+
+\begin{theorem}[Architectural Invariance of the Biological Duty Cycle]
+\label{thm:arch}
+Let $(\alpha^*, \eta^*)$ be the unique saddle point of the unified zero-sum
+network Lagrangian:
+\begin{equation}
+    \mathcal{L}_{\mathrm{net}}(\alpha, \eta) =
+    \eta\,\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha)
+    + (1-\eta)\,\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha).
+    \label{eq:lagrangian_net}
+\end{equation}
+The emergent duty cycle $\eta^*$ is an exact invariant of the network's
+allometric class $\mathcal{A}(G, p, \alpha_w)$, strictly orthogonal to the
+absolute scale of the extensive metabolic parameters $\Lambda\vec{\theta}$.
+\end{theorem}
+
+\begin{proof}
+The Lagrangian $\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ is affine (hence both
+convex and concave) in $\eta$ and quasi-convex in $\alpha$ for every fixed $\eta
+\in [0,1]$: $C_{\mathrm{transport}}$ is strictly convex, while
+$C_{\mathrm{wave}}$ is quasi-convex with a unique minimum at $\alpha_w$. The
+domains $[\alpha_w, \alpha_t]$ and $[0,1]$ are compact, and
+$\mathcal{L}_{\mathrm{net}}$ is continuous. By Sion's minimax
+theorem~\cite{sion1958}, which requires only quasi-convexity, a saddle point
+exists. Detailed numerical verification (Supplemental Material, Table S1)
+confirms that the Hessian $\partial^2
+\mathcal{C}_{\mathrm{wave}}/\partial\alpha^2 > 0$ throughout the physiological
+range $\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$, satisfying Sion's condition
+for existence and uniqueness of the saddle point.
+
+Uniqueness follows from the \textbf{strict convexity} of
+$\mathcal{C}_{\mathrm{transport}}$ and the \textbf{strict monotonicity} of the
+marginal penalties: because $\partial
+\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}/\partial \alpha$ decreases
+monotonically from zero (becomes more negative) as $\alpha$ moves below
+$\alpha_t$, and $\partial \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}/\partial
+\alpha$ increases monotonically from zero (becomes more positive) as $\alpha$
+moves above $\alpha_w$, their intersection at any fixed $\eta$ is unique. The
+saddle-point condition $\partial\mathcal{L}_{\mathrm{net}}/\partial\alpha = 0$
+yields:
+\begin{equation}
+    \eta^* = \left( 1 + \frac{\partial \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}
+    (\alpha^*) / \partial \alpha}
+    {|\partial \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*)
+    / \partial \alpha|} \right)^{-1}.
+    \label{eq:eta_star}
+\end{equation}
+By the envelope theorem, the maximization over $\eta$ in the saddle-point
+problem requires $\partial\mathcal{L}_{\mathrm{net}}/\partial\eta = 0$ at the
+optimum, which directly implies the equal-cost condition
+$\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha^*) =
+\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*)$. This equivalence
+ensures that the emergent duty cycle $\eta^*$ effectively balances the two
+incommensurable penalties. The numerator derives from the acoustic impedance
+mismatch at bifurcations and is a strictly geometric function of $(G, N,
+\alpha_w, \alpha^*)$ containing no metabolic parameters.
+
+By Theorem~\ref{thm:gauge}, $\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}$ is
+a degree-zero homogeneous function of $\vec{\theta}$. Its derivative with
+respect to $\alpha$ is therefore identically gauge-invariant:
+\begin{equation}
+    \frac{\partial\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}}
+    {\partial\alpha}(\alpha; \Lambda\vec{\theta})
+    = \frac{\partial\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}}
+    {\partial\alpha}(\alpha; \vec{\theta}).
+\end{equation}
+In Eq.~\eqref{eq:eta_star} the watts cancel identically in the gradient ratio.
+The duty cycle $\eta^*$ is therefore a pure structural invariant, determined
+solely by $(G, p, \alpha_w)$ through the geometric evaluation of both
+derivatives at $\alpha^*$.
+\end{proof}
+
+\begin{remark}
+This provides a first-principles explanation for the empirical observation that
+vascular branching exponents are conserved across developmental stages within a
+species, as suggested by the generation-invariant morphometry
+of~\cite{kassab1993} and the developmental convergence reported
+in~\cite{forjaz2026}.
+\end{remark}
+
+\begin{remark}[Theoretical Bounds on the Static Transport Attractor]
+Paper~I~\cite{paperI} establishes that the static transport attractor $\alpha_t$
+must lie within strict theoretical bounds derived from three-term metabolic cost
+structure: $(5+p)/2 \approx 2.89 < \alpha_t < 3$ (Theorem~3.2), independent of
+flow asymmetry. Empirical values---ranging from $\alpha^* \approx
+\VarAlphaRatObs$ in rat pulmonary arteries ($M=\VarMassRat\,$g)~\cite{jiang1994}
+to $\alpha^* \approx \VarAlphaStar$ in large mammals~\cite{kassab1993}---lie
+below this static bound precisely because pulsatile dynamics contribute an
+additional wave-reflection penalty missing from purely viscous optimization,
+demonstrating that the minimax solution is the inevitable physical attractor
+within these constraints.
+\end{remark}
+
+\begin{remark}[Quasi-Convexity Verification: Physical and Numerical]
+\label{rem:quasiconvex}
+The application of Sion's minimax theorem requires that
+$\mathcal{C}_{\mathrm{wave}}(\alpha)$ be quasi-convex in $\alpha$ for each fixed
+$\eta$. While not strictly convex, quasi-convexity (unimodal with unique
+minimum) is guaranteed by the following physical and numerical arguments:
+
+\textbf{Physical argument.} The wave-reflection cost measures impedance mismatch
+at vascular junctions. The wave attractor exponent $\alpha_w = 2$ emerges from
+global reflection minimization (Paper~II~\cite{paperII}): at each bifurcation,
+the power reflection coefficient $R^2(\alpha) =
+[(\gamma(\alpha)-1)/(\gamma(\alpha)+1)]^2$ with $\gamma(\alpha) =
+N^{1-2/\alpha}$ vanishes uniquely at $\alpha = 2$, selecting this value as the
+dynamically stable attractor over the network hierarchy. Away from this
+geometric impedance-matching condition ($\alpha = \alpha_w = 2$), the reflection
+coefficient $|\Gamma(\alpha)|^2$ grows \emph{monotonically}: larger $\alpha$
+(narrower daughters) increases mismatch in one direction, smaller $\alpha$
+(wider daughters) increases it in the opposite direction. This monotonic growth
+ensures no local minima can exist. The cumulative reflection penalty
+$\mathcal{C}_{\mathrm{wave}}(\alpha) \propto \sum_g |\Gamma_g(\alpha)|^2$
+inherits this unimodal structure. Crucially, viscous damping (attenuation factor
+$e^{-2\kappa L_g}$ in the wave propagation) and spectral averaging over cardiac
+harmonics eliminate coherent interference effects that might otherwise introduce
+secondary extrema via resonances.
+
+\textbf{Numerical verification.} Detailed numerical evaluation of
+$\mathcal{C}_{\mathrm{wave}}(\alpha)$ for the physiological parameter range
+$\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$ confirms strict unimodality
+(Supplemental Material, Table S1). No spurious local minima or inflection points
+are observed. The transport cost $\mathcal{C}_{\mathrm{transport}}(\alpha)$ is
+\emph{strictly} convex (proven analytically in Paper~II~\cite{paperII} via
+power-law form in viscous dissipation). Therefore, the Lagrangian
+$\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ satisfies the quasi-convexity
+requirement of Sion's theorem, ensuring existence of the saddle point. The
+minimax equal-cost condition $f(\alpha^*) = g(\alpha^*)$ is verified without
+free parameters (Paper~III~\cite{paperIII}): for the porcine coronary tree,
+solving this balance yields $\alpha^* = 2.77$, consistent with the morphometric
+average $\alpha_{\exp} = 2.70 \pm 0.20$, confirming that the network-level
+Lagrangian balances measurable first-principles costs.
+\end{remark}
+
+\begin{remark}[Allometric vs.\ angiogenic invariance]
+The invariance of $\eta^*$ established in Theorem~\ref{thm:arch} is an
+\emph{allometric} invariance: it holds under rescaling of the metabolic
+parameters $\vec{\theta}$ at fixed network topology $(G, N, \alpha_w, p)$. It
+does not apply to \emph{angiogenic} changes in $G$ (addition or pruning of
+vascular generations), which alter $\kappa_{\mathrm{eff}}(G)$ and thereby shift
+$\alpha^*$. The two types of invariance are physically and mathematically
+distinct; only the former is established here.
+\end{remark}
+
+\begin{remark}[Physical status of $\Phi_{\mathrm{opt}}$]
+The reference state $\Phi^{\mathrm{net}}(\alpha_{\mathrm{opt}})$ is the cost
+attained when every vessel independently sits at its locally optimal radius
+$r^*(Q_g)$---a configuration achievable only if the network is allowed to
+violate the global self-similar constraint $r_g = r_0 N^{-g/\alpha}$. It is
+therefore a mathematical lower bound (a gauge baseline), not a physiologically
+realizable state of the intact tree. The fractional excess
+$\mathcal{C}^{\mathrm{net}}_{\mathrm{transport}} = (\Phi^{\mathrm{net}} -
+\Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$ measures the architectural cost of
+imposing global self-similarity, not a deviation from a physically accessible
+optimum.
+\end{remark}
+
+\begin{remark}[The Static Attractor]
+As demonstrated in Paper~I~\cite{paperI}, the explicit evaluation of the static
+transport optimum $\alpha_t$---with the inclusion of the metabolic cost of the
+vascular wall ($\propto r^{1+p}$)---strictly breaks the universality of Murray's
+law ($\alpha=3$) and fixes the purely static attractor at $\alpha_t \approx
+\VarAlphaTLow-\VarAlphaTHigh$ for mammalian coronary networks. This value
+constitutes the theoretical starting point of the present framework: the
+residual gap from $\alpha_t \approx \VarAlphaTLow$ to the empirical $\alpha
+\approx \VarAlphaStar$ is a mathematical necessity that requires the inclusion
+of the dynamic, pulsatile minimax mechanism developed here.
+\end{remark}

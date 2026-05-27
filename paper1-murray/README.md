@@ -35,7 +35,7 @@ level beyond the scope of this work.
 
 | Quantity | Value | Source |
 |---|---|---|
-| Wall exponent $p$ | 0.77 | Histology (Rhodin 1967, Kassab 1993) |
+| Wall exponent $p$ | 0.77 | Histology (Guo 2003, Kassab 1993) |
 | Theoretical lower bound $(5+p)/2$ | 2.885 | Theorem 4 |
 | Static attractor $\alpha^*$ | 2.90 – 2.94 | Numerical (Table 2) |
 | Empirical value $\alpha_{\exp}$ | 2.70 ± 0.20 | Kassab 1993 |
@@ -107,8 +107,8 @@ Or use the PowerShell script (Windows) from the `paper1-murray` directory:
 | μ (viscosity) | 3.5 | mPa·s | Caro 1978 |
 | b (blood metabolism) | 1500 | W/m³ | Murray 1926, Taber 1998 |
 | $m_w$ (wall metabolism) | 5 – 35 | kW/m³ | Paul 1980 |
-| $c_0$ (wall thickness prefactor) | 0.041 | m^(1−p) | Rhodin 1967 |
-| $p$ (wall thickness exponent) | 0.77 | — | Rhodin 1967, Kassab 1993 |
+| $c_0$ (wall thickness prefactor) | 0.041 | m^(1−p) | Guo 2003 |
+| $p$ (wall thickness exponent) | 0.77 | — | Guo 2003, Kassab 1993 |
 | $Q_0$ (coronary flow) | 1.3 | mL/s | Kassab 1993 |
 | $r_0$ (coronary radius) | 1.5 | mm | Kassab 1993 |
 

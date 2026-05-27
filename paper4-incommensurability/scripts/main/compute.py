@@ -22,7 +22,7 @@ G        = 11
 Wo_c     = math.sqrt(3)
 Wo_c_2d  = math.sqrt(6)   # d=2: tan(phi)=1 => 6/Wo^2=1 => Wo=sqrt(6)
 p        = 0.77
-b_blood  = 1500.0
+b_blood  = 1930.0
 m_wall   = 20e3
 A_ratio  = 0.82 
 c0_phys  = 6.0

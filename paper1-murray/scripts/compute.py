@@ -16,7 +16,7 @@ carrying volumetric flow Q is:
 
 where the wall term is derived from integrating the volumetric metabolic
 rate m_w over the thin-wall cross-section 2πr·h(r), with h(r) = c_0 r^p
-taken from histological measurements (Rhodin 1967, p ≈ 0.77).
+taken from histological measurements (Guo 2003, p ≈ 0.77).
 
 Strict convexity of Φ guarantees a unique optimal radius r*(Q) at every
 flow (Theorem 1). The branching exponent α*(Q) is defined by the symmetric
@@ -29,10 +29,10 @@ fitted to morphometric branching-exponent data.
 Empirical inputs (literature sources, not derived here)
 -------------------------------------------------------
     μ    = 3.5 mPa·s        blood dynamic viscosity        (Caro 1978)
-    b    = 1500 W/m³         blood-volume metabolic cost    (Murray 1926; Taber 1998)
+    b    = 1930 W/m³         blood-volume metabolic cost    (Murray 1926; Taber 1998)
     m_w  ∈ [5, 35] kW/m³    wall tissue metabolic rate     (Paul 1980)
-    c_0  = 0.041 m^{1−p}    wall-thickness prefactor       (Rhodin 1967)
-    p    = 0.77              wall-thickness exponent        (Rhodin 1967; Kassab 1993)
+    c_0  = 0.041 m^{1−p}    wall-thickness prefactor       (Guo 2003)
+    p    = 0.77              wall-thickness exponent        (Guo 2003; Kassab 1993)
     Q_0  = 1.3 mL/s          proximal coronary flow         (Kassab 1993)
     r_0  = 1.5 mm            proximal coronary radius       (Kassab 1993)
 
@@ -41,6 +41,9 @@ Outputs
     ../manuscript/dynamic_variables.tex
     ../manuscript/figures/fig_alpha_scale.pdf
 """
+
+import sys
+sys.path.insert(0, r'C:\Users\ricca\Documenti\Progetti IA\branching papers\shared\scripts')
 
 import numpy as np
 from scipy.optimize import brentq, minimize_scalar

@@ -2,14 +2,14 @@
 % DYNAMIC VARIABLES
 % ====================================================================
 % Source: paper1-murray/scripts/compute.py
-% Generated: 2026-05-23
+% Generated: 2026-05-28
 % ====================================================================
 
 % --------------------------------------------------------------------
 % 1. PHYSICAL PARAMETERS
 % --------------------------------------------------------------------
 \newcommand{\ParamMu}{3.5}                         % [mPa s   ] Dynamic viscosity of blood
-\newcommand{\ParamB}{1500}                         % [W/m³    ] Metabolic cost per unit blood volume
+\newcommand{\ParamB}{1930}                         % [W/m³    ] Metabolic cost per unit blood volume
 \newcommand{\ParamMwLow}{5}                        % [kW/m³   ] Lower bound: Metabolic rate of wall tissue
 \newcommand{\ParamMwMid}{20}                       % [kW/m³   ] Reference: Metabolic rate of wall tissue
 \newcommand{\ParamMwHigh}{35}                      % [kW/m³   ] Upper bound: Metabolic rate of wall tissue
@@ -21,12 +21,12 @@
 % --------------------------------------------------------------------
 % 2. PREDICTED EXPONENTS AND GEOMETRY (TABLE 2)
 % --------------------------------------------------------------------
-\newcommand{\AlphaStarLow}{2.938}                  % [-       ] Optimum branching exponent at MW_LOW
-\newcommand{\AlphaStarMid}{2.905}                  % [-       ] Optimum branching exponent at MW_MID
-\newcommand{\AlphaStarHigh}{2.897}                 % [-       ] Optimum branching exponent at MW_HIGH
-\newcommand{\RstarLow}{1.200}                      % [mm      ] Optimum parent radius at MW_LOW
-\newcommand{\RstarMid}{1.019}                      % [mm      ] Optimum parent radius at MW_MID
-\newcommand{\RstarHigh}{0.937}                     % [mm      ] Optimum parent radius at MW_HIGH
+\newcommand{\AlphaStarLow}{2.945}                  % [-       ] Optimum branching exponent at MW_LOW
+\newcommand{\AlphaStarMid}{2.909}                  % [-       ] Optimum branching exponent at MW_MID
+\newcommand{\AlphaStarHigh}{2.900}                 % [-       ] Optimum branching exponent at MW_HIGH
+\newcommand{\RstarLow}{1.175}                      % [mm      ] Optimum parent radius at MW_LOW
+\newcommand{\RstarMid}{1.010}                      % [mm      ] Optimum parent radius at MW_MID
+\newcommand{\RstarHigh}{0.933}                     % [mm      ] Optimum parent radius at MW_HIGH
 \newcommand{\AlphaMurrayLimit}{3.000000}           % [-       ] Branching exponent in the pure Murray limit ($m_w \to 0$)
 
 % --------------------------------------------------------------------
@@ -53,6 +53,6 @@
 % 6. MACROSCOPIC COMPARISONS
 % --------------------------------------------------------------------
 \newcommand{\DeltaAlphaMurray}{0.30}               % [-       ] Discrepancy: Murray law vs. Empirical mean (3.0 - 2.7)
-\newcommand{\DeltaAlphaOurs}{0.20}                 % [-       ] Remaining Discrepancy: Our model vs. Empirical mean
-\newcommand{\AlphaScaleRange}{0.012}               % [-       ] Variation of $\alpha^*$ over 4 decades of flow scale
+\newcommand{\DeltaAlphaOurs}{0.21}                 % [-       ] Remaining Discrepancy: Our model vs. Empirical mean
+\newcommand{\AlphaScaleRange}{0.014}               % [-       ] Variation of $\alpha^*$ over 4 decades of flow scale
 \newcommand{\AlphaPulmonaryLimit}{2.800}           % [-       ] Theoretical wall limit for the pulmonary network

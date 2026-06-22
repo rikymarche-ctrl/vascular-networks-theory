@@ -29,6 +29,15 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
+% --- revision highlighting (author=magenta, R1=blue, R2=red, editorial=green) ---
+% Toggle: default = colored revision copy. Pass \def\CLEANCOPY{} on the pdflatex
+% command line (see build-clean.ps1) to produce the clean (un-highlighted) copy.
+\newif\ifhighlight \ifdefined\CLEANCOPY\highlightfalse\else\highlighttrue\fi
+\providecommand{\chR}[1]{\ifhighlight{\color{blue}#1}\else#1\fi}
+\providecommand{\chRB}[1]{\ifhighlight{\color{red}#1}\else#1\fi}
+\providecommand{\chE}[1]{\ifhighlight{\color{green}#1}\else#1\fi}
+\providecommand{\chA}[1]{\ifhighlight{\color{magenta}#1}\else#1\fi}
+
 \linespread{1.05}
 
 % ====================================================================
@@ -83,10 +92,11 @@ cost, cardiac output, segment length, ATP stoichiometry. A self-consistency
 condition on the viscous--inertial energy partition at each bifurcation yields a
 dual-threshold framework with fluid threshold $\mathrm{Wo}_c^{\mathrm{fluid}} =
 \sqrt{3}$ and wave threshold $\mathrm{Wo}_c^{\mathrm{wave}} = 3/\sqrt{2}$ in
-mammalian vascular trees. The symmetric model yields $\alpha^*_{\mathrm{model}}
+mammalian vascular trees. The symmetric model derived \chA{standalone} here yields $\alpha^*_{\mathrm{model}}
 \approx \VarAlphaStarModel$, in quantitative agreement with mammals near the
-allometric transition; scale-dependent morphometric heterogeneities shift
-large-mammal values toward $\VarAlphaStar$. The framework explains the
+allometric transition; scale-dependent morphometric heterogeneities \chA{(resolved
+by the coherent impedance solver of the companion work)} shift large-mammal values
+toward $\VarAlphaStar$. The framework explains the
 developmental stability of cardiovascular networks as a consequence of the
 architecture being decoupled from the biochemistry.
 \end{abstract}

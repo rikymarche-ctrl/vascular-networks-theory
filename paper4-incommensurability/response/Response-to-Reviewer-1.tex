@@ -1,0 +1,100 @@
+% ====================================================================
+%  RESPONSE TO REVIEWER 1
+%  Manuscript TP-1083 -- "The Incommensurability Principle in
+%  Biological Transport" -- Transport Phenomena (De Gruyter Brill)
+%  Standalone document; compile with: pdflatex Response-to-Reviewer-1
+% ====================================================================
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+% Reviewer 1 changes are shown in BLUE in the highlighted manuscript.
+\newcommand{\rone}[1]{\textcolor{blue}{#1}}
+\newenvironment{comment}%
+  {\medskip\noindent\itshape\color{black!75}\rule{\linewidth}{0.4pt}\par\nobreak Reviewer comment.\par\nobreak}%
+  {\par\nobreak\rule{\linewidth}{0.4pt}\medskip}
+\newcommand{\response}{\par\medskip\noindent\textbf{Response.}\ }
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries Response to Reviewer 1}\\[4pt]
+Manuscript \textbf{TP-1083} --- \emph{The Incommensurability Principle in
+Biological Transport}\\
+\emph{Transport Phenomena} (De Gruyter Brill)
+\end{center}
+
+\bigskip
+\noindent We thank Reviewer~1 for the careful reading and for a constructive
+observation that has materially improved the framing of the paper. Below we
+reproduce the comment (paraphrased faithfully from the report) and detail our
+response. \textbf{All changes prompted by Reviewer~1 are typeset in
+\rone{blue} in the highlighted copy of the manuscript.}
+
+\bigskip
+\hrule
+\bigskip
+
+\noindent\textbf{Comment 1 --- Opening contrast (mouse vs.\ whale heart rate).}
+\begin{comment}
+The introduction motivates the problem by contrasting the mouse
+($\sim$600~bpm) and the whale ($\sim$20~bpm) heart rates. Heart rate alone is a
+misleading basis for the comparison; the relevant quantity is the volume of
+blood each heart pumps (cardiac output / stroke volume). The argument on the
+Womersley number should be reformulated accordingly and checked for
+consistency.
+\end{comment}
+
+\response We agree, and we are grateful for this correction --- it sharpens the
+physical logic and, in fact, repairs a potential inversion of the intended
+point. Because the Womersley number $\mathrm{Wo} = R\sqrt{\omega/\nu}$
+\emph{increases} with frequency, a comparison on heart rate alone would make the
+mouse appear \emph{more} inertial than the whale, the opposite of our thesis.
+
+We have rewritten the opening contrast in terms of the pumped volume. Cardiac
+output scales as $\dot{Q}\propto M^{3/4}$ and stroke volume as $\propto M$, so a
+single whale contraction ejects a blood volume larger than the mouse's by about
+seven orders of magnitude. That volume is carried by vessels whose radius scales
+as $R\propto M^{3/8}$, and it is the radius---not the rapid murine heart
+rate---that dominates the Womersley number. Combining the allometric scalings
+$R\propto M^{3/8}$ and $f\propto M^{-1/4}$ gives
+\[
+  \mathrm{Wo}_0 \;\propto\; M^{3/8}\,\sqrt{M^{-1/4}}
+  \;=\; M^{3/8}\,M^{-1/8} \;=\; M^{1/4},
+\]
+i.e.\ the Womersley number \emph{rises} with body mass despite the slower
+large-animal heart beat. This resolves precisely the apparent paradox the
+reviewer identified.
+
+\medskip
+\noindent\textbf{Implementation and verification.}
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
+  \item The revision is \emph{additive}: the original sentence is preserved and
+        the new, rigorous framing is inserted (\rone{blue}), so no text is
+        silently removed.
+  \item A cross-reference was added to the identical derivation already present
+        in Section~6 (\texttt{sec:womersley\_minimax}).
+  \item Internal-consistency check: the $M^{1/4}$ law predicts a human/mouse
+        Womersley ratio of $(70000/20)^{1/4}\approx 7.7$, matching the
+        Section~6 table ($\approx 7.2$) to within $\sim$7\%.
+  \item To avoid a residual ambiguity, a short author clarification (magenta in
+        the highlighted copy) was added immediately afterward so that the mouse
+        is \emph{not} read as realising Murray's $\alpha=3$ architecture: the
+        mouse and whale cases are framed as the two single-mechanism limits
+        (viscous $\alpha_t$ and wave $\alpha_w\approx 2$) of the unified
+        Lagrangian, consistent with Sections~5--6 (where the mouse coronary is
+        predicted in the transition range, not at $\alpha=3$).
+\end{itemize}
+
+\noindent\emph{Location:} Section~1 (Introduction), highlighted \rone{blue},
+with one adjoining magenta consistency clarification.
+
+\bigskip
+\noindent We thank the reviewer again: the opening is now both physically
+correct and more compelling.
+
+\end{document}

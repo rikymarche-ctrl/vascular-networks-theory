@@ -112,10 +112,14 @@ def generate_verification_plot(output_path="../../supplements/figures/womersley_
     plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.18), ncol=3, fontsize=10, frameon=True)
     plt.subplots_adjust(bottom=0.18)
 
-    # Save figure
+    # Save figure: 600 dpi raster (editor requirement for linework) plus a
+    # resolution-independent vector PDF for press-quality reproduction.
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    plt.savefig(output_path, dpi=300, bbox_inches='tight')
-    print(f"\n[OK] Verification plot saved to: {output_path}")
+    plt.savefig(output_path, dpi=600, bbox_inches='tight')
+    pdf_path = os.path.splitext(output_path)[0] + ".pdf"
+    plt.savefig(pdf_path, bbox_inches='tight')
+    print(f"\n[OK] Verification plot saved to: {output_path} (600 dpi)")
+    print(f"[OK] Vector PDF saved to: {pdf_path}")
     print()
 
 

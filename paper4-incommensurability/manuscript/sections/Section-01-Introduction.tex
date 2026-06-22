@@ -8,11 +8,24 @@ while the heart of a blue whale (\textit{Balaenoptera musculus}) beats barely 20
 times. These organisms differ by seven orders of magnitude in mass, and the
 fluid dynamics within their coronary arteries inhabit vastly different physical
 regimes: the whale's transport is dominated by massive inertial waves, while the
-mouse's is governed by the viscous linearity of Murray's law. Yet, their
-coronary branching exponents are nearly identical ($\alpha^* \approx
-\VarAlphaStar$), and their vascular architectures exhibit a conserved geometric
-self-similarity that defies the massive shift in metabolic and hydrodynamic
-scales.
+mouse's is governed by the viscous linearity of Murray's law. \chR{What sets
+these regimes apart is not the beat frequency but the volume of blood each heart
+drives through its arteries: cardiac output scales with body mass as $\dot{Q}
+\propto M^{3/4}$ and stroke volume as $\propto M$, so a single whale contraction
+ejects a blood volume larger than the mouse's by the same seven orders of
+magnitude. This volume is carried by vessels whose radius scales as $R \propto
+M^{3/8}$, and it is this radius---not the rapid murine heart rate---that
+dominates the Womersley number $\mathrm{Wo} = R\sqrt{\omega/\nu}$ (with $\omega =
+2\pi f$). Since $\mathrm{Wo} \propto M^{3/8}\sqrt{M^{-1/4}} = M^{1/4}$ (derived in
+\S\ref{sec:womersley_minimax}), it \emph{increases} with body size despite the
+whale's slower rhythm.} \chA{In isolation, each regime selects a different
+single-mechanism optimum of the unified network Lagrangian developed below: the
+wave-impedance attractor ($\alpha_w = \VarAlphaW$) for the inertia-dominated
+whale, and the viscous transport optimum ($\alpha_t \approx \VarAlphaT$, the
+network-level analogue of Murray's law) for the mouse.} Yet, their coronary
+branching exponents are nearly identical ($\alpha^* \approx \VarAlphaStar$), and their vascular architectures
+exhibit a conserved geometric self-similarity that defies the massive shift in
+metabolic and hydrodynamic scales.
 
 This structural universality poses a deep challenge to biological optimization
 theory. If vascular remodeling were governed by purely local
@@ -44,7 +57,7 @@ incommensurability principle. For brevity and mathematical cohesion, we refer
 to: \textbf{Paper~I}~\cite{paperI} for the static transport optimum and Murray's
 law derivation; \textbf{Paper~II}~\cite{paperII} for the coherent
 wave-reflection model and minimax formulation;
-\textbf{Paper~III}~\cite{paperIII} for the metabolic scaling theorem ($\beta =
+\textbf{Paper~III}~\cite{paperIII} for the metabolic scaling theorem ($\chA{\beta_M} =
 3/4$) and allometric coupling. All theoretical results in this work are
 self-contained, with cross-references provided only for detailed derivations
 exceeding the scope of a single manuscript.
@@ -57,8 +70,9 @@ experimental techniques:
 \begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=*]
 \item
 \textbf{Hummingbird Heart-Rate Override:} A 4\,g hummingbird (HR $\approx$
-1000\,bpm) operates at $\mathrm{Wo} \approx 7.0$ despite its small mass,
-yielding $\alpha^* \approx 2.72$ (wave regime). This prediction contradicts
+1000\,bpm) \chA{operates at $\mathrm{Wo} \approx 1.76$ despite its small mass,
+yielding $\alpha^* \approx 2.6$ (transition regime, far from the Murray viscous
+limit $\alpha \approx 3.0$ expected from its mass)}. This prediction contradicts
 mass-only scaling models.
 \item
 \textbf{Ontogenetic Phase Transition:} Mouse embryonic vasculature should
@@ -70,7 +84,7 @@ angiogenesis stages, the theory is falsified.
 \item
 \textbf{Retinal Dual-Attractor Paradox:} 2D retinal vessels exhibit simultaneous
 divergence: diameter scaling $\alpha_{\text{dia}} \approx 2.0$ (2D
-wave-matching), bifurcation angles $\theta \approx 71^\circ$ (3D Murray
+wave-matching), bifurcation angles $\theta \approx \chA{\VarAngleRetinalCalcDeg^\circ}$ (3D Murray
 equilibrium). This dual state is impossible under local optimization
 (Section~\ref{sec:retinal}).
 \end{enumerate}
@@ -105,6 +119,21 @@ thresholds whose non-coincidence constitutes the mathematical formulation of
 incommensurability.
 \end{theorem}
 
+\chRB{In plain terms, the Womersley number $\mathrm{Wo}$ measures how strongly
+fluid inertia competes with viscous friction over a single heartbeat, and the
+theorem identifies one critical value $\mathrm{Wo}_c$ that acts as a switch.
+\emph{Below} it, viscous friction absorbs the sideways ``kick'' that the flow
+receives where the parent vessel forks, the junction stays quiet, and the tree
+behaves as a network of steady resistors---the viscous regime in which Murray's
+law applies. \emph{Above} it, that sideways energy can no longer be absorbed
+locally and is instead thrown back as a reflected pressure wave, so the tree
+behaves as a network of pulsatile waveguides---the wave regime. The two cost
+channels studied in this paper, viscous dissipation and wave reflection, do not
+therefore switch on at the same point: each has its own threshold, and it is the
+\emph{gap} between them that we formalize as ``incommensurability'' and develop
+in the sections that follow. The remainder of this proof simply makes the switch
+quantitative, locating $\mathrm{Wo}_c$ from first principles.}
+
 \begin{proof}
 The derivation proceeds through three independent levels:
 
@@ -129,7 +158,10 @@ This is vector algebra, not fluid dynamics.
 \textbf{Level 3 (Evanescent Mode Absorption).} At the bifurcation, the
 transverse velocity component $v_\perp$ cannot propagate in the daughter
 vessels, which accept only axial flow; it constitutes an evanescent mode
-confined to the junction region. By energy conservation, this evanescent energy
+confined to the junction region. \chRB{(An \emph{evanescent} mode is flow energy
+that stays localized at the fork and decays with distance instead of travelling
+onward into the daughter vessels---it has nowhere to propagate, yet by energy
+conservation it cannot simply vanish.)} By energy conservation, this evanescent energy
 must either be absorbed by viscous dissipation or scattered into a
 backward-propagating (reflected) wave in the parent vessel.
 
@@ -159,7 +191,9 @@ wave ($\Gamma \neq 0$) at every junction.
 
 The critical condition $\mathcal{Q}^{-1} = d-1$ is the \emph{vascular analogue
 of the Ioffe-Regel criterion}: the threshold where geometric scattering
-overwhelms viscous damping, exactly as in Anderson localization. Since
+overwhelms viscous damping, \chA{in heuristic analogy with the onset of
+Anderson localization in disordered wave systems (a qualitative parallel
+invoked for physical intuition, not a formal correspondence).} Since
 $\mathcal{Q}^{-1}(\mathrm{Wo})$ is strictly monotonically decreasing, the
 solution is unique. \qedhere
 \end{proof}

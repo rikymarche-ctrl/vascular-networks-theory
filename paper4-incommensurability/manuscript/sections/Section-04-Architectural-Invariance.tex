@@ -19,6 +19,22 @@ which is the analog of the robust optimality condition for non-fungible
 constraints. Hereafter, we use "minimax" as a synonym for this construction,
 consistent with the terminology of robust programming.
 
+\chRB{It helps to read this construction as a game. The network chooses the
+branching geometry $\alpha$; an adversary---standing in for the uncontrolled
+physiological state (rest versus exercise, growth, a changing heart rate)---then
+chooses the weight $\eta$ that makes the chosen geometry look as costly as
+possible, by tilting the balance toward whichever cost channel that geometry
+handles worst. A tree that is excellent for steady transport but reflects pulse
+waves can be punished by an adversary who emphasizes the wave channel, and a tree
+tuned to suppress reflections can be punished by one who emphasizes transport.
+The network's safest move is therefore the geometry at which the adversary's
+choice no longer matters---where the two costs are \emph{exactly equal}, so
+tilting $\eta$ in either direction changes nothing. That equal-cost geometry is
+the saddle point $(\alpha^*,\eta^*)$, and its defining property is \emph{immunity}
+to the operating weight: the architecture is optimized not for any single regime
+but against the worst case across all of them. This is the precise sense in which
+$\alpha^*$ is robust rather than fine-tuned.}
+
 \begin{theorem}[Architectural Invariance of the Biological Duty Cycle]
 \label{thm:arch}
 Let $(\alpha^*, \eta^*)$ be the unique saddle point of the unified zero-sum
@@ -29,19 +45,22 @@ network Lagrangian:
     + (1-\eta)\,\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha).
     \label{eq:lagrangian_net}
 \end{equation}
-The emergent duty cycle $\eta^*$ is an exact invariant of the network's
+The emergent \chA{marginal-balance weight} $\eta^*$ is an exact invariant of the network's
 allometric class $\mathcal{A}(G, p, \alpha_w)$, strictly orthogonal to the
 absolute scale of the extensive metabolic parameters $\Lambda\vec{\theta}$.
 \end{theorem}
 
 \begin{proof}
 The Lagrangian $\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ is affine (hence both
-convex and concave) in $\eta$ and quasi-convex in $\alpha$ for every fixed $\eta
+convex and concave) in $\eta$ and \chA{convex} in $\alpha$ for every fixed $\eta
 \in [0,1]$: $C_{\mathrm{transport}}$ is strictly convex, while
-$C_{\mathrm{wave}}$ is quasi-convex with a unique minimum at $\alpha_w$. The
+$C_{\mathrm{wave}}$ \chA{has $\partial^2 C_{\mathrm{wave}}/\partial\alpha^2 > 0$
+throughout the physiological range (verified below), hence is convex there,} with
+a unique minimum at $\alpha_w$. The
 domains $[\alpha_w, \alpha_t]$ and $[0,1]$ are compact, and
 $\mathcal{L}_{\mathrm{net}}$ is continuous. By Sion's minimax
-theorem~\cite{sion1958}, which requires only quasi-convexity, a saddle point
+theorem~\cite{sion1958}\chA{, whose quasi-convexity hypothesis is satisfied
+\emph{a fortiori} by this convexity}, a saddle point
 exists. Detailed numerical verification (Supplemental Material, Table S1)
 confirms that the Hessian $\partial^2
 \mathcal{C}_{\mathrm{wave}}/\partial\alpha^2 > 0$ throughout the physiological
@@ -69,9 +88,13 @@ By the envelope theorem, the maximization over $\eta$ in the saddle-point
 problem requires $\partial\mathcal{L}_{\mathrm{net}}/\partial\eta = 0$ at the
 optimum, which directly implies the equal-cost condition
 $\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha^*) =
-\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*)$. This equivalence
-ensures that the emergent duty cycle $\eta^*$ effectively balances the two
-incommensurable penalties. The numerator derives from the acoustic impedance
+\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*)$. \chRB{This is the
+formal counterpart of the game intuition above: at the saddle the adversary is
+indifferent to $\eta$ precisely because the two costs coincide, so the
+$\eta$-derivative vanishes and the equal-cost condition follows automatically.}
+This equivalence
+ensures that the emergent \chA{marginal-balance weight} $\eta^*$ effectively balances
+the two incommensurable penalties. The numerator derives from the acoustic impedance
 mismatch at bifurcations and is a strictly geometric function of $(G, N,
 \alpha_w, \alpha^*)$ containing no metabolic parameters.
 
@@ -85,8 +108,8 @@ respect to $\alpha$ is therefore identically gauge-invariant:
     {\partial\alpha}(\alpha; \vec{\theta}).
 \end{equation}
 In Eq.~\eqref{eq:eta_star} the watts cancel identically in the gradient ratio.
-The duty cycle $\eta^*$ is therefore a pure structural invariant, determined
-solely by $(G, p, \alpha_w)$ through the geometric evaluation of both
+The \chA{marginal-balance weight} $\eta^*$ is therefore a pure structural invariant,
+determined solely by $(G, p, \alpha_w)$ through the geometric evaluation of both
 derivatives at $\alpha^*$.
 \end{proof}
 
@@ -115,8 +138,9 @@ within these constraints.
 \label{rem:quasiconvex}
 The application of Sion's minimax theorem requires that
 $\mathcal{C}_{\mathrm{wave}}(\alpha)$ be quasi-convex in $\alpha$ for each fixed
-$\eta$. While not strictly convex, quasi-convexity (unimodal with unique
-minimum) is guaranteed by the following physical and numerical arguments:
+$\eta$. \chA{We establish the stronger property that $\mathcal{C}_{\mathrm{wave}}$
+is \emph{convex} over the physiological range---which implies the quasi-convexity
+Sion requires---through the following} physical and numerical arguments:
 
 \textbf{Physical argument.} The wave-reflection cost measures impedance mismatch
 at vascular junctions. The wave attractor exponent $\alpha_w = 2$ emerges from
@@ -142,9 +166,12 @@ $\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$ confirms strict unimodality
 (Supplemental Material, Table S1). No spurious local minima or inflection points
 are observed. The transport cost $\mathcal{C}_{\mathrm{transport}}(\alpha)$ is
 \emph{strictly} convex (proven analytically in Paper~II~\cite{paperII} via
-power-law form in viscous dissipation). Therefore, the Lagrangian
-$\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ satisfies the quasi-convexity
-requirement of Sion's theorem, ensuring existence of the saddle point. The
+power-law form in viscous dissipation). \chA{Since $\mathcal{C}_{\mathrm{wave}}$
+is convex over the physiological range and $\mathcal{C}_{\mathrm{transport}}$ is
+strictly convex, their non-negative combination
+$\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ is convex in $\alpha$; Sion's
+quasi-convexity requirement is therefore met \emph{a fortiori},} ensuring
+existence of the saddle point. The
 minimax equal-cost condition $f(\alpha^*) = g(\alpha^*)$ is verified without
 free parameters (Paper~III~\cite{paperIII}): for the porcine coronary tree,
 solving this balance yields $\alpha^* = 2.77$, consistent with the morphometric

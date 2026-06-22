@@ -26,6 +26,15 @@
 }
 \usepackage{microtype}
 
+% --- revision highlighting (author=magenta, R1=blue, R2=red, editorial=green) ---
+% Toggle: default = colored revision copy. Pass \def\CLEANCOPY{} on the pdflatex
+% command line (see build-clean.ps1) to produce the clean (un-highlighted) copy.
+\newif\ifhighlight \ifdefined\CLEANCOPY\highlightfalse\else\highlighttrue\fi
+\providecommand{\chR}[1]{\ifhighlight{\color{blue}#1}\else#1\fi}
+\providecommand{\chRB}[1]{\ifhighlight{\color{red}#1}\else#1\fi}
+\providecommand{\chE}[1]{\ifhighlight{\color{green}#1}\else#1\fi}
+\providecommand{\chA}[1]{\ifhighlight{\color{magenta}#1}\else#1\fi}
+
 \input{../manuscript/dynamic_variables.tex}
 
 \title{Supplemental Material: The Incommensurability Principle in Biological Transport}
@@ -187,16 +196,18 @@ Bessel function integrals:
 
 \subsection{Geometric Bound and the Fluid Critical Threshold}
 
-The kinetic-viscous equipartition condition for a rigid-wall tube yields a
-numerical estimate $\mathrm{Wo}_c^{\mathrm{eq}} \approx 2.35$. However, the
-branching network must embed isotropically in $\mathbb{R}^3$, which imposes a
-stronger geometric constraint derived in Section~\ref{sec:S4}: the isotropic
-power flow embedding condition in $d=3$ dimensions yields
+\chA{A crude kinetic-viscous equipartition estimate for a rigid-wall tube gives
+$\mathrm{Wo}_c^{\mathrm{eq}} \approx 2.35$; this coarse criterion does \emph{not}
+coincide with the fluid threshold and is not used to justify it.} The operative
+threshold follows instead from the isotropic power-flow embedding of the
+branching network derived in Section~\ref{sec:S4}, which gives $\mathrm{Wo}_c^2 =
+6/(d-1)$. At the physical embedding dimension $d=3$ this reduces to
 \begin{equation}
-    \mathrm{Wo}_c^2 = d = 3
+    \mathrm{Wo}_c^2 = \frac{6}{d-1} = 3 \quad (d=3)
     \quad \Rightarrow \quad
-    \boxed{\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3} \approx 1.732.}
+    \boxed{\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3} \approx 1.732,}
 \end{equation}
+\chA{the coincidence $6/(d-1)=d$ being special to $d=3$.}
 This geometric threshold $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3}$ governs the
 local viscous-inertial balance of the bulk fluid, constraining the energetic
 optimization of individual segments. As shown in Section~\ref{sec:S1}, applying
@@ -339,7 +350,7 @@ shifts induced by observed geometry in the rigid-wall limit ($\alpha_w =
 \VarP$, yielding $\alpha_w = \VarAlphaWTwo$) shifts these attractors upward: the
 symmetric baseline becomes $\alpha^* \approx \VarAlphaHeteroBaseElastic$, and
 the combined asymmetric-tapered attractor reaches $\alpha^* \approx
-\VarAlphaHeteroCombinedElastic$. Note that the combined shift
+\VarAlphaHeteroCombinedElastic$. \chE{The} combined shift
 (\VarAlphaHeteroCombinedShift{} for rigid, \VarAlphaHeteroCombinedElasticShift{}
 for elastic) is not the linear sum of individual shifts
 ($\VarAlphaHeteroAsymShift{} + \VarAlphaHeteroTaperShift{} = -0.010$),
@@ -507,8 +518,10 @@ The critical condition is therefore:
     \mathcal{Q}^{-1}_{Y_L}(\mathrm{Wo}_c^{\mathrm{fluid}}) = d - 1.
 \end{equation}
 This is the \emph{vascular analogue of the Ioffe-Regel criterion}: the threshold
-where geometric scattering overwhelms viscous damping, exactly as in Anderson
-localization of waves in disordered media.
+where geometric scattering overwhelms viscous damping, \chA{in heuristic
+analogy with the onset of Anderson localization of waves in disordered media
+(a qualitative parallel invoked for physical intuition, not a formal
+correspondence).}
 
 Combining with the Navier-Stokes result
 (Eq.~\eqref{eq:tan_phi_asymptotic_supp}):
@@ -737,7 +750,7 @@ contingencies.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{figures/womersley_verification.png}
+    \includegraphics[width=\textwidth]{figures/womersley_verification.pdf}
     \caption{Numerical verification of the critical Womersley number. The inverse quality factor $\mathcal{Q}^{-1}$ (blue curve) intersects the geometric constraint $\mathcal{Q}^{-1} = 2$ (red dashed line) at $\mathrm{Wo} \approx 1.74$, matching the analytical prediction of $\sqrt{3}$ (green dotted line).}
     \label{fig:womersley_verification}
 \end{figure}
@@ -771,7 +784,8 @@ where $\mathcal{R}$ is the network-summed reflection loss and $H_n =
 mammalian aortic flow wave (approximated as a half-sine of duty cycle $1/3$
 followed by $2/3$ diastole), the Fourier coefficients $c_n$ yield the fixed
 physical weights: $H_1 \approx 1.12$, $H_2 \approx 0.65$, $H_3 \approx 0.28$,
-etc.
+\chE{with successive harmonics ($n \geq 4$) carrying progressively smaller
+weights}.
 
 Sensitivity analysis shows that $\alpha^*$ is remarkably robust to the specific
 choice of the pulse waveform. Variations of $\pm 20\%$ in the harmonic weights
@@ -786,7 +800,7 @@ power and effectively determines the location of the minimax saddle point.
 \section{Limits of the Thin-Wall Approximation in the Terminal Regime}
 \label{sec:S5}
 
-The generalized impedance attractor $\alpha_w = (2+p)/(1+p)$ derived in the main
+The generalized impedance attractor $\alpha_w = \chA{(5-p)/2}$ derived in the main
 text assumes the thin-wall approximation ($h \ll r$), where the incremental
 elastic modulus $E$ and wall thickness $h$ relate to the Moens-Korteweg wave
 speed $c = \sqrt{Eh/2\rho r}$.
@@ -821,11 +835,13 @@ to bypass static geometric bounds~\cite{uhlirova2017}.
 
 \textbf{Quantitative verification.} Table~\ref{tab:shielding} reports the
 minimax attractor $\alpha^*$ computed with and without the Lam\'{e} correction
-across the physiological Womersley range $\mathrm{Wo}_0 \in \{2.0,\, 4.0,\,
-8.0\}$, using the network-level Lagrangian at $\eta^* = 0.979$. In all cases
-$|\Delta\alpha^*| < 0.01$, confirming that the global minimax is structurally
-decoupled from the thick-wall regime. Full numerical code is provided in
-\texttt{scripts/verification/verify\_shielding.py}.
+across the distal Womersley range $\mathrm{Wo}_0 \in \{2.0,\, 4.0,\, 8.0\}$,
+\chA{obtained from the same $\eta$-free marginal-balance saddle as the main model
+($C_{\mathrm{wave}} = C_{\mathrm{visc}}$); no fixed Lagrangian weight is imposed,
+so the shift is a pure consequence of the thick-wall correction. In all cases
+$|\Delta\alpha^*| \le \VarShieldDeltaMax < 0.01$}, confirming that the global
+minimax is structurally decoupled from the thick-wall regime. Full numerical code
+is provided in \texttt{scripts/verification/verify\_shielding.py}.
 
 \begin{table}[H]
 \centering
@@ -838,9 +854,9 @@ The threshold $|\Delta\alpha^*| < 0.01$ is satisfied in all cases.}
 \toprule
 $\mathrm{Wo}_0$ & $\alpha^*$ (thin wall) & $\alpha^*$ (Lam\'{e}) & $|\Delta\alpha^*|$ \\
 \midrule
-2.0 & 3.0000 & 3.0000 & $< 10^{-5}$ \\
-4.0 & 2.7789 & 2.7882 & 0.0093 \\
-8.0 & 2.6645 & 2.6733 & 0.0088 \\
+2.0 & \chA{\VarShieldThinTwo} & \chA{\VarShieldLameTwo} & \chA{\VarShieldDeltaTwo} \\
+4.0 & \chA{\VarShieldThinFour} & \chA{\VarShieldLameFour} & \chA{\VarShieldDeltaFour} \\
+8.0 & \chA{\VarShieldThinEight} & \chA{\VarShieldLameEight} & \chA{\VarShieldDeltaEight} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -923,10 +939,10 @@ volume $\Omega(\varphi)$,
 
 All three converge to the same formula $\tan^2(\varphi^*/2) = d - 1$,
 demonstrating robustness of the result. For three-dimensional embedding ($d=3$),
-the critical Womersley number satisfies $\mathrm{Wo}_c^2 = d = 3$ (i.e.,
-$\mathrm{Wo}_c = \sqrt{3}$), unifying geometric and dynamical optimization.
-Whether this relationship $\mathrm{Wo}_c^2 = d$ holds for other dimensions
-requires separate derivation.
+the critical Womersley number satisfies $\mathrm{Wo}_c^2 = 6/(d-1) = 3$ (i.e.,
+$\mathrm{Wo}_c = \sqrt{3}$), unifying geometric and dynamical optimization. \chA{The
+compact form $\mathrm{Wo}_c^2 = d$ is a coincidence special to $d=3$ (where
+$6/(d-1)=d$) and does \emph{not} generalise to other embedding dimensions.}
 
 
 \subsection{Extended Validation Dataset (27 Cases)}
@@ -937,9 +953,17 @@ biological and synthetic systems, we compile an extended validation dataset
 comprising 27 independent transport networks. This comprehensive catalog spans
 multiple taxonomic groups, organ systems, and scaling regimes, ranging from
 mammalian microvasculature (cerebral, renal, and coronary) to botanical xylem
-networks and microfluidic biomimetic devices. In the following subsections, we
-analyze the sensitivity of these scaling exponents to mass variation and
-delineate the precise boundaries of each transport regime.
+networks and microfluidic biomimetic devices. \chRB{The catalogue is deliberately
+assembled to span three biological kingdoms (animal, plant, and
+fungal/protist), both embedding dimensions ($d=2$ retinal and leaf venation
+alongside the $d=3$ majority), and physiological as well as pathological states,
+so that it functions not as a list of agreeing cases but as a discriminating test
+of the active-channel sorting rule set out in the main text: non-pulsatile
+networks are predicted at the viscous attractor $\alpha_t \to 3.0$, pulsatile
+mammalian arteries at the minimax $\alpha^* \approx \VarAlphaStar$, and
+wave-dominated or planar networks near $\alpha_w \approx \VarAlphaW$.} In the
+following subsections, we analyze the sensitivity of these scaling exponents to
+mass variation and delineate the precise boundaries of each transport regime.
 
 \subsubsection{Sensitivity to Body Mass $M$}
 
@@ -956,7 +980,7 @@ validation limitations).
 \caption{Empirical comparison of observed and predicted branching exponents.
 Predicted exponents $\alpha_{\mathrm{pred}}$ are derived from first
 principles: Static ($3.00$), Isotropic Transition ($\VarAlphaStar$), and Wave
-($(5-p)/2 \approx 2.31$, see Paper~II).
+($(5-p)/2 \approx \chA{\VarAlphaWTwo}$, see Paper~II).
 \textbf{Res.} (Resolution): \textbf{H} = High-resolution generation-by-generation
 morphometry (comparable to~\cite{kassab1993}); \textbf{M} = Medium (multiple
 measurements, aggregated); \textbf{L} = Low (meta-analyses, qualitative ranges).}
@@ -967,7 +991,7 @@ measurements, aggregated); \textbf{L} = Low (meta-analyses, qualitative ranges).
 System [Ref.] & Obs. $\alpha$ & $\alpha_{\mathrm{pred}}$ & Regime & Res. \\
 \midrule
 1. Cerebral (Human) \cite{rossitti1993}   & 2.50--2.90 & $\VarAlphaStarModel$ & Isotropic & M \\
-2. Coronary (Porcine) \cite{kassab1993}   & 2.60--2.80 & 2.63 & Isotropic & H \\
+2. Coronary (Porcine) \cite{kassab1993}   & 2.60--2.80 & \chA{\VarAlphaStarModel} & Isotropic & H \\
 3. Coronary (Human RCA) \cite{zamir1999} & 1.00--3.00 & $\VarAlphaStar$ & Isotropic/Wave & H \\
 4. Pulmonary (Human) \cite{huang1996}     & 2.64--2.71 & $\VarAlphaStarModel$ & Isotropic & H \\
 5. Coronary (Human) \cite{taylor2024}     & 2.21--2.43 & $\VarAlphaStar$ & Wave/Isotropic & H \\
@@ -1088,7 +1112,7 @@ for the arterial stiffness, the minimax framework predicts:
 
 \textbf{Result:} The predicted exponent falls within the observed range and is
 consistent with the centroid $\alpha_{\mathrm{mid}} \approx 2.725$ to within
-$\Delta\alpha \approx 0.06$, improving upon the rigid-wall baseline and being
+$\Delta\alpha \approx \chA{0.07}$, improving upon the rigid-wall baseline and being
 fully consistent with the model residual for the Kassab coronary dataset.
 
 \textbf{Conclusion:} The human pulmonary arterial bed---distinct from the
@@ -1110,7 +1134,7 @@ across all three available datasets.
 \toprule
 Dataset & $M$ & $\alpha^*_{\mathrm{pred}}$ & $\alpha_{\mathrm{obs}}$ \\
 \midrule
-Kassab et al. (1993) Porcine    & 30\,kg & 2.63   & 2.60--2.80        \\
+Kassab et al. (1993) Porcine    & 30\,kg & \chA{\VarAlphaStarModel}   & 2.60--2.80        \\
 Jiang et al. (1994) Rat Pulm. \quad & 300\,g  & 2.68  & 2.60--2.75  \\
 Huang (1996) Human Pulm. & 70\,kg & $\VarAlphaStarElastic$  & 2.60--2.85  \\
 \bottomrule
@@ -1124,7 +1148,7 @@ to $70\,$kg), two organ systems (coronary, pulmonary), and three species
 supports the applicability of the physical model to these systems.
 
 \textbf{Need for future morphometry.} The scarcity of high-resolution datasets
-(3 out of 28) represents the primary limitation for definitive validation of the
+(3 out of \chA{27}) represents the primary limitation for definitive validation of the
 incommensurability principle. Future morphometric studies employing micro-CT,
 confocal microscopy, or corrosion casting with generation-by-generation vessel
 tracking would provide the data necessary to move from qualitative consistency
@@ -1181,14 +1205,16 @@ the network independent of the observer's chosen decomposition resolution (i.e.,
 independent of $n$ and the partition boundaries), we must have:
 \begin{equation}
     \mathcal{C}_{\mathrm{global}} = \mathcal{C}_{\mathrm{segmented}} \quad \Rightarrow \quad F\left( \sum_{i=1}^n w_i x_i \right) = \sum_{i=1}^n w_i F(x_i),
+    \label{eq:jensen_weighted_supp}
 \end{equation}
 which must hold for any arbitrary partitioning $w_i$ and independent local
 states $x_i$.
 
 \subsubsection{Uniqueness of the Affine Form}
 
-Equation (38) is the generalized \emph{Jensen Functional Equation} (or the
-Cauchy weighted average equation) for continuous functions. Assuming $F$ is
+\chA{Equation~\eqref{eq:jensen_weighted_supp}} is the generalized \emph{weighted
+Jensen (affinity) equation} (or the Cauchy weighted-average equation) for
+continuous functions. Assuming $F$ is
 differentiable, we can determine the general solution by taking the partial
 derivative with respect to a local state $x_j$:
 \begin{equation}
@@ -1222,21 +1248,89 @@ unphysical resolution-dependence and breaking the self-consistency of the
 evolutionary attractor.
 
 
+\subsection{Systematic Exclusion of Alternative Cost Functionals}
+\label{sec:S7_alternatives}
+
+\chRB{The linear penalty $F(x)=x-1$ is not posited but selected: it is the
+unique functional surviving four independent admissibility requirements, each
+rooted in a distinct physical principle. To make the exclusion of alternatives
+explicit---rather than leaving it implicit in the uniqueness proof above---we
+test the most natural candidate forms against these requirements:
+\begin{enumerate}
+  \item \textbf{Scale invariance (metabolic gauge).} $F$ may depend only on the
+  dimensionless ratio $x=\Phi/\Phi_{\mathrm{opt}}$, with $F(1)=0$; any dependence
+  on absolute scales would require a biologically privileged reference mass,
+  which is absent across the $10^{5}$-fold allometric range.
+  \item \textbf{Compositional (resolution) consistency.} Global and
+  segment-wise assessment must agree for an arbitrary partition, forcing $F$ to
+  satisfy the weighted Jensen (affinity) equation
+  \eqref{eq:jensen_weighted_supp}.
+  \item \textbf{Onsager linear response.} Near the optimum the penalty must be
+  linear in the excess dissipation $\Delta\Phi=\Phi-\Phi^{*}$, as required by the
+  linearity of irreversible thermodynamics close to a stationary state.
+  \item \textbf{Non-substitutability.} The aggregation of the two incommensurable
+  cost modes must forbid mutual compensation: unbounded wave loss cannot be
+  offset by efficient transport.
+\end{enumerate}
+Table~\ref{tab:cost_alternatives} applies these criteria. Only the linear excess
+with additive minimax aggregation satisfies all four; every alternative fails at
+least one, and the failures are qualitative---broken self-consistency or
+admissibility---not matters of empirical fit.}
+
+\begin{table}[H]
+\centering
+\caption{\chRB{Admissibility of candidate cost functionals against the four
+physical requirements. ``---'' marks a criterion not applicable to that
+candidate (e.g.\ the aggregation rule is tested only for non-substitutability).}}
+\label{tab:cost_alternatives}
+\vspace{0.5em}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l c c c c @{}}
+\toprule
+Candidate & Scale-inv. & Compositional & Onsager & Non-subst. \\
+\midrule
+\textbf{Linear} $F(x)=x-1$ (additive minimax) & Pass & Pass & Pass & Pass \\
+Quadratic $F(x)=(x-1)^2$                       & Pass & Fail & Fail & Pass \\
+Logarithmic $F(x)=\ln x$                       & Pass & Fail & Fail & Pass \\
+Power-law $F(x)=x^{q}-1,\ q\neq 1$             & Pass & Fail & Fail & Pass \\
+Absolute-threshold $F(\Phi-\Phi_{\mathrm{thr}})$ & Fail & --- & --- & --- \\
+Multiplicative $\mathcal{C}_{\mathrm{wave}}\!\cdot\!\mathcal{C}_{\mathrm{transport}}$ & Pass & --- & --- & Fail \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\chRB{The quadratic, logarithmic, and general power-law penalties share the same
+defect: being non-affine, they violate the weighted Jensen equation
+\eqref{eq:jensen_weighted_supp}, so the assessed cost depends on the arbitrary
+number of segments $n$ into which the network is decomposed, and they
+simultaneously break the Onsager requirement that the penalty be linear in
+$\Delta\Phi$ near the optimum. The absolute-threshold family violates scale
+invariance outright. The multiplicative aggregation is dimensionally admissible
+and resolution-consistent, but it renders the two failure modes fungible, which
+is biologically inadmissible for independently vital functions. The linear
+excess is therefore the unique cost functional consistent with the physics of
+the problem. This both strengthens and delimits the central claim: linearity is
+\emph{forced} by these four requirements, and would be relaxed only if one of
+them were physically rejected---a possibility we regard as the most promising
+target for future falsification.}
+
+
 \subsection{Convexity of the Wave-Reflection Functional}
 \label{sec:S7_convexity}
 
 The existence and uniqueness of the minimax saddle point $\alpha^*$ rely on the
 strict convexity of the wave-reflection functional
-$\mathcal{C}_{\mathrm{wave}}(\alpha)$. We first present the mathematical proof,
-then provide numerical verification.
+$\mathcal{C}_{\mathrm{wave}}(\alpha)$. \chA{We present an analytic argument valid
+in a neighbourhood of the minimum, and then verify convexity over the full
+physiological range numerically; we do not claim a closed-form global proof.}
 
-\subsubsection{Mathematical Proof of Global Convexity}
+\subsubsection{\chA{Local Convexity Argument and Numerical Verification}}
 
-We demonstrate that for any physical characteristic Womersley number
-$\mathrm{Wo}$, the functional is strictly convex in the physiological range
-$\alpha \in [2, 3]$.
+\chA{We show analytically that the functional is convex near its minimizer, and
+confirm numerically that it remains strictly convex throughout} the
+physiological range $\alpha \in [2, 3]$ \chA{for every characteristic Womersley
+number $\mathrm{Wo}$ tested.}
 
-\paragraph{Lemma 1 (Convexity of the Local Reflection Coefficient).}
+\paragraph{\chA{Local argument (near the minimizer).}}
 Let $\zeta(\alpha) = |\Gamma(\alpha)|^2 = \left| \frac{u(\alpha)\chi -
 1}{u(\alpha)\chi + 1} \right|^2$ be the reflection penalty at a junction, where
 $u(\alpha) = N^{2/\alpha-1}$ and $\chi(\mathrm{Wo})$ is the ratio of complex
@@ -1244,10 +1338,11 @@ admittances (normalized for viscous effects).
 
 The second derivative $d^2\zeta/d\alpha^2 = \zeta''(u) (u')^2 + \zeta'(u) u''$
 determines the curvature. Near the minimum ($\alpha \approx \alpha_w$),
-$\zeta'(u) = O(u-1)$ ensures that the cross term is of higher order, preserving
-convexity globally. Numerical evaluation of the Hessian across the domain
-$\mathrm{Wo} \in [0.1, 20]$ confirms that $\mathcal{C}_{\mathrm{wave}}''(\alpha)
-> 0$ everywhere.
+$\zeta'(u) = O(u-1)$ ensures that the cross term is of higher order, \chA{so
+$\zeta''>0$ locally. This argument is local; global strict convexity over $[2,3]$
+is established by the numerical Hessian scan below}, which confirms that
+$\mathcal{C}_{\mathrm{wave}}''(\alpha) > 0$ everywhere on the tested domain
+$\mathrm{Wo} \in [0.1, 20]$.
 
 \subsubsection{Numerical Verification}
 

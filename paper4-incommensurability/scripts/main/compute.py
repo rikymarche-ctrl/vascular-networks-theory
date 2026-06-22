@@ -24,7 +24,11 @@ Wo_c_2d  = math.sqrt(6)   # d=2: tan(phi)=1 => 6/Wo^2=1 => Wo=sqrt(6)
 p        = 0.77
 b_blood  = 1930.0
 m_wall   = 20e3
-A_ratio  = 0.82 
+A_ratio  = 1.0     # active branching asymmetry in the engine; the BASELINE is symmetric
+                   # (this is the "symmetric minimax" the paper reports). Transiently
+                   # set to A_emp to generate the asymmetric full-model figure curve.
+A_emp    = 0.85    # single measured bifurcation asymmetry (porcine coronary, Kassab)
+                   # used for all heterogeneity corrections and the full-model curve
 c0_phys  = 6.0
 lambda_L = 25.0
 
@@ -211,6 +215,75 @@ def C_wave(alpha, M, f_h_scale=1.0):
         Wo_root_n = r_root * math.sqrt(omega_n / nu)
         total_cost += h_weight * C_wave_single_harmonic(alpha, Wo_root_n, r_root, omega_n)
     return total_cost
+
+def lame_factor(h_r):
+    """Thick-wall wave-speed correction c_thick/c_thin = sqrt(1 + h/(2r)).
+
+    Derived from the Lamé elastic solution for a pressurised thick cylinder.
+    """
+    return math.sqrt(1.0 + h_r / 2.0)
+
+def C_wave_lame(alpha, M, use_lame=True):
+    """Total wave reflection cost with optional Lamé thick-wall correction.
+
+    Identical in structure to C_wave (multi-harmonic, current baseline asymmetry)
+    except that the wave speed and the junction admittances in each generation
+    carry the thick-wall factor L_g = lame_factor(h_g / r_g), with the
+    wall-thickness ratio rising linearly from the aorta (0.08) to the terminal
+    arterioles (0.42). Comparing use_lame True/False isolates the architectural
+    impact of the distal thick-wall correction on alpha* (topological shielding).
+
+    Args:
+        alpha: Branching exponent (area-preserving law parameter)
+        M: Body mass (kg)
+        use_lame: If True, applies the thick-wall Lamé correction (default: True)
+
+    Returns:
+        Total wave reflection cost (dimensionless)
+    """
+    f_h = f_h0 * (M / M0)**(-0.25)
+    omega_H = 2 * np.pi * f_h
+    r_root = r0_human * (M / M0)**0.375
+    gens = np.arange(G + 1)
+    h_r = 0.08 + 0.34 * gens / G          # 0.08 (aorta) -> 0.42 (arteriole)
+    L = np.array([lame_factor(x) for x in h_r]) if use_lame else np.ones(G + 1)
+
+    total_cost = 0.0
+    for n, h_weight in enumerate(PULSE_HARMONICS, 1):
+        omega_n = n * omega_H
+        P_at_node = 1.0
+        reflected_power = 0.0
+        curr_r = r_root
+        for g in range(G):
+            Wo_p = curr_r * math.sqrt(omega_n / nu)
+            kappa = np.real((1j * omega_n / (c0_phys * L[g])) / admittance_factor(Wo_p))
+            P_at_node *= np.exp(-2.0 * kappa * lambda_L * curr_r)
+
+            r_scale = (1.0 + A_ratio**alpha)**(-1.0 / alpha)
+            r1, r2 = r_scale, A_ratio * r_scale
+            Yp = admittance_factor(Wo_p) / L[g]
+            Y1 = (r1**2) * admittance_factor(Wo_p * r1) / L[g + 1]
+            Y2 = (r2**2) * admittance_factor(Wo_p * r2) / L[g + 1]
+            ref = np.abs((Yp - (Y1 + Y2)) / (Yp + (Y1 + Y2)))**2
+
+            reflected_power += P_at_node * ref
+            P_at_node *= (1.0 - ref)
+            curr_r *= r_scale
+        total_cost += h_weight * reflected_power
+    return total_cost
+
+def find_minimax_lame(M, use_lame=True):
+    """Eta-free saddle alpha* where C_wave_lame(alpha,M) = C_visc(alpha,M).
+
+    Same marginal-balance criterion as find_minimax, with the wave cost carrying
+    the optional thick-wall correction. No fixed Lagrangian weight is involved.
+    """
+    def residual(a):
+        return C_wave_lame(a, M, use_lame) - C_visc(a, M)
+    try:
+        return brentq(residual, 1.5, 3.1, xtol=1e-5)
+    except ValueError:
+        return 3.0
 
 def C_wave_hetero(alpha, M, A=1.0, taper=1.0):
     """Wave cost with asymmetry and taper using rigorous wave propagation.
@@ -613,13 +686,13 @@ def compute_alpha_w_sensitivity(perturb_frac=0.10):
     """
     global A_ratio
     A_save = A_ratio
-    
-    # alpha_w for symmetric case is exactly 2.0, independent of A_ratio
-    # The empirically calibrated alpha_w = 2.115 comes from A_ratio = 0.82
-    # Perturb A_ratio by ±10%
-    A_ratio = A_save * (1.0 + perturb_frac)
+
+    # alpha_w enters implicitly via the junction asymmetry. Perturb around the
+    # empirical bifurcation asymmetry A_emp (the physical operating point, A<=1),
+    # not the symmetric baseline, so the perturbed configurations stay physical.
+    A_ratio = A_emp * (1.0 + perturb_frac)
     alpha_up, _ = find_minimax(M0)
-    A_ratio = A_save * (1.0 - perturb_frac)
+    A_ratio = A_emp * (1.0 - perturb_frac)
     alpha_dn, _ = find_minimax(M0)
     A_ratio = A_save
     
@@ -678,7 +751,7 @@ def main():
         lines.append(f"\\newcommand{{\\VarMass{name}}}{{{m*1000:.1f}}}")
         lines.append(f"\\newcommand{{\\VarAlpha{name}}}{{{a:.3f}}}")
         beta_sym = beta_symmetric(a)
-        beta_asym = beta_asymmetric(a, A_ratio)
+        beta_asym = beta_asymmetric(a, A_emp)
         lines.append(f"\\newcommand{{\\VarBeta{name}WocThree}}{{{beta_sym:.4f}}}")
         lines.append(f"\\newcommand{{\\VarBeta{name}}}{{{beta_sym:.4f}}}")
         lines.append(f"\\newcommand{{\\VarBetaAsym{name}}}{{{beta_asym:.4f}}}")
@@ -695,7 +768,6 @@ def main():
     lines.append(f"\\newcommand{{\\VarAlphaTHigh}}{{{2.940:.3f}}}")
     lines.append(f"\\newcommand{{\\VarAlphaW}}{{{2.000:.3f}}}")
     lines.append(f"\\newcommand{{\\VarAlphaWFig}}{{{2.115:.3f}}}")
-    lines.append(f"\\newcommand{{\\VarShieldingErr}}{{{0.01}}}")
     lines.append(f"\\newcommand{{\\VarAlphaWTwo}}{{{2.115:.3f}}}")
 
     # 3. Transition Mass
@@ -720,7 +792,7 @@ def main():
     lines.append(f"\\newcommand{{\\VarHeartRateHuman}}{{{f_H:.0f}}}")
     lines.append(f"\\newcommand{{\\VarWoCoeffHuman}}{{{WoCoeffHuman:.0f}}}")
     lines.append(f"\\newcommand{{\\VarRadiusCritMm}}{{{RadiusCritMm:.2f}}}")
-    lines.append(f"\\newcommand{{\\VarAsymmetryA}}{{{A_ratio:.2f}}}")
+    lines.append(f"\\newcommand{{\\VarAsymmetryA}}{{{A_emp:.2f}}}")
     lines.append(f"\\newcommand{{\\VarTaperPercent}}{{{8.0:.0f}}}")
     lines.append(f"\\newcommand{{\\VarAngleTetrahedralDeg}}{{{math.degrees(math.acos(-1.0/3.0)):.1f}}}")
     lines.append(f"\\newcommand{{\\VarAngleTetrahedralCalcDeg}}{{{75.0:.0f}}}")
@@ -729,9 +801,9 @@ def main():
 
     # 4b. Heterogeneity simplified model results (Womersley structural corrections)
     alpha_base = find_minimax_hetero(70.0, A=1.0, taper=1.0)
-    alpha_asym = find_minimax_hetero(70.0, A=0.85, taper=1.0)
+    alpha_asym = find_minimax_hetero(70.0, A=A_emp, taper=1.0)
     alpha_taper = find_minimax_hetero(70.0, A=1.0, taper=0.98)
-    alpha_full = find_minimax_hetero(70.0, A=0.85, taper=0.98)
+    alpha_full = find_minimax_hetero(70.0, A=A_emp, taper=0.98)
     shift_asym = alpha_asym - alpha_base
     shift_taper = alpha_taper - alpha_base
     shift_full = alpha_full - alpha_base
@@ -740,10 +812,10 @@ def main():
     alpha_star_elastic = find_minimax_elastic(70.0, 2.115)
     alpha_star_elastic_shift = alpha_star_elastic - alpha_h
     alpha_base_elastic = find_minimax_hetero_elastic(70.0, A=1.0, taper=1.0, alpha_w=2.115)
-    alpha_full_elastic = find_minimax_hetero_elastic(70.0, A=0.85, taper=0.98, alpha_w=2.115)
+    alpha_full_elastic = find_minimax_hetero_elastic(70.0, A=A_emp, taper=0.98, alpha_w=2.115)
     shift_full_elastic = round(alpha_full_elastic, 3) - round(alpha_base_elastic, 3)
 
-    lines.append(f"\\newcommand{{\\VarHeteroAsymmetryA}}{{{0.85:.2f}}}")
+    lines.append(f"\\newcommand{{\\VarHeteroAsymmetryA}}{{{A_emp:.2f}}}")
     lines.append(f"\\newcommand{{\\VarHeteroTaperPercent}}{{{2.0:.0f}}}")
     lines.append(f"\\newcommand{{\\VarAlphaHeteroBase}}{{{alpha_base:.3f}}}")
     lines.append(f"\\newcommand{{\\VarAlphaHeteroAsym}}{{{alpha_asym:.3f}}}")
@@ -759,6 +831,27 @@ def main():
     lines.append(f"\\newcommand{{\\VarAlphaHeteroCombinedElastic}}{{{alpha_full_elastic:.3f}}}")
     lines.append(f"\\newcommand{{\\VarAlphaHeteroCombinedElasticShift}}{{{shift_full_elastic:+.3f}}}")
 
+    # 4c. Topological shielding — eta-free saddle shift under the Lame thick-wall
+    #     correction, anchored to the canonical cost balance (C_wave_lame = C_visc),
+    #     evaluated across the distal Womersley range Wo_0 in {2, 4, 8}. The thin
+    #     column reproduces the allometric attractor (use_lame=False == C_wave).
+    def _wo0_of_M(Mx):
+        f_hx = f_h0 * (Mx / M0)**(-0.25)
+        r_rootx = r0_human * (Mx / M0)**0.375
+        return r_rootx * math.sqrt(2 * np.pi * f_hx / nu)
+    wo0_human = _wo0_of_M(M0)
+    shield_dmax = 0.0
+    for tag, wo0_t in (("Two", 2.0), ("Four", 4.0), ("Eight", 8.0)):
+        M_t = M0 * (wo0_t / wo0_human)**4
+        a_thin = find_minimax_lame(M_t, use_lame=False)
+        a_lame = find_minimax_lame(M_t, use_lame=True)
+        d = abs(a_lame - a_thin)
+        shield_dmax = max(shield_dmax, d)
+        lines.append(f"\\newcommand{{\\VarShieldThin{tag}}}{{{a_thin:.4f}}}")
+        lines.append(f"\\newcommand{{\\VarShieldLame{tag}}}{{{a_lame:.4f}}}")
+        lines.append(f"\\newcommand{{\\VarShieldDelta{tag}}}{{{d:.4f}}}")
+    lines.append(f"\\newcommand{{\\VarShieldDeltaMax}}{{{shield_dmax:.4f}}}")
+    print(f"Shielding |Delta alpha*|_max = {shield_dmax:.4f} (eta-free saddle, Lame)")
 
     # Retinal paradox constants (Luo et al. 2017)
     lines.append(f"\\newcommand{{\\VarAlphaRetinalObs}}{{{2.0:.1f}}}")
@@ -909,7 +1002,9 @@ def main():
     M_range = np.logspace(-4, 4, 200)
     fig_dir = os.path.join(project_root, "manuscript", "figures")
 
-    # --- Full model (asymmetric) with bidirectional continuity tracking ---
+    # --- Full model (asymmetric, A=A_emp) with bidirectional continuity tracking ---
+    A_save_full = A_ratio
+    A_ratio = A_emp  # empirical bifurcation asymmetry for the full-model curve
     M_start_idx = np.argmin(np.abs(M_range - 70.0))
     alpha_start, _ = find_minimax(M_range[M_start_idx], alpha_prev=None)
     alpha_vals = np.zeros(len(M_range))
@@ -940,6 +1035,8 @@ def main():
             beta_larger = beta_asymmetric(a, A_ratio)
             beta_avg = beta_larger * (1.0 + A_ratio) / 2.0
             f.write(f"{M*1000:.6f} {beta_avg:.6f}\n")
+
+    A_ratio = A_save_full  # restore symmetric baseline
 
     # --- Symmetric theory curve with bidirectional continuity tracking ---
     A_save = A_ratio
@@ -979,7 +1076,7 @@ def main():
     print(f"Residual = {alpha_residual:.4f}")
     print(f"M* = {M_star*1000:.1f}g, eta* = {eta_h:.4f}")
     print(f"beta_sym(human) = {beta_symmetric(alpha_h):.4f}")
-    print(f"beta_asym(human, A={A_ratio}) = {beta_asymmetric(alpha_h, A_ratio):.4f}")
+    print(f"beta_asym(human, A={A_emp}) = {beta_asymmetric(alpha_h, A_emp):.4f}")
 
 if __name__ == "__main__":
     main()

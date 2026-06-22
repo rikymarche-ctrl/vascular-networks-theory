@@ -62,7 +62,7 @@ Quantity & Value & Epistemological Status & Source \\
 $\mathrm{Wo}_c$ (3D fluid) & $\sqrt{3} \approx 1.732$ & Deductive theorem & Eq.~\eqref{eq:woc_closed_form} \\
 $\mathrm{Wo}_c$ (2D fluid) & $\sqrt{6} \approx 2.449$ & Deductive theorem & Eq.~\eqref{eq:woc_closed_form} \\
 $M^*$ (transition mass) & $0.8$\,g & First-principles calculation & Eq.~\eqref{eq:wo_scaling} \\
-$\alpha^*$ (symmetric) & $2.626$ & Minimax solution & Eq.~\eqref{eq:eta_star} \\
+$\alpha^*$ (symmetric) & $\chA{\VarAlphaStarModel}$ & Minimax solution & Eq.~\eqref{eq:eta_star} \\
 \midrule
 \multicolumn{4}{l}{\textbf{Empirical Inputs (measured independently)}} \\
 $p_{eff}$ (wall thickness) & $0.77$ & Derived effective exponent & Guo 2003 \cite{Guo2003} \\
@@ -117,13 +117,30 @@ of the incommensurability principle.}}
 \toprule
 Stage & Mass $M$ (g) & $\mathrm{Wo}_0$ & $\alpha_{\mathrm{pred}}$ & Regime \\
 \midrule
-E10 (early embryo) & 0.1  & 0.5  & 2.95 & Viscous \\
+E10 (early embryo) & 0.1  & 0.5  & \chA{2.90} & Viscous \\
 E15                & 0.5  & 1.0  & 2.85 & Transition onset \\
 E20                & 2.0  & 1.8  & 2.70 & Minimax attractor \\
 Neonate            & 25   & 3.5  & 2.70 & Minimax (stable) \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\chA{The masses and Womersley numbers above trace a single organism's
+\emph{ontogenetic} (intraspecific) growth trajectory. Along this trajectory
+heart rate, cardiac output, and aortic calibre scale with developmental mass
+differently from the \emph{interspecific} adult allometry
+($\dot{Q}\propto M^{3/4}$, $f\propto M^{-1/4}$) that yields
+$\mathrm{Wo}_0\propto M^{1/4}$ and the cross-species transition mass
+$M^*\approx\VarMStar\,$g (\S\ref{sec:womersley_minimax}). The tabulated
+developmental schedule therefore rises more steeply than $M^{1/4}$
+(here $\mathrm{Wo}_0$ grows roughly as $M^{0.4}$ over the embryonic range), and
+the stage at which a given species crosses $\mathrm{Wo}_0=\sqrt{3}$
+($\approx 2\,$g in this illustrative schedule) is trajectory-specific and is
+\emph{not} expected to coincide with the interspecific $M^*$. The robust,
+falsifiable content is qualitative: the branching exponent must migrate from the
+viscous value ($\alpha\approx 3.0$) toward the minimax attractor
+($\alpha^*\approx\VarAlphaStar$) as $\mathrm{Wo}_0$ crosses its critical
+threshold, whatever the precise developmental mass at which this occurs.}
 
 The convergence of evolution toward a scale-free attractor that emerges from the
 irreconcilability of physical costs is not unique to biology. Wherever adaptive

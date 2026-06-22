@@ -5,7 +5,7 @@
 \section{Recovery of Single-Mechanism Limits}
 
 \begin{corollary}[Recovery of Single-Mechanism Limits]
-Let $\eta \in [0,1]$ be the duty cycle of the unified Lagrangian
+Let $\eta \in [0,1]$ be the \chA{cost-mixing weight} of the unified Lagrangian
 $\mathcal{L}_{\mathrm{net}}(\alpha, \eta)$. Then:
 \begin{enumerate}
     \item
@@ -38,6 +38,27 @@ The unified framework therefore contains Papers~I and~II as degenerate boundary
 cases of a single variational principle.
 \end{corollary}
 
+\chRB{Biologically, these two boundary limits are not abstract endpoints but
+physically realized regimes---which is precisely why the single-mechanism laws
+were each discovered first, in isolation. The static limit ($\eta\to0$,
+$\alpha^*\to\alpha_t$) is the regime of the smallest vessels and of all
+non-pulsatile transport systems: in arterioles and capillaries the Womersley
+number is small, flow is effectively quasi-steady, wave reflection carries
+negligible cost, and minimizing viscous dissipation alone recovers Murray's law
+($\alpha\to3$)---the same exponent obeyed by the strictly non-pulsatile xylem and
+airway trees. The wave-dominated limit ($\eta\to1$, $\alpha^*\to\alpha_w$) is the
+regime of the largest conduit arteries, where the Womersley number is large,
+pulsatile inertia dominates, and the network must instead match acoustic
+impedance across each junction to avoid reflecting cardiac power back toward the
+heart, recovering the area-preserving law ($\alpha\to2$). The interior minimax
+$(\alpha^*,\eta^*)$ is therefore the architecture of the mid-calibre pulsatile
+beds---the coronary, cerebral, and pulmonary arteries that morphometric studies
+actually sample---where neither cost is negligible and the network must balance
+both incommensurable penalties at once. The unified Lagrangian thus explains
+\emph{why} Murray's law and the area-preserving law each hold only within their
+own vascular territory, and why the universal mammalian exponent sits strictly
+between them.}
+
 \begin{remark}[Baseline vs. Elastic Wave Attractor]
 The symmetric model prediction $\alpha^*_{\mathrm{model}} = \VarAlphaStarModel$
 uses the baseline rigid-cylinder wave attractor $\alpha_w = 2.0$, corresponding
@@ -52,7 +73,7 @@ taper, and the Fåhræus-Lindqvist viscosity shift---recovers $\alpha^* \approx
 \VarAlphaStar$ for porcine coronaries ($G = \VarG$, $N = \VarN$), in
 quantitative agreement with morphometric data~\cite{kassab1993}. The present
 work employs the baseline $\alpha_w = 2.0$ to isolate the fundamental
-incommensurability mechanism from material-specific corrections. Note that the
+incommensurability mechanism from material-specific corrections. \chE{The}
 wall thickness exponent $p = \VarP$ is an independently measured empirical
 constant from Kassab's morphometric data~\cite{kassab1993}, not a free fitting
 parameter used to match the predicted $\alpha^*$ to observations.
@@ -85,7 +106,10 @@ the porcine coronary tree ($G=\VarG$, $p=\VarP$, $\alpha_w=\VarAlphaW$, $N=\VarN
 with the network-level cost functions of Paper~II~\cite{paperII}.
 \textbf{Pure metabolic parameters} (blood cost $b$, proximal flow $Q_0$, segment
 length $\ell_0$) show $|S_x| < 0.01$, confirming metabolic gauge invariance
-(Theorem~\ref{thm:gauge}). \textbf{Structural and fluid-mechanical parameters}
+(Theorem~\ref{thm:gauge}). \chA{These are precisely the metabolic quantities
+named in the abstract: the proximal flow $Q_0$ represents cardiac output, and the
+blood metabolic cost $b$ encodes the ATP/oxygen stoichiometry; the table thus
+directly substantiates the independence claimed there.} \textbf{Structural and fluid-mechanical parameters}
 (viscosity $\mu_f$, wall metabolism $m_w$, wall exponent $p$, tree depth $G$,
 wave exponent $\alpha_w$) show moderate sensitivity ($0.04 \leq |S_x| \leq 1.2$),
 reflecting their role in defining the boundary conditions and topology of the
@@ -125,8 +149,8 @@ $\eta\to 1$) and the static transport attractor ($\alpha_t \approx
 \VarAlphaTFig$, $\eta\to 0$) are the two degenerate boundary cases of the
 unified Lagrangian $\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$. The physiological
 branching exponent $\alpha^*=\VarAlphaStar$ emerges as the unique robust minimax
-saddle point at duty cycle $\eta^*\approx\VarEtaStar$, stabilised by
-evolutionary selection pressure from both extremes. The duty cycle $\eta$ and
+saddle point at \chA{marginal-balance weight} $\eta^*\approx\VarEtaStar$, stabilised by
+evolutionary selection pressure from both extremes. The \chA{cost-mixing weight} $\eta$ and
 the branching exponent $\alpha$ exhibit a monotonic inverse relationship at the
 saddle point: increasing $\alpha$ corresponds to a shift toward metabolic
 dominance (lower $\eta$).}

@@ -12,6 +12,21 @@ Matching Criterion (Theorem~\ref{thm:kinematic_matching},
 Section~\ref{sec:womersley_minimax}), this dimensional constraint produces a
 profound qualitative shift:
 
+\chRB{The ``paradox'' that gives this section its name is a mismatch in apparent
+dimensionality \emph{within a single network}: the vessel \emph{diameters} obey a
+two-dimensional, wave-matching law ($\alpha\approx 2.0$), while the bifurcation
+\emph{angles} sit far from the planar $90^\circ$ that the same 2D fluid argument
+would suggest, hugging instead a mechanical-tension optimum. No single local
+optimization criterion can deliver both at once. The incommensurability framework
+resolves the tension by recognizing that the two features answer to
+\emph{different} channels: the diameters are fixed by the fluid/wave balance,
+which is acutely sensitive to the embedding dimension and collapses to the wave
+attractor in a plane (below), whereas the branching angles are fixed by a local
+mechanical tension equilibrium that is largely blind to that fluidic collapse.
+Diameters and angles are therefore \emph{decoupled}---exactly the
+mechanical--fluidic decoupling of the section title---and need not report the same
+effective dimension.}
+
 \subsection{Predicted Dimensional Scaling}
 
 The fluid and wave thresholds scale differently with dimension $d$:
@@ -73,8 +88,9 @@ The diameter scaling ($\alpha_{\text{obs}} \approx 2.0$--$2.7$) is consistent
 with the area-preserving attractor predicted by the 2D dimensional constraint.
 The observed mean angle $\VarAngleRetinalObs^\circ$ lies between the 3D Murray
 prediction ($\VarAngleRetinalCalcDeg^\circ$) and the 2D planar limit
-($90^\circ$), offset from the latter by only $\VarAngleRetinalOffset /
-\VarAngleRetinalSD \approx 0.20\sigma$; however, given the large biological
+($90^\circ$), \chA{departing from the 3D Murray prediction by only
+$\VarAngleRetinalOffset / \VarAngleRetinalSD \approx 0.20\sigma$ (whereas the gap
+to the planar $90^\circ$ limit is $0.63\sigma$)}; however, given the large biological
 variance ($\sigma = \VarAngleRetinalSD^\circ$), the angular data do not
 discriminate between the two predictions. The high variance likely reflects
 stochastic angiogenesis in vivo, where local biochemical gradients (VEGF, shear
@@ -83,12 +99,18 @@ stress) obscure the geometric signal at individual junctions.
 \subsection{Effective Viscous Limit and the Fåhræus-Lindqvist Effect}
 
 An additional subtlety arises from the reduction of apparent blood viscosity in
-small vessels (Fåhræus-Lindqvist effect). In retinal capillaries ($r <
-10\,\mu\text{m}$), the effective viscosity drops by $\sim 30\%$, shifting the
-effective transport exponent from $\alpha_t = 3.0$ (Murray) to
-$\alpha_{\text{eff}} \approx \VarAlphaFahraeusEff$. This places retinal diameter
-scaling between the wave attractor ($\alpha_w = 2.0$) and the corrected viscous
-limit ($\alpha_{\text{eff}} = \VarAlphaFahraeusEff$), further confirming the
+narrow vessels---the Fåhræus-Lindqvist effect. \chA{Fåhræus and
+Lindqvist~\cite{fahraeuslindqvist1931} showed that the apparent viscosity of
+blood departs from Poiseuille's law in tubes below a diameter of $\sim 0.3$\,mm,
+falling to roughly half of its large-tube value by a diameter of $\sim
+30\,\mu$m \emph{in vitro}.} In the still narrower retinal microvessels this
+reduction lowers the effective transport exponent below \chA{the classical Murray
+value ($\alpha = 3.0$)} toward $\alpha_{\text{eff}} \approx \VarAlphaFahraeusEff$
+\chA{(a conservative \emph{in-vivo} estimate, as apparent viscosity in living
+microvessels is attenuated relative to the glass-tube measurements
+of~\cite{fahraeuslindqvist1931})}. This places retinal diameter scaling between
+the wave attractor ($\alpha_w = 2.0$) and the corrected viscous limit
+($\alpha_{\text{eff}} = \VarAlphaFahraeusEff$), consistent with the
 transition-regime interpretation.
 
 Taken together, the retinal data provide a case study in which the diameter

@@ -1,10 +1,10 @@
 # The Incommensurability Principle in Biological Transport
 
-### A No-Go Theorem, Metabolic Gauge Invariance, and the Architectural Origin of the Minimax
+### A No-Go Proposition, Metabolic Gauge Invariance, and the Architectural Origin of the Minimax
 
 **Riccardo Marchesi** — University of Pavia
 
-**Status:** Peer review completed, all revisions applied. Full manuscript audit completed (2026-05-24)
+**Status:** Major revision in progress for *Transport Phenomena* (De Gruyter Brill). Internal audit + revision: 2026-06-20.
 
 ---
 
@@ -19,16 +19,16 @@ The framework successfully predicts:
 - **Branching exponent:** $\alpha^* \approx 2.72$ from minimax balance (vs empirical 2.70±0.20)
 - **Ontogenetic trajectory:** Testable prediction of $\alpha \approx 3.0 \to 2.7$ transition in embryonic development
 
-Three core theorems are proved:
+Three core results are proved (one proposition, two theorems):
 
-1. **No-Go Theorem** (Biologically Implausible Local Optimization): Any Lagrangian combining an extensive transport-metabolic penalty (watts) with a dimensionless wave-reflection penalty at a single junction requires a coupling parameter $\mu$ varying by $10^2$--$10^3$ across the vascular hierarchy — making a universal branching exponent $\alpha^*$ biologically implausible under local optimization.
+1. **No-Go Proposition** (Biologically Implausible Local Optimization): Any Lagrangian combining an extensive transport-metabolic penalty (watts) with a dimensionless wave-reflection penalty at a single junction requires a coupling parameter $\mu$ varying by $10^2$--$10^3$ across the vascular hierarchy — making a universal branching exponent $\alpha^*$ biologically implausible under local optimization (symmetric rules).
 
-   - **Information-theoretic corollary:** Maintaining constant $\alpha^*$ across $G$ generations requires $\sim G \log_2 N$ bits of topological information, violating Shannon's bound for local sensing.
+   - **Information-accounting corollary:** regulating a generation-dependent profile requires only the generation index ($\sim \log_2 G$ bits); the obstruction is that this index is *non-local* — it cannot be reconstructed from purely local hemodynamic ratios — not a Shannon channel-capacity bound.
 2. **Metabolic Gauge Invariance**: The unique dimensionless network-level transport penalty consistent with scale invariance, positivity, and the linear thermodynamics of entropy production is the fractional excess cost $\mathcal{C}_\mathrm{transport}^\mathrm{net} = (\Phi_\mathrm{net} - \Phi_\mathrm{opt})/\Phi_\mathrm{opt}$. All alternatives, including logarithmic measures, violate thermodynamic linearity.
 
    - **Extensivity caveat:** Linearity follows from extensivity OR Onsager near-equilibrium regime OR physiological near-optimality.
    - **Gauge terminology:** Global metabolic scaling symmetry, distinct from field theory gauge symmetries (U(1), SU(2)).
-3. **Architectural Invariance**: The minimax duty cycle $\eta^*$ is an exact invariant of the network's allometric class, strictly orthogonal to absolute metabolic scales — resolving the ontogenetic paradox of stable vascular geometry throughout growth.
+3. **Architectural Invariance**: The minimax saddle weight $\eta^*$ is an exact invariant of the network's allometric class, strictly orthogonal to absolute metabolic scales — resolving the ontogenetic paradox of stable vascular geometry throughout growth.
 
    - **Cross-Class Transition:** Body mass crossing $M^* \approx 0.8\,$g triggers viscous→wave transition.
 
@@ -42,13 +42,12 @@ A corollary recovers Papers I and II as the degenerate boundary cases $\eta \to 
 | ---------------------------------- | ------------------------------------------------------------- | ------------------------------------ |
 | Critical Womersley number          | $\mathrm{Wo}_c = \sqrt{3} \approx 1.732$                    | Kinematic Matching Criterion         |
 | Allometric transition mass         | $M^* \approx 0.8\,$g                                        | Theorem 3 (Cross-Class Transition)   |
-| Symmetric minimax prediction       | $\alpha^* \approx 2.626$ (Womersley-rigorous)               | Section 7 (Model Hierarchy)          |
-| Geometric reflection model         | $\alpha^* \approx 2.65$                                     | Section 7 (Model Hierarchy)          |
+| Symmetric minimax prediction       | $\alpha^* \approx 2.629$ (Womersley-rigorous)               | Section 7 (Model Hierarchy)          |
 | Large-mammal empirical             | $\alpha^* \approx 2.72$                                     | Kassab et al. 1993                   |
-| $\mu$ variation (local coupling) | $10^2$--$10^3$                                            | Theorem 1 (No-Go)                    |
-| Information-theoretic bound        | $I \sim G \log_2 N$ bits                                    | Corollary (No-Go)                    |
+| $\mu$ variation (local coupling) | $10^2$--$10^3$                                            | Proposition 1 (No-Go)                |
+| Information-accounting argument    | generation index, $\sim \log_2 G$ bits (non-local)         | Corollary (No-Go)                    |
 | Unique admissible functional       | $(\Phi_\mathrm{net} - \Phi_\mathrm{opt})/\Phi_\mathrm{opt}$ | Theorem 2 (Gauge)                    |
-| Minimax duty cycle$\eta^*$       | $\approx 0.777$                                             | Theorem 3                            |
+| Minimax saddle weight$\eta^*$    | $\approx 0.814$                                             | Theorem 3                            |
 | $\eta^*$ dependence on body mass | none (exact invariant)                                        | Theorem 3 (Architectural Invariance) |
 | Ontogenetic prediction             | $\alpha \approx 3.0 \to 2.7$ (E10→Adult)                   | Section 8 (Conclusion)               |
 | Papers I, II recovered as          | $\eta \to 0$, $\eta \to 1$ limits                         | Corollary                            |
@@ -65,8 +64,8 @@ The minimax attractor $\alpha^*$ functions as a **renormalization group fixed po
 
 Three-tier physical hierarchy explains the gap between theory and experiment:
 
-1. **Static transport optimization** (Paper I): $\alpha_t \approx 2.90$
-2. **Symmetric minimax** (this work): $\alpha^* \approx 2.626$ (Womersley-rigorous) or $2.65$ (geometric)
+1. **Static transport optimization** (Paper I): $\alpha_t \approx 2.92$
+2. **Symmetric minimax** (this work): $\alpha^* \approx 2.629$ (Womersley-rigorous)
 3. **Large-mammal empirical** (with heterogeneities): $\alpha^* \approx 2.72$
 
 The Womersley correction ($F_{10}$) accounts for $\Delta\alpha \approx 0.02$; remaining shift ($\Delta\alpha \approx 0.07$) reflects scale-dependent morphometric heterogeneities (asymmetry, taper, flow partitioning).
@@ -84,15 +83,15 @@ The Womersley correction ($F_{10}$) accounts for $\Delta\alpha \approx 0.02$; re
 **Heart rate overrides body mass:**
 
 - Mouse (20g, 600bpm): $\mathrm{Wo} = 2.5 \to \alpha^* \approx 2.60$ (viscous)
-- Hummingbird (4g, 1000bpm): $\mathrm{Wo} = 7.0 \to \alpha^* \approx 2.72$ (minimax)
-- Human (70kg, 70bpm): $\mathrm{Wo} = 6.8 \to \alpha^* \approx 2.72$ (minimax)
+- Hummingbird (4g, 1000bpm): $\mathrm{Wo} = 1.76 \to \alpha^* \approx 2.6$ (transition)
+- Human (70kg, 70bpm): $\mathrm{Wo} = 17.9 \to \alpha^* \approx 2.72$ (minimax)
 
 ### Retinal Paradox as Direct Experimental Proof
 
 The simultaneous divergence of two attractors in retinal vasculature:
 
 - **Diameters:** $\alpha \approx 2.0$ (2D wave-matching, $\mathrm{Wo}_c = \sqrt{6}$)
-- **Bifurcation angles:** $\theta \approx 71.3°$ (3D Murray equilibrium)
+- **Bifurcation angles:** $\theta \approx 75°$ (3D Murray equilibrium)
 
 This dual-attractor state is **impossible under local optimization** (would converge to single attractor) — direct experimental confirmation of the No-Go Theorem.
 
@@ -106,7 +105,7 @@ paper4-incommensurability/
 │   ├── main.tex              ← main LaTeX source (uses \input for modular sections)
 │   ├── sections/             ← modular section files (13 files)
 │   │   ├── Section-01-Introduction.tex
-│   │   ├── Section-02-No-Go-Theorem.tex
+│   │   ├── Section-02-Scaling-Conflict.tex
 │   │   ├── Section-03-Gauge-Invariance.tex
 │   │   ├── Section-04-Architectural-Invariance.tex
 │   │   ├── Section-05-Single-Mechanism-Limits.tex
@@ -224,8 +223,8 @@ Theorem 0         Kinematic Matching Criterion (Woc = √3)
                   Epistemological status: Rigorous physical theorem of self-consistency
                   Cellular mechanobiological feedback loop to be developed in Paper V
 
-Theorem 1         No-Go Theorem: Local incommensurable optimization is biologically implausible
-  Corollary 1.1   Information-theoretic bound: I ~ G log₂N bits required
+Proposition 1     No-Go: Local incommensurable optimization is biologically implausible (symmetric rules)
+  Corollary 1.1   Information-accounting: generation index (~log₂G bits) is non-locally inaccessible
 
 Theorem 2         Metabolic Gauge Invariance: Unique admissible network functional
   Remark 2.1      Extensivity caveat: linearity conditional on extensivity/Onsager/near-optimality

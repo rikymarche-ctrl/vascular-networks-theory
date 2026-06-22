@@ -1,0 +1,233 @@
+% ====================================================================
+%  RESPONSE TO REVIEWER 2
+%  Manuscript TP-1083 -- "The Incommensurability Principle in
+%  Biological Transport" -- Transport Phenomena (De Gruyter Brill)
+%  Standalone document; compile with: pdflatex Response-to-Reviewer-2
+% ====================================================================
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=red!70!black,urlcolor=red!70!black}
+
+% Reviewer 2 changes are shown in RED in the highlighted manuscript.
+\newcommand{\rtwo}[1]{\textcolor{red}{#1}}
+\newenvironment{comment}%
+  {\medskip\noindent\itshape\color{black!75}\rule{\linewidth}{0.4pt}\par\nobreak Reviewer comment.\par\nobreak}%
+  {\par\nobreak\rule{\linewidth}{0.4pt}\medskip}
+\newcommand{\response}{\par\medskip\noindent\textbf{Response.}\ }
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries Response to Reviewer 2}\\[4pt]
+Manuscript \textbf{TP-1083} --- \emph{The Incommensurability Principle in
+Biological Transport}\\
+\emph{Transport Phenomena} (De Gruyter Brill)
+\end{center}
+
+\bigskip
+\noindent We thank Reviewer~2 for an exceptionally detailed and constructive
+review. The four points raised have led to substantive additions that make the
+theory's assumptions explicit, broaden and sharpen its empirical test, and
+improve its accessibility. Below we reproduce each comment (paraphrased
+faithfully from the report) and detail our response. \textbf{All changes
+prompted by Reviewer~2 are typeset in \rtwo{red} in the highlighted copy of the
+manuscript.}
+
+\bigskip
+\hrule
+\bigskip
+
+% --------------------------------------------------------------------
+\noindent\textbf{Comment 1 --- Assumptions and alternatives.}
+\begin{comment}
+The derivations rest on assumptions---evolutionary optimisation, informational
+constraints, metabolic fitness landscapes---that are not uniquely guaranteed.
+The paper should add an explicit discussion of these assumptions and of the
+possible alternatives, even where empirical tests are not always feasible.
+\end{comment}
+
+\response We have added a dedicated closing subsection to the Discussion,
+``\rtwo{Underlying Assumptions and Alternative Hypotheses}'' (Section~7,
+\texttt{sec:assumptions}), that makes explicit the five load-bearing assumptions
+and, for each, states the principal alternative and---where one exists---the
+observation that would discriminate between them:
+\begin{enumerate}[label=(A\arabic*),leftmargin=2.2em,itemsep=2pt,topsep=3pt]
+  \item \textbf{Optimality}, vs.\ developmental canalisation, physical
+        self-organisation, and neutral evolution. We note that
+        self-organisation is not in opposition to optimality---local
+        shear-homeostatic remodelling (Hu \& Cai; Ronellenfitsch \& Katifori)
+        converges to the same optimum, so it is the \emph{mechanism} and the
+        minimax the \emph{target}---whereas the genetic-blueprint alternative is
+        the explicit falsification target of the ontogenetic transition test.
+  \item \textbf{Minimax vs.\ average-case.} We acknowledge an honest
+        non-uniqueness: a broad-prior Bayesian (expected-cost) optimum converges
+        to nearly the same $\alpha^*$, so the two are hard to separate with
+        present data. We adopt the minimax as the more conservative,
+        assumption-light choice, requiring no commitment to a particular
+        activity prior.
+  \item \textbf{Informational bound}, vs.\ long-range biological coordination or
+        genetic pre-specification---the former constrained by the phase-lag
+        blind spot of Section~2.
+  \item \textbf{Metabolic cost currency}, vs.\ other selective currencies
+        (developmental robustness, fatigue life, thermoregulation, repair,
+        reproduction). This is mitigated by the parameter-independence
+        (Topological Rigidity) result, and multi-currency organs (e.g.\ the
+        kidney) are shown to fall \emph{outside} the two-channel minimax by
+        construction.
+  \item \textbf{Incommensurability itself}, vs.\ a single unified energy budget;
+        its empirical signature is the dual-attractor structure.
+\end{enumerate}
+A closing ``Epistemic status'' paragraph states plainly which assumptions are
+falsifiable, which are supported, which delimit the domain, and which (A2)
+cannot currently be separated from its leading alternative.
+\emph{Location:} Section~7, \rtwo{red}.
+
+% --------------------------------------------------------------------
+\bigskip
+\noindent\textbf{Comment 2 --- Broader empirical validation.}
+\begin{comment}
+Strengthen and broaden the empirical tests of the Incommensurability Principle
+and of the minimax attractor across a wider diversity of biological systems
+(beyond the present set of networks).
+\end{comment}
+
+\response Rather than padding the validation table with low-resolution or
+speculative entries---which would weaken rather than strengthen the case---we
+have reframed the existing $27$-network catalogue as what it actually is: a
+discriminating, parameter-free, cross-kingdom test of the principle's central
+prediction, namely that the realised exponent must track \emph{which}
+incommensurable cost channels are physically active. We added (Section~6,
+``Independent Datasets'', \rtwo{red}, with a twin framing paragraph in
+Supplemental Section~S6) an explicit statement of the sorting rule:
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
+  \item non-pulsatile networks---botanical xylem, airways, leaf venation, slime
+        mold, mycelium, quasi-static venous return (ten systems, all observed in
+        $2.80$--$3.15$)---at the viscous attractor $\alpha_t\to 3.0$;
+  \item pulsatile mammalian arteries at the minimax $\alpha^*\approx 2.7$;
+  \item wave-dominated or planar ($d=2$) networks near $\alpha_w\to 2.0$.
+\end{itemize}
+The sorting holds across three biological kingdoms (animal, plant,
+fungal/protist), both embedding dimensions, and pathological states---a span no
+single-attractor law (Murray's $\alpha=3$ or area-preserving $\alpha=2$ alone)
+can reproduce---and is falsifiable in two directions: a non-pulsatile network at
+$\alpha\approx 2.7$, or a high-Womersley pulsatile conduit at $\alpha\approx
+3.0$, would refute it. We also identify the most informative directions for
+extension \emph{beyond} the present set: taxa with divergent cardiac duty cycles
+(avian and reptilian circulations), invertebrate open circulatory systems, and
+engineered organ-on-chip networks with programmable pulsatility.
+
+% --------------------------------------------------------------------
+\bigskip
+\noindent\textbf{Comment 3 --- Uniqueness of the linear cost functional
+(central point).}
+\begin{comment}
+The claim that the linear fractional excess is the \emph{unique} admissible cost
+functional must be supported more rigorously: explicitly consider alternative
+cost formulations, assess their limitations, and justify excluding them in
+favour of the linear form.
+\end{comment}
+
+\response This is the central methodological point, and we have addressed it
+directly. Arguments that were previously scattered through the text (the
+exclusion of the logarithm, the weighted-Jensen consistency condition, and
+non-substitutability) are now consolidated into a single new Supplemental
+subsection, ``\rtwo{Systematic Exclusion of Alternative Cost Functionals}''
+(Section~S7, \texttt{sec:S7\_alternatives}). It states four admissibility
+requirements,
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em,itemsep=1pt,topsep=2pt]
+  \item scale invariance,
+  \item compositional (weighted-Jensen) consistency,
+  \item Onsager linear response near the optimum,
+  \item non-substitutability of the two cost channels,
+\end{enumerate}
+and tests six candidate functionals against them in a summary table
+(\texttt{tab:cost\_alternatives}): the linear $x-1$, quadratic $(x-1)^2$,
+logarithmic $\ln x$, power-law $x^q-1$, an absolute-threshold form, and a
+multiplicative $\mathcal{C}_{\mathrm{wave}}\cdot\mathcal{C}_{\mathrm{transport}}$.
+Only the linear excess satisfies all four; each alternative fails at least one
+(the quadratic, logarithmic, and power-law forms violate compositional
+consistency and Onsager linearity; the absolute-threshold form breaks scale
+invariance; the multiplicative form violates non-substitutability). We state
+explicitly that linearity is therefore \emph{forced} by the four requirements,
+and can be relaxed only by rejecting one of them---which we frame as a concrete
+falsification target. A pointer to Section~S7 was added at the
+non-substitutability remark in Section~3. \emph{Location:} Section~S7 and
+Section~3, \rtwo{red}.
+
+% --------------------------------------------------------------------
+\bigskip
+\noindent\textbf{Comment 4 --- Expository density.}
+\begin{comment}
+Several formal constructs in Sections~2--6 are introduced too quickly; expand
+the intermediate steps and add deeper biological interpretation of the formal
+results.
+\end{comment}
+
+\response We have carried out a systematic accessibility pass, working through
+the manuscript one section at a time from the beginning and inserting
+plain-language ``bridge'' passages wherever a formal construct was previously
+introduced too quickly. Each bridge either supplies a missing intermediate step
+or gives the biological/physical meaning of a formal result, and adds text
+without removing or altering the original derivations. The new passages are:
+\begin{itemize}[leftmargin=1.4em,itemsep=3pt,topsep=2pt]
+  \item \textbf{Section~1 (Introduction).} A word-level reading of the Kinematic
+        Matching theorem (the Womersley number as a ``switch'': viscous resistors
+        below $\mathrm{Wo}_c$, pulsatile waveguides above it; two thresholds
+        $\Rightarrow$ incommensurability), placed between the theorem statement
+        and its proof; and a short gloss of what an \emph{evanescent mode} is.
+  \item \textbf{Section~2 (the no-go proposition).} A bricklayer analogy stating,
+        in plain terms, what the proposition claims---that a purely local rule
+        cannot keep the whole tree scale-free because it would need the
+        non-local generation index---which also motivates Step~3 of the proof.
+        (The intermediate derivation of the cost ratio $\Lambda(r)\propto r^{2}$
+        from the gradient scalings of Step~1 was likewise made explicit.)
+  \item \textbf{Section~3 (gauge / ATP).} Three bridges: (i)~reconciling the
+        ``absolute'' and ``fractional'' cost statements via within- versus
+        across-organism comparison; (ii)~a plain reading of the Onsager-linearity
+        theorem (linear in fractional waste, quadratic in geometric deviation);
+        and (iii)~a gloss of what the weighted-Jensen equation actually demands
+        (boundary-independent scoring of subsystems).
+  \item \textbf{Section~4 (architectural invariance).} A ``game against Nature''
+        framing of the minimax (the network picks the geometry, an adversary
+        picks the worst operating weight, the saddle is the geometry immune to
+        that choice), plus a one-line intuition for the envelope-theorem step.
+  \item \textbf{Section~5 (single-mechanism limits).} A paragraph giving the
+        physiological meaning of the two limits: the static limit as the regime
+        of small and non-pulsatile vessels (Murray's law), the wave limit as
+        large conduit arteries (area-preserving impedance matching), and the
+        interior minimax as the mid-calibre pulsatile beds that morphometry
+        actually samples.
+  \item \textbf{Section~6 (architectural transition).} A plain-language account
+        of the phase decoupling: because the wave responds to the square root of
+        the fluid admittance, the fluid and the wave ``switch on'' at different
+        body sizes, so they can never match simultaneously---the concrete meaning
+        of incommensurability. (The intermediate algebra of the intermediate
+        step $\Lambda(r)\propto r^2$ noted above complements this.)
+  \item \textbf{Section~9 (retinal paradox).} An explicit up-front statement of
+        the paradox (two-dimensional diameter scaling but non-planar bifurcation
+        angles within one network) and of its resolution by mechanical--fluidic
+        decoupling.
+\end{itemize}
+We deliberately left Sections~7 and~8 unchanged: as synthesis and conclusion they
+are already discursive and carry extensive interpretive remarks, so adding
+further exposition there would be padding rather than clarification.
+\emph{Location:} Sections~1--6 and~9, \rtwo{red}.
+
+% --------------------------------------------------------------------
+\bigskip
+\hrule
+\bigskip
+\noindent\textbf{Closing.} We thank Reviewer~2 again: the manuscript is
+substantially clearer and better bounded. Beyond the reviewer-driven changes
+(\rtwo{red}), the highlighted copy also marks a set of author-initiated
+refinements (magenta), including a corrected citation (the
+Fåhræus--Lindqvist viscosity figure, re-stated to match the source) and
+consistent disambiguation of previously overloaded symbols ($\eta_d$, the
+cardiac duty cycle, vs.\ $\eta$, the cost-mixing weight; and $\beta$, the
+branching ratio, vs.\ $\beta_M$, the metabolic scaling exponent).
+
+\end{document}

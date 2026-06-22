@@ -28,6 +28,19 @@ symmetry (e.g., via taper or asymmetric branching) to achieve scalable local
 optimization.
 \end{proposition}
 
+\chRB{Intuitively, the proposition says that a vessel acting on local information
+alone cannot keep the \emph{entire} tree scale-free. Picture a bricklayer asked
+to build a self-similar pattern that must look the same whether the wall ends up
+one metre or one kilometre tall, but who can see only the brick in hand and its
+immediate neighbours. To place each brick correctly the bricklayer would need to
+know how far up the wall it sits---a global quantity. The vascular counterpart of
+``height up the wall'' is the generation depth $g$, and the only way to infer it
+from local cues is through the absolute vessel size, which in turn requires
+knowing the size of the root (aortic) vessel. As Step~3 of the proof shows, that
+root scale is precisely the piece of information a downstream junction cannot
+recover from local measurements---which is why a strictly local, symmetric rule
+must fail.}
+
 \begin{remark}[Biological Resolution via Structural Heterogeneity]
 Real vascular networks resolve this strict bound through structural
 heterogeneity: asymmetric branching ratios, diameter taper, and wall elasticity
@@ -51,7 +64,13 @@ continuous domain of radii, $\mathcal{F}$ must dynamically adjust its internal
 coupling weights to perfectly cancel the shifting physical ratio $\Lambda(r) =
 \mathcal{C}_{\mathrm{wave}}/\mathcal{C}_{\mathrm{visc}} \propto r^2$. This
 compensation requires the explicit local computation of the topological depth
-$g$.
+$g$. \chRB{This $r^{2}$ growth is a direct consequence of Step~(1): a viscous
+dissipation gradient scaling as $\mathcal{O}(r^{-5})$ integrates to a cost
+$\mathcal{C}_{\mathrm{visc}}\propto r^{-4}$, while the $\mathcal{O}(r^{-3})$ wave
+gradient integrates to $\mathcal{C}_{\mathrm{wave}}\propto r^{-2}$; their ratio
+therefore grows as $\Lambda(r) = \mathcal{C}_{\mathrm{wave}}/\mathcal{C}_{\mathrm{visc}}
+\propto r^{-2}/r^{-4} = r^{2}$, so a vessel ten times wider sees the wave penalty
+inflated a hundredfold relative to the viscous one.}
 
 \textbf{(3) Information Asymmetry.} Computing $g$ from local geometric
 parameters requires inverting the network scaling law $g \propto \log(r_0/r_g)$.
@@ -163,28 +182,30 @@ with explicit $g$-encoding. Such mechanisms are not observed in mature mammalian
 vasculature, confirming the necessity of global optimization.
 \end{corollary}
 
-\begin{corollary}[Information-Theoretic Bound]
+\begin{corollary}[Information-Accounting Argument]
 \label{cor:information}
-Maintaining a constant branching exponent $\alpha^*$ across $G$ hierarchical
-generations requires access to topological information scaling as $I \sim G
-\log_2 N$ bits, encoding the root-to-periphery radius ratio $\log_2(r_0/r_G)$.
-Local sensing restricted to nearest-neighbor communication cannot access this
-non-local invariant without violating Shannon's communication bound for
-distributed systems with finite-bandwidth signaling.
+\chA{Setting a generation-dependent profile that holds $\alpha^*$ constant
+requires each junction to know only its own \emph{generation index} $g$---one of
+$G$ levels, carrying at most $\log_2 G$ bits. The obstruction is therefore not
+the \emph{magnitude} of this information (which is modest) but its
+\emph{non-local} character: the generation index is a global label that cannot
+be reconstructed from purely local hemodynamic measurements.}
 \end{corollary}
 
 \begin{proof}
-In a symmetric tree of branching factor $N$ and depth $G$, the number of
-distinct root-to-leaf paths is $N^G$. To uniquely identify the topological level
-$g$ of a given junction, one must specify which of the $N^g$ possible paths from
-the root leads to it. By Shannon's source coding theorem, this requires at least
-$I(g) = \log_2(N^g) = g \log_2 N$ bits of information.
-
-Local impedance measurements provide only the \emph{ratio}
-$Z_{\text{local}}/Z_{\text{ref}}$, which depends on $r_g/r_0$ but cannot
-determine $r_0$ without upstream information. The topological shielding of
-upstream signals (Proposition~\ref{thm:nogo}) prevents access to this
-information, confirming the bound.
+\chA{To regulate the wall profile $\mu(g)$ a junction need not resolve its full
+root-to-node address (which would cost $g\log_2 N$ bits); it requires only the
+scalar generation index $g$, i.e.\ $\log_2 G$ bits. However, a junction senses
+only local quantities (pressure, flow, wall shear) and hence only \emph{ratios}
+such as $Z_{\text{local}}/Z_{\text{neighbour}}$, which depend on $r_g/r_{g\pm1}$
+but are invariant under a global rescaling of the tree. Determining the absolute
+level $g$ (equivalently the radius ratio $r_0/r_g$) thus requires information
+that is absent from any local ratio; by the topological shielding of upstream
+signals (Proposition~\ref{thm:nogo}) it is also not transmitted from the root.
+The generation index is therefore informationally inaccessible to local control,
+\emph{independently} of how few bits it nominally encodes---it is the
+non-locality, not a Shannon channel-capacity bound, that forbids local
+optimization.}
 \end{proof}
 
 The vascular tree avoids this informational burden by converging to a

@@ -9,14 +9,16 @@
 \usepackage{amsmath,amssymb}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{enumitem}
+\usepackage{microtype}
 \usepackage{hyperref}
+\setlength{\emergencystretch}{2em}
 \hypersetup{colorlinks=true,linkcolor=red!70!black,urlcolor=red!70!black}
 
 % Reviewer 2 changes are shown in RED in the highlighted manuscript.
 \newcommand{\rtwo}[1]{\textcolor{red}{#1}}
 \newenvironment{comment}%
-  {\medskip\noindent\itshape\color{black!75}\rule{\linewidth}{0.4pt}\par\nobreak Reviewer comment.\par\nobreak}%
-  {\par\nobreak\rule{\linewidth}{0.4pt}\medskip}
+  {\par\medskip\noindent\itshape\color{black!75} Reviewer comment.\par\nobreak}%
+  {\par\nobreak\noindent\rule{\linewidth}{0.4pt}\medskip}
 \newcommand{\response}{\par\medskip\noindent\textbf{Response.}\ }
 
 \begin{document}
@@ -33,11 +35,9 @@ Biological Transport}\\
 points raised have led to substantive additions that make the theory's
 assumptions explicit, broaden and sharpen its empirical test, and improve its
 accessibility. Below we reproduce each comment (paraphrased from the report) and
-detail our response. \textbf{Changes prompted by Reviewer~2 are typeset in
-\rtwo{red} in the highlighted copy of the manuscript.} For reference, the
-highlighted copy uses a distinct colour per source, as the editor requested: blue
-for Reviewer~1, \rtwo{red} for Reviewer~2, green for editorial requests, and
-magenta for author-initiated refinements.
+detail our response. The highlighted copy uses a distinct colour per source, as
+the editor requested: blue for Reviewer~1, \rtwo{red} for Reviewer~2, green for
+editorial requests, and magenta for author-initiated refinements.
 
 \bigskip
 \hrule
@@ -46,15 +46,23 @@ magenta for author-initiated refinements.
 % --------------------------------------------------------------------
 \noindent\textbf{Comment 1 --- Assumptions and alternatives.}
 \begin{comment}
-The derivations rest on assumptions---evolutionary optimisation, informational
-constraints, metabolic fitness landscapes---that are not uniquely guaranteed.
-The paper should add an explicit discussion of these assumptions and of the
-possible alternatives, even where empirical tests are not always feasible.
+This manuscript introduces an original and mathematically rigorous theoretical
+framework to account for the conserved branching exponent in biological
+transport networks, constituting a substantive extension of the authors'
+previous work. Although the framework is mathematically sophisticated and
+internally consistent, several components would benefit from further
+clarification and empirical validation.
+
+Several key derivations rest on assumptions---evolutionary optimisation,
+informational constraints, metabolic fitness landscapes---that, while
+biologically plausible, may not be uniquely warranted. A more extensive
+discussion of these assumptions and their possible alternatives would be
+valuable.
 \end{comment}
 
 \response We have added a dedicated closing subsection to the Discussion,
-``\rtwo{Underlying Assumptions and Alternative Hypotheses}'' (Section~7,
-\texttt{sec:assumptions}), that makes explicit the five load-bearing assumptions
+``\rtwo{Underlying Assumptions and Alternative Hypotheses}'' (Section~7),
+that makes explicit the five load-bearing assumptions
 and, for each, states the principal alternative and---where one exists---the
 observation that would discriminate between them:
 \begin{enumerate}[label=(A\arabic*),leftmargin=2.2em,itemsep=2pt,topsep=3pt]
@@ -65,8 +73,7 @@ observation that would discriminate between them:
         converges to the same optimum, so it is the \emph{mechanism} and the
         minimax the \emph{target}---whereas the genetic-blueprint alternative is
         the explicit falsification target of the ontogenetic transition test.
-  \item \textbf{Minimax vs.\ average-case.} We acknowledge an honest
-        non-uniqueness: a broad-prior Bayesian (expected-cost) optimum converges
+  \item \textbf{Minimax vs.\ average-case.} We acknowledge a genuine identifiability limitation: a broad-prior Bayesian (expected-cost) optimum converges
         to nearly the same $\alpha^*$, so the two are hard to separate with
         present data. We adopt the minimax as the more conservative,
         assumption-light choice, requiring no commitment to a particular
@@ -86,9 +93,11 @@ observation that would discriminate between them:
 A closing ``Epistemic status'' paragraph states plainly which assumptions are
 falsifiable, which are supported, which delimit the domain, and which (A2)
 cannot currently be separated from its leading alternative.
-\emph{Location:} Section~7, \rtwo{red}.
+\emph{Location:} Section~7.
 
 % --------------------------------------------------------------------
+\bigskip
+\hrule
 \bigskip
 \noindent\textbf{Comment 2 --- Broader empirical validation.}
 \begin{comment}
@@ -97,13 +106,13 @@ and of the minimax attractor across a wider diversity of biological systems
 (beyond the present set of networks).
 \end{comment}
 
-\response Rather than padding the validation table with low-resolution or
-speculative entries---which would weaken rather than strengthen the case---we
-have reframed the existing $27$-network catalogue as what it actually is: a
-discriminating, parameter-free, cross-kingdom test of the principle's central
-prediction, namely that the realised exponent must track \emph{which}
-incommensurable cost channels are physically active. We added (Section~6,
-``Independent Datasets'', \rtwo{red}, with a twin framing paragraph in
+\response We agree that empirical scope is central. We have therefore
+strengthened the empirical framing of the existing $27$-network catalogue,
+making explicit that it constitutes a discriminating, parameter-free,
+cross-kingdom test of the principle's central prediction: that the realised
+exponent tracks \emph{which} incommensurable cost channels are physically
+active. We added (Section~6, ``Independent Datasets'', with a twin framing
+paragraph in
 Supplemental Section~S6) an explicit statement of the sorting rule:
 \begin{itemize}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
   \item non-pulsatile networks---botanical xylem, airways, leaf venation, slime
@@ -124,6 +133,8 @@ engineered organ-on-chip networks with programmable pulsatility.
 
 % --------------------------------------------------------------------
 \bigskip
+\hrule
+\bigskip
 \noindent\textbf{Comment 3 --- Uniqueness of the linear cost functional
 (central point).}
 \begin{comment}
@@ -138,7 +149,7 @@ directly. Arguments that were previously scattered through the text (the
 exclusion of the logarithm, the weighted-Jensen consistency condition, and
 non-substitutability) are now consolidated into a single new Supplemental
 subsection, ``\rtwo{Systematic Exclusion of Alternative Cost Functionals}''
-(Section~S7, \texttt{sec:S7\_alternatives}). It states four admissibility
+(Section~S7). It states four admissibility
 requirements,
 \begin{enumerate}[label=(\roman*),leftmargin=2.2em,itemsep=1pt,topsep=2pt]
   \item scale invariance,
@@ -146,27 +157,30 @@ requirements,
   \item Onsager linear response near the optimum,
   \item non-substitutability of the two cost channels,
 \end{enumerate}
-and tests six candidate functionals against them in a summary table
-(\texttt{tab:cost\_alternatives}): the linear $x-1$, quadratic $(x-1)^2$,
+and tests six candidate functionals against them in a summary table: the linear $x-1$, quadratic $(x-1)^2$,
 logarithmic $\ln x$, power-law $x^q-1$, an absolute-threshold form, and a
 multiplicative $\mathcal{C}_{\mathrm{wave}}\cdot\mathcal{C}_{\mathrm{transport}}$.
 Only the linear excess satisfies all four; each alternative fails at least one
 (the quadratic, logarithmic, and power-law forms violate compositional
 consistency and Onsager linearity; the absolute-threshold form breaks scale
 invariance; the multiplicative form violates non-substitutability). We state
-explicitly that linearity is therefore \emph{forced} by the four requirements,
-and can be relaxed only by rejecting one of them---which we frame as a concrete
-falsification target. A pointer to Section~S7 was added at the
+explicitly that, within these four admissibility requirements, the linear excess
+is the only surviving form; relaxing any one of them is a concrete falsification
+target. A pointer to Section~S7 was added at the
 non-substitutability remark in Section~3. \emph{Location:} Section~S7 and
-Section~3, \rtwo{red}.
+Section~3.
 
 % --------------------------------------------------------------------
+\bigskip
+\hrule
 \bigskip
 \noindent\textbf{Comment 4 --- Expository density.}
 \begin{comment}
 Several formal constructs in Sections~2--6 are introduced too quickly; expand
 the intermediate steps and add deeper biological interpretation of the formal
-results.
+results. Notwithstanding these concerns, the manuscript offers a significant
+contribution to the theoretical understanding of adaptive biological transport
+networks and their emergent scaling properties.
 \end{comment}
 
 \response We have carried out a systematic accessibility pass, working through
@@ -214,15 +228,17 @@ without removing or altering the original derivations. The new passages are:
         angles within one network) and of its resolution by mechanical--fluidic
         decoupling.
 \end{itemize}
-We deliberately left Sections~7 and~8 unchanged: as synthesis and conclusion they
-are already discursive and carry extensive interpretive remarks, so adding
-further exposition there would be padding rather than clarification. In the
+Apart from the new assumptions subsection described above (Comment~1),
+we did not add further expository bridge passages to Sections~7 and~8: as
+synthesis and conclusion they are already discursive and carry extensive
+interpretive remarks, so additional exposition there would be padding rather
+than clarification. In the
 Supplemental Material, whose detailed derivations are reference material, we added
 a single orienting sentence at the head of the densest sections---the admittance
 expansion (S1), the structural-residual decomposition (S3), and the thin-wall
 limit (S5)---stating what each establishes and why, without altering any
 derivation. \emph{Location:} Sections~1--6 and~9 of the main text, and
-Supplemental Sections~S1, S3, S5, \rtwo{red}.
+Supplemental Sections~S1, S3, S5.
 
 % --------------------------------------------------------------------
 \bigskip
@@ -230,7 +246,7 @@ Supplemental Sections~S1, S3, S5, \rtwo{red}.
 \bigskip
 \noindent\textbf{Closing.} These changes leave the manuscript clearer and better
 bounded. Beyond the reviewer-driven changes
-(\rtwo{red}), the highlighted copy also marks a set of author-initiated
+(shown in red), the highlighted copy also marks a set of author-initiated
 refinements (magenta), including a corrected citation (the
 Fåhræus--Lindqvist viscosity figure, re-stated to match the source) and
 consistent disambiguation of previously overloaded symbols ($\eta_d$, the

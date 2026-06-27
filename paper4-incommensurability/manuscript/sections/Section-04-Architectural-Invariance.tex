@@ -58,14 +58,29 @@ $C_{\mathrm{wave}}$ \chA{has $\partial^2 C_{\mathrm{wave}}/\partial\alpha^2 > 0$
 throughout the physiological range (verified below), hence is convex there,} with
 a unique minimum at $\alpha_w$. The
 domains $[\alpha_w, \alpha_t]$ and $[0,1]$ are compact, and
-$\mathcal{L}_{\mathrm{net}}$ is continuous. By Sion's minimax
-theorem~\cite{sion1958}\chA{, whose quasi-convexity hypothesis is satisfied
-\emph{a fortiori} by this convexity}, a saddle point
-exists. Detailed numerical verification (Supplemental Material, Table S1)
-confirms that the Hessian $\partial^2
-\mathcal{C}_{\mathrm{wave}}/\partial\alpha^2 > 0$ throughout the physiological
-range $\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$, satisfying Sion's condition
-for existence and uniqueness of the saddle point.
+$\mathcal{L}_{\mathrm{net}}$ is continuous. \chA{Because
+$\mathcal{L}_{\mathrm{net}}$ is linear in $\eta$, the worst-case cost is attained
+at an endpoint,
+\begin{equation*}
+  \max_{\eta\in[0,1]}\mathcal{L}_{\mathrm{net}}(\alpha,\eta)
+  = \max\!\bigl(\mathcal{C}_{\mathrm{wave}}(\alpha),\,
+                \mathcal{C}_{\mathrm{transport}}(\alpha)\bigr),
+\end{equation*}
+the pointwise maximum of two convex functions and hence itself convex in
+$\alpha$, so its minimum over the compact interval $[\alpha_w,\alpha_t]$ exists.
+Since $\mathcal{C}_{\mathrm{wave}}$ increases away from $\alpha_w$ whereas
+$\mathcal{C}_{\mathrm{transport}}$ decreases toward $\alpha_t$ on
+$[\alpha_w,\alpha_t]$, and the two costs cross exactly once in the interior, this
+minimiser is unique and satisfies the equal-cost condition
+$\mathcal{C}_{\mathrm{wave}}(\alpha^*)=\mathcal{C}_{\mathrm{transport}}(\alpha^*)$,
+giving the saddle point $(\alpha^*,\eta^*)$. The affine-in-$\eta$,
+convex-in-$\alpha$ structure thus reduces existence and uniqueness of the saddle
+to elementary convex analysis, with no appeal to the general
+quasiconvex--quasiconcave minimax theorem.} Detailed
+numerical verification (Supplemental Material, Table S1) confirms that the
+\chA{scalar} Hessian $\partial^2 \mathcal{C}_{\mathrm{wave}}/\partial\alpha^2 > 0$ throughout
+the physiological range $\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$,
+\chA{securing the convexity on which this argument rests.}
 
 Uniqueness follows from the \textbf{strict convexity} of
 $\mathcal{C}_{\mathrm{transport}}$ and the \textbf{strict monotonicity} of the
@@ -84,14 +99,17 @@ yields:
     / \partial \alpha|} \right)^{-1}.
     \label{eq:eta_star}
 \end{equation}
-By the envelope theorem, the maximization over $\eta$ in the saddle-point
-problem requires $\partial\mathcal{L}_{\mathrm{net}}/\partial\eta = 0$ at the
-optimum, which directly implies the equal-cost condition
-$\mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha^*) =
-\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*)$. \chRB{This is the
+\chA{Because $\mathcal{L}_{\mathrm{net}}$ is affine in $\eta$, an interior saddle
+with $\eta^*\in(0,1)$ can occur only when the maximiser is indifferent between the
+two endpoint costs; equivalently,
+\begin{equation*}
+  \frac{\partial\mathcal{L}_{\mathrm{net}}}{\partial\eta}
+  = \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha^*)
+  - \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*) = 0,
+\end{equation*}
+which is the equal-cost condition.} \chRB{This is the
 formal counterpart of the game intuition above: at the saddle the adversary is
-indifferent to $\eta$ precisely because the two costs coincide, so the
-$\eta$-derivative vanishes and the equal-cost condition follows automatically.}
+indifferent to $\eta$ precisely because the two costs coincide.}
 This equivalence
 ensures that the emergent \chA{marginal-balance weight} $\eta^*$ effectively balances
 the two incommensurable penalties. The numerator derives from the acoustic impedance
@@ -134,13 +152,11 @@ demonstrating that the minimax solution is the inevitable physical attractor
 within these constraints.
 \end{remark}
 
-\begin{remark}[Quasi-Convexity Verification: Physical and Numerical]
+\begin{remark}[Convexity Verification: Physical and Numerical]
 \label{rem:quasiconvex}
-The application of Sion's minimax theorem requires that
-$\mathcal{C}_{\mathrm{wave}}(\alpha)$ be quasi-convex in $\alpha$ for each fixed
-$\eta$. \chA{We establish the stronger property that $\mathcal{C}_{\mathrm{wave}}$
-is \emph{convex} over the physiological range---which implies the quasi-convexity
-Sion requires---through the following} physical and numerical arguments:
+\chA{Existence and uniqueness of the saddle in Theorem~\ref{thm:arch} require only
+that $\mathcal{C}_{\mathrm{wave}}(\alpha)$ be convex in $\alpha$ for each fixed
+$\eta$. We establish this} through the following physical and numerical arguments:
 
 \textbf{Physical argument.} The wave-reflection cost measures impedance mismatch
 at vascular junctions. The wave attractor exponent $\alpha_w = 2$ emerges from
@@ -169,9 +185,9 @@ are observed. The transport cost $\mathcal{C}_{\mathrm{transport}}(\alpha)$ is
 power-law form in viscous dissipation). \chA{Since $\mathcal{C}_{\mathrm{wave}}$
 is convex over the physiological range and $\mathcal{C}_{\mathrm{transport}}$ is
 strictly convex, their non-negative combination
-$\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ is convex in $\alpha$; Sion's
-quasi-convexity requirement is therefore met \emph{a fortiori},} ensuring
-existence of the saddle point. The
+$\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ is convex in $\alpha$, so the
+convex-envelope argument of Theorem~\ref{thm:arch} yields a unique saddle
+point.} The
 minimax equal-cost condition $f(\alpha^*) = g(\alpha^*)$ is verified without
 free parameters (Paper~III~\cite{paperIII}): for the porcine coronary tree,
 solving this balance yields $\alpha^* = 2.77$, consistent with the morphometric

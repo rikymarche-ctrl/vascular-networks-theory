@@ -24,13 +24,13 @@ $\Phi_{\mathrm{opt}} \to \lambda\Phi_{\mathrm{opt}}$ where $\lambda \in
 \mathbb{R}^+$. To satisfy this invariance while maintaining allometric scale
 independence (i.e., a dimensionless penalty that allows a shrew and a whale to
 be governed by the same adaptive rules), the functional must take the form of a
-fractional excess. \chE{The linear penalty is therefore not merely a modeling choice under these assumptions}, but a
-consequence grounded in ATP stoichiometry and constrained by the first law of
-thermodynamics.
+fractional excess. \chE{The linear penalty is therefore not merely a modeling
+choice under these assumptions}, but a consequence grounded in ATP stoichiometry
+and constrained by the first law of thermodynamics.
 
 \chRB{It is worth pausing on an apparent tension between the two statements just
-made---that the cost is proportional to the \emph{absolute} energetic excess, yet
-must take the form of a \emph{fractional} excess. The two are reconciled by
+made---that the cost is proportional to the \emph{absolute} energetic excess,
+yet must take the form of a \emph{fractional} excess. The two are reconciled by
 separating \emph{within}-organism from \emph{across}-organism comparisons. At a
 fixed body size the penalty is linear in the absolute excess power, because ATP
 is charged watt by watt; but across body sizes spanning five orders of magnitude
@@ -38,32 +38,34 @@ in absolute metabolism, selection can act only on the \emph{dimensionless}
 excess, so the absolute power must be normalized by the organism's own optimum
 $\Phi_{\mathrm{opt}}$. The fractional excess
 $(\Phi-\Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$ is the unique form that is
-simultaneously linear in the wasted power \emph{and} carries the same meaning for
-a shrew and a whale.}
+simultaneously linear in the wasted power \emph{and} carries the same meaning
+for a shrew and a whale.}
 
 \subsection{Thermodynamic Linearity and the Physical Occam's Razor}
 
 The linear form of the cost functional $F = (\Phi - \Phi^*)/\Phi^*$ is not an
-arbitrary mathematical choice, but a \chE{direct consequence within the stated thermodynamic approximation} of oxidative
-phosphorylation stoichiometry and near-equilibrium thermodynamics. At the
-cellular level, excess fluidic dissipation is paid in units of ATP. Because this
-metabolic accounting is strictly additive---one extra Joule of dissipated
-physical work requires a strictly proportional increase in oxidative
-metabolism---the evolutionary fitness penalty must scale linearly with excess
-entropy production. Imposing non-linear penalties (e.g., quadratic or
-logarithmic) would imply unphysical non-stoichiometric metabolic costs,
-equivalent to postulating ``compound interest'' on ATP molecules.
+arbitrary mathematical choice, but a \chE{direct consequence within the stated
+thermodynamic approximation} of oxidative phosphorylation stoichiometry and
+near-equilibrium thermodynamics. At the cellular level, excess fluidic
+dissipation is paid in units of ATP. Because this metabolic accounting is
+strictly additive---one extra Joule of dissipated physical work requires a
+strictly proportional increase in oxidative metabolism---the evolutionary
+fitness penalty must scale linearly with excess entropy production. Imposing
+non-linear penalties (e.g., quadratic or logarithmic) would imply unphysical
+non-stoichiometric metabolic costs, equivalent to postulating ``compound
+interest'' on ATP molecules.
 
 Furthermore, numerical sensitivity analysis \chA{shows} that imposing artificial
 non-linear penalties alters the theoretical attractor $\alpha^*$ by less than
-$0.3\%$. \chE{These} alternative penalties are merely
-counterfactual numerical robustness tests, \chE{less admissible under the four criteria used here}. Their negligible impact is the signature of Prigogine's minimum
-entropy production principle in the Onsager regime: because the evolutionary
-attractor is strongly confining, the mature vascular network operates in the
-immediate vicinity of the fundamental physical lower bound ($\Phi \to \Phi^*$).
-\chA{In this near-optimal regime, the fitness penalty is governed by the excess
-dissipation $\Delta\Phi=\Phi-\Phi^*$, in which it is linear; since the optimum is
-a stationary point ($\nabla\Phi(\vec{x}^*)=0$), $\Delta\Phi$ is in turn quadratic
+$0.3\%$. \chE{These} alternative penalties are merely counterfactual numerical
+robustness tests, \chE{less admissible under the four criteria used here}. Their
+negligible impact is the signature of Prigogine's minimum entropy production
+principle in the Onsager regime: because the evolutionary attractor is strongly
+confining, the mature vascular network operates in the immediate vicinity of the
+fundamental physical lower bound ($\Phi \to \Phi^*$). \chA{In this near-optimal
+regime, the fitness penalty is governed by the excess dissipation
+$\Delta\Phi=\Phi-\Phi^*$, in which it is linear; since the optimum is a
+stationary point ($\nabla\Phi(\vec{x}^*)=0$), $\Delta\Phi$ is in turn quadratic
 in the configurational deviation $\delta\vec{x}$.}
 
 Finally, the Gauge Invariance (normalization by the intrinsic absolute minimum
@@ -80,8 +82,8 @@ We formalize this thermodynamic necessity as a first-order response principle:
 Consider a vascular network characterized by a state vector $\vec{x} = (r_0,
 \ldots, r_G, \alpha, \beta)$ describing vessel radii and branching exponents.
 Let $\vec{x}^*$ be the configuration minimizing total dissipation
-$\Phi(\vec{x})$ subject to morphometric constraints (fixed total volume
-\chE{and hierarchical connectivity}).
+$\Phi(\vec{x})$ subject to morphometric constraints (fixed total volume \chE{and
+hierarchical connectivity}).
 
 For small deviations $\delta\vec{x} = \vec{x} - \vec{x}^*$ from the optimum, the
 fitness penalty $\mathcal{L}_{\mathrm{fitness}}$ associated with increased
@@ -177,8 +179,8 @@ using $f(1) = 0$. Setting $f'(1) = 1$ (absorbing into $\lambda_{\mathrm{bio}}$):
 \begin{remark}[Robustness of Linearization in Physiological Regime]
 Empirical morphometry (Murray exponent $\alpha = 2.39 \pm 0.15$,
 meta-analysis~\cite{taylor2024}) suggests $\|\delta\vec{x}\|/\|\vec{x}^*\|
-\lesssim 0.1$, \chA{supporting} operation in the linear response regime. Explicit
-calculation for the human vasculature at $\alpha = 2.39$ yields:
+\lesssim 0.1$, \chA{supporting} operation in the linear response regime.
+Explicit calculation for the human vasculature at $\alpha = 2.39$ yields:
 \begin{equation}
     \frac{\Delta\Phi}{\Phi_{\mathrm{opt}}} =
     \frac{\Phi(2.39) - \Phi(2.33)}{\Phi(2.33)} \approx 0.18\text{--}0.22,
@@ -203,10 +205,9 @@ Before establishing the full scale-invariant functional, we prove that the
 additivity (extensivity) of metabolic costs, when assumed, selects the linear
 penalty functional as the uniquely consistent form. This \textbf{Canonical
 Selection} provides a strong theoretical anchor for the exactness of the
-results, though \chE{alternative} functionals are numerically
-near-degenerate: the logarithmic penalty shifts $\alpha^*$ by $\Delta \alpha^*
-\approx -0.004$, while the quadratic case yields $\Delta \alpha^* \approx
-+0.007$.
+results, though \chE{alternative} functionals are numerically near-degenerate:
+the logarithmic penalty shifts $\alpha^*$ by $\Delta \alpha^* \approx -0.004$,
+while the quadratic case yields $\Delta \alpha^* \approx +0.007$.
 
 \textbf{Biological justification for extensivity.} In evolutionary biology,
 fitness costs associated with quantitative traits are commonly assumed to be
@@ -299,8 +300,8 @@ to draw the boundary between subsystems, which is physically meaningless.}
 This is \chA{the \emph{weighted Jensen (affinity) equation}: the condition
 obtained when Jensen's inequality is required to hold with equality for all
 weights $w_A,w_B$, not the classical midpoint Jensen equation
-$F\!\left(\tfrac{x+y}{2}\right)=\tfrac{F(x)+F(y)}{2}$.} Assuming $F$ is differentiable,
-differentiating both sides with respect to $x_A$ yields:
+$F\!\left(\tfrac{x+y}{2}\right)=\tfrac{F(x)+F(y)}{2}$.} Assuming $F$ is
+differentiable, differentiating both sides with respect to $x_A$ yields:
 \begin{equation}
     w_A F'(w_A x_A + w_B x_B) = w_A F'(x_A).
 \end{equation}
@@ -545,8 +546,8 @@ absolute $\theta$) would require a biologically privileged reference scale
 impose scale-freeness as the simplest hypothesis consistent with observation.
 Alternative formulations introducing absolute thresholds
 $\theta_0(\mathrm{taxon})$ could be tested if future data reveal systematic
-species-specific deviations from $M^{3/4}$ scaling; current evidence \chA{shows} no
-such structure.
+species-specific deviations from $M^{3/4}$ scaling; current evidence \chA{shows}
+no such structure.
 \end{remark}
 
 \begin{remark}[Heart Rate as External Control Parameter]
@@ -570,9 +571,9 @@ plays the role of a natural gauge: it is intrinsic to the network, transforms
 homogeneously with $\vec{\theta}$, and produces the unique invariant ratio.
 Paper~III~\cite{paperIII} rigorously derives the metabolic scaling exponent
 \chA{$\beta_M(\alpha,d) = d\alpha/(2d+\alpha)$ (the organismal metabolic
-exponent, not to be confused with the branching ratio $\beta$)} from proximal dominance (Theorem~1),
-showing that scale invariance uniquely maps local branching geometry to global
-organismal scaling laws.
+exponent, not to be confused with the branching ratio $\beta$)} from proximal
+dominance (Theorem~1), showing that scale invariance uniquely maps local
+branching geometry to global organismal scaling laws.
 \end{remark}
 
 \begin{remark}[Gauge Invariance vs.\ Dimensional Homogeneity]
@@ -601,9 +602,9 @@ analysis, which would permit any function $F(\Phi/\Phi_{\mathrm{opt}})$.
 \begin{remark}[Gauge Invariance vs.\ Field Theory Gauge]
 \label{rem:gauge_terminology}
 The term ``scale invariance'' here refers to the freedom to choose the reference
-scale $\Phi_{\mathrm{opt}}$ as the \chA{metabolic normalization}—analogous to fixing the
-zero of the electrostatic potential in classical electrodynamics, not to local
-gauge symmetries (U(1), SU(2)) of field theory. The invariance
+scale $\Phi_{\mathrm{opt}}$ as the \chA{metabolic normalization}—analogous to
+fixing the zero of the electrostatic potential in classical electrodynamics, not
+to local gauge symmetries (U(1), SU(2)) of field theory. The invariance
 $\mathcal{C}(\Lambda\vec{\theta}) = \mathcal{C}(\vec{\theta})$ is a \emph{global
 scaling symmetry} that, combined with normalization $F(1)=0$, uniquely
 determines the functional form—precisely the role of gauge-fixing in physics.
@@ -628,9 +629,9 @@ of Paper~II~\cite{paperII} \chA{supports} the saddle point $\alpha^* =
 spread $\Delta\alpha^* = 0.008$. \chRB{A systematic test of the most natural
 alternative functional \emph{forms}---quadratic, logarithmic, power-law, and
 absolute-threshold---against scale invariance, compositional consistency,
-Onsager linearity, and non-substitutability, \chA{supporting} the conclusion that the linear excess
-is the \chA{admissible choice under the stated assumptions}, is provided in the Supplemental Material
-(Section~S7).}
+Onsager linearity, and non-substitutability, \chA{supporting} the conclusion
+that the linear excess is the \chA{admissible choice under the stated
+assumptions}, is provided in the Supplemental Material (Section~S7).}
 \end{remark}
 
 \begin{remark}[Third Commensurable Costs]

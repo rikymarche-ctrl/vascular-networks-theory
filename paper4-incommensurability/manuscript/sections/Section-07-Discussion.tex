@@ -6,16 +6,16 @@
 
 Before detailing the biological and clinical implications of the
 Incommensurability Principle, we first synthesize the logical progression that
-\chA{motivates} the minimax framework. We then explore how this theoretical foundation
-resolves long-standing paradoxes in vascular biology and helps explain the
-architectural divergence across species.
+\chA{motivates} the minimax framework. We then explore how this theoretical
+foundation resolves long-standing paradoxes in vascular biology and helps
+explain the architectural divergence across species.
 
 \subsection{Why Minimax? Theoretical \chA{Rationale} and Biological Interpretation}
 
 The minimax formulation of Paper~II is not an arbitrary mathematical framework
-but a \chA{structural rationale motivated by} the three theorems established in this
-work. Understanding this \chA{rationale} requires connecting the mathematical results
-to their biological implementation.
+but a \chA{structural rationale motivated by} the three theorems established in
+this work. Understanding this \chA{rationale} requires connecting the
+mathematical results to their biological implementation.
 
 \paragraph{Three-Step Logical \chA{Rationale}.}
 
@@ -29,34 +29,36 @@ observed invariance of vascular geometry throughout
 growth~\cite{kassab1993,huang1996}. This eliminates single-junction optimization
 and \chA{points to} a network-level framework.
 
-\textbf{Step 2: From Theorem~\ref{thm:gauge} (Gauge Invariance).} The dimensionless
-linear-excess network-level penalty functional,
+\textbf{Step 2: From Theorem~\ref{thm:gauge} (Gauge Invariance).} The
+dimensionless linear-excess network-level penalty functional,
 $\mathcal{C}_{\mathrm{transport}}^\mathrm{net} = (\Phi_{\mathrm{net}} -
 \Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$, is dimensionless and permits direct
 comparison with the wave-reflection cost
 $\mathcal{C}_{\mathrm{wave}}^\mathrm{net}$. However, these two incommensurable
 penalties must be weighted to form a single optimization objective. This
 introduces the \chA{cost-mixing weight $\eta$ (physiologically motivated by the
-cardiac duty cycle $\eta_d$)}, yielding the
-network Lagrangian of Eq.~\eqref{eq:lagrangian_net}. At this stage, $\eta$ is a
-\emph{\chA{undetermined cost-mixing coordinate}} whose value is unspecified by the theory.
+cardiac duty cycle $\eta_d$)}, yielding the network Lagrangian of
+Eq.~\eqref{eq:lagrangian_net}. At this stage, $\eta$ is a
+\emph{\chA{undetermined cost-mixing coordinate}} whose value is unspecified by
+the theory.
 
 \textbf{Step 3: From Theorem~\ref{thm:arch} (Architectural Invariance).} The
-\chA{marginal-balance weight} $\eta^*$ is an exact architectural invariant, independent of body
-mass $M$ and metabolic scaling exponents. This invariance is possible \emph{only
-if} $\eta$ is \emph{determined by} rather than \emph{input to} the optimization.
-If $\eta$ were fixed exogenously and $\alpha$ optimized for that particular
-value, otherwise changes in $\eta$ (due to heart rate, allometric scale, or
-physiological load) would induce corresponding changes in $\alpha^*(\eta)$,
-violating the observed morphometric stability. Instead, the minimax structure
-simultaneously determines both the optimal morphology $(\alpha^*, \beta^*)$ and
-the emergent \chA{marginal-balance weight} $\eta^*$ such that marginal penalties balance.
-\chA{Here the cardiac duty cycle $\eta_d = t_\mathrm{systole}/T_\mathrm{cycle} \in
-[0.30, 0.50]$ is the physiological quantity whose envelope motivates the
-wave/transport weighting, and the minimax $\alpha^*$ is robust to its variation;
-the emergent weight $\eta^* \approx \VarEtaStar$ of Eq.~\eqref{eq:eta_star} is a
-\emph{derived} diagnostic---the weight at which the marginal costs balance at the
-saddle---and is therefore not constrained to the duty-cycle range.}
+\chA{marginal-balance weight} $\eta^*$ is an exact architectural invariant,
+independent of body mass $M$ and metabolic scaling exponents. This invariance is
+possible \emph{only if} $\eta$ is \emph{determined by} rather than \emph{input
+to} the optimization. If $\eta$ were fixed exogenously and $\alpha$ optimized
+for that particular value, otherwise changes in $\eta$ (due to heart rate,
+allometric scale, or physiological load) would induce corresponding changes in
+$\alpha^*(\eta)$, violating the observed morphometric stability. Instead, the
+minimax structure simultaneously determines both the optimal morphology
+$(\alpha^*, \beta^*)$ and the emergent \chA{marginal-balance weight} $\eta^*$
+such that marginal penalties balance. \chA{Here the cardiac duty cycle $\eta_d =
+t_\mathrm{systole}/T_\mathrm{cycle} \in [0.30, 0.50]$ is the physiological
+quantity whose envelope motivates the wave/transport weighting, and the minimax
+$\alpha^*$ is robust to its variation; the emergent weight $\eta^* \approx
+\VarEtaStar$ of Eq.~\eqref{eq:eta_star} is a \emph{derived} diagnostic---the
+weight at which the marginal costs balance at the saddle---and is therefore not
+constrained to the duty-cycle range.}
 
 \paragraph{Empirical Signature: Stability Under Variation.}
 
@@ -68,31 +70,32 @@ interval $[2.24, 2.54]$. While this narrow interval indicates a stable global
 convergence toward a network-level attractor, it coexists with an underlying
 structural dispersion. \chA{The} cardiac duty cycle $\chA{\eta_d} =
 t_\mathrm{systole}/T_\mathrm{cycle}$ \chA{varies} by more than 40\% across
-physiological states \chA{(}from $\chA{\eta_d} \approx 0.30$ at rest to $\chA{\eta_d} \approx 0.50$
-during exercise\chA{)}, differs systematically across species (human resting HR
-$\sim$80~bpm vs.~macaque $\sim$200~bpm), and changes ontogenetically as body
-mass increases by $10^4$-fold from embryo to adult.
+physiological states \chA{(}from $\chA{\eta_d} \approx 0.30$ at rest to
+$\chA{\eta_d} \approx 0.50$ during exercise\chA{)}, differs systematically
+across species (human resting HR $\sim$80~bpm vs.~macaque $\sim$200~bpm), and
+changes ontogenetically as body mass increases by $10^4$-fold from embryo to
+adult.
 
-\chA{Yet} the parameter subject to optimization ($\alpha$) exhibits \emph{two orders of
-magnitude less variability} than the physiological constraints it must
-accommodate ($\chA{\eta_d}$, heart rate, body mass). This is precisely the signature of
-\emph{worst-case} or \emph{minimax} optimization in robust control theory: the
-system selects a strategy that performs well across all scenarios rather than
-performing optimally in a single scenario at the cost of fragility elsewhere.
+\chA{Yet} the parameter subject to optimization ($\alpha$) exhibits \emph{two
+orders of magnitude less variability} than the physiological constraints it must
+accommodate ($\chA{\eta_d}$, heart rate, body mass). This is precisely the
+signature of \emph{worst-case} or \emph{minimax} optimization in robust control
+theory: the system selects a strategy that performs well across all scenarios
+rather than performing optimally in a single scenario at the cost of fragility
+elsewhere.
 
 \paragraph{Minimax Interpretation and Uncertainty Set.}
 
 The minimax framework is grounded in the operational variability that vascular
 networks must accommodate. \chA{The physiological envelope includes body mass,
-heart rate, and cardiac duty cycle, for example
-$M \in [0.05,100]\,\text{kg}$, $f_\mathrm{HR}\in[60,200]\,\text{bpm}$, and
+heart rate, and cardiac duty cycle, for example $M \in [0.05,100]\,\text{kg}$,
+$f_\mathrm{HR}\in[60,200]\,\text{bpm}$, and
 $\eta_d=t_\mathrm{systole}/T_\mathrm{cycle}\approx0.30\text{--}0.50$. The
 mathematical adversarial coordinate $\eta$ is not this duty cycle itself; it is
 the normalized cost-mixing coordinate induced by the operating envelope, and it
-ranges over $[0,1]$.} We now prove that
-the equal-cost condition $\mathcal{C}_{\mathrm{wave}} =
-\mathcal{C}_{\mathrm{transport}}$ is the \emph{unique} minimax saddle point of
-this problem.
+ranges over $[0,1]$.} We now prove that the equal-cost condition
+$\mathcal{C}_{\mathrm{wave}} = \mathcal{C}_{\mathrm{transport}}$ is the
+\emph{unique} minimax saddle point of this problem.
 
 \begin{proposition}[Minimax Saddle Point]
 \label{prop:minimax_saddle}
@@ -104,13 +107,14 @@ Define the network Lagrangian
 \quad \chA{\eta \in [0,1]}.
 \label{eq:minimax_lagrangian}
 \end{equation}
-Then the unique solution to \chA{$\alpha^* = \arg\min_\alpha \max_{\eta \in [0,1]} \mathcal{L}(\alpha, \eta)$} satisfies
+Then the unique solution to \chA{$\alpha^* = \arg\min_\alpha \max_{\eta \in
+[0,1]} \mathcal{L}(\alpha, \eta)$} satisfies
 $\mathcal{C}_{\mathrm{wave}}(\alpha^*) =
 \mathcal{C}_{\mathrm{transport}}(\alpha^*)$.
 \end{proposition}
 \begin{proof}
-\chA{Since $\mathcal{L}$ is linear in $\eta$ and $\eta \in [0,1]$, the adversary's
-maximum is attained at one of the two endpoints:}
+\chA{Since $\mathcal{L}$ is linear in $\eta$ and $\eta \in [0,1]$, the
+adversary's maximum is attained at one of the two endpoints:}
 \begin{equation}
 \chA{\max_{\eta \in [0,1]}} \mathcal{L}(\alpha, \eta) =
 \begin{cases}
@@ -140,14 +144,15 @@ the unique minimax saddle point:
 \end{proof}
 
 This result has a precise physical interpretation: at the minimax $\alpha^*$,
-the vascular network is \chA{\emph{robust} to physiological fluctuations represented by} the cardiac duty cycle $\chA{\eta_d}$.
-Any departure $\alpha \neq \alpha^*$ creates an asymmetry that the adversary
-(physiological variation) can exploit by shifting $\eta$ toward the dominant
-cost channel. Alternatively, this can be viewed as \textbf{Pareto optimality}
-between incommensurable regimes: any $\alpha \neq \alpha^*$ sacrifices wave
-performance ($\alpha < \alpha^*$) or transport efficiency ($\alpha > \alpha^*$)
-without improving the other, \chA{identifying} the equal-cost equilibrium as the unique
-non-dominated solution.
+the vascular network is \chA{\emph{robust} to physiological fluctuations
+represented by} the cardiac duty cycle $\chA{\eta_d}$. Any departure $\alpha
+\neq \alpha^*$ creates an asymmetry that the adversary (physiological variation)
+can exploit by shifting $\eta$ toward the dominant cost channel. Alternatively,
+this can be viewed as \textbf{Pareto optimality} between incommensurable
+regimes: any $\alpha \neq \alpha^*$ sacrifices wave performance ($\alpha <
+\alpha^*$) or transport efficiency ($\alpha > \alpha^*$) without improving the
+other, \chA{identifying} the equal-cost equilibrium as the unique non-dominated
+solution.
 
 \paragraph{Reconciliation with Pooled Human Coronary Data.}
 
@@ -159,15 +164,15 @@ viscous-dominated regime). Because the local optimal branching exponent depends
 on the Womersley number---\chA{transitioning from the wave attractor $\alpha_w
 \approx \VarAlphaW$ in the largest, wave-dominated conduits ($\mathrm{Wo} \gg
 \sqrt{3}$), through the minimax value $\alpha^* \approx \VarAlphaStar$ in the
-transition zone ($\mathrm{Wo} \sim \sqrt{3}$), to $\alpha \to 3.0$ in the viscous
-limit (arterioles)} (Section~\ref{sec:womersley_minimax})---the pooled
+transition zone ($\mathrm{Wo} \sim \sqrt{3}$), to $\alpha \to 3.0$ in the
+viscous limit (arterioles)} (Section~\ref{sec:womersley_minimax})---the pooled
 meta-analytic value necessarily \emph{mixes} these attractors in proportion to
 the sampling distribution of vessel diameters across the 1,070 sampled coronary
-trees. \chA{A diameter-weighted average spanning $\alpha_w \approx \VarAlphaW$ to
-$\alpha \to 3.0$ can fall well below the transition value $\VarAlphaStar$; the
-pooled $2.39$ specifically requires a substantial contribution from the low-$\alpha$,
-wave-dominated proximal conduits, and cannot arise from a mixture confined to the
-$[\VarAlphaStar, 3.0]$ range alone.}
+trees. \chA{A diameter-weighted average spanning $\alpha_w \approx \VarAlphaW$
+to $\alpha \to 3.0$ can fall well below the transition value $\VarAlphaStar$;
+the pooled $2.39$ specifically requires a substantial contribution from the
+low-$\alpha$, wave-dominated proximal conduits, and cannot arise from a mixture
+confined to the $[\VarAlphaStar, 3.0]$ range alone.}
 
 Our theory predicts that a \emph{generation-resolved morphometric
 analysis}---isolating only large epicardial coronary branches with diameters $>
@@ -186,38 +191,39 @@ asymmetric, lateral ``supernumerary'' vessels (acting as localized planar
 branches at roughly $90^\circ$ angles) only begin to emerge once the main
 conducting artery falls below $d \approx 1.5$~mm~\cite{burrowes2005}, which
 corresponds precisely to the physical onset of the low Womersley transition
-boundary ($\mathrm{Wo} \le \sqrt{3} \approx 1.73$). \chA{The meta-analytic pooled
-value of $2.39$ falls within the full $[\alpha_w, 3.0]$ span set by the wave and
-viscous attractors---necessarily \emph{below} the transition value $\VarAlphaStar$,
-which is consistent only with diameter-weighted sampling that draws substantially
-on the low-$\alpha$ proximal conduits.} We acknowledge that
+boundary ($\mathrm{Wo} \le \sqrt{3} \approx 1.73$). \chA{The meta-analytic
+pooled value of $2.39$ falls within the full $[\alpha_w, 3.0]$ span set by the
+wave and viscous attractors---necessarily \emph{below} the transition value
+$\VarAlphaStar$, which is consistent only with diameter-weighted sampling that
+draws substantially on the low-$\alpha$ proximal conduits.} We acknowledge that
 generation-resolved analysis stratifying the pooled dataset by Womersley number
 ($\mathrm{Wo} > 2$ for wave-dominated conduit vessels) is required to test
 whether the meta-analytic mean $\alpha = 2.39$ reflects regime mixing or
 represents a genuine discrepancy. Access to the raw morphometric data would
 resolve this question definitively.
 
-\chA{This resolution is consistent with the regime-mixing picture (Remark below):
-pooling vessels across Womersley regimes with realistic diameter distributions can
-reproduce both a sub-transition pooled mean ($\alpha_{\mathrm{pooled}} \approx
-2.4$) and the high between-study heterogeneity ($I^2 = 99\%$). Rather than
-contradicting the minimax theory, the Taylor meta-analysis is therefore compatible
-with it---though a definitive test requires Womersley-stratified raw data, because
-the diameter-weighted pooled exponent is not directly comparable to the local
-area-preserving attractor $\VarAlphaStar$.}
+\chA{This resolution is consistent with the regime-mixing picture (Remark
+below): pooling vessels across Womersley regimes with realistic diameter
+distributions can reproduce both a sub-transition pooled mean
+($\alpha_{\mathrm{pooled}} \approx 2.4$) and the high between-study
+heterogeneity ($I^2 = 99\%$). Rather than contradicting the minimax theory, the
+Taylor meta-analysis is therefore compatible with it---though a definitive test
+requires Womersley-stratified raw data, because the diameter-weighted pooled
+exponent is not directly comparable to the local area-preserving attractor
+$\VarAlphaStar$.}
 
 \paragraph{Co-Evolutionary Interpretation.}
 
 The minimax saddle point represents the evolutionary equilibrium of
-\emph{heart-vessel co-optimization}. The heart determines the cardiac duty cycle $\chA{\eta_d}$
-through its contractile dynamics and pacing frequency; the vasculature
-determines the branching morphology $(\alpha, \beta)$ through \chE{angiogenesis and
-remodeling}. Neither subsystem can unilaterally improve performance
-without coordinated adjustment of the other. The saddle-point condition is the
-formal statement of this mutual optimality: marginal changes in vascular
-geometry or cardiac timing are equally costly, indicating that the system has
-reached a configuration where further adaptation by either component alone is
-disadvantageous.
+\emph{heart-vessel co-optimization}. The heart determines the cardiac duty cycle
+$\chA{\eta_d}$ through its contractile dynamics and pacing frequency; the
+vasculature determines the branching morphology $(\alpha, \beta)$ through
+\chE{angiogenesis and remodeling}. Neither subsystem can unilaterally improve
+performance without coordinated adjustment of the other. The saddle-point
+condition is the formal statement of this mutual optimality: marginal changes in
+vascular geometry or cardiac timing are equally costly, indicating that the
+system has reached a configuration where further adaptation by either component
+alone is disadvantageous.
 
 \paragraph{Ontogenetic Stability Paradox Resolved.}
 
@@ -232,10 +238,11 @@ absolute scales. Indeed, developmental interventions in early embryonic stages
 (such as vitelline artery ligation in chick embryos~\cite{lucitti2005})
 demonstrate that hemodynamic alterations immediately trigger rapid, active
 vascular remodeling of diameters and mechanical properties to restore shear
-stress and impedance equilibria, \chA{supporting the interpretation} that the minimax attractor acts as a
-dynamic homeostatic target during ontogeny. The \chA{marginal-balance weight} $\eta^*$ is not a
-physiological input but an \emph{architectural invariant} emerging from the
-dimensionless ratios in the network Lagrangian.
+stress and impedance equilibria, \chA{supporting the interpretation} that the
+minimax attractor acts as a dynamic homeostatic target during ontogeny. The
+\chA{marginal-balance weight} $\eta^*$ is not a physiological input but an
+\emph{architectural invariant} emerging from the dimensionless ratios in the
+network Lagrangian.
 
 
 \paragraph{Contrast with Single-Objective Optimization.}
@@ -270,22 +277,24 @@ high $I^2$ captures the systematic variance between studies sampling different
 functional levels of the tree.
 \end{remark}
 
-Theorem~\ref{thm:gauge} identifies a \chA{scale-invariant escape} from this constraint:
-lifting the optimization to the network level, where both cost functions become
-dimensionless fractional excesses. \chA{Under the stated assumptions}, this is not merely a modelling convenience; it is
-the \chA{normalization} consistent with scale invariance and thermodynamic
+Theorem~\ref{thm:gauge} identifies a \chA{scale-invariant escape} from this
+constraint: lifting the optimization to the network level, where both cost
+functions become dimensionless fractional excesses. \chA{Under the stated
+assumptions}, this is not merely a modelling convenience; it is the
+\chA{normalization} consistent with scale invariance and thermodynamic
 linearity. The analogy with gauge theories in physics is \chA{heuristic, not
-formal---a global scaling symmetry rather than the local gauge symmetry of
-field theory (cf.\ Remark~\ref{rem:gauge_terminology}):} just as
-electrodynamics is \chA{constrained} to be scale-invariant by the requirement that physical
+formal---a global scaling symmetry rather than the local gauge symmetry of field
+theory (cf.\ Remark~\ref{rem:gauge_terminology}):} just as electrodynamics is
+\chA{constrained} to be scale-invariant by the requirement that physical
 observables be independent of the choice of potential, biological transport
-optimization is \chA{constrained} to be metabolically scale-invariant by the requirement
-that architectural decisions be independent of absolute physiological scale.
+optimization is \chA{constrained} to be metabolically scale-invariant by the
+requirement that architectural decisions be independent of absolute
+physiological scale.
 
 Theorem~\ref{thm:arch} reveals the deepest consequence: once both costs are
 scale-invariant, their minimax balance $\eta^*$ becomes an architectural
-eigenvalue of the allometric class --- \chA{robust} to the fluctuations of body mass,
-metabolic rate, and haemodynamic load that characterize ontogenesis. This
+eigenvalue of the allometric class --- \chA{robust} to the fluctuations of body
+mass, metabolic rate, and haemodynamic load that characterize ontogenesis. This
 explains why $\alpha^*$ is conserved across developmental stages: not because
 the organism actively maintains it, but because the minimax saddle point is
 topologically stable under metabolic perturbations.
@@ -294,12 +303,12 @@ topologically stable under metabolic perturbations.
 
 \chA{This subsection develops an \emph{interpretive} analogy with the
 renormalization group (RG). The vocabulary of fixed points, relevant and
-irrelevant variables, and universality classes is used heuristically to
-organize the model's scale behaviour; we do not construct a formal RG
-transformation for vascular networks, and the parallel should be read as a
-guide to intuition rather than as a theorem. The finite-size correction
-$\alpha^*(G)$ below is, by contrast, a genuine consequence of the saddle-point
-curvature and is stated as a quantitative prediction.}
+irrelevant variables, and universality classes is used heuristically to organize
+the model's scale behaviour; we do not construct a formal RG transformation for
+vascular networks, and the parallel should be read as a guide to intuition
+rather than as a theorem. The finite-size correction $\alpha^*(G)$ below is, by
+contrast, a genuine consequence of the saddle-point curvature and is stated as a
+quantitative prediction.}
 
 The minimax attractor $\alpha^*$ functions as a \emph{renormalization group
 fixed point} under hierarchical coarse-graining transformations. When the
@@ -394,12 +403,12 @@ modes: the former leads to energetic exhaustion, while the latter leads to
 mechanical fatigue and signal degradation. Selection pressure in such systems
 does not optimize for a single performance scalar, but for the avoidance of the
 worst-case penalty across incommensurable dimensions. The minimax saddle point
-$(\alpha^*, \eta^*)$ is the \chA{configuration predicted to prevent either constraint}
-\chA{from becoming a viability bottleneck}. This explains why the same geometry persists
-across vastly different metabolic scales: it \chA{acts as a "least-worst"}
-compromise between physical laws that cannot be simplified into one another. In
-this sense, the minimax is the architectural signature of an organism evolved
-for optimal robustness rather than narrow efficiency.
+$(\alpha^*, \eta^*)$ is the \chA{configuration predicted to prevent either
+constraint} \chA{from becoming a viability bottleneck}. This explains why the
+same geometry persists across vastly different metabolic scales: it \chA{acts as
+a "least-worst"} compromise between physical laws that cannot be simplified into
+one another. In this sense, the minimax is the architectural signature of an
+organism evolved for optimal robustness rather than narrow efficiency.
 \end{remark}
 
 The framework also \chA{accounts for} the topological bifurcations observed when
@@ -410,38 +419,39 @@ transition from minimax to wave-matching is not a random shift but a
 principle thus provides a \chA{unified explanation} for the "geometric crisis"
 across different dimensional and metabolic scales.
 
-The theoretical framework \chA{reduces reliance} on phenomenological
-fitting. The derivation of the critical Womersley number $\mathrm{Wo}_c \approx
-\VarWoC$ from evanescent mode absorption at the bifurcation junction---combining
-the Navier-Stokes viscous absorption capacity ($\mathcal{Q}^{-1} =
-6/\mathrm{Wo}^2$) with the geometric scattering ratio ($E_\perp/E_\parallel =
-d-1$)---provides a physically derived threshold for the allometric transition.
-Furthermore, the empirical \chA{support} across independent vascular
-networks---from porcine coronaries to human retinal vessels and the bronchial
-tree---\chA{supports the interpretation} that the dual-attractor minimax is a broad
-organizing principle \chA{rather than a dataset-specific artifact}.
+The theoretical framework \chA{reduces reliance} on phenomenological fitting.
+The derivation of the critical Womersley number $\mathrm{Wo}_c \approx \VarWoC$
+from evanescent mode absorption at the bifurcation junction---combining the
+Navier-Stokes viscous absorption capacity ($\mathcal{Q}^{-1} = 6/\mathrm{Wo}^2$)
+with the geometric scattering ratio ($E_\perp/E_\parallel = d-1$)---provides a
+physically derived threshold for the allometric transition. Furthermore, the
+empirical \chA{support} across independent vascular networks---from porcine
+coronaries to human retinal vessels and the bronchial tree---\chA{supports the
+interpretation} that the dual-attractor minimax is a broad organizing principle
+\chA{rather than a dataset-specific artifact}.
 
 Within the class of hierarchical networks subject to a power-law transport cost
 $\Delta\Phi \propto Q^n r^{-(n+m)}$ and a dimensionless wave-reflection penalty,
-the minimax is a \chA{mathematically consistent attractor under the stated assumptions}. Whether this
-conclusion extends to other classes of incommensurable biological costs---such
-as information capacity versus structural investment in neural
-networks---requires case-specific verification that the coupling parameter $\mu$
-exhibits the requisite scale-dependence across the relevant hierarchy, and
-constitutes an open problem beyond the scope of this work.
+the minimax is a \chA{mathematically consistent attractor under the stated
+assumptions}. Whether this conclusion extends to other classes of
+incommensurable biological costs---such as information capacity versus
+structural investment in neural networks---requires case-specific verification
+that the coupling parameter $\mu$ exhibits the requisite scale-dependence across
+the relevant hierarchy, and constitutes an open problem beyond the scope of this
+work.
 
 \begin{remark}[Invariance to the Bifurcation Number $N$]
 A significant feature of the minimax attractor is its independence from the
 bifurcation number $N$. Since both the wave-matching attractor ($\alpha_w=2$)
-and the transport-metabolic attractor ($\alpha_t \approx \chA{\VarAlphaT}$) are 
+and the transport-metabolic attractor ($\alpha_t \approx \chA{\VarAlphaT}$) are
 independent of the number of daughter vessels, and the $\ln N$ terms in the cost
 gradients cancel out identically in the \chA{marginal-balance ratio}
 (Eq.~\eqref{eq:eta_star}), the branching exponent $\alpha^*$ remains an
 architectural constant for trifurcations ($N=3$, common in pulmonary networks)
 and higher-order junctions. While topological constraints (such as space-filling
-efficiency or developmental simplicity) typically favor binary branching ($N=2$),
-the incommensurability principle ensures that the branching geometry remains
-a universal constant regardless of the specific local topology.
+efficiency or developmental simplicity) typically favor binary branching
+($N=2$), the incommensurability principle ensures that the branching geometry
+remains a universal constant regardless of the specific local topology.
 \end{remark}
 
 \begin{remark}[Asymmetric Bifurcations and Chirped Lattices]
@@ -498,10 +508,10 @@ allowing the minimax attractor to emerge as a purely architectural eigenvalue.
 \begin{remark}[Wave Coherence and Transfer Matrices]
 The multiplicative wave cost model assumes incoherent reflection accumulation.
 While arterial systems exhibit high phase coherence ($kL \ll 1$),
-transfer-matrix analyses of coupled reflections \chA{indicate} that the minimax shift
-remains negligible ($|\Delta\alpha^*| < 0.01$). The incoherent model effectively
-isolates the topological branching penalty from local interference patterns,
-providing a robust structural predictor of network-wide morphometry.
+transfer-matrix analyses of coupled reflections \chA{indicate} that the minimax
+shift remains negligible ($|\Delta\alpha^*| < 0.01$). The incoherent model
+effectively isolates the topological branching penalty from local interference
+patterns, providing a robust structural predictor of network-wide morphometry.
 \end{remark}
 
 This perspective connects the present framework to the theory of robust
@@ -541,11 +551,12 @@ perturbation analysis (Section S3), the symmetric baseline is $\alpha^* \approx
 \VarAlphaHeteroBase$ (for $\alpha_w = \VarAlphaW$) or $\alpha^* \approx
 \VarAlphaHeteroBaseElastic$ (for $\alpha_w = \VarAlphaWTwo$). Applying
 physiological asymmetry ($A = \VarHeteroAsymmetryA$) and distal vessel tapering
-(\chA{a per-generation radius reduction of $\approx \VarHeteroTaperPercent\%$}) shifts these attractors by
-approximately \VarAlphaHeteroCombinedShift{} (yielding \VarAlphaHeteroCombined{}
-for rigid) or \VarAlphaHeteroCombinedElasticShift{} (yielding
-\VarAlphaHeteroCombinedElastic{} for elastic). Tapering acts as a vital
-stabilizing mechanism that keeps the network close to the wave-optimum.
+(\chA{a per-generation radius reduction of $\approx \VarHeteroTaperPercent\%$})
+shifts these attractors by approximately \VarAlphaHeteroCombinedShift{}
+(yielding \VarAlphaHeteroCombined{} for rigid) or
+\VarAlphaHeteroCombinedElasticShift{} (yielding \VarAlphaHeteroCombinedElastic{}
+for elastic). Tapering acts as a vital stabilizing mechanism that keeps the
+network close to the wave-optimum.
     \item
 \textbf{Coherent Multi-scale Physics}: The remaining small gap (from
 \VarAlphaHeteroCombinedElastic{} to the large-mammal empirical attractor
@@ -600,17 +611,18 @@ correlates with Womersley number in most mammals (larger animals have larger
 aortas and lower heart rates, yielding higher $\mathrm{Wo}_0$), cardiac
 frequency can override this scaling. The hummingbird provides a critical test
 case: despite its tiny mass ($M \approx 4\,$g), its extreme heart rate ($f_H
-\approx 1000\,$bpm) \chA{places it at the fluid--wave transition
-($\mathrm{Wo}_0 \approx 1.76$, just above the threshold $\sqrt{3}$), predicting $\alpha^* \approx 2.6$
-(Table~\ref{tab:hummingbird}), in the transition range and comparable to large mammals}
-despite the 10,000-fold mass difference, \chA{supporting} the Womersley number---not
-mass---as the \chA{architectural control parameter}. For typical mammals with
-allometric heart-rate scaling ($f_H \propto M^{-1/4}$), the predicted trend is
-$\alpha^* \approx \VarAlphaHeteroBase$ near the transition mass $M^* \approx
-\VarMStar\,$g, rising to $\alpha^* \approx \VarAlphaStar$--$2.75$ in large
-mammals as morphometric heterogeneities accumulate. Meta-analysis of coronary
-morphometry across the mammalian mass range (mouse $25\,$g to elephant
-$4000\,$kg) can test this Womersley-driven prediction.
+\approx 1000\,$bpm) \chA{places it at the fluid--wave transition ($\mathrm{Wo}_0
+\approx 1.76$, just above the threshold $\sqrt{3}$), predicting $\alpha^*
+\approx 2.6$ (Table~\ref{tab:hummingbird}), in the transition range and
+comparable to large mammals} despite the 10,000-fold mass difference,
+\chA{supporting} the Womersley number---not mass---as the \chA{architectural
+control parameter}. For typical mammals with allometric heart-rate scaling ($f_H
+\propto M^{-1/4}$), the predicted trend is $\alpha^* \approx
+\VarAlphaHeteroBase$ near the transition mass $M^* \approx \VarMStar\,$g, rising
+to $\alpha^* \approx \VarAlphaStar$--$2.75$ in large mammals as morphometric
+heterogeneities accumulate. Meta-analysis of coronary morphometry across the
+mammalian mass range (mouse $25\,$g to elephant $4000\,$kg) can test this
+Womersley-driven prediction.
 
 \subsection{Global Consequences: The Dynamic Origin of Kleiber's Law}
 
@@ -639,11 +651,11 @@ toward the Poiseuille/Murray viscous attractor ($\alpha \to 3.0$).
 Because the large, proximal conduit vessels \chA{(the aorta and great arteries,
 where $\mathrm{Wo} \gg \sqrt{3}$ and $\alpha \approx 2.0$---to be distinguished
 from the mid-calibre coronary and pulmonary beds at $\mathrm{Wo} \sim \sqrt{3}$
-that morphometric studies typically sample at $\alpha \approx 2.7$)} contain over
-$70\text{--}80\%$ of the total blood volume, the global scaling of the total
-vascular volume—and thus the metabolic scaling $b$ of the entire organism—is
-mathematically dominated by the wave attractor limit ($\alpha \to 2.0$), yielding
-the classical $b = 3/4$ Kleiber's Law.
+that morphometric studies typically sample at $\alpha \approx 2.7$)} contain
+over $70\text{--}80\%$ of the total blood volume, the global scaling of the
+total vascular volume—and thus the metabolic scaling $b$ of the entire
+organism—is mathematically dominated by the wave attractor limit ($\alpha \to
+2.0$), yielding the classical $b = 3/4$ Kleiber's Law.
 
 Conversely, the local average exponents measured in specific vascular beds, such
 as the coronary or pulmonary networks ($\alpha \approx 2.60\text{--}2.80$),
@@ -670,9 +682,10 @@ tomography (HiP-CT) of intact human organs by Walsh \textit{et
 al.}~\cite{walsh2021} reveals that renal arterial networks exhibit a rapid
 radial decay towards the cortex, steepening beyond the baseline resistive
 optimum. Within our framework, this is not a biological aberration but a
-\chA{physical consequence of the organ-level boundary condition}. The kidney functions not merely as a transport network, but
-as a filtration system that must intentionally impose a massive, localized
-pressure drop to drive glomerular filtration:
+\chA{physical consequence of the organ-level boundary condition}. The kidney
+functions not merely as a transport network, but as a filtration system that
+must intentionally impose a massive, localized pressure drop to drive glomerular
+filtration:
 \begin{equation}
     \Delta P = Q_0 R_{\mathrm{tot}} \ge \Delta P_{\mathrm{target}},
 \end{equation}
@@ -697,7 +710,8 @@ classical Poiseuille limit ($\alpha > 3.0$).
 \subsection{Parameter Accounting and Falsifiability}
 
 Table~\ref{tab:parameter_accounting} enumerates all framework inputs and
-outputs, \chA{distinguishing independently constrained inputs from derived outputs}.
+outputs, \chA{distinguishing independently constrained inputs from derived
+outputs}.
 
 \begin{table}[H]
 \centering
@@ -733,15 +747,16 @@ $\Delta\alpha_{\mathrm{retinal}}$ & 0.7 & This work & \textit{Predicted} \\
 \end{table}
 
 All input parameters are independently measured or anatomically fixed---no
-values were adjusted to fit $\alpha^* = 2.72$. The decomposition $\chA{\VarAlphaStarModel} \to
-2.72$ attributes each shift to a specific measured physical effect (elasticity,
-asymmetry, taper), not \chA{post-hoc fitting degrees of freedom}.
+values were adjusted to fit $\alpha^* = 2.72$. The decomposition
+$\chA{\VarAlphaStarModel} \to 2.72$ attributes each shift to a specific measured
+physical effect (elasticity, asymmetry, taper), not \chA{post-hoc fitting
+degrees of freedom}.
 
 \paragraph{Circular Validation Transparency.}
 We acknowledge a methodological limitation: the effective wall thickness scaling
 exponent $p \approx 0.77$ was derived from power-law fits to the porcine
-coronary dataset (e.g., Guo 2003 \cite{Guo2003}), which is the same tissue type used as a
-primary validation benchmark for $\alpha^*$. This creates a potential
+coronary dataset (e.g., Guo 2003 \cite{Guo2003}), which is the same tissue type
+used as a primary validation benchmark for $\alpha^*$. This creates a potential
 circularity in the symmetric model validation. \chA{This is not a benign caveat:
 $p$ is the \emph{single most sensitive} structural parameter in
 Table~\ref{tab:sensitivity} ($|S_p| \approx \VarSP$, the largest entry in the
@@ -749,20 +764,21 @@ table), so the symmetric-model value of $\alpha^*$ is partially calibrated by,
 rather than independent of, the porcine coronary dataset. The agreement between
 the symmetric prediction and porcine morphometry should therefore be read as an
 internal consistency check on that tissue, not as a fully independent
-validation.} However, this circularity does
-not affect the \emph{independent} falsifiable predictions below (hummingbird
-coronaries, neonatal transition, retinal dispersion), which depend on the
-dual-threshold framework and dimensional embedding, not on the Kassab-derived
-$p$ value. Furthermore, the Taylor et al.~(2024) meta-analysis pooling 1,070
-trees from 18 independent studies provides an external validation dataset
-completely independent of the Kassab morphometry.
+validation.} However, this circularity does not affect the \emph{independent}
+falsifiable predictions below (hummingbird coronaries, neonatal transition,
+retinal dispersion), which depend on the dual-threshold framework and
+dimensional embedding, not on the Kassab-derived $p$ value. Furthermore, the
+Taylor et al.~(2024) meta-analysis pooling 1,070 trees from 18 independent
+studies provides an external validation dataset completely independent of the
+Kassab morphometry.
 
 \paragraph{Falsifiable Predictions.}
 
 The framework generates three testable predictions:
 \begin{enumerate}
 \item
-\textbf{Hummingbird coronaries:} \chA{$M \approx 4\,$g $\Rightarrow$ $\alpha \approx 2.6$ (transition; currently no data).}
+\textbf{Hummingbird coronaries:} \chA{$M \approx 4\,$g $\Rightarrow$ $\alpha
+\approx 2.6$ (transition; currently no data).}
 \item
 \textbf{Neonatal transition:} Ontogenetic shift in $\alpha$ at $M \sim 1\,$g as
 pulsatile flow develops.
@@ -771,8 +787,8 @@ pulsatile flow develops.
 std.\ dev.\ $\sigma_\alpha \approx 0.18$ (observed: $\approx 0.18$, Hughes
 2000).
 \end{enumerate}
-\chA{These predictions are fixed once the listed inputs are specified---there is no}
-\chA{post-hoc target-exponent fit}.
+\chA{These predictions are fixed once the listed inputs are specified---there is
+no} \chA{post-hoc target-exponent fit}.
 
 \subsection{Relationship to Dynamical Network Formation Models}
 
@@ -803,68 +819,68 @@ alternative to each, and---where possible---identify the observation that would
 discriminate between them. Several have already been flagged locally: the
 metabolic parsimony assumption of Remark~\ref{rem:gauge_parsimony}, the
 robustness rationale of the evolutionary-strategy remark above, and the
-channel-distinguishability criterion of
-Remark~\ref{rem:incommensurability}. The purpose here is to collect them in one
-place and to \chA{specify} what the framework does \emph{not} establish.}
+channel-distinguishability criterion of Remark~\ref{rem:incommensurability}. The
+purpose here is to collect them in one place and to \chA{specify} what the
+framework does \emph{not} establish.}
 
 \paragraph{\chRB{(A1) Optimality.}}
 \chRB{We treat the observed morphometry as the solution of an optimization
-problem---i.e.\ we assume the vasculature sits at or near a selected optimum. The
-principal alternatives are (i)~\emph{developmental canalization}, in which the
-branching exponent is a hard-coded morphogenetic program rather than an emergent
-optimum; (ii)~\emph{physical self-organization}, in which the exponent is fixed
-by the mechanics of angiogenic growth and shear-driven remodeling independent of
-any global fitness criterion; and (iii)~\emph{neutral evolution}, in which drift
-and phylogenetic inertia, rather than selection, set the pattern. The framework
-is deliberately agnostic about \emph{mechanism}: it predicts the
+problem---i.e.\ we assume the vasculature sits at or near a selected optimum.
+The principal alternatives are (i)~\emph{developmental canalization}, in which
+the branching exponent is a hard-coded morphogenetic program rather than an
+emergent optimum; (ii)~\emph{physical self-organization}, in which the exponent
+is fixed by the mechanics of angiogenic growth and shear-driven remodeling
+independent of any global fitness criterion; and (iii)~\emph{neutral evolution},
+in which drift and phylogenetic inertia, rather than selection, set the pattern.
+The framework is deliberately agnostic about \emph{mechanism}: it predicts the
 \emph{attractor}, not the developmental route to it. Crucially, alternative~(ii)
 is not in opposition to optimality---the dynamical remodeling models of Hu \&
 Cai~\cite{hucai2013} and Ronellenfitsch \& Katifori~\cite{ronellenfitsch2016}
 show that purely local shear-homeostatic rules converge to the same global
 optimum, so self-organization supplies the \emph{mechanism} while the minimax
-supplies the \emph{target} (cf.\ the phase-lag hypothesis and the relationship to
-dynamical network-formation models discussed above). Alternative~(i), the
-genetic-blueprint hypothesis, is the one the framework genuinely contradicts, and
-it is the explicit falsification target of the ontogenetic transition test
+supplies the \emph{target} (cf.\ the phase-lag hypothesis and the relationship
+to dynamical network-formation models discussed above). Alternative~(i), the
+genetic-blueprint hypothesis, is the one the framework genuinely contradicts,
+and it is the explicit falsification target of the ontogenetic transition test
 (Conclusion, Table~\ref{tab:ontogenetic}): an exponent fixed at $\alpha^*$ from
 the earliest angiogenic stages, before wave reflections physically exist, would
 refute the optimality premise.}
 
 \paragraph{\chRB{(A2) Minimax rather than average-case objective.}}
-\chRB{We assume selection minimizes the \emph{worst-case} fractional excess across
-the physiological envelope (Proposition~\ref{prop:minimax_saddle}), not the
-expected cost. The natural alternatives are (i)~\emph{expected-cost (Bayesian)
-optimization} over a prior on operating states, which would make $\alpha^*$
-depend on that prior---and hence on species-specific activity statistics and
-ecology; (ii)~\emph{single-objective optimization} at a fixed operating point,
-which predicts $\alpha^*$ co-varying with heart rate and duty cycle $\eta_d$
-(contradicted by the observed invariance, as argued under ``Contrast with
-Single-Objective Optimization'' above); and (iii)~\emph{satisficing}, which
-predicts broad, unstructured dispersion rather than a sharp attractor. The
-empirical signature---$\alpha$ varying by roughly two orders of magnitude less
-than the physiological quantities it must accommodate---favours the minimax and
-excludes (ii) and (iii). We emphasize, however, an honest non-uniqueness: a
-Bayesian optimum~(i) computed against a broad, roughly symmetric prior over the
-same envelope converges to nearly the same $\alpha^*$. Minimax and average-case
-optimization are therefore close in their predictions and difficult to separate
-with present data; we adopt the minimax as the more conservative,
-assumption-light choice, because it requires no commitment to a particular
-activity prior.}
+\chRB{We assume selection minimizes the \emph{worst-case} fractional excess
+across the physiological envelope (Proposition~\ref{prop:minimax_saddle}), not
+the expected cost. The natural alternatives are (i)~\emph{expected-cost
+(Bayesian) optimization} over a prior on operating states, which would make
+$\alpha^*$ depend on that prior---and hence on species-specific activity
+statistics and ecology; (ii)~\emph{single-objective optimization} at a fixed
+operating point, which predicts $\alpha^*$ co-varying with heart rate and duty
+cycle $\eta_d$ (contradicted by the observed invariance, as argued under
+``Contrast with Single-Objective Optimization'' above); and
+(iii)~\emph{satisficing}, which predicts broad, unstructured dispersion rather
+than a sharp attractor. The empirical signature---$\alpha$ varying by roughly
+two orders of magnitude less than the physiological quantities it must
+accommodate---favours the minimax and excludes (ii) and (iii). We emphasize,
+however, an honest non-uniqueness: a Bayesian optimum~(i) computed against a
+broad, roughly symmetric prior over the same envelope converges to nearly the
+same $\alpha^*$. Minimax and average-case optimization are therefore close in
+their predictions and difficult to separate with present data; we adopt the
+minimax as the more conservative, assumption-light choice, because it requires
+no commitment to a particular activity prior.}
 
 \paragraph{\chRB{(A3) The informational (epistemic) bound.}}
-\chRB{Proposition~\ref{thm:nogo} assumes that a local controller cannot access the
-non-local invariants required for single-junction optimization to preserve
+\chRB{Proposition~\ref{thm:nogo} assumes that a local controller cannot access
+the non-local invariants required for single-junction optimization to preserve
 universality. The alternatives are (i)~\emph{long-range biological coordination}
 (paracrine morphogen gradients, neural or endocrine control, or slow mechanical
 signalling) that could in principle transmit the missing global information, and
-(ii)~\emph{genetic pre-specification} that bypasses real-time sensing altogether.
-Alternative~(i) is constrained by the phase-lag blind spot established in
-Section~2: the specific global quantity at issue---the phase of waves reflected
-from the network periphery---is invisible on the $\sim$10~ms timescale of
-cellular mechanotransduction, so the bound is an argument about \emph{information
-availability} that is robust to the choice of signalling modality.
-Alternative~(ii) again coincides with the genetic-blueprint hypothesis and is
-addressed by the same ontogenetic test.}
+(ii)~\emph{genetic pre-specification} that bypasses real-time sensing
+altogether. Alternative~(i) is constrained by the phase-lag blind spot
+established in Section~2: the specific global quantity at issue---the phase of
+waves reflected from the network periphery---is invisible on the $\sim$10~ms
+timescale of cellular mechanotransduction, so the bound is an argument about
+\emph{information availability} that is robust to the choice of signalling
+modality. Alternative~(ii) again coincides with the genetic-blueprint hypothesis
+and is addressed by the same ontogenetic test.}
 
 \paragraph{\chRB{(A4) Metabolic grounding of the cost currency.}}
 \chRB{We assume the fitness-relevant cost is dominated by metabolic energy, with
@@ -901,15 +917,16 @@ $\alpha_w\to\VarAlphaW$ at high Womersley number, separated by the transition at
 $\mathrm{Wo}_c$---which a single-currency theory cannot reproduce.}
 
 \paragraph{\chRB{Epistemic status.}}
-\chRB{Of these five assumptions, (A1) and (A3) are sharply falsifiable through the
-ontogenetic transition test; (A5) is supported by the existing dual-attractor
-morphometry and would be overturned only by a single-currency theory reproducing
-the same transition; (A4) is largely shielded by parameter independence but
-delimits the framework's domain, since multi-currency organs require an extended
-Lagrangian; and (A2) is the least separable from its leading alternative, because
-worst-case and broad-prior average-case optimization predict nearly the same
-attractor. We regard the explicit demarcation of what the theory assumes, what it
-predicts, and what it cannot currently distinguish as a strength rather than a
-weakness: it identifies precisely which future measurements---generation- and
-Womersley-resolved morphometry across ontogeny and across species with divergent
-activity statistics---would adjudicate among the remaining alternatives.}
+\chRB{Of these five assumptions, (A1) and (A3) are sharply falsifiable through
+the ontogenetic transition test; (A5) is supported by the existing
+dual-attractor morphometry and would be overturned only by a single-currency
+theory reproducing the same transition; (A4) is largely shielded by parameter
+independence but delimits the framework's domain, since multi-currency organs
+require an extended Lagrangian; and (A2) is the least separable from its leading
+alternative, because worst-case and broad-prior average-case optimization
+predict nearly the same attractor. We regard the explicit demarcation of what
+the theory assumes, what it predicts, and what it cannot currently distinguish
+as a strength rather than a weakness: it identifies precisely which future
+measurements---generation- and Womersley-resolved morphometry across ontogeny
+and across species with divergent activity statistics---would adjudicate among
+the remaining alternatives.}

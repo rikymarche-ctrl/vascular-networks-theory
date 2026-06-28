@@ -25,15 +25,15 @@ physiological state (rest versus exercise, growth, a changing heart rate)---then
 chooses the weight $\eta$ that makes the chosen geometry look as costly as
 possible, by tilting the balance toward whichever cost channel that geometry
 handles worst. A tree that is excellent for steady transport but reflects pulse
-waves can be punished by an adversary who emphasizes the wave channel, and a tree
-tuned to suppress reflections can be punished by one who emphasizes transport.
-The network's safest move is therefore the geometry at which the adversary's
-choice no longer matters---where the two costs are \emph{exactly equal}, so
-tilting $\eta$ in either direction changes nothing. That equal-cost geometry is
-the saddle point $(\alpha^*,\eta^*)$, and its defining property is \emph{immunity}
-to the operating weight: the architecture is optimized not for any single regime
-but against the worst case across all of them. This is the precise sense in which
-$\alpha^*$ is robust rather than fine-tuned.}
+waves can be punished by an adversary who emphasizes the wave channel, and a
+tree tuned to suppress reflections can be punished by one who emphasizes
+transport. The network's safest move is therefore the geometry at which the
+adversary's choice no longer matters---where the two costs are \emph{exactly
+equal}, so tilting $\eta$ in either direction changes nothing. That equal-cost
+geometry is the saddle point $(\alpha^*,\eta^*)$, and its defining property is
+\emph{immunity} to the operating weight: the architecture is optimized not for
+any single regime but against the worst case across all of them. This is the
+precise sense in which $\alpha^*$ is robust rather than fine-tuned.}
 
 \begin{theorem}[Architectural Invariance of the \chA{Marginal-Balance Weight}]
 \label{thm:arch}
@@ -45,9 +45,9 @@ network Lagrangian:
     + (1-\eta)\,\mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha).
     \label{eq:lagrangian_net}
 \end{equation}
-The emergent \chA{marginal-balance weight} $\eta^*$ is an exact invariant of the network's
-allometric class $\mathcal{A}(G, p, \alpha_w)$, strictly orthogonal to the
-absolute scale of the extensive metabolic parameters $\Lambda\vec{\theta}$.
+The emergent \chA{marginal-balance weight} $\eta^*$ is an exact invariant of the
+network's allometric class $\mathcal{A}(G, p, \alpha_w)$, strictly orthogonal to
+the absolute scale of the extensive metabolic parameters $\Lambda\vec{\theta}$.
 \end{theorem}
 
 \begin{proof}
@@ -55,12 +55,11 @@ The Lagrangian $\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ is affine (hence both
 convex and concave) in $\eta$ and \chA{convex} in $\alpha$ for every fixed $\eta
 \in [0,1]$: $C_{\mathrm{transport}}$ is strictly convex, while
 $C_{\mathrm{wave}}$ \chA{has $\partial^2 C_{\mathrm{wave}}/\partial\alpha^2 > 0$
-throughout the physiological range (verified below), hence is convex there,} with
-a unique minimum at $\alpha_w$. The
-domains $[\alpha_w, \alpha_t]$ and $[0,1]$ are compact, and
-$\mathcal{L}_{\mathrm{net}}$ is continuous. \chA{Because
-$\mathcal{L}_{\mathrm{net}}$ is linear in $\eta$, the worst-case cost is attained
-at an endpoint,
+throughout the physiological range (verified below), hence is convex there,}
+with a unique minimum at $\alpha_w$. The domains $[\alpha_w, \alpha_t]$ and
+$[0,1]$ are compact, and $\mathcal{L}_{\mathrm{net}}$ is continuous.
+\chA{Because $\mathcal{L}_{\mathrm{net}}$ is linear in $\eta$, the worst-case
+cost is attained at an endpoint,
 \begin{equation*}
   \max_{\eta\in[0,1]}\mathcal{L}_{\mathrm{net}}(\alpha,\eta)
   = \max\!\bigl(\mathcal{C}_{\mathrm{wave}}(\alpha),\,
@@ -70,17 +69,17 @@ the pointwise maximum of two convex functions and hence itself convex in
 $\alpha$, so its minimum over the compact interval $[\alpha_w,\alpha_t]$ exists.
 Since $\mathcal{C}_{\mathrm{wave}}$ increases away from $\alpha_w$ whereas
 $\mathcal{C}_{\mathrm{transport}}$ decreases toward $\alpha_t$ on
-$[\alpha_w,\alpha_t]$, and the two costs cross exactly once in the interior, this
-minimiser is unique and satisfies the equal-cost condition
+$[\alpha_w,\alpha_t]$, and the two costs cross exactly once in the interior,
+this minimiser is unique and satisfies the equal-cost condition
 $\mathcal{C}_{\mathrm{wave}}(\alpha^*)=\mathcal{C}_{\mathrm{transport}}(\alpha^*)$,
 giving the saddle point $(\alpha^*,\eta^*)$. The affine-in-$\eta$,
 convex-in-$\alpha$ structure thus reduces existence and uniqueness of the saddle
 to elementary convex analysis, with no appeal to the general
-quasiconvex--quasiconcave minimax theorem.} Detailed
-numerical verification (Supplemental Material, Table S1) \chA{shows} that the
-\chA{scalar} Hessian $\partial^2 \mathcal{C}_{\mathrm{wave}}/\partial\alpha^2 > 0$ throughout
-the physiological range $\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$,
-\chA{securing the convexity on which this argument rests.}
+quasiconvex--quasiconcave minimax theorem.} Detailed numerical verification
+(Supplemental Material, Table S1) \chA{shows} that the \chA{scalar} Hessian
+$\partial^2 \mathcal{C}_{\mathrm{wave}}/\partial\alpha^2 > 0$ throughout the
+physiological range $\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$, \chA{securing
+the convexity on which this argument rests.}
 
 Uniqueness follows from the \textbf{strict convexity} of
 $\mathcal{C}_{\mathrm{transport}}$ and the \textbf{strict monotonicity} of the
@@ -99,20 +98,19 @@ yields:
     / \partial \alpha|} \right)^{-1}.
     \label{eq:eta_star}
 \end{equation}
-\chA{Because $\mathcal{L}_{\mathrm{net}}$ is affine in $\eta$, an interior saddle
-with $\eta^*\in(0,1)$ can occur only when the maximiser is indifferent between the
-two endpoint costs; equivalently,
+\chA{Because $\mathcal{L}_{\mathrm{net}}$ is affine in $\eta$, an interior
+saddle with $\eta^*\in(0,1)$ can occur only when the maximiser is indifferent
+between the two endpoint costs; equivalently,
 \begin{equation*}
   \frac{\partial\mathcal{L}_{\mathrm{net}}}{\partial\eta}
   = \mathcal{C}_{\mathrm{wave}}^{\mathrm{net}}(\alpha^*)
   - \mathcal{C}_{\mathrm{transport}}^{\mathrm{net}}(\alpha^*) = 0,
 \end{equation*}
-which is the equal-cost condition.} \chRB{This is the
-formal counterpart of the game intuition above: at the saddle the adversary is
-indifferent to $\eta$ precisely because the two costs coincide.}
-This equivalence
-ensures that the emergent \chA{marginal-balance weight} $\eta^*$ effectively balances
-the two incommensurable penalties. The numerator derives from the acoustic impedance
+which is the equal-cost condition.} \chRB{This is the formal counterpart of the
+game intuition above: at the saddle the adversary is indifferent to $\eta$
+precisely because the two costs coincide.} This equivalence ensures that the
+emergent \chA{marginal-balance weight} $\eta^*$ effectively balances the two
+incommensurable penalties. The numerator derives from the acoustic impedance
 mismatch at bifurcations and is a strictly geometric function of $(G, N,
 \alpha_w, \alpha^*)$ containing no metabolic parameters.
 
@@ -126,9 +124,9 @@ respect to $\alpha$ is therefore identically gauge-invariant:
     {\partial\alpha}(\alpha; \vec{\theta}).
 \end{equation}
 In Eq.~\eqref{eq:eta_star} the watts cancel identically in the gradient ratio.
-The \chA{marginal-balance weight} $\eta^*$ is therefore a pure structural invariant,
-determined solely by $(G, p, \alpha_w)$ through the geometric evaluation of both
-derivatives at $\alpha^*$.
+The \chA{marginal-balance weight} $\eta^*$ is therefore a pure structural
+invariant, determined solely by $(G, p, \alpha_w)$ through the geometric
+evaluation of both derivatives at $\alpha^*$.
 \end{proof}
 
 \begin{remark}
@@ -148,15 +146,16 @@ flow asymmetry. Empirical values---ranging from $\alpha^* \approx
 to $\alpha^* \approx \VarAlphaStar$ in large mammals~\cite{kassab1993}---lie
 below this static bound precisely because pulsatile dynamics contribute an
 additional wave-reflection penalty missing from purely viscous optimization,
-\chA{supporting the minimax solution as the relevant physical attractor}
-within these constraints.
+\chA{supporting the minimax solution as the relevant physical attractor} within
+these constraints.
 \end{remark}
 
 \begin{remark}[Convexity Verification: Physical and Numerical]
 \label{rem:quasiconvex}
-\chA{Existence and uniqueness of the saddle in Theorem~\ref{thm:arch} require only
-that $\mathcal{C}_{\mathrm{wave}}(\alpha)$ be convex in $\alpha$ for each fixed
-$\eta$. We establish this} through the following physical and numerical arguments:
+\chA{Existence and uniqueness of the saddle in Theorem~\ref{thm:arch} require
+only that $\mathcal{C}_{\mathrm{wave}}(\alpha)$ be convex in $\alpha$ for each
+fixed $\eta$. We establish this} through the following physical and numerical
+arguments:
 
 \textbf{Physical argument.} The wave-reflection cost measures impedance mismatch
 at vascular junctions. The wave attractor exponent $\alpha_w = 2$ emerges from
@@ -187,12 +186,12 @@ is convex over the physiological range and $\mathcal{C}_{\mathrm{transport}}$ is
 strictly convex, their non-negative combination
 $\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ is convex in $\alpha$, so the
 convex-envelope argument of Theorem~\ref{thm:arch} yields a unique saddle
-point.} The
-minimax equal-cost condition $f(\alpha^*) = g(\alpha^*)$ is verified without
-\chA{fitting any parameter to the target morphometric exponent} (Paper~III~\cite{paperIII}): for the porcine coronary tree,
-solving this balance yields $\alpha^* = 2.77$, consistent with the morphometric
-average $\alpha_{\exp} = 2.70 \pm 0.20$, \chA{showing} that the network-level
-Lagrangian balances measurable first-principles costs.
+point.} The minimax equal-cost condition $f(\alpha^*) = g(\alpha^*)$ is verified
+without \chA{fitting any parameter to the target morphometric exponent}
+(Paper~III~\cite{paperIII}): for the porcine coronary tree, solving this balance
+yields $\alpha^* = 2.77$, consistent with the morphometric average
+$\alpha_{\exp} = 2.70 \pm 0.20$, \chA{showing} that the network-level Lagrangian
+balances measurable first-principles costs.
 \end{remark}
 
 \begin{remark}[Allometric vs.\ angiogenic invariance]
@@ -226,6 +225,6 @@ law ($\alpha=3$) and fixes the purely static attractor at $\alpha_t \approx
 \VarAlphaTLow-\VarAlphaTHigh$ for mammalian coronary networks. This value
 constitutes the theoretical starting point of the present framework: the
 residual gap from $\alpha_t \approx \VarAlphaTLow$ to the empirical $\alpha
-\approx \VarAlphaStar$ is a \chA{structural residual} that requires the inclusion
-of the dynamic, pulsatile minimax mechanism developed here.
+\approx \VarAlphaStar$ is a \chA{structural residual} that requires the
+inclusion of the dynamic, pulsatile minimax mechanism developed here.
 \end{remark}

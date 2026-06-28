@@ -10,7 +10,7 @@
 
 ## What this paper does
 
-This paper establishes the rigorous theoretical foundation for the network-level Lagrangian framework introduced in Paper II, proving that its structure is not a modelling convenience but a **mathematical necessity** imposed by the physical incommensurability of biological cost functions.
+This paper establishes the theoretical foundation for the network-level Lagrangian framework introduced in Paper II, arguing that its structure is not a modelling convenience but a structural consequence of the physical incommensurability of biological cost functions.
 
 The framework successfully predicts:
 
@@ -46,7 +46,7 @@ A corollary recovers Papers I and II as the degenerate boundary cases $\eta \to 
 | Large-mammal empirical             | $\alpha^* \approx 2.72$                                     | Kassab et al. 1993                   |
 | $\mu$ variation (local coupling) | $10^2$--$10^3$                                            | Proposition 1 (No-Go)                |
 | Information-accounting argument    | generation index, $\sim \log_2 G$ bits (non-local)         | Corollary (No-Go)                    |
-| Unique admissible functional       | $(\Phi_\mathrm{net} - \Phi_\mathrm{opt})/\Phi_\mathrm{opt}$ | Theorem 2 (Gauge)                    |
+| Admissible functional under stated assumptions       | $(\Phi_\mathrm{net} - \Phi_\mathrm{opt})/\Phi_\mathrm{opt}$ | Theorem 2 (Gauge)                    |
 | Minimax saddle weight$\eta^*$    | $\approx 0.814$                                             | Theorem 3                            |
 | $\eta^*$ dependence on body mass | none (exact invariant)                                        | Theorem 3 (Architectural Invariance) |
 | Ontogenetic prediction             | $\alpha \approx 3.0 \to 2.7$ (E10→Adult)                   | Section 8 (Conclusion)               |
@@ -93,7 +93,7 @@ The simultaneous divergence of two attractors in retinal vasculature:
 - **Diameters:** $\alpha \approx 2.0$ (2D wave-matching, $\mathrm{Wo}_c = \sqrt{6}$)
 - **Bifurcation angles:** $\theta \approx 75°$ (3D Murray equilibrium)
 
-This dual-attractor state is **impossible under local optimization** (would converge to single attractor) — direct experimental confirmation of the No-Go Theorem.
+This dual-attractor state is **impossible under local optimization** (would converge to single attractor) — direct experimental support for the No-Go Theorem.
 
 ---
 
@@ -153,7 +153,7 @@ cd scripts/main
 python compute.py
 ```
 
-Writes `manuscript/dynamic_variables.tex` with automatic dynamic pruning (removes orphaned macros). All values derived from first principles — no free parameters.
+Writes `manuscript/dynamic_variables.tex` with automatic dynamic pruning (removes orphaned macros). All target-exponent predictions use independently constrained inputs; no parameter is fitted to the target morphometric exponent.
 
 ### 2. Compile the paper
 
@@ -181,7 +181,7 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-**Note:** The manuscript uses a modular structure with 13 separate section files in `manuscript/sections/`. The build process handles these automatically via `\input{}` commands.
+**Build detail:** The manuscript uses a modular structure with 13 separate section files in `manuscript/sections/`. The build process handles these automatically via `\input{}` commands.
 
 ### Dependencies
 
@@ -220,17 +220,17 @@ The manuscript follows a modular organization pattern for easier editing and mai
 
 ```
 Theorem 0         Kinematic Matching Criterion (Woc = √3)
-                  Epistemological status: Rigorous physical theorem of self-consistency
+                  Epistemological status: physical matching criterion, with exact-Bessel validation
                   Cellular mechanobiological feedback loop to be developed in Paper V
 
 Proposition 1     No-Go: Local incommensurable optimization is biologically implausible (symmetric rules)
   Corollary 1.1   Information-accounting: generation index (~log₂G bits) is non-locally inaccessible
 
-Theorem 2         Metabolic Gauge Invariance: Unique admissible network functional
+Theorem 2         Metabolic Gauge Invariance: Admissible network functional under stated assumptions
   Remark 2.1      Extensivity caveat: linearity conditional on extensivity/Onsager/near-optimality
   Remark 2.2      Gauge terminology: global scaling symmetry vs field theory gauges
 
-Theorem 3         Architectural Invariance: η* is exact allometric class invariant
+Theorem 3         Architectural Invariance: η* is an allometric class invariant
   Theorem 3.2     Cross-Class Transition: M* ≈ 0.8g separates viscous/wave regimes
   Corollary 3.1   Topological Rigidity: α* independent of metabolic parameters
 

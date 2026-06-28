@@ -6,18 +6,18 @@
 
 Before detailing the biological and clinical implications of the
 Incommensurability Principle, we first synthesize the logical progression that
-mandates the minimax framework. We then explore how this theoretical foundation
-resolves long-standing paradoxes in vascular biology and dictates the
+\chA{motivates} the minimax framework. We then explore how this theoretical foundation
+resolves long-standing paradoxes in vascular biology and helps explain the
 architectural divergence across species.
 
-\subsection{Why Minimax? Theoretical Necessity and Biological Interpretation}
+\subsection{Why Minimax? Theoretical \chA{Rationale} and Biological Interpretation}
 
 The minimax formulation of Paper~II is not an arbitrary mathematical framework
-but a structural necessity mandated by the three theorems established in this
-work. Understanding this necessity requires connecting the mathematical results
+but a \chA{structural rationale motivated by} the three theorems established in this
+work. Understanding this \chA{rationale} requires connecting the mathematical results
 to their biological implementation.
 
-\paragraph{Three-Step Logical Necessity.}
+\paragraph{Three-Step Logical \chA{Rationale}.}
 
 \textbf{Step 1: From Proposition~\ref{thm:nogo} (Scaling Conflict Bound).} Local
 optimization with scale-dependent coupling $\mu(g)$ is biologically implausible.
@@ -27,10 +27,10 @@ optimization would require $\mu$ to vary by factors of $10^2$--$10^3$ across the
 vascular hierarchy, necessitating ontogenetic fine-tuning incompatible with the
 observed invariance of vascular geometry throughout
 growth~\cite{kassab1993,huang1996}. This eliminates single-junction optimization
-and \emph{mandates} a network-level framework.
+and \chA{points to} a network-level framework.
 
-\textbf{Step 2: From Theorem~\ref{thm:gauge} (Gauge Invariance).} The unique
-admissible network-level penalty functional,
+\textbf{Step 2: From Theorem~\ref{thm:gauge} (Gauge Invariance).} The dimensionless
+linear-excess network-level penalty functional,
 $\mathcal{C}_{\mathrm{transport}}^\mathrm{net} = (\Phi_{\mathrm{net}} -
 \Phi_{\mathrm{opt}})/\Phi_{\mathrm{opt}}$, is dimensionless and permits direct
 comparison with the wave-reflection cost
@@ -39,7 +39,7 @@ penalties must be weighted to form a single optimization objective. This
 introduces the \chA{cost-mixing weight $\eta$ (physiologically motivated by the
 cardiac duty cycle $\eta_d$)}, yielding the
 network Lagrangian of Eq.~\eqref{eq:lagrangian_net}. At this stage, $\eta$ is a
-\emph{free parameter} whose value is unspecified by the theory.
+\emph{\chA{undetermined cost-mixing coordinate}} whose value is unspecified by the theory.
 
 \textbf{Step 3: From Theorem~\ref{thm:arch} (Architectural Invariance).} The
 \chA{marginal-balance weight} $\eta^*$ is an exact architectural invariant, independent of body
@@ -83,12 +83,13 @@ performing optimally in a single scenario at the cost of fragility elsewhere.
 \paragraph{Minimax Interpretation and Uncertainty Set.}
 
 The minimax framework is grounded in the operational variability that vascular
-networks must accommodate. The \textbf{uncertainty set} is defined by the
-physiological envelope: $\mathcal{U} = \{M \in [0.05, 100]\,\text{kg},
-f_\mathrm{HR} \in [60, 200]\,\text{bpm}, \eta \in [\eta_{\min}, \eta_{\max}]\}$,
-where the cost-weight bounds $\eta_{\min} \approx 0.30$ (rest) and $\eta_{\max}
-\approx 0.50$ (exercise) are \chA{set by the cardiac duty cycle $\eta_d$ spanning its
-full physiological range}. We now prove that
+networks must accommodate. \chA{The physiological envelope includes body mass,
+heart rate, and cardiac duty cycle, for example
+$M \in [0.05,100]\,\text{kg}$, $f_\mathrm{HR}\in[60,200]\,\text{bpm}$, and
+$\eta_d=t_\mathrm{systole}/T_\mathrm{cycle}\approx0.30\text{--}0.50$. The
+mathematical adversarial coordinate $\eta$ is not this duty cycle itself; it is
+the normalized cost-mixing coordinate induced by the operating envelope, and it
+ranges over $[0,1]$.} We now prove that
 the equal-cost condition $\mathcal{C}_{\mathrm{wave}} =
 \mathcal{C}_{\mathrm{transport}}$ is the \emph{unique} minimax saddle point of
 this problem.
@@ -98,44 +99,40 @@ this problem.
 Define the network Lagrangian
 \begin{equation}
 \mathcal{L}(\alpha, \eta) = \eta\,
-\mathcal{C}_{\mathrm{wave}}(\alpha) + (1 - \eta)\,
-\mathcal{C}_{\mathrm{transport}}(\alpha),
-\quad \eta \in [\eta_{\min}, \eta_{\max}].
+\chA{\mathcal{C}_{\mathrm{wave}}(\alpha)} + (1 - \eta)\,
+\chA{\mathcal{C}_{\mathrm{transport}}(\alpha)},
+\quad \chA{\eta \in [0,1]}.
 \label{eq:minimax_lagrangian}
 \end{equation}
-Then the unique solution to $\alpha^* = \arg\min_\alpha \max_{\eta \in
-[\eta_{\min}, \eta_{\max}]} \mathcal{L}(\alpha, \eta)$ satisfies
+Then the unique solution to \chA{$\alpha^* = \arg\min_\alpha \max_{\eta \in [0,1]} \mathcal{L}(\alpha, \eta)$} satisfies
 $\mathcal{C}_{\mathrm{wave}}(\alpha^*) =
 \mathcal{C}_{\mathrm{transport}}(\alpha^*)$.
 \end{proposition}
 \begin{proof}
-Since $\mathcal{L}$ is linear in $\eta$, the adversary's maximum is attained at
-a boundary:
+\chA{Since $\mathcal{L}$ is linear in $\eta$ and $\eta \in [0,1]$, the adversary's
+maximum is attained at one of the two endpoints:}
 \begin{equation}
-\max_\eta \mathcal{L}(\alpha, \eta) =
+\chA{\max_{\eta \in [0,1]}} \mathcal{L}(\alpha, \eta) =
 \begin{cases}
-\eta_{\max}\, \mathcal{C}_{\mathrm{wave}} +
-(1 - \eta_{\max})\, \mathcal{C}_{\mathrm{transport}}
-& \text{if } \mathcal{C}_{\mathrm{wave}}(\alpha) >
-\mathcal{C}_{\mathrm{transport}}(\alpha), \\[4pt]
-\eta_{\min}\, \mathcal{C}_{\mathrm{wave}} +
-(1 - \eta_{\min})\, \mathcal{C}_{\mathrm{transport}}
-& \text{if } \mathcal{C}_{\mathrm{wave}}(\alpha) <
-\mathcal{C}_{\mathrm{transport}}(\alpha), \\[4pt]
-\mathcal{L}(\alpha, \eta) \;\;\forall\,\eta
-& \text{if } \mathcal{C}_{\mathrm{wave}}(\alpha) =
-\mathcal{C}_{\mathrm{transport}}(\alpha).
+\chA{\mathcal{C}_{\mathrm{wave}}(\alpha)}
+& \text{if } \chA{\mathcal{C}_{\mathrm{wave}}(\alpha)} >
+\chA{\mathcal{C}_{\mathrm{transport}}(\alpha)}, \\[4pt]
+\chA{\mathcal{C}_{\mathrm{transport}}(\alpha)}
+& \text{if } \chA{\mathcal{C}_{\mathrm{wave}}(\alpha)} <
+\chA{\mathcal{C}_{\mathrm{transport}}(\alpha)}, \\[4pt]
+\chA{\mathcal{C}_{\mathrm{wave}}(\alpha)}=\chA{\mathcal{C}_{\mathrm{transport}}(\alpha)}
+& \text{if } \chA{\mathcal{C}_{\mathrm{wave}}(\alpha)} =
+\chA{\mathcal{C}_{\mathrm{transport}}(\alpha)}.
 \end{cases}
 \end{equation}
-In the first two cases the worst-case penalty is strictly larger than
-$\mathcal{C}_{\mathrm{wave}} = \mathcal{C}_{\mathrm{transport}}$, since the
-adversary can tilt the weighting toward the dominant cost. Only at $\alpha =
-\alpha^*$ where $\mathcal{C}_{\mathrm{wave}}(\alpha^*) =
-\mathcal{C}_{\mathrm{transport}}(\alpha^*)$ does $\max_\eta \mathcal{L}$ become
-independent of $\eta$, eliminating the adversary's leverage. This is therefore
+\chA{Thus the adversarial objective is the upper envelope
+$\max\{\mathcal{C}_{\mathrm{wave}},\mathcal{C}_{\mathrm{transport}}\}$. Away
+from the equal-cost point, the larger penalty controls the maximum; at the
+crossing, the maximum is independent of $\eta$, eliminating the adversary's
+leverage. For the convex tradeoff considered here, this crossing is therefore}
 the unique minimax saddle point:
 \begin{equation}
-\alpha^* = \arg\min_\alpha \max_\eta \mathcal{L}(\alpha, \eta)
+\chA{\alpha^* = \arg\min_\alpha \max_{\eta \in [0,1]} \mathcal{L}(\alpha, \eta)}
 \quad \Longleftrightarrow \quad
 \mathcal{C}_{\mathrm{wave}}(\alpha^*) =
 \mathcal{C}_{\mathrm{transport}}(\alpha^*). \qedhere
@@ -143,13 +140,13 @@ the unique minimax saddle point:
 \end{proof}
 
 This result has a precise physical interpretation: at the minimax $\alpha^*$,
-the vascular network is \emph{immune} to fluctuations in the cardiac duty cycle $\chA{\eta_d}$.
+the vascular network is \chA{\emph{robust} to physiological fluctuations represented by} the cardiac duty cycle $\chA{\eta_d}$.
 Any departure $\alpha \neq \alpha^*$ creates an asymmetry that the adversary
 (physiological variation) can exploit by shifting $\eta$ toward the dominant
 cost channel. Alternatively, this can be viewed as \textbf{Pareto optimality}
 between incommensurable regimes: any $\alpha \neq \alpha^*$ sacrifices wave
 performance ($\alpha < \alpha^*$) or transport efficiency ($\alpha > \alpha^*$)
-without improving the other, confirming the equal-cost equilibrium as the unique
+without improving the other, \chA{identifying} the equal-cost equilibrium as the unique
 non-dominated solution.
 
 \paragraph{Reconciliation with Pooled Human Coronary Data.}
@@ -235,7 +232,7 @@ absolute scales. Indeed, developmental interventions in early embryonic stages
 (such as vitelline artery ligation in chick embryos~\cite{lucitti2005})
 demonstrate that hemodynamic alterations immediately trigger rapid, active
 vascular remodeling of diameters and mechanical properties to restore shear
-stress and impedance equilibria, confirming that the minimax attractor acts as a
+stress and impedance equilibria, \chA{supporting the interpretation} that the minimax attractor acts as a
 dynamic homeostatic target during ontogeny. The \chA{marginal-balance weight} $\eta^*$ is not a
 physiological input but an \emph{architectural invariant} emerging from the
 dimensionless ratios in the network Lagrangian.
@@ -262,7 +259,7 @@ must diverge across the hierarchy, destroying the universality of the branching
 exponent. This is not a failure of a specific model but a structural constraint
 on symmetric local rules.
 
-\begin{remark}[Statistical Dispersion as a Structural Confirmation]
+\begin{remark}[Statistical Dispersion as a Structural \chA{Signature}]
 The high statistical heterogeneity ($I^2 = 99\%$) reported in multi-organ
 meta-analyses~\cite{taylor2024} is a deterministic signature of "Regime Mixing"
 across the vascular hierarchy. As demonstrated by the regime-mixing analysis
@@ -273,21 +270,21 @@ high $I^2$ captures the systematic variance between studies sampling different
 functional levels of the tree.
 \end{remark}
 
-Theorem~\ref{thm:gauge} identifies the unique escape from this constraint:
+Theorem~\ref{thm:gauge} identifies a \chA{scale-invariant escape} from this constraint:
 lifting the optimization to the network level, where both cost functions become
-dimensionless fractional excesses. This is not a modelling convenience; it is
-the only normalization consistent with scale invariance and thermodynamic
+dimensionless fractional excesses. \chA{Under the stated assumptions}, this is not merely a modelling convenience; it is
+the \chA{normalization} consistent with scale invariance and thermodynamic
 linearity. The analogy with gauge theories in physics is \chA{heuristic, not
 formal---a global scaling symmetry rather than the local gauge symmetry of
 field theory (cf.\ Remark~\ref{rem:gauge_terminology}):} just as
-electrodynamics is forced to be scale-invariant by the requirement that physical
+electrodynamics is \chA{constrained} to be scale-invariant by the requirement that physical
 observables be independent of the choice of potential, biological transport
-optimization is forced to be metabolically scale-invariant by the requirement
+optimization is \chA{constrained} to be metabolically scale-invariant by the requirement
 that architectural decisions be independent of absolute physiological scale.
 
 Theorem~\ref{thm:arch} reveals the deepest consequence: once both costs are
 scale-invariant, their minimax balance $\eta^*$ becomes an architectural
-eigenvalue of the allometric class --- immune to the fluctuations of body mass,
+eigenvalue of the allometric class --- \chA{robust} to the fluctuations of body mass,
 metabolic rate, and haemodynamic load that characterize ontogenesis. This
 explains why $\alpha^*$ is conserved across developmental stages: not because
 the organism actively maintains it, but because the minimax saddle point is
@@ -397,36 +394,36 @@ modes: the former leads to energetic exhaustion, while the latter leads to
 mechanical fatigue and signal degradation. Selection pressure in such systems
 does not optimize for a single performance scalar, but for the avoidance of the
 worst-case penalty across incommensurable dimensions. The minimax saddle point
-$(\alpha^*, \eta^*)$ is the unique configuration that ensures neither constraint
-becomes a viability bottleneck. This explains why the same geometry persists
-across vastly different metabolic scales: it is the unique "least-worst"
+$(\alpha^*, \eta^*)$ is the \chA{configuration predicted to prevent either constraint}
+\chA{from becoming a viability bottleneck}. This explains why the same geometry persists
+across vastly different metabolic scales: it \chA{acts as a "least-worst"}
 compromise between physical laws that cannot be simplified into one another. In
 this sense, the minimax is the architectural signature of an organism evolved
 for optimal robustness rather than narrow efficiency.
 \end{remark}
 
-The theory correctly predicts the topological bifurcations observed when
+The framework also \chA{accounts for} the topological bifurcations observed when
 networks are constrained by dimensionality. By comparing 3D vascular networks
 with the 2D retinal measurements of Luo et al. \cite{luo2017}, we find that the
 transition from minimax to wave-matching is not a random shift but a
-deterministic consequence of the embedding space. The incommensurability
-principle thus provides the first unified explanation for the "geometric crisis"
+\chA{expected consequence} of the embedding space. The incommensurability
+principle thus provides a \chA{unified explanation} for the "geometric crisis"
 across different dimensional and metabolic scales.
 
-Crucially, the theoretical framework eliminates reliance on phenomenological
+The theoretical framework \chA{reduces reliance} on phenomenological
 fitting. The derivation of the critical Womersley number $\mathrm{Wo}_c \approx
 \VarWoC$ from evanescent mode absorption at the bifurcation junction---combining
 the Navier-Stokes viscous absorption capacity ($\mathcal{Q}^{-1} =
 6/\mathrm{Wo}^2$) with the geometric scattering ratio ($E_\perp/E_\parallel =
 d-1$)---provides a physically derived threshold for the allometric transition.
-Furthermore, the empirical confirmation across independent vascular
+Furthermore, the empirical \chA{support} across independent vascular
 networks---from porcine coronaries to human retinal vessels and the bronchial
-tree---demonstrates that the dual-attractor minimax is a universal organizing
-principle, not a dataset-specific artifact.
+tree---\chA{supports the interpretation} that the dual-attractor minimax is a broad
+organizing principle \chA{rather than a dataset-specific artifact}.
 
 Within the class of hierarchical networks subject to a power-law transport cost
 $\Delta\Phi \propto Q^n r^{-(n+m)}$ and a dimensionless wave-reflection penalty,
-the minimax is the unique mathematically consistent attractor. Whether this
+the minimax is a \chA{mathematically consistent attractor under the stated assumptions}. Whether this
 conclusion extends to other classes of incommensurable biological costs---such
 as information capacity versus structural investment in neural
 networks---requires case-specific verification that the coupling parameter $\mu$
@@ -501,7 +498,7 @@ allowing the minimax attractor to emerge as a purely architectural eigenvalue.
 \begin{remark}[Wave Coherence and Transfer Matrices]
 The multiplicative wave cost model assumes incoherent reflection accumulation.
 While arterial systems exhibit high phase coherence ($kL \ll 1$),
-transfer-matrix analyses of coupled reflections confirm that the minimax shift
+transfer-matrix analyses of coupled reflections \chA{indicate} that the minimax shift
 remains negligible ($|\Delta\alpha^*| < 0.01$). The incoherent model effectively
 isolates the topological branching penalty from local interference patterns,
 providing a robust structural predictor of network-wide morphometry.
@@ -606,8 +603,8 @@ case: despite its tiny mass ($M \approx 4\,$g), its extreme heart rate ($f_H
 \approx 1000\,$bpm) \chA{places it at the fluid--wave transition
 ($\mathrm{Wo}_0 \approx 1.76$, just above the threshold $\sqrt{3}$), predicting $\alpha^* \approx 2.6$
 (Table~\ref{tab:hummingbird}), in the transition range and comparable to large mammals}
-despite the 10,000-fold mass difference, confirming that the Womersley number---not
-mass---is the architectural control parameter. For typical mammals with
+despite the 10,000-fold mass difference, \chA{supporting} the Womersley number---not
+mass---as the \chA{architectural control parameter}. For typical mammals with
 allometric heart-rate scaling ($f_H \propto M^{-1/4}$), the predicted trend is
 $\alpha^* \approx \VarAlphaHeteroBase$ near the transition mass $M^* \approx
 \VarMStar\,$g, rising to $\alpha^* \approx \VarAlphaStar$--$2.75$ in large
@@ -673,7 +670,7 @@ tomography (HiP-CT) of intact human organs by Walsh \textit{et
 al.}~\cite{walsh2021} reveals that renal arterial networks exhibit a rapid
 radial decay towards the cortex, steepening beyond the baseline resistive
 optimum. Within our framework, this is not a biological aberration but a
-physical necessity. The kidney functions not merely as a transport network, but
+\chA{physical consequence of the organ-level boundary condition}. The kidney functions not merely as a transport network, but
 as a filtration system that must intentionally impose a massive, localized
 pressure drop to drive glomerular filtration:
 \begin{equation}
@@ -700,11 +697,11 @@ classical Poiseuille limit ($\alpha > 3.0$).
 \subsection{Parameter Accounting and Falsifiability}
 
 Table~\ref{tab:parameter_accounting} enumerates all framework inputs and
-outputs, demonstrating zero free fitting parameters.
+outputs, \chA{distinguishing independently constrained inputs from derived outputs}.
 
 \begin{table}[H]
 \centering
-\caption{Parameter Accounting: All inputs independently measured, zero free fits}
+\caption{Parameter Accounting: \chA{independently constrained inputs and derived outputs}}
 \label{tab:parameter_accounting}
 \begin{tabular}{llll}
 \toprule
@@ -726,7 +723,7 @@ Taper & 8\% & \chA{\cite{kassab1993}} & Morphometry \\
 $E_{\mathrm{wall}}$ & 1.5 MPa & Biomech. lit. & Measured \\
 $c_{\mathrm{wave}}$ & 5--8 m/s & \chA{\cite{huokassab2006}} & \chA{Literature} \\
 \midrule
-\multicolumn{4}{l}{\textbf{Predictions (zero free parameters)}} \\
+\multicolumn{4}{l}{\textbf{\chA{Derived outputs (no target-exponent fit)}}} \\
 $\alpha^*$ (symmetric) & \chA{\VarAlphaStarModel} & This work & \textit{Derived} \\
 $\alpha^*$ (full model) & 2.72 & This work & \textit{Derived} \\
 $M^*$ (transition mass) & 0.84 g & This work & \textit{Derived} \\
@@ -738,7 +735,7 @@ $\Delta\alpha_{\mathrm{retinal}}$ & 0.7 & This work & \textit{Predicted} \\
 All input parameters are independently measured or anatomically fixed---no
 values were adjusted to fit $\alpha^* = 2.72$. The decomposition $\chA{\VarAlphaStarModel} \to
 2.72$ attributes each shift to a specific measured physical effect (elasticity,
-asymmetry, taper), not free parameters.
+asymmetry, taper), not \chA{post-hoc fitting degrees of freedom}.
 
 \paragraph{Circular Validation Transparency.}
 We acknowledge a methodological limitation: the effective wall thickness scaling
@@ -774,8 +771,8 @@ pulsatile flow develops.
 std.\ dev.\ $\sigma_\alpha \approx 0.18$ (observed: $\approx 0.18$, Hughes
 2000).
 \end{enumerate}
-These predictions cannot be adjusted post-hoc---they follow deterministically
-from the measured input parameters.
+\chA{These predictions are fixed once the listed inputs are specified---there is no}
+\chA{post-hoc target-exponent fit}.
 
 \subsection{Relationship to Dynamical Network Formation Models}
 
@@ -808,7 +805,7 @@ metabolic parsimony assumption of Remark~\ref{rem:gauge_parsimony}, the
 robustness rationale of the evolutionary-strategy remark above, and the
 channel-distinguishability criterion of
 Remark~\ref{rem:incommensurability}. The purpose here is to collect them in one
-place and to state plainly what the framework does \emph{not} establish.}
+place and to \chA{specify} what the framework does \emph{not} establish.}
 
 \paragraph{\chRB{(A1) Optimality.}}
 \chRB{We treat the observed morphometry as the solution of an optimization

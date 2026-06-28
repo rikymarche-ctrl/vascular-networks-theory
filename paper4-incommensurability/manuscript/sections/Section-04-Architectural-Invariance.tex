@@ -2,7 +2,7 @@
 % SECTION 04: ARCHITECTURAL INVARIANCE
 % ====================================================================
 
-\section{Architectural Invariance of the Duty Cycle}
+\section{Architectural Invariance of the \texorpdfstring{\chA{Marginal-Balance Weight}}{Marginal-Balance Weight}}
 \label{sec:arch}
 
 \textbf{Mathematical foundation: Robust Optimization.} A Lagrangian structure of
@@ -35,7 +35,7 @@ to the operating weight: the architecture is optimized not for any single regime
 but against the worst case across all of them. This is the precise sense in which
 $\alpha^*$ is robust rather than fine-tuned.}
 
-\begin{theorem}[Architectural Invariance of the Biological Duty Cycle]
+\begin{theorem}[Architectural Invariance of the \chA{Marginal-Balance Weight}]
 \label{thm:arch}
 Let $(\alpha^*, \eta^*)$ be the unique saddle point of the unified zero-sum
 network Lagrangian:
@@ -77,7 +77,7 @@ giving the saddle point $(\alpha^*,\eta^*)$. The affine-in-$\eta$,
 convex-in-$\alpha$ structure thus reduces existence and uniqueness of the saddle
 to elementary convex analysis, with no appeal to the general
 quasiconvex--quasiconcave minimax theorem.} Detailed
-numerical verification (Supplemental Material, Table S1) confirms that the
+numerical verification (Supplemental Material, Table S1) \chA{shows} that the
 \chA{scalar} Hessian $\partial^2 \mathcal{C}_{\mathrm{wave}}/\partial\alpha^2 > 0$ throughout
 the physiological range $\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$,
 \chA{securing the convexity on which this argument rests.}
@@ -132,7 +132,7 @@ derivatives at $\alpha^*$.
 \end{proof}
 
 \begin{remark}
-This provides a first-principles explanation for the empirical observation that
+This provides a \chA{mechanistic explanation} for the empirical observation that
 vascular branching exponents are conserved across developmental stages within a
 species, as suggested by the generation-invariant morphometry
 of~\cite{kassab1993} and the developmental convergence reported
@@ -148,7 +148,7 @@ flow asymmetry. Empirical values---ranging from $\alpha^* \approx
 to $\alpha^* \approx \VarAlphaStar$ in large mammals~\cite{kassab1993}---lie
 below this static bound precisely because pulsatile dynamics contribute an
 additional wave-reflection penalty missing from purely viscous optimization,
-demonstrating that the minimax solution is the inevitable physical attractor
+\chA{supporting the minimax solution as the relevant physical attractor}
 within these constraints.
 \end{remark}
 
@@ -178,7 +178,7 @@ secondary extrema via resonances.
 
 \textbf{Numerical verification.} Detailed numerical evaluation of
 $\mathcal{C}_{\mathrm{wave}}(\alpha)$ for the physiological parameter range
-$\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$ confirms strict unimodality
+$\alpha \in [2.0, 3.5]$ and $\eta \in [0,1]$ \chA{supports} strict unimodality
 (Supplemental Material, Table S1). No spurious local minima or inflection points
 are observed. The transport cost $\mathcal{C}_{\mathrm{transport}}(\alpha)$ is
 \emph{strictly} convex (proven analytically in Paper~II~\cite{paperII} via
@@ -189,9 +189,9 @@ $\mathcal{L}_{\mathrm{net}}(\alpha,\eta)$ is convex in $\alpha$, so the
 convex-envelope argument of Theorem~\ref{thm:arch} yields a unique saddle
 point.} The
 minimax equal-cost condition $f(\alpha^*) = g(\alpha^*)$ is verified without
-free parameters (Paper~III~\cite{paperIII}): for the porcine coronary tree,
+\chA{fitting any parameter to the target morphometric exponent} (Paper~III~\cite{paperIII}): for the porcine coronary tree,
 solving this balance yields $\alpha^* = 2.77$, consistent with the morphometric
-average $\alpha_{\exp} = 2.70 \pm 0.20$, confirming that the network-level
+average $\alpha_{\exp} = 2.70 \pm 0.20$, \chA{showing} that the network-level
 Lagrangian balances measurable first-principles costs.
 \end{remark}
 
@@ -226,6 +226,6 @@ law ($\alpha=3$) and fixes the purely static attractor at $\alpha_t \approx
 \VarAlphaTLow-\VarAlphaTHigh$ for mammalian coronary networks. This value
 constitutes the theoretical starting point of the present framework: the
 residual gap from $\alpha_t \approx \VarAlphaTLow$ to the empirical $\alpha
-\approx \VarAlphaStar$ is a mathematical necessity that requires the inclusion
+\approx \VarAlphaStar$ is a \chA{structural residual} that requires the inclusion
 of the dynamic, pulsatile minimax mechanism developed here.
 \end{remark}

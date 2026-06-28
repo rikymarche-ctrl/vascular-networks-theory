@@ -40,7 +40,7 @@ For $d=3$: $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3} \approx 1.732$
 For $d=2$: $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{6} \approx \VarWoCTwo$
 
     \item
-\textbf{Wave threshold (characteristic admittance $Y_c \propto \sqrt{Y_L}$):}
+\textbf{Wave threshold (characteristic admittance \chA{$Y_c \propto \sqrt{i\omega\rho\,Y_L}$, equivalently $Y_c\propto\sqrt{1-F_{10}}$}):}
 $\mathrm{Wo}_c^{\mathrm{wave}}(d) = \sqrt{3d(d-2)/(d-1)}$
 
 For $d=3$: $\mathrm{Wo}_c^{\mathrm{wave}} = 3/\sqrt{2} \approx 2.121$
@@ -57,13 +57,15 @@ into a permanent wave-dominated regime.
 Because the human retinal vasculature is embedded in a systemic tree operating
 well above the 2D transition mass ($M \gg M^*_{d=2}$), the dimensional
 constraint shifts the minimax diameter attractor toward the area-preserving
-limit. The minimax prediction is:
+limit. \chA{The dimensional prediction is therefore channel-specific:}
 \begin{itemize}
     \item
-\textbf{Diameters:} $\alpha_{\text{retina}} \approx 2.0$ (area-preserving limit)
+\chA{\textbf{Diameters:} $\alpha_{\text{retina}} \approx 2.0$ (area-preserving wave limit).}
     \item
-\textbf{Angles:} $\varphi_{\text{retina}} \approx 90^\circ$ (planar constraint:
-$\tan^2(\varphi/2) = 1$)
+\chA{\textbf{Angles:} the \emph{counterfactual} planar fluid rule would give
+$\varphi \approx 90^\circ$, but the mechanical wall-tension channel remains closer
+to the three-dimensional Murray equilibrium, predicting
+$\varphi \approx \VarAngleRetinalCalcDeg^\circ$.}
 \end{itemize}
 
 For comparison, Murray's law in 3D predicts $\alpha_{\mathrm{3D}} \approx 3.0$
@@ -91,8 +93,8 @@ prediction ($\VarAngleRetinalCalcDeg^\circ$) and the 2D planar limit
 ($90^\circ$), \chA{departing from the 3D Murray prediction by only
 $\VarAngleRetinalOffset / \VarAngleRetinalSD \approx 0.20\sigma$ (whereas the gap
 to the planar $90^\circ$ limit is $0.63\sigma$)}; however, given the large biological
-variance ($\sigma = \VarAngleRetinalSD^\circ$), the angular data do not
-discriminate between the two predictions. The high variance likely reflects
+variance ($\sigma = \VarAngleRetinalSD^\circ$), the angular data are \chA{consistent
+with mechanical--fluidic decoupling but are not decisive by themselves.} The high variance likely reflects
 stochastic angiogenesis in vivo, where local biochemical gradients (VEGF, shear
 stress) obscure the geometric signal at individual junctions.
 
@@ -114,6 +116,6 @@ the wave attractor ($\alpha_w = 2.0$) and the corrected viscous limit
 transition-regime interpretation.
 
 Taken together, the retinal data provide a case study in which the diameter
-scaling unambiguously supports the dimensional decoupling predicted by the
+scaling \chA{supports} the dimensional decoupling predicted by the
 incommensurability framework, while the angular evidence remains inconclusive
 due to biological variance.

@@ -90,8 +90,10 @@ yields the critical fluid threshold $\mathrm{Wo}_c^{\mathrm{fluid}} =
 \sqrt{3} \approx 1.732$.
 
 However, wave reflection in the network is governed by the characteristic
-admittance $Y_c$, which is proportional to the square root of the longitudinal
-admittance ($Y_c \propto \sqrt{Y_L}$). Taking the square root algebraically
+admittance $Y_c$. \chA{With the exact longitudinal definition
+$Y_L = C(1-F_{10})/(i\omega\rho)$ for a positive real geometric constant $C$, one has
+$i\omega\rho\,Y_L = C(1-F_{10})$; hence $Y_c\propto\sqrt{1-F_{10}}$ up to
+positive real constants.} Taking this square root algebraically
 halves the phase angle $\phi = \arctan(6/\mathrm{Wo}^2)$. Using the half-angle
 identity $\cot(\phi/2) = \frac{1+\cos\phi}{\sin\phi}$, and knowing from a right
 triangle that $\tan\phi = 6/\mathrm{Wo}^2$ implies $\sin\phi =
@@ -217,8 +219,9 @@ branching network derived in Section~\ref{sec:S4}, which gives $\mathrm{Wo}_c^2 
 This geometric threshold $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3}$ governs the
 local viscous-inertial balance of the bulk fluid, constraining the energetic
 optimization of individual segments. As shown in Section~\ref{sec:S1}, applying
-the same kinematic matching criterion to the characteristic wave admittance $Y_c
-\propto \sqrt{Y_L}$ yields a distinct wave threshold
+the same kinematic matching criterion to the characteristic wave admittance $Y_c$,
+\chA{with $Y_c \propto \sqrt{i\omega\rho\,Y_L}$ and equivalently
+$Y_c\propto\sqrt{1-F_{10}}$ under the longitudinal definition above}, yields a distinct wave threshold
 $\mathrm{Wo}_c^{\mathrm{wave}} = 3/\sqrt{2} \approx 2.121$. The fluid threshold
 $\sqrt{3}$ derived here via energy balance corresponds to the longitudinal
 admittance $Y_L$ in the dual-threshold framework.
@@ -358,7 +361,7 @@ $\alpha^* = \VarAlphaHeteroTaper$
     \item
 \textbf{Combined Asymmetry + Taper}: $\alpha^* = \VarAlphaHeteroCombined$
 \end{itemize}
-These values represent parameter-free physical estimates of the structural
+These values represent \chA{independently constrained physical estimates} of the structural
 shifts induced by observed geometry in the rigid-wall limit ($\alpha_w =
 \VarAlphaW$). Reintroducing the realistic elastic wall thickness scaling ($p =
 \VarP$, yielding $\alpha_w = \VarAlphaWTwo$) shifts these attractors upward: the
@@ -438,7 +441,7 @@ is derived from three independent physical arguments---Euclidean geometry,
 classical kinematics, and evanescent mode absorption---combined with the
 Navier-Stokes expression for viscous absorption capacity.
 
-\subsection{First-Principles Derivation of the Kinematic Matching Criterion}
+\subsection{\chA{Physical Derivation} of the Kinematic Matching Criterion}
 
 To establish the criterion, we consider a vascular bifurcation with parent
 vessel radius $R$ and daughter vessels embedded in a $d$-dimensional space.
@@ -465,8 +468,8 @@ admittance $Y_L$ via Bessel functions. In the transitional regime ($\mathrm{Wo}
     F_{10}(z) = \frac{2J_1(z)}{zJ_0(z)} \approx 1 + \frac{z^2}{8} + \mathcal{O}(z^4),
     \quad z = e^{-i\pi/4}\,\mathrm{Wo}.
 \end{equation}
-Substituting $z^2 = -i\,\mathrm{Wo}^2$ into the modified admittance $M'_{10} =
-(8i/\mathrm{Wo}^2)(1 - F_{10})$ yields:
+Substituting $z^2 = -i\,\mathrm{Wo}^2$ into the modified admittance
+\chA{$M'_{10} = -(8i/\mathrm{Wo}^2)(1 - F_{10})$} yields:
 \begin{equation}\label{eq:M10_expansion_supp}
     M'_{10} = 1 - \frac{i\,\mathrm{Wo}^2}{6} + \mathcal{O}(\mathrm{Wo}^4).
 \end{equation}
@@ -485,7 +488,7 @@ The spatial transition of the flow direction from the parent longitudinal axis
 ($\hat{\mathbf{e}}_p$) to the daughter branches ($\hat{\mathbf{e}}_1,
 \hat{\mathbf{e}}_2$) requires a transverse kinematic deflection of the fluid.
 For a symmetric bifurcation with branching angle $\varphi$ in $d$ dimensions,
-the kinematic projection of the velocity vectors dictates that the ratio of
+the kinematic projection of the velocity vectors \chA{implies} that the ratio of
 transverse-to-axial kinetic energy is:
 \begin{equation}\label{eq:kinetic_ratio_supp}
     \frac{\langle E_{\mathrm{kin}}^{\mathrm{transverse}} \rangle}{\langle E_{\mathrm{kin}}^{\mathrm{axial}} \rangle} = \tan^2\left(\frac{\varphi}{2}\right).
@@ -543,7 +546,7 @@ Combining with the Navier-Stokes result
     \frac{6}{(\mathrm{Wo}_c^{\mathrm{fluid}})^2} = d - 1 \quad \Rightarrow \quad \mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{\frac{6}{d-1}}.
 \end{equation}
 For mammalian trees ($d=3$): $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{3} \approx
-1.732$. Numerical verification from the full Bessel solution confirms the
+1.732$. Numerical verification from the full Bessel solution \chA{supports} the
 threshold to within $0.5\%$ ($\mathrm{Wo}_c^{\mathrm{num}} \approx 1.740$). In a
 planar network ($d=2$), the same criterion yields
 $\mathrm{Wo}_c^{\mathrm{fluid}} = \sqrt{6} \approx \VarWoCTwo$. The
@@ -579,7 +582,7 @@ for zero reflection, assuming worst-case complete evanescence. Strikingly, the
 numerical verification using the full Bessel solution of the Navier-Stokes
 equations---which naturally incorporates all such mode conversion
 effects---agrees with the threshold derived from this worst-case boundary
-condition to within $0.5\%$. This confirms that modal conversion is negligible
+condition to within $0.5\%$. This \chA{suggests that modal conversion is small}
 at the critical Womersley transition, and the analytic threshold remains robust.
 
 \subsection{Thermodynamic Foundations of Cost Extensivity}
@@ -698,7 +701,7 @@ error of the analytical truncation is:
 \begin{equation}
     \text{Error} = \frac{|1.732 - 1.740|}{1.740} \approx 0.46\%,
 \end{equation}
-which is well below $0.5\%$. This confirms that the analytical ground state
+which is well below $0.5\%$. This \chA{shows} that the analytical ground state
 represents an exceptionally strong and stable physical attractor in the
 transitional regime, where higher-order terms contribute negligible
 perturbations.
@@ -758,23 +761,23 @@ Figure~\ref{fig:womersley_verification}). We emphasize that while $\sqrt{3}$ is
 the exact attractor derived from the $SO(3)$ rotational symmetry of the 3D
 spatial embedding, the value $1.740$ represents its realization within the
 specific viscous profile of a Newtonian fluid in a rigid pipe. The proximity of
-these values confirms that the incommensurability transition is anchored by the
+these values \chA{support the interpretation} that the incommensurability transition is anchored by the
 fundamental spatial dimension rather than by specific fluid-dynamic
 contingencies.
 
 \chA{The same exact-Bessel procedure applied to the \emph{characteristic}
-admittance confirms the wave threshold quoted in the main text. Taking
+admittance \chA{checks} the wave threshold quoted in the main text. Taking
 $Y_c \propto \sqrt{1-F_{10}}$ (the Womersley--McDonald characteristic admittance)
 and solving $\mathcal{Q}^{-1}_{Y_c}(\mathrm{Wo}) = d-1$ numerically yields
 $\mathrm{Wo}_c^{\mathrm{wave}} \approx 2.144$ for $d=3$, agreeing with the
 analytical $3/\sqrt{2}\approx 2.121$ to within $1\%$---the same accuracy as the
 fluid threshold. For $d=2$ one finds $\mathcal{Q}^{-1}_{Y_c}\ge 1$ for every
 $\mathrm{Wo}>0$ (increasing with $\mathrm{Wo}$), so the wave threshold collapses
-to $\mathrm{Wo}_c^{\mathrm{wave}}(d{=}2)=0$, confirming the permanent wave
+to $\mathrm{Wo}_c^{\mathrm{wave}}(d{=}2)=0$, \chA{showing} the permanent wave
 dominance that underlies the retinal analysis (\S\ref{sec:retinal}). The naive
 identification $Y_c\propto\sqrt{Y_L}$, which omits the $e^{i\pi/4}$ phase of
 $\sqrt{i\omega\rho}$, would instead give $\approx 2.93$ and is therefore
-excluded. The wave threshold is thus numerically confirmed against the exact
+excluded. The wave threshold is thus numerically \chA{checked} against the exact
 Bessel solution, not merely posited.}
 
 \begin{figure}[ht]
@@ -803,7 +806,7 @@ penetration and energy equipartition,
 
 The pulsatile energy of the heart is not concentrated in a single frequency but
 is distributed across a discrete spectrum of harmonics $\{n\omega_H\}$. To
-ensure a parameter-free formulation, we define the wave cost functional
+define a \chA{pre-specified formulation}, we define the wave cost functional
 $\mathcal{C}_{\mathrm{wave}}$ as the spectral sum of reflected power:
 \begin{equation}
     \mathcal{C}_{\mathrm{wave}}(\alpha) = \sum_{n=1}^{N_{\text{max}}} H_n \cdot \mathcal{R}(\alpha, n\omega_H),
@@ -852,7 +855,7 @@ where $r$ is the lumen radius and $h$ is the wall thickness. This expression
 reduces to unity for $h \to 0$ (thin-wall limit) and yields a $\approx 10\%$
 correction at $h/r = \VarThicknessRatioArterioles$. For the aorta ($h/r \approx
 \VarThicknessRatioAorta$), the correction is $\approx
-\VarLameCorrectionPercent\%$, confirming that the thin-wall approximation is
+\VarLameCorrectionPercent\%$, \chA{showing} that the thin-wall approximation is
 rigorous in the proximal conduit vessels.
 
 \textbf{Topological Shielding Principle.} The architectural impact of the
@@ -875,7 +878,7 @@ across the distal Womersley range $\mathrm{Wo}_0 \in \{2.0,\, 4.0,\, 8.0\}$,
 \chA{obtained from the same $\eta$-free marginal-balance saddle as the main model
 ($C_{\mathrm{wave}} = C_{\mathrm{visc}}$); no fixed Lagrangian weight is imposed,
 so the shift is a pure consequence of the thick-wall correction. In all cases
-$|\Delta\alpha^*| \le \VarShieldDeltaMax < 0.01$}, confirming that the global
+$|\Delta\alpha^*| \le \VarShieldDeltaMax < 0.01$}, \chA{showing} that the global
 minimax is structurally decoupled from the thick-wall regime. Full numerical code
 is provided in \texttt{scripts/verification/verify\_shielding.py}.
 
@@ -1188,7 +1191,7 @@ supports the applicability of the physical model to these systems.
 incommensurability principle. Future morphometric studies employing micro-CT,
 confocal microscopy, or corrosion casting with generation-by-generation vessel
 tracking would provide the data necessary to move from qualitative consistency
-(current state) to quantitative confirmation across multiple organ systems and
+(current state) to quantitative \chA{validation} across multiple organ systems and
 species.
 
 % ====================================================================
@@ -1362,7 +1365,7 @@ physiological range numerically; we do not claim a closed-form global proof.}
 \subsubsection{\chA{Local Convexity Argument and Numerical Verification}}
 
 \chA{We show analytically that the functional is convex near its minimizer, and
-confirm numerically that it remains strictly convex throughout} the
+verify numerically that it remains strictly convex throughout} the
 physiological range $\alpha \in [2, 3]$ \chA{for every characteristic Womersley
 number $\mathrm{Wo}$ tested.}
 
@@ -1376,7 +1379,7 @@ The second derivative $d^2\zeta/d\alpha^2 = \zeta''(u) (u')^2 + \zeta'(u) u''$
 determines the curvature. Near the minimum ($\alpha \approx \alpha_w$),
 $\zeta'(u) = O(u-1)$ ensures that the cross term is of higher order, \chA{so
 $\zeta''>0$ locally. This argument is local; global strict convexity over $[2,3]$
-is established by the numerical Hessian scan below}, which confirms that
+is established by the numerical Hessian scan below}, which \chA{shows} that
 $\mathcal{C}_{\mathrm{wave}}''(\alpha) > 0$ everywhere on the tested domain
 $\mathrm{Wo} \in [0.1, 20]$.
 
@@ -1392,7 +1395,7 @@ $\mathrm{Wo}$.
 \caption{Minimum eigenvalues of the wave-cost Hessian across the
 physiological range $\mathrm{Wo}\in[0.1,10]$, evaluated over
 $\alpha\in[2,3]$. The positivity across all regimes, including the
-critical threshold $\mathrm{Wo}_c = \sqrt{3} \approx 1.73$, confirms
+critical threshold $\mathrm{Wo}_c = \sqrt{3} \approx 1.73$, \chA{supports the conclusion}
 that resonances do not introduce secondary minima.}
 \label{tab:hessian}
 \smallskip
@@ -1410,7 +1413,7 @@ $\mathrm{Wo}$ & $\min(\mathcal{H})$ & Convexity Status \\
 \end{tabularx}
 \end{table}
 
-\paragraph{Resonance Shielding.} 
+\paragraph{Resonance Shielding.}
 The strict convexity is maintained despite the complex resonance structure of
 the Bessel admittances. This is due to two physical mechanisms: (i) viscous
 attenuation, which dampens high-frequency reflections, and (ii) spectral
@@ -1426,20 +1429,20 @@ $F(\Phi/\Phi_{\mathrm{opt}})$.
 
 \begin{table}[!htbp]
 \centering
-\caption{Counterfactual shifts in the optimal branching exponent. All 
-monotone non-linearities produce shifts of order $\mathcal{O}(10^{-3})$, 
-confirming the numerical near-degeneracy of the minimax attractor. The linear 
+\caption{Counterfactual shifts in the optimal branching exponent. All
+monotone non-linearities produce shifts of order $\mathcal{O}(10^{-3})$,
+\chA{showing} the numerical near-degeneracy of the minimax attractor. The linear
 form remains the unique compositional fixed point.}
 \label{tab:counterfactual}
 \smallskip
 \begin{tabular}{cc}
 \toprule
-\textbf{Functional Form} $F(x)$ & $\Delta \alpha^*$ \\ 
+\textbf{Functional Form} $F(x)$ & $\Delta \alpha^*$ \\
 \midrule
 Linear: $x-1$ & $0.000$ \\
 Logarithmic: $\ln x$ & $-0.004$ \\
 Quadratic: $(x-1)^2$ & $+0.007$ \\
-Exponential: $e^{x-1}-1$ & $+0.002$ \\ 
+Exponential: $e^{x-1}-1$ & $+0.002$ \\
 \bottomrule
 \end{tabular}
 \end{table}

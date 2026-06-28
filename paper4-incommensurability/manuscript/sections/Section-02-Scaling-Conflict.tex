@@ -23,8 +23,7 @@ independent physical dissipation regimes (e.g., viscous friction and reactive
 wave scattering), a \emph{perfectly symmetric} local rule $\mathcal{F}$ cannot
 maintain a scale-invariant branching exponent $\alpha^*$ across the hierarchy
 without the local coupling parameters varying by orders of magnitude. Because
-such extreme fine-tuning is biologically implausible, real networks must break
-symmetry (e.g., via taper or asymmetric branching) to achieve scalable local
+such extreme fine-tuning is biologically implausible, \chE{real networks appear to require symmetry-breaking features} (e.g., via taper or asymmetric branching) to achieve scalable local
 optimization.
 \end{proposition}
 
@@ -38,8 +37,7 @@ know how far up the wall it sits---a global quantity. The vascular counterpart o
 from local cues is through the absolute vessel size, which in turn requires
 knowing the size of the root (aortic) vessel. As Step~3 of the proof \chA{shows}, that
 root scale is precisely the piece of information a downstream junction cannot
-recover from local measurements---which is why a strictly local, symmetric rule
-must fail.}
+recover from local measurements---which is why \chE{a strictly local, symmetric rule is not sufficient under these assumptions}.}
 
 \begin{remark}[Biological Resolution via Structural Heterogeneity]
 Real vascular networks resolve this strict bound through structural
@@ -74,7 +72,7 @@ inflated a hundredfold relative to the viscous one.}
 
 \textbf{(3) Information Asymmetry.} Computing $g$ from local geometric
 parameters requires inverting the network scaling law $g \propto \log(r_0/r_g)$.
-This computation strictly requires knowledge of $r_0$ (the root absolute scale).
+This computation \chE{requires, within this formulation, access to $r_0$} (the root absolute scale).
 While downstream reflections encode the local input impedance, the physical
 information regarding the upstream root scale $r_0$ is topologically shielded
 and directionally inaccessible to a local junction. Like a transmission line
@@ -113,8 +111,7 @@ these signaling networks operate as low-pass filters that are inherently blind
 to the sub-cycle phase-lag $\phi$ between pressure and velocity waves. Since
 evaluating the local inverse quality factor $\mathcal{Q}^{-1} =
 \mathrm{Re}(Y)/|\mathrm{Im}(Y)|$ (or the local reactance) requires resolving the
-precise cycle-by-cycle phase offset, the local cellular machinery is
-structurally incapable of measuring the wave transport parameters necessary for
+precise cycle-by-cycle phase offset, the \chE{local cellular machinery is unlikely to resolve} the wave transport parameters necessary for
 impedance-based tuning.
     
     \item
@@ -131,15 +128,14 @@ gradient descent algorithm is blind to the distal network's impedance state.
 \textbf{The Murray Convergence Trap (Evolutionary Bound)}: Homeostatic
 adaptation rules operating purely on local shear stress feedback (e.g.,
 maintaining a constant shear stress target $\tau_w \approx c$) are
-mathematically guaranteed to converge to Murray's local attractor ($\alpha =
+\chE{expected to converge to Murray's local attractor in standard shear-homeostatic models} ($\alpha =
 3$). However, in large conduit arteries, maintaining $\alpha=3$ would cause
-catastrophic wave-reflection costs, severely compromising cardiac efficiency.
+\chE{substantial wave-reflection costs}, severely compromising cardiac efficiency.
 The transition to $\alpha \approx 2.7$ in the large vessels of large mammals
 requires the cell to actively break the local Murray feedback loop. Because a
 cell cannot determine when to suppress this feedback without knowing its global
 position $g$ or the species-specific body mass $M$, the transition rule cannot
-be encoded locally, necessitating a global network-level minimax fitness
-landscape.
+be encoded locally, \chE{supporting a network-level minimax interpretation}.
 \end{enumerate}
 
 The network avoids this informational and sensory burden because the minimax
@@ -167,8 +163,7 @@ $g$ in a young animal would have to dynamically adjust its biophysical weight
 $\mu(g)$ to a new $\mu(g')$ as downstream segments grow, which requires
 real-time global coordination and feedback channels. Consequently, genetic
 hardcoding of a static $\mu(g)$ profile is developmentally and evolutionarily
-fragile, leaving the global network-level minimax attractor as the only robust,
-information-costless mechanism for scale-invariant transport.
+fragile, leaving the global network-level minimax attractor as \chE{a robust, information-economical mechanism} for scale-invariant transport.
 \end{remark}
 
 \begin{corollary}[Violation Conditions]
@@ -204,8 +199,7 @@ that is absent from any local ratio; by the topological shielding of upstream
 signals (Proposition~\ref{thm:nogo}) it is also not transmitted from the root.
 The generation index is therefore informationally inaccessible to local control,
 \emph{independently} of how few bits it nominally encodes---it is the
-non-locality, not a Shannon channel-capacity bound, that forbids local
-optimization.}
+non-locality, not a Shannon channel-capacity bound, that \chE{rules out purely local optimization within the stated assumptions}.}
 \end{proof}
 
 The vascular tree avoids this informational burden by converging to a

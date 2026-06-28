@@ -35,9 +35,15 @@ desktop.ini
 *~
 .vscode/
 .idea/
+.agents/
+.claude/
 
 # Compiled PDFs (build from source — uncomment to track)
 # *.pdf
+
+# Build/Output directories
+**/output/
+Output_PDFs/
 
 # Temporary
 *.tmp
@@ -49,3 +55,6 @@ TODO.txt
 # arXiv submission packages (generated artifacts)
 Arxiv/
 *.zip
+
+# Duplicated utility scripts
+**/scripts/utility/create_flat_submission_zip.py

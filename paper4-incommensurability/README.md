@@ -138,8 +138,8 @@ paper4-incommensurability/
 │       └── check_orphaned_macros.py
 ├── build.ps1                 ← PowerShell build script (runs compute.py + LaTeX)
 └── output/
-    ├── The Incommensurability Principle in Biological Transport.pdf
-    └── Supplemental Material - The Incommensurability Principle.pdf
+    ├── The Incommensurability Principle Clean.pdf
+    └── Supplemental Material Clean.pdf
 ```
 
 ---

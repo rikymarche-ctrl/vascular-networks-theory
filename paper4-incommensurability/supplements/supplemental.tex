@@ -295,16 +295,16 @@ coherent forces, we present a simplified first-order computational decomposition
 primary structural deviations from the ideal model: \emph{bifurcation asymmetry}
 and \emph{continuous vessel taper}.
 
-\paragraph{The Upward Pull of Asymmetry.}
+\paragraph{\chE{The Effect of Asymmetry}.}
 In an ideal symmetric junction ($r_1 = r_2$), perfect impedance matching (zero
 reflection) occurs exactly at $\alpha = 2$. When the junction is asymmetric ($A
 = r_2/r_1 < 1$), the difference in vessel radii forces the two branches to
 operate at distinct local Womersley numbers. This mismatch in viscous velocity
 profiles breaks the perfect-matching condition, effectively shifting the minimum
 of the wave-reflection penalty away from $\alpha=2$ toward higher values
-($\alpha \approx 2.5$). Because the optimal wave configuration is pushed closer
-to the transport optimum ($\alpha=3$), the overall minimax saddle-point is
-pulled \emph{upward}.
+($\alpha \approx 2.5$). \chE{Asymmetry shifts the local wave-reflection
+attractor upward, while its net effect on the first-order minimax saddle is
+small and slightly downward in the rigid-wall calculation.}
 
 \paragraph{The Downward Pull of Taper and Coherence.}
 Conversely, continuous distal vessel tapering increases the characteristic
@@ -316,12 +316,13 @@ the transport optimum ($\alpha=3$) and shift toward the wave minimum. Thus,
 taper and coherence pull the minimax equilibrium \emph{downward}.
 
 \paragraph{Explicit Calculation: The Asymmetry Shift.}
-To quantify the ``upward pull'' of asymmetry, we consider a single junction with
-parent radius $r_0$ and daughters $r_1, r_2$. Define the asymmetry ratio $A =
-r_2/r_1 \le 1$ (daughter-to-daughter radius ratio). The impedance-matching
-condition for a reflectionless junction is $Y_0 = Y_1 + Y_2$. In the
-high-Womersley regime, $Y \propto r^2$. For $A < 1$, the area-preservation
-condition $r_0^2 = r_1^2 + r_2^2$ remains the geometric baseline.
+To quantify the \chE{effect of asymmetry on the wave-reflection minimum}, we
+consider a single junction with parent radius $r_0$ and daughters $r_1, r_2$.
+Define the asymmetry ratio $A = r_2/r_1 \le 1$ (daughter-to-daughter radius
+ratio). The impedance-matching condition for a reflectionless junction is $Y_0 =
+Y_1 + Y_2$. In the high-Womersley regime, $Y \propto r^2$. For $A < 1$, the
+area-preservation condition $r_0^2 = r_1^2 + r_2^2$ remains the geometric
+baseline.
 
 However, the viscous corrections to the wave speed (governed by
 $F_{10}(\mathrm{Wo})$) differ for $r_1$ and $r_2$. The local Womersley number
@@ -403,12 +404,14 @@ reflection landscape. Under physiological conditions, the continuous distal
 vessel taper ($\VarHeteroTaperPercent\%$ radius reduction per generation) acts
 as a strong regulatory constraint. By introducing a distributed reflection cost
 throughout each segment, it pulls the optimal minimax attractor $\alpha^*$
-downward. In contrast, bifurcation asymmetry ($A=\VarHeteroAsymmetryA$) pushes
-the attractor upward to $\alpha^* \approx \VarAlphaHeteroAsym$. The net result
-is a combined equilibrium of $\alpha^* = \VarAlphaHeteroCombined$, showing that
-vascular tapering acts as a vital stabilizing mechanism that keeps the
-network-level design closer to the wave-optimum, protecting the system from
-runaway transport/wave cost amplification.
+downward. In contrast, bifurcation asymmetry ($A=\VarHeteroAsymmetryA$)
+\chE{shifts the local wave-reflection attractor upward, while its net effect on
+the minimax saddle is small and slightly downward ($\alpha^* \approx
+\VarAlphaHeteroAsym$). The net result of their coupling} is a combined
+equilibrium of $\alpha^* = \VarAlphaHeteroCombined$, showing that vascular
+tapering acts as a vital stabilizing mechanism that keeps the network-level
+design closer to the wave-optimum, protecting the system from runaway
+transport/wave cost amplification.
 
 \paragraph{Conclusion.}
 These estimates indicate that the structural factors identified in morphometric

@@ -86,5 +86,5 @@ if __name__ == "__main__":
     print(f"Elastic (baseline):    alpha* = {alpha_elastic_base:.4f}")
     print(f"Elastic + Combined:    alpha* = {alpha_elastic_full:.4f}")
     print(f"\nEmpirical (Kassab):    alpha* ~ 2.72")
-    print(f"Residual gap:          {2.72 - alpha_full:.4f}")
+    print(f"Remaining gap after first-order rigid correction: {2.72 - alpha_full:.4f}")
     print("=" * 70)

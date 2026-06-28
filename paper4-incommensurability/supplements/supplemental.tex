@@ -42,7 +42,14 @@
 \author{Riccardo Marchesi}
 \date{\today}
 
-\hyphenation{in-com-men-su-ra-bi-li-ty} \hyphenation{allometric}
+% --- Prefix all supplement sections, tables, figures, equations and theorems with "S" ---
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thetheorem}{S\arabic{theorem}}
+\renewcommand{\theremark}{S\arabic{remark}}
 
 \begin{document}
 \maketitle

@@ -53,24 +53,25 @@ architecture is effectively decoupled from the biochemistry.
 \begin{table}[H]
 \centering
 \caption{Separation of genuine predictions from fitted parameters}
-\begin{tabular}{lccc}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\begin{tabularx}{\textwidth}{lc>{\raggedright\arraybackslash}Xc}
 \toprule
 Quantity & Value & Epistemological Status & Source \\
 \midrule
 \multicolumn{4}{l}{\textbf{\chA{Derived outputs (no target-exponent fit)}}} \\
 $\mathrm{Wo}_c$ (3D fluid) & $\sqrt{3} \approx 1.732$ & \chA{Physical criterion; exact-Bessel checked} & Eq.~\eqref{eq:woc_closed_form} \\
 $\mathrm{Wo}_c$ (2D fluid) & $\sqrt{6} \approx 2.449$ & \chA{Physical criterion; exact-Bessel checked} & Eq.~\eqref{eq:woc_closed_form} \\
- $M^*$ (transition mass) & $0.8$\,g & \chA{Model-derived transition landmark} & Eq.~\eqref{eq:wo_scaling} \\
+$M^*$ (transition mass) & $0.8$\,g & \chA{Model-derived transition landmark} & Eq.~\eqref{eq:wo_scaling} \\
 $\alpha^*$ (symmetric) & $\chA{\VarAlphaStarModel}$ & Minimax solution & Eq.~\eqref{eq:eta_star} \\
 \midrule
 \multicolumn{4}{l}{\textbf{Empirical Inputs (measured independently)}} \\
 $p_{eff}$ (wall thickness) & $0.77$ & Derived effective exponent & Guo 2003 \cite{Guo2003} \\
-$\alpha^*$ (empirical target) & $2.72$ & Morphometric measurement & Kassab et al. 1993 \\
+$\alpha^*$ (empirical target) & $2.72$ & Morphometric measurement & Kassab et al.\ 1993 \\
 \midrule
 \multicolumn{4}{l}{\textbf{Postdictions (explained by measured heterogeneity)}} \\
 $\Delta\alpha$ (residual) & $0.094$ & Asymmetry + taper & Appendix C \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{A Critical Falsifiable Test: Ontogenetic Phase Transition}
@@ -112,7 +113,7 @@ geometry is sculpted by the incommensurability principle.
 \emph{No experimental data currently available; this constitutes a direct test
 of the incommensurability principle.}}
 \label{tab:ontogenetic}
-\begin{tabular}{lcccl}
+\begin{tabular}{ccccc}
 \toprule
 Stage & Mass $M$ (g) & $\mathrm{Wo}_0$ & $\alpha_{\mathrm{pred}}$ & Regime \\
 \midrule

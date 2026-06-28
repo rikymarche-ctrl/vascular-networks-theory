@@ -300,8 +300,8 @@ Mouse      & $\VarMassMouseHuo\,$g  & \VarBetaMouseObs & \VarBetaMouseHuoWocThre
 Rat        & $\VarMassRat\,$g & \VarBetaRatObs & \VarBetaRatWocThree   \\
 Guinea Pig & $\VarMassGuineaPig\,$g & \VarBetaGuineaPigObs & \VarBetaGuineaPigWocThree\\
 Rabbit     & $\VarMassRabbit\,$g  & \VarBetaRabbitObs & \VarBetaRabbitWocThree\\
-Human      & $\VarMassHuman\,$g & \VarBetaHumanObs & \VarBetaHumanWocThree \\
-Horse      & $\VarMassHorse\,$g& \VarBetaHorseObs & \VarBetaHorseWocThree \\
+Human      & $70\,\mathrm{kg}$  & \VarBetaHumanObs & \VarBetaHumanWocThree \\
+Horse      & $500\,\mathrm{kg}$ & \VarBetaHorseObs & \VarBetaHorseWocThree \\
 \bottomrule
 \end{tabular*}
 \label{tab:beta_comparison}
@@ -361,21 +361,18 @@ can push small organisms into the wave-dominated regime.
 \centering
 \caption{Predictive verification of the Womersley-driven transition under cardiac frequency override. \chA{Throughout, $\mathrm{Wo}_0$ denotes the Womersley number at the aortic root (generation~0, the largest vessel), consistent with the per-generation hierarchy of the Supplemental Material; the mouse and hummingbird entries follow from the mouse baseline via Eq.~\eqref{eq:wo_scaling}.}}
 \label{tab:hummingbird}
-\begin{tabular}{lcccl}
+\begin{tabular}{ccccc}
 \toprule
-Species & $M$ (g) & $f_H$ (bpm) & $\mathrm{Wo}_0$ & Predicted $\alpha^*$ \\
+Species & $M$ & $f_H$ (bpm) & $\mathrm{Wo}_0$ & Predicted $\alpha^*$ \\
 \midrule
-Mouse          & 20  & 600  & 2.5  & 2.60 (transition) \\
-\textbf{Hummingbird} & \textbf{4}   & \textbf{1000} & \textbf{1.76} & \textbf{2.60 (transition)} \\
-Human          & \VarMassHuman & \VarHeartRateHuman  & \chA{17.9} & \VarAlphaStar (minimax) \\
-\midrule
-\multicolumn{5}{p{0.9\textwidth}}{\small \textit{Falsification criterion:} Despite a tiny body mass ($M=4\,$g), the hummingbird's extreme heart rate yields
-$\mathrm{Wo}_0 \approx 1.76$, placing it precisely at the incommensurability edge ($\mathrm{Wo}_c = \sqrt{3} \approx 1.73$). The theory predicts a transition attractor $\alpha \approx 2.60$, \textbf{not} $\alpha
-\approx 3.0$ (Murray viscous) as would be expected for such a microscopic animal under pure body-mass scaling. This prediction is directly testable via morphometric analysis of hummingbird vascular casts and provides a decisive
-test of whether Womersley number, rather than body size alone, controls branching architecture.} \\
+Mouse               & 20\,g  & 600  & 2.5  & 2.60 (transition) \\
+\textbf{Hummingbird} & \textbf{4\,g} & \textbf{1000} & \textbf{1.76} & \textbf{2.60 (transition)} \\
+Human               & 70\,kg & \VarHeartRateHuman & \chA{17.9} & $\VarAlphaStar$ (minimax) \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\noindent{\small\textit{Falsification criterion:} Despite a tiny body mass ($M=4\,$g), the hummingbird's extreme heart rate yields $\mathrm{Wo}_0 \approx 1.76$, placing it precisely at the incommensurability edge ($\mathrm{Wo}_c = \sqrt{3} \approx 1.73$). The theory predicts a transition attractor $\alpha \approx 2.60$, \textbf{not} $\alpha \approx 3.0$ (Murray viscous) as would be expected for such a microscopic animal under pure body-mass scaling. This prediction is directly testable via morphometric analysis of hummingbird vascular casts and provides a decisive test of whether Womersley number, rather than body size alone, controls branching architecture.}
 
 (For the hummingbird, scaling from the mouse baseline yields $\mathrm{Wo}_0 =
 2.5 \times (4/20)^{3/8} \times (1000/600)^{1/2} \approx 1.76$ according to the

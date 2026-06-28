@@ -5,6 +5,7 @@
 \usepackage{mathpazo}
 \usepackage{tabularx}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
 \usepackage{graphicx}
 \graphicspath{{../}}
 \usepackage{float}
@@ -780,13 +781,6 @@ $\sqrt{i\omega\rho}$, would instead give $\approx 2.93$ and is therefore
 excluded. The wave threshold is thus numerically \chA{checked} against the exact
 Bessel solution, not merely posited.}
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{figures/womersley_verification.pdf}
-    \caption{Numerical verification of the critical Womersley number. The inverse quality factor $\mathcal{Q}^{-1}$ (blue curve) intersects the geometric constraint $\mathcal{Q}^{-1} = 2$ (red dashed line) at $\mathrm{Wo} \approx 1.74$, matching the analytical prediction of $\sqrt{3}$ (green dotted line).}
-    \label{fig:womersley_verification}
-\end{figure}
-
 The Kinematic Matching Criterion relates $\mathrm{Wo}_c = \sqrt{3}$ to an
 architectural eigenvalue, marking the point where the fluid dynamical parameters
 (viscous penetration) match the geometric constraints of the 3D embedding.
@@ -801,6 +795,13 @@ penetration and energy equipartition,
     \item
 \textbf{Dimensional constraint:} Embedding dimension $d$.
 \end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/womersley_verification.pdf}
+    \caption{Numerical verification of the critical Womersley number. The inverse quality factor $\mathcal{Q}^{-1}$ (blue curve) intersects the geometric constraint $\mathcal{Q}^{-1} = 2$ (red dashed line) at $\mathrm{Wo} \approx 1.74$, matching the analytical prediction of $\sqrt{3}$ (green dotted line).}
+    \label{fig:womersley_verification}
+\end{figure}
 
 \subsection{The Cardiac Pulse Spectrum and Wave Power Integration}
 
@@ -915,14 +916,15 @@ species, mass scales, and measured branching ratios used for theory comparison.
 \centering
 \caption{Empirical Branching Data for Allometric Validation}
 \label{tab:empirical}
-\begin{tabularx}{\textwidth}{lccLL}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\begin{tabularx}{\textwidth}{cccCC}
 \toprule
 Species & Body Mass $M$ & Branching Ratio $\beta$ & Source & Ref. Details \\
 \midrule
-Shrew (\emph{Suncus}) & $\VarMassShrew\,\mathrm{g}$ & $\VarBetaShrewObs$ & Theoretical extrapolation & Allometric scaling \\
-Rat (\emph{Sprague-Dawley}) & $\VarMassRat\,\mathrm{g}$ & $\VarBetaRatObs \pm 0.04$ & \cite{jiang1994} & Pulmonary morphometry \\
-Human (\emph{Homo sapiens}) & $70\,\mathrm{kg}$ & $\VarBetaHumanObs \pm 0.05$ & \cite{huang1996} & Pulmonary morphometry \\
-Elephant (\emph{Loxodonta}) & $4000\,\mathrm{kg}$ & $\VarBetaElephantObs$ & Theoretical extrapolation & Allometric scaling \\
+Shrew    & $\VarMassShrew\,\mathrm{g}$  & $\VarBetaShrewObs$           & Extrapolation   & Allometric scaling \\
+Rat      & $\VarMassRat\,\mathrm{g}$    & $\VarBetaRatObs \pm 0.04$    & \cite{jiang1994} & Pulm.\ morphometry \\
+Human    & $70\,\mathrm{kg}$            & $\VarBetaHumanObs \pm 0.05$  & \cite{huang1996} & Pulm.\ morphometry \\
+Elephant & $4000\,\mathrm{kg}$          & $\VarBetaElephantObs$        & Extrapolation   & Allometric scaling \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -1016,8 +1018,7 @@ validation limitations).
 \begin{table}[H]
 \centering
 \small
-\caption{Empirical comparison of observed and predicted branching exponents.
-Predicted exponents $\alpha_{\mathrm{pred}}$ are derived from first
+\caption{Predicted exponents $\alpha_{\mathrm{pred}}$ are derived from first
 principles: Static ($3.00$), Isotropic Transition ($\VarAlphaStar$), and Wave
 ($(5-p)/2 \approx \chA{\VarAlphaWTwo}$, see Paper~II).
 \textbf{Res.} (Resolution): \textbf{H} = High-resolution generation-by-generation
@@ -1167,18 +1168,19 @@ across all three available datasets.
 
 \begin{table}[!htbp]
 \centering
-\caption{Quantitative comparison of minimax predictions across high-resolution morphometric datasets.}
+\caption{Predicted $\alpha^*_{\mathrm{pred}}$ vs.\ observed $\alpha_{\mathrm{obs}}$ across the three high-resolution datasets.}
 \label{tab:validation_summary}
-\begin{tabularx}{\textwidth}{Lccc}
+\begin{tabular}{lccc}
 \toprule
 Dataset & $M$ & $\alpha^*_{\mathrm{pred}}$ & $\alpha_{\mathrm{obs}}$ \\
 \midrule
-Kassab et al. (1993) Porcine    & 30\,kg & \chA{\VarAlphaStarModel}   & 2.60--2.80        \\
-Jiang et al. (1994) Rat Pulm. \quad & 300\,g  & 2.68  & 2.60--2.75  \\
-Huang (1996) Human Pulm. & 70\,kg & $\VarAlphaStarElastic$  & 2.60--2.85  \\
+Kassab et al.\ (1993) Porcine  & 30\,kg & \chA{\VarAlphaStarModel} & 2.60--2.80 \\
+Jiang et al.\ (1994) Rat Pulm. & 300\,g & 2.68                    & 2.60--2.75 \\
+Huang (1996) Human Pulm.       & 70\,kg & $\VarAlphaStarElastic$  & 2.60--2.85 \\
 \bottomrule
-\end{tabularx}
+\end{tabular}
 \end{table}
+
 
 \textbf{Result:} All three high-resolution datasets are consistent with the
 theoretical predictions, spanning two orders of magnitude in body mass ($300\,$g
@@ -1399,7 +1401,7 @@ critical threshold $\mathrm{Wo}_c = \sqrt{3} \approx 1.73$, \chA{supports the co
 that resonances do not introduce secondary minima.}
 \label{tab:hessian}
 \smallskip
-\begin{tabularx}{0.8\textwidth}{Lcc}
+\begin{tabular}{ccc}
 \toprule
 $\mathrm{Wo}$ & $\min(\mathcal{H})$ & Convexity Status \\
 \midrule
@@ -1410,7 +1412,7 @@ $\mathrm{Wo}$ & $\min(\mathcal{H})$ & Convexity Status \\
 5.0  &  2.9 & Strict \\
 10.0 &  2.1 & Strict \\
 \bottomrule
-\end{tabularx}
+\end{tabular}
 \end{table}
 
 \paragraph{Resonance Shielding.}

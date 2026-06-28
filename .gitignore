@@ -58,3 +58,4 @@ Arxiv/
 
 # Duplicated utility scripts
 **/scripts/utility/create_flat_submission_zip.py
+**/scripts/utility/arxiv_packager.py

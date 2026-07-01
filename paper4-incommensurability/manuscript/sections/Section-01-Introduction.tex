@@ -8,7 +8,7 @@ while the heart of a blue whale (\textit{Balaenoptera musculus}) beats barely 20
 times. These organisms differ by seven orders of magnitude in mass, and the
 fluid dynamics within their coronary arteries inhabit vastly different physical
 regimes: the whale's transport is dominated by massive inertial waves, while the
-mouse's is governed by the viscous linearity of Murray's law. \chR{What sets
+mouse's is governed by the viscous linearity of Murray's law. What sets
 these regimes apart is not the beat frequency but the volume of blood each heart
 drives through its arteries: cardiac output scales with body mass as $\dot{Q}
 \propto M^{3/4}$~\cite{noujaim2004} and stroke volume as $\propto M$, so a
@@ -18,12 +18,12 @@ scales as $R \propto M^{3/8}$, and it is this radius---not the rapid murine
 heart rate---that dominates the Womersley number $\mathrm{Wo} =
 R\sqrt{\omega/\nu}$ (with $\omega = 2\pi f$). Since $\mathrm{Wo} \propto
 M^{3/8}\sqrt{M^{-1/4}} = M^{1/4}$ (derived in \S\ref{sec:womersley_minimax}), it
-\emph{increases} with body size despite the whale's slower rhythm.} \chA{In
+\emph{increases} with body size despite the whale's slower rhythm. In
 isolation, each regime selects a different single-mechanism optimum of the
 unified network Lagrangian developed below: the wave-impedance attractor
 ($\alpha_w = \VarAlphaW$) for the inertia-dominated whale, and the viscous
 transport optimum ($\alpha_t \approx \VarAlphaT$, the network-level analogue of
-Murray's law) for the mouse.} Yet, their coronary branching exponents are nearly
+Murray's law) for the mouse. Yet, their coronary branching exponents are nearly
 identical ($\alpha^* \approx \VarAlphaStar$), and their vascular architectures
 exhibit a conserved geometric self-similarity that defies the massive shift in
 metabolic and hydrodynamic scales.
@@ -46,8 +46,8 @@ by converging to a scale-free \emph{network-level minimax} attractor. We
 demonstrate that the incommensurability---the dimensional incompatibility
 between metabolic costs (measured in Watts) and wave-reflection costs
 (dimensionless), analogous to geometric frustration in physical
-systems---\chE{suggests that optimization is displaced to a higher topological
-level}. By grounding the fitness landscape in the fundamental \emph{ATP
+systems---suggests that optimization is displaced to a higher topological
+level. By grounding the fitness landscape in the fundamental \emph{ATP
 stoichiometry} of metabolism (Section~\ref{sec:gauge}), we derive a unique
 scale-invariant penalty functional that is immune to metabolic fluctuations.
 
@@ -59,7 +59,7 @@ to: \textbf{Paper~I}~\cite{paperI} for the static transport optimum and Murray's
 law derivation; \textbf{Paper~II}~\cite{paperII} for the coherent
 wave-reflection model and minimax formulation;
 \textbf{Paper~III}~\cite{paperIII} for the metabolic scaling theorem
-($\chA{\beta_M} = 3/4$) and allometric coupling. All theoretical results in this
+($\beta_M = 3/4$) and allometric coupling. All theoretical results in this
 work are self-contained, with cross-references provided only for detailed
 derivations exceeding the scope of a single manuscript.
 \end{remark}
@@ -71,9 +71,9 @@ experimental techniques:
 \begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=*]
 \item
 \textbf{Hummingbird Heart-Rate Override:} A 4\,g hummingbird (HR $\approx$
-1000\,bpm) \chA{operates at $\mathrm{Wo} \approx 1.76$ despite its small mass,
+1000\,bpm) operates at $\mathrm{Wo} \approx 1.76$ despite its small mass,
 yielding $\alpha^* \approx 2.6$ (transition regime, far from the Murray viscous
-limit $\alpha \approx 3.0$ expected from its mass)}. This prediction contradicts
+limit $\alpha \approx 3.0$ expected from its mass). This prediction contradicts
 mass-only scaling models.
 \item
 \textbf{Ontogenetic Phase Transition:} Mouse embryonic vasculature should
@@ -81,13 +81,13 @@ exhibit $\alpha \approx 3.0$ at E8--E10 ($M < 0.1\,$g, viscous regime),
 transitioning to $\alpha^* \approx 2.7$ by E15--E18 ($M > 1\,$g, wave regime).
 \\
 \emph{Falsification criterion:} If $\alpha \approx 2.7$ from the earliest
-angiogenesis stages, \chE{the theory would fail this falsification test}.
+angiogenesis stages, the theory would fail this falsification test.
 \item
 \textbf{Retinal Dual-Attractor Paradox:} 2D retinal vessels exhibit simultaneous
 divergence: diameter scaling $\alpha_{\text{dia}} \approx 2.0$ (2D
 wave-matching), bifurcation angles $\theta \approx
-\chA{\VarAngleRetinalCalcDeg^\circ}$ (3D Murray equilibrium). \chE{This dual
-state is not naturally predicted by purely local optimization}
+\VarAngleRetinalCalcDeg^\circ$ (3D Murray equilibrium). This dual
+state is not naturally predicted by purely local optimization
 (Section~\ref{sec:retinal}).
 \end{enumerate}
 \vspace{1em}
@@ -116,13 +116,13 @@ rigid cylindrical tube, and $M'_{10}$ is the modified Womersley function
 involving Bessel functions $J_0, J_1$. For mammalian vascular trees ($d=3$):
 $\mathrm{Wo}_c = 1.740$ (exact numerical root). The criterion applies to two
 distinct physical quantities---the longitudinal fluid admittance $Y_L$ and the
-characteristic wave admittance \chA{$Y_c \propto \sqrt{i\omega\rho\,Y_L}$,
-equivalently $Y_c\propto\sqrt{1-F_{10}}$}---yielding two separate thresholds
+characteristic wave admittance $Y_c \propto \sqrt{i\omega\rho\,Y_L}$,
+equivalently $Y_c\propto\sqrt{1-F_{10}}$---yielding two separate thresholds
 whose non-coincidence constitutes the mathematical formulation of
 incommensurability.
 \end{theorem}
 
-\chRB{In plain terms, the Womersley number $\mathrm{Wo}$ measures how strongly
+In plain terms, the Womersley number $\mathrm{Wo}$ measures how strongly
 fluid inertia competes with viscous friction over a single heartbeat, and the
 theorem identifies one critical value $\mathrm{Wo}_c$ that acts as a switch.
 \emph{Below} it, viscous friction absorbs the sideways ``kick'' that the flow
@@ -135,7 +135,7 @@ channels studied in this paper, viscous dissipation and wave reflection, do not
 therefore switch on at the same point: each has its own threshold, and it is the
 \emph{gap} between them that we formalize as ``incommensurability'' and develop
 in the sections that follow. The remainder of this proof simply makes the switch
-quantitative, locating $\mathrm{Wo}_c$ from first principles.}
+quantitative, locating $\mathrm{Wo}_c$ from first principles.
 
 \begin{proof}
 The derivation proceeds through three independent levels:
@@ -161,10 +161,10 @@ This is vector algebra, not fluid dynamics.
 \textbf{Level 3 (Evanescent Mode Absorption).} At the bifurcation, the
 transverse velocity component $v_\perp$ cannot propagate in the daughter
 vessels, which accept only axial flow; it constitutes an evanescent mode
-confined to the junction region. \chRB{(An \emph{evanescent} mode is flow energy
+confined to the junction region. (An \emph{evanescent} mode is flow energy
 that stays localized at the fork and decays with distance instead of travelling
 onward into the daughter vessels---it has nowhere to propagate, yet by energy
-conservation it cannot simply vanish.)} By energy conservation, this evanescent
+conservation it cannot simply vanish.) By energy conservation, this evanescent
 energy must either be absorbed by viscous dissipation or scattered into a
 backward-propagating (reflected) wave in the parent vessel.
 
@@ -194,9 +194,9 @@ wave ($\Gamma \neq 0$) at every junction.
 
 The critical condition $\mathcal{Q}^{-1} = d-1$ is the \emph{vascular analogue
 of the Ioffe-Regel criterion}: the threshold where geometric scattering
-overwhelms viscous damping, \chA{in heuristic analogy with the onset of Anderson
+overwhelms viscous damping, in heuristic analogy with the onset of Anderson
 localization in disordered wave systems (a qualitative parallel invoked for
-physical intuition, not a formal correspondence).} Since
+physical intuition, not a formal correspondence). Since
 $\mathcal{Q}^{-1}(\mathrm{Wo})$ is strictly monotonically decreasing, the
 solution is unique. \qedhere
 \end{proof}
@@ -236,9 +236,9 @@ not energies per cycle; the definition $\mathcal{Q}^{-1} \equiv
 reactive power, so no factor of $2\pi$ appears. Second, the evanescent-mode
 argument (Level~3) is a \emph{physical ansatz}---a worst-case energy-balance
 hypothesis neglecting mode conversion to axial flow in daughter vessels---not a
-\chA{purely deductive result}. This ansatz provides a sufficient condition for
+purely deductive result. This ansatz provides a sufficient condition for
 the transition threshold. The exact Bessel solution, which fully accounts for
-all modal coupling, \chA{supports} the threshold to within $0.5\%$, validating
+all modal coupling, supports the threshold to within $0.5\%$, validating
 the physical hypothesis \emph{post hoc}. The criterion is further validated by:
 \begin{enumerate}[label=(\roman*)]
     \item

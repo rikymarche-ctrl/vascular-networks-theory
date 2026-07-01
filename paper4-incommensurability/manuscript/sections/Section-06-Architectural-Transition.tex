@@ -31,7 +31,7 @@ requires $R_p^3 = \sum R_{c,i}^3$, yielding Murray's Law $\alpha = 3$.
 
 The allometric transition is thus the trajectory of the network-level minimax as
 the characteristic Womersley number scales with body mass $M$. To ensure a
-\chA{physically constrained derivation}, the wave penalty
+physically constrained derivation, the wave penalty
 $\mathcal{C}_{\mathrm{wave}}$ is defined as the spectral sum of reflected power
 across the first five harmonics $\{n\omega_H\}$ of the cardiac cycle, weighted
 by the longitudinal $k$-dispersion attenuation $e^{-2 \kappa L}$ (see
@@ -74,7 +74,7 @@ of $\mathcal{L}_{\mathrm{net}}(\alpha,\eta; M)$. Then the trajectory of the
 attractor obeys the following limits:
 \begin{enumerate}
     \item
-As $M\to 0$, $\alpha^*(M) \to \alpha_t \approx \chA{\VarAlphaT}$ (viscous
+As $M\to 0$, $\alpha^*(M) \to \alpha_t \approx \VarAlphaT$ (viscous
 dominance).
     \item
 As $M\to\infty$, $\alpha^*(M) \to \alpha_w \approx 2.0$ (inertial dominance).
@@ -90,7 +90,7 @@ The limits follow from the asymptotic behavior of the admittance
 $Y(\mathrm{Wo})$. For $M\to 0$, $\mathrm{Wo}\to 0$ throughout the tree, the
 reflection coefficient tends to zero, removing the wave penalty and allowing the
 transport cost to pull $\alpha^*$ toward its static minimum at $\alpha_t \approx
-\chA{\VarAlphaT}$. For $M\to\infty$, the inertial geometric matching condition
+\VarAlphaT$. For $M\to\infty$, the inertial geometric matching condition
 $\alpha_w \approx 2.0$ dominates. The sigmoidal transition in
 Fig.~\ref{fig:transition} emerges directly from this numerical competition,
 smoothly connecting the two topological attractors.
@@ -163,7 +163,7 @@ embedding.
 Rather than relying on phenomenological fitting, we resolve this
 mechanical-topological decoupling by applying the \textbf{Kinematic Matching
 Criterion} (Theorem~\ref{thm:kinematic_matching}). This criterion establishes a
-\chA{physical matching condition}---combining Euclidean geometry, classical
+physical matching condition---combining Euclidean geometry, classical
 kinematics, and evanescent mode absorption at the junction---demonstrating that
 the pulsatile network undergoes a critical transition when the viscous
 absorption capacity of the Womersley flow (quantified by the inverse quality
@@ -179,30 +179,30 @@ This criterion acts as the essential boundary condition bridging 1D transport
 and $d$-dimensional topology. For mammalian arterial beds embedded in 3D tissue
 ($d=3$), this requires $\mathcal{Q}^{-1} = 2$. By combining the Navier-Stokes
 expression for viscous absorption ($\mathcal{Q}^{-1} = 6/\mathrm{Wo}^2$) with
-the Euclidean space-filling geometry, the criterion provides the \chA{physical
-foundation} for the allometric transition.
+the Euclidean space-filling geometry, the criterion provides the physical
+foundation for the allometric transition.
 
 However, pulsatile transport involves two mathematically distinct physical
 quantities: the \emph{local fluid mass} (governed by the longitudinal admittance
 $Y_L$) which undergoes viscous dissipation, and the \emph{propagating pressure
-wave} (governed by the characteristic admittance $Y_c$) which \chA{governs}
-network reflections. Because \chA{$Y_c \propto \sqrt{i\omega\rho\,Y_L}$,
-equivalently $Y_c\propto\sqrt{1-F_{10}}$}, the wave phase is algebraically
+wave} (governed by the characteristic admittance $Y_c$) which governs
+network reflections. Because $Y_c \propto \sqrt{i\omega\rho\,Y_L}$,
+equivalently $Y_c\propto\sqrt{1-F_{10}}$, the wave phase is algebraically
 halved with respect to the bulk fluid, inducing a profound \textbf{Phase
 Decoupling}. Applying the kinematic matching criterion ($\mathcal{Q}^{-1} =
 d-1$) to both quantities yields two distinct thresholds (derived in Supplemental
-Section S1). \chA{We emphasise that the isotropic-embedding criterion
+Section S1). We emphasise that the isotropic-embedding criterion
 $\mathcal{Q}^{-1}=d-1$ is derived in S1 for the longitudinal (bulk-fluid) mode;
 its application to the characteristic admittance $Y_c$ is a
 \emph{postulate}---we extend the same kinematic matching to the propagating wave
 by analogy, with the algebraic phase-halving
-\chA{$Y_c\propto\sqrt{i\omega\rho\,Y_L}$, equivalently
-$Y_c\propto\sqrt{1-F_{10}}$} as its physical basis. We adopt this as a working
+$Y_c\propto\sqrt{i\omega\rho\,Y_L}$, equivalently
+$Y_c\propto\sqrt{1-F_{10}}$ as its physical basis. We adopt this as a working
 hypothesis rather than a derived result; the qualitative conclusion (two
 incommensurable thresholds) follows from the phase-halving alone and is robust
-to the precise value of the wave threshold.}
+to the precise value of the wave threshold.
 
-\chRB{The intuition behind the two thresholds is that a bifurcation must cope
+The intuition behind the two thresholds is that a bifurcation must cope
 with \emph{two} things at once: the bulk fluid it carries, and the pressure wave
 riding on that fluid. As an animal grows and its Womersley number rises, the
 bulk fluid is the first to ``switch on''---to stop dissipating its junction kick
@@ -213,7 +213,7 @@ $\mathrm{Wo}_c^{\mathrm{wave}}$. The two can therefore never be perfectly
 matched at the same body size: whatever the animal's scale, one channel is
 always on the ``wrong'' side of its own threshold. That permanent, unavoidable
 mismatch is precisely what we mean by incommensurability, and it is why no
-single branching exponent can zero out both costs at once.}
+single branching exponent can zero out both costs at once.
 
 \begin{enumerate}
     \item
@@ -242,9 +242,9 @@ squared thresholds, $\frac{d(d-2)}{2}$, is never equal to 1 for any integer $d$.
 Remarkably, Womersley's historical empirical transition threshold
 ($\mathrm{Wo}_c \approx 2.0$, empirically utilized in Paper~III) falls precisely
 within the theoretical gap $[\sqrt{3}, 3/\sqrt{2}]$ defined by this decoupling,
-\chA{connecting the phenomenological observations with the physical} theory.
+connecting the phenomenological observations with the physical theory.
 
-\chA{For clarity, the \emph{quantitative} predictions of this work---the
+For clarity, the \emph{quantitative} predictions of this work---the
 transition mass $M^*$, the $\alpha^*(M)$ curve, and the per-species
 exponents---enter the solver only through the fluid threshold
 $\mathrm{Wo}_c^{\mathrm{fluid}}=\sqrt{3}$, which sets the viscous-to-inertial
@@ -253,9 +253,9 @@ $\mathrm{Wo}_c^{\mathrm{wave}}=3/\sqrt{2}$ fixes the \emph{upper} edge of the
 incommensurability gap and the qualitative regime structure (and the $d=2$
 retinal collapse), but it does not appear in the numerical optimization. The
 incommensurability of the two thresholds is thus a structural, regime-defining
-statement; the headline numbers depend only on $\sqrt{3}$.}
+statement; the headline numbers depend only on $\sqrt{3}$.
 
-The predictive power of this Phase Decoupling is \chA{supported} by its global
+The predictive power of this Phase Decoupling is supported by its global
 consequences. First, it defines a \textbf{scaling transition interval} in body
 mass $M^* \sim 1\,$g (plausible range $0.5\text{--}1.2\,$g depending on
 species-specific heart rate variability), separating viscous-dominated from
@@ -265,14 +265,14 @@ Decoupling, \S\ref{sec:retinal}): for networks constrained to a 2D manifold
 (e.g., the human retina, $d=2$), the wave threshold collapses exactly to zero:
 $\mathrm{Wo}_c^{\mathrm{wave}}(d{=}2) = 0$. This implies that in a 2D topology,
 the propagating wave is \emph{permanently} above its threshold
-($\mathcal{Q}^{-1}_{Y_c} \ge 1$ for all $\mathrm{Wo} > 0$). \chA{Here the
+($\mathcal{Q}^{-1}_{Y_c} \ge 1$ for all $\mathrm{Wo} > 0$). Here the
 criterion is applied to the characteristic (transmitted) admittance $Y_c$, for
 which a large $\mathcal{Q}^{-1}_{Y_c}$ denotes a permanently impedance-matched,
 propagating wave channel---the opposite sense to the longitudinal-mode damping
 convention, in which a large $\mathcal{Q}^{-1}$ signals overdamping; the two
-senses must not be conflated.} This geometric constraint forces planar retinal
+senses must not be conflated. This geometric constraint forces planar retinal
 diameters to permanently transition toward the wave-attractor limit ($\alpha
-\approx 2.0$), \chA{supporting the interpretation} that the branching geometry
+\approx 2.0$), supporting the interpretation that the branching geometry
 is topologically anchored by the embedding dimension rather than local metabolic
 fine-tuning.
 
@@ -290,7 +290,7 @@ Comparison of the theoretical branching parameter $\beta$ predicted by
 the emergent minimax framework. The theoretical
 model reproduces the architectural transition from viscous-dominated
 morphologies ($\beta \approx 0.85$) to the pulsatile attractor
-($\beta \approx \VarBetaHumanObs$) \chA{without fitting the target exponent}. The simplified model predicts
+($\beta \approx \VarBetaHumanObs$) without fitting the target exponent. The simplified model predicts
 a nearly constant branching ratio $\beta \approx \VarBetaHumanObs$ for all mammals; the
 observed variation (see, e.g., \cite{kassab1993,huang1996}) requires the
 inclusion of taper and asymmetry as in Paper~II.}
@@ -319,13 +319,13 @@ Horse      & $500\,\mathrm{kg}$ & \VarBetaHorseObs & \VarBetaHorseWocThree \\
     of Branching Geometry.}
     The emergent branching exponent $\alpha^*(M)$ as a function
     of body mass, computed from the symmetric minimax saddle
-    point \chA{with no target-exponent fit}. Horizontal dashed lines mark
+    point with no target-exponent fit. Horizontal dashed lines mark
     the two attractors: the transport limit
     $\alpha_t \approx \VarAlphaTFig$ ($\eta \to 0$) and the
-    wave limit $\alpha_w = \VarAlphaW$ ($\eta \to 1$\chA{; this is the
+    wave limit $\alpha_w = \VarAlphaW$ ($\eta \to 1$; this is the
     rigid-wall baseline used to compute the symmetric minimax curve,
     distinct from the elastic-corrected $\alpha_w = \VarAlphaWFig$ shown
-    in the conceptual phase diagram, Fig.~\ref{fig:phase_diagram}}).
+    in the conceptual phase diagram, Fig.~\ref{fig:phase_diagram}).
     The shaded band ($\pm 0.10$) represents the estimated
     range of morphometric heterogeneity corrections
     (bifurcation asymmetry, taper; see \S\ref{sec:gap}).
@@ -351,20 +351,20 @@ above this threshold, the minimax attractor settles near $\alpha^* \approx
 morphometric analysis of Paper~II, which incorporates generation-by-generation
 vessel taper and asymmetry, is required to shift the transition to the 30--60~g
 range where rodent weaning occurs; this remains a quantitative refinement for
-future work. \chA{We stress that the falsifiable predictions below are anchored
+future work. We stress that the falsifiable predictions below are anchored
 on the Womersley number relative to $\mathrm{Wo}_c = \sqrt{3}$, not on the
 absolute transition mass: $M^*$ is a model-dependent landmark---the single-scale
 estimate $\VarMStar\,$g shifts upward to tens of grams once taper and asymmetry
 rescale the $\mathrm{Wo}$--mass mapping---whereas the hummingbird and neonatal
 tests turn only on whether $\mathrm{Wo}_0$ crosses $\sqrt{3}$ and are therefore
-robust to this refinement.} \textbf{The Hummingbird Test: A Falsifiable
+robust to this refinement. \textbf{The Hummingbird Test: A Falsifiable
 Prediction.} A critical experimental test of the $\mathrm{Wo}$-driven transition
 arises in high-performance avian physiology. Despite tiny body mass, extreme
 heart rate can push small organisms into the wave-dominated regime.
 
 \begin{table}[H]
 \centering
-\caption{Predictive verification of the Womersley-driven transition under cardiac frequency override. \chA{Throughout, $\mathrm{Wo}_0$ denotes the Womersley number at the aortic root (generation~0, the largest vessel), consistent with the per-generation hierarchy of the Supplemental Material; the mouse and hummingbird entries follow from the mouse baseline via Eq.~\eqref{eq:wo_scaling}.}}
+\caption{Predictive verification of the Womersley-driven transition under cardiac frequency override. Throughout, $\mathrm{Wo}_0$ denotes the Womersley number at the aortic root (generation~0, the largest vessel), consistent with the per-generation hierarchy of the Supplemental Material; the mouse and hummingbird entries follow from the mouse baseline via Eq.~\eqref{eq:wo_scaling}.}
 \label{tab:hummingbird}
 \begin{tabular}{ccccc}
 \toprule
@@ -372,7 +372,7 @@ Species & $M$ & $f_H$ (bpm) & $\mathrm{Wo}_0$ & Predicted $\alpha^*$ \\
 \midrule
 Mouse               & 20\,g  & 600  & 2.5  & 2.60 (transition) \\
 \textbf{Hummingbird} & \textbf{4\,g} & \textbf{1000} & \textbf{1.76} & \textbf{2.60 (transition)} \\
-Human               & 70\,kg & \VarHeartRateHuman & \chA{17.9} & $\VarAlphaStar$ (minimax) \\
+Human               & 70\,kg & \VarHeartRateHuman & 17.9 & $\VarAlphaStar$ (minimax) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -389,7 +389,7 @@ than body size alone, controls branching architecture.}
 
 (For the hummingbird, scaling from the mouse baseline yields $\mathrm{Wo}_0 =
 2.5 \times (4/20)^{3/8} \times (1000/600)^{1/2} \approx 1.76$ according to the
-scaling of Eq.~\eqref{eq:wo_scaling}. \textbf{\chE{At present:}} To our
+scaling of Eq.~\eqref{eq:wo_scaling}. \textbf{At present:} To our
 knowledge, no quantitative morphometric data for hummingbird coronary arteries
 are currently available in the literature.)
 
@@ -405,7 +405,7 @@ vascular and physiological networks.
 Attractor.} Comparison of observed branching exponents across different
 physiological systems and regimes. The minimax attractor $\alpha^* \approx
 \VarAlphaStar$ characterizes pulsatile mammalian arterial beds, while the boundary
-limits $\alpha_w \approx 2.0$ and $\alpha_t \approx \chA{\VarAlphaT}$ emerge in
+limits $\alpha_w \approx 2.0$ and $\alpha_t \approx \VarAlphaT$ emerge in
 developmental and static-transport systems, respectively.}
 \label{tab:multivalid}
 \vspace{0.5em}
@@ -423,17 +423,17 @@ Plant Xylem (Vines) \cite{mcculloh2003}& $2.90$--$3.00$ & Static ($\alpha_t$)  &
 
 The qualitative consistency of these results across fundamentally different
 organs and kingdoms provides supporting evidence for the generality of the
-incommensurability principle. An expanded validation across \chA{27} distinct
+incommensurability principle. An expanded validation across 27 distinct
 biological and synthetic networks is provided in the Supplemental Material
 (Section S6), showing that the $\alpha^* \approx \VarAlphaStar$ attractor
 appears consistently in pulsatile mammalian arterial systems.
 
-\chRB{The breadth of this validation set is itself the central empirical test of
+The breadth of this validation set is itself the central empirical test of
 the principle, and not merely a catalogue of consistent cases. The
 Incommensurability Principle does not predict a single universal exponent; it
 predicts that the realized exponent must track \emph{which incommensurable cost
 channels are physically active} in a given network. This yields a
-\chRB{pre-specified}, cross-kingdom sorting rule that the 27 systems test
+pre-specified, cross-kingdom sorting rule that the 27 systems test
 directly. (i)~Networks with no pulsatile wave channel---botanical xylem (lianas,
 conifers, angiosperms), the bronchial and tracheal airways, leaf venation,
 slime-mold and mycelial transport webs, and quasi-static venous return---should
@@ -456,7 +456,7 @@ systematic extension of this test---to taxa with divergent cardiac duty cycles
 (avian and reptilian circulations), to invertebrate open circulatory systems,
 and to engineered organ-on-chip networks with programmable pulsatility---as the
 most informative direction for broader empirical validation, because each adds
-an independent point at which the active-channel sorting could fail.}
+an independent point at which the active-channel sorting could fail.
 
 \textbf{Quantitative validation with high-resolution datasets.} To move beyond
 qualitative consistency, we perform direct quantitative comparison with all
@@ -470,24 +470,24 @@ morphometric studies have provided the necessary resolution:
 vs.\ $\alpha^*_{\mathrm{pred}} = \VarAlphaStarModel$ (symmetric minimax, this
 work)
     \item
-\chE{\textbf{Jiang, Kassab \& Fung (1994)}: Rat pulmonary ($M=300\,\mathrm{g}$),
-$\alpha_{\mathrm{obs}} = 2.60$--$2.75$ vs.\ $\alpha^*_{\mathrm{pred}} = 2.68$}
+\textbf{Jiang, Kassab \& Fung (1994)}: Rat pulmonary ($M=300\,\mathrm{g}$),
+$\alpha_{\mathrm{obs}} = 2.60$--$2.75$ vs.\ $\alpha^*_{\mathrm{pred}} = 2.68$
     \item
-\chE{\textbf{Huang (1996)}: Human pulmonary ($M=70\,\mathrm{kg}$),
+\textbf{Huang (1996)}: Human pulmonary ($M=70\,\mathrm{kg}$),
 $\alpha_{\mathrm{obs}} = 2.60$--$2.85$ vs.\ $\alpha^*_{\mathrm{pred}} =
-\VarAlphaStarElastic$}
+\VarAlphaStarElastic$
 \end{enumerate}
 
-\chE{All three datasets exhibit quantitative agreement with theoretical
+All three datasets exhibit quantitative agreement with theoretical
 predictions. Collectively, the three datasets span about two orders of magnitude
 in body mass ($300\,\mathrm{g}$ to $70\,\mathrm{kg}$) and two organ systems
 (coronary, pulmonary). Detailed calculations are provided in the Supplemental
-Material, Sections S6.3.3--S6.3.5.}
+Material, Sections S6.3.3--S6.3.5.
 
 \textbf{Remaining limitations.} While quantitative validation has historically
 been restricted to these three classical morphometric datasets, the majority of
-\chA{the 27 systems in the extended validation set (Supplemental Material,
-Section S6)} exhibit wide observed ranges that overlap with multiple theoretical
+the 27 systems in the extended validation set (Supplemental Material,
+Section S6) exhibit wide observed ranges that overlap with multiple theoretical
 attractors. This data limitation is rapidly being resolved by next-generation
 whole-organ imaging databases: for instance, complete 3D microCT reconstructions
 of the mouse cerebral angiome~\cite{quintana2019}, anatomically detailed
@@ -524,14 +524,14 @@ transition mass for 2D networks is shifted upward to $M^*_{d=2} \approx
 demonstrated in the Phase Decoupling derivation, the corresponding wave
 threshold $\mathrm{Wo}_c^{\mathrm{wave}}$ collapses identically to $0$ in 2D.
 This striking mathematical result implies that the wave is \emph{always} above
-its threshold in planar geometries, \chA{placing} planar networks (retinal
+its threshold in planar geometries, placing planar networks (retinal
 vasculature, embryonic membranes) into the wave-dominated regime regardless of
 their small physical mass or local Womersley number.
 
 This shift is directly supported by recent 3D whole-embryo mappings
 \cite{forjaz2026}, which reveal a sharp divergence between 3D space-filling
 vascular transport ($\alpha \approx 3.0$) and 2D planar neural structures
-($\alpha \approx 2.0$). \chA{Additional support} is provided by the human retina
+($\alpha \approx 2.0$). Additional support is provided by the human retina
 \cite{luo2017}, where retinal arteries range from $\alpha \approx 2.1$ (small
 vessels) to $2.7$ (large vessels), consistent with the 2D wave-dominated regime
 prediction.
@@ -544,13 +544,13 @@ bifurcations; SD $\VarAngleRetinalSD^\circ$)) remain closer to the Murray-limit
 Paradox," reveals a fundamental Mechanical-Fluidic Decoupling: diameters respond
 to wave-reflection constraints (2D), while branching angles are anchored by the
 mechanical equilibrium of wall tensions (3D). While the global network
-architecture (diameters) is \chA{biased toward the wave regime} to minimize
+architecture (diameters) is biased toward the wave regime to minimize
 reflection-induced dissipation, the local junctional geometry (angles) is
 governed by the mechanical equilibrium of wall tensions. As long as the vascular
 wall operates in the Lam\'{e}-static regime, the branching angles will remain
 anchored to the Murray-limit, even as the fluidic impedance collapses toward the
-area-preserving limit. This "structural tension" is \chA{one direct empirical}
-\chA{signature of the Scaling Conflict Bound}: the incommensurability between
+area-preserving limit. This "structural tension" is one direct empirical
+signature of the Scaling Conflict Bound: the incommensurability between
 structural integrity and fluidic efficiency prevents a single, unified scaling
 exponent from governing all morphometric degrees of freedom under symmetric
 local optimization.
@@ -561,7 +561,7 @@ wave-reflection integrity. In contrast, plant xylem networks, which lack a
 pulsatile pump ($\eta \to 0$), converge towards the static Murray-limit ($\alpha
 \approx \VarAlphaT$). Conversely, developmental networks and veins, where
 metabolic cost is secondary to signal propagation, gravitate towards the wave
-limit ($\alpha \approx \VarAlphaWTwo$). This mapping \chA{supports the
-interpretation} that biological transport architecture is governed by a
+limit ($\alpha \approx \VarAlphaWTwo$). This mapping supports the
+interpretation that biological transport architecture is governed by a
 universal \emph{minimax attractor} that shifts predictably across physical
 regimes.

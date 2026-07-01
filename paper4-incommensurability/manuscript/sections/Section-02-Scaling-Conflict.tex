@@ -23,12 +23,12 @@ independent physical dissipation regimes (e.g., viscous friction and reactive
 wave scattering), a \emph{perfectly symmetric} local rule $\mathcal{F}$ cannot
 maintain a scale-invariant branching exponent $\alpha^*$ across the hierarchy
 without the local coupling parameters varying by orders of magnitude. Because
-such extreme fine-tuning is biologically implausible, \chE{real networks appear
-to require symmetry-breaking features} (e.g., via taper or asymmetric branching)
+such extreme fine-tuning is biologically implausible, real networks appear
+to require symmetry-breaking features (e.g., via taper or asymmetric branching)
 to achieve scalable local optimization.
 \end{proposition}
 
-\chRB{Intuitively, the proposition says that a vessel acting on local
+Intuitively, the proposition says that a vessel acting on local
 information alone cannot keep the \emph{entire} tree scale-free. Picture a
 bricklayer asked to build a self-similar pattern that must look the same whether
 the wall ends up one metre or one kilometre tall, but who can see only the brick
@@ -37,10 +37,10 @@ bricklayer would need to know how far up the wall it sits---a global quantity.
 The vascular counterpart of ``height up the wall'' is the generation depth $g$,
 and the only way to infer it from local cues is through the absolute vessel
 size, which in turn requires knowing the size of the root (aortic) vessel. As
-Step~3 of the proof \chA{shows}, that root scale is precisely the piece of
+Step~3 of the proof shows, that root scale is precisely the piece of
 information a downstream junction cannot recover from local measurements---which
-is why \chE{a strictly local, symmetric rule is not sufficient under these
-assumptions}.}
+is why a strictly local, symmetric rule is not sufficient under these
+assumptions.
 
 \begin{remark}[Biological Resolution via Structural Heterogeneity]
 Real vascular networks resolve this strict bound through structural
@@ -65,18 +65,18 @@ continuous domain of radii, $\mathcal{F}$ must dynamically adjust its internal
 coupling weights to perfectly cancel the shifting physical ratio $\Lambda(r) =
 \mathcal{C}_{\mathrm{wave}}/\mathcal{C}_{\mathrm{visc}} \propto r^2$. This
 compensation requires the explicit local computation of the topological depth
-$g$. \chRB{This $r^{2}$ growth is a direct consequence of Step~(1): a viscous
+$g$. This $r^{2}$ growth is a direct consequence of Step~(1): a viscous
 dissipation gradient scaling as $\mathcal{O}(r^{-5})$ integrates to a cost
 $\mathcal{C}_{\mathrm{visc}}\propto r^{-4}$, while the $\mathcal{O}(r^{-3})$
 wave gradient integrates to $\mathcal{C}_{\mathrm{wave}}\propto r^{-2}$; their
 ratio therefore grows as $\Lambda(r) =
 \mathcal{C}_{\mathrm{wave}}/\mathcal{C}_{\mathrm{visc}} \propto r^{-2}/r^{-4} =
 r^{2}$, so a vessel ten times wider sees the wave penalty inflated a hundredfold
-relative to the viscous one.}
+relative to the viscous one.
 
 \textbf{(3) Information Asymmetry.} Computing $g$ from local geometric
 parameters requires inverting the network scaling law $g \propto \log(r_0/r_g)$.
-This computation \chE{requires, within this formulation, access to $r_0$} (the
+This computation requires, within this formulation, access to $r_0$ (the
 root absolute scale). While downstream reflections encode the local input
 impedance, the physical information regarding the upstream root scale $r_0$ is
 topologically shielded and directionally inaccessible to a local junction. Like
@@ -115,8 +115,8 @@ these signaling networks operate as low-pass filters that are inherently blind
 to the sub-cycle phase-lag $\phi$ between pressure and velocity waves. Since
 evaluating the local inverse quality factor $\mathcal{Q}^{-1} =
 \mathrm{Re}(Y)/|\mathrm{Im}(Y)|$ (or the local reactance) requires resolving the
-precise cycle-by-cycle phase offset, the \chE{local cellular machinery is
-unlikely to resolve} the wave transport parameters necessary for impedance-based
+precise cycle-by-cycle phase offset, the local cellular machinery is
+unlikely to resolve the wave transport parameters necessary for impedance-based
 tuning.
     
     \item
@@ -132,16 +132,16 @@ gradient descent algorithm is blind to the distal network's impedance state.
     \item
 \textbf{The Murray Convergence Trap (Evolutionary Bound)}: Homeostatic
 adaptation rules operating purely on local shear stress feedback (e.g.,
-maintaining a constant shear stress target $\tau_w \approx c$) are \chE{expected
-to converge to Murray's local attractor in standard shear-homeostatic models}
+maintaining a constant shear stress target $\tau_w \approx c$) are expected
+to converge to Murray's local attractor in standard shear-homeostatic models
 ($\alpha = 3$). However, in large conduit arteries, maintaining $\alpha=3$ would
-cause \chE{substantial wave-reflection costs}, severely compromising cardiac
+cause substantial wave-reflection costs, severely compromising cardiac
 efficiency. The transition to $\alpha \approx 2.7$ in the large vessels of large
 mammals requires the cell to actively break the local Murray feedback loop.
 Because a cell cannot determine when to suppress this feedback without knowing
 its global position $g$ or the species-specific body mass $M$, the transition
-rule cannot be encoded locally, \chE{supporting a network-level minimax
-interpretation}.
+rule cannot be encoded locally, supporting a network-level minimax
+interpretation.
 \end{enumerate}
 
 The network avoids this informational and sensory burden because the minimax
@@ -169,8 +169,8 @@ $g$ in a young animal would have to dynamically adjust its biophysical weight
 $\mu(g)$ to a new $\mu(g')$ as downstream segments grow, which requires
 real-time global coordination and feedback channels. Consequently, genetic
 hardcoding of a static $\mu(g)$ profile is developmentally and evolutionarily
-fragile, leaving the global network-level minimax attractor as \chE{a robust,
-information-economical mechanism} for scale-invariant transport.
+fragile, leaving the global network-level minimax attractor as a robust,
+information-economical mechanism for scale-invariant transport.
 \end{remark}
 
 \begin{corollary}[Violation Conditions]
@@ -181,21 +181,21 @@ peripheral junctions. Mechanisms that would permit local optimization include:
 (i) persistent morphogen gradients encoding absolute position, (ii) retrograde
 chemical signaling from root to periphery, or (iii) centralized neural control
 with explicit $g$-encoding. Such mechanisms are not observed in mature mammalian
-vasculature, \chA{supporting} the need for network-level optimization.
+vasculature, supporting the need for network-level optimization.
 \end{corollary}
 
 \begin{corollary}[Information-Accounting Argument]
 \label{cor:information}
-\chA{Setting a generation-dependent profile that holds $\alpha^*$ constant
+Setting a generation-dependent profile that holds $\alpha^*$ constant
 requires each junction to know only its own \emph{generation index} $g$---one of
 $G$ levels, carrying at most $\log_2 G$ bits. The obstruction is therefore not
 the \emph{magnitude} of this information (which is modest) but its
 \emph{non-local} character: the generation index is a global label that cannot
-be reconstructed from purely local hemodynamic measurements.}
+be reconstructed from purely local hemodynamic measurements.
 \end{corollary}
 
 \begin{proof}
-\chA{To regulate the wall profile $\mu(g)$ a junction need not resolve its full
+To regulate the wall profile $\mu(g)$ a junction need not resolve its full
 root-to-node address (which would cost $g\log_2 N$ bits); it requires only the
 scalar generation index $g$, i.e.\ $\log_2 G$ bits. However, a junction senses
 only local quantities (pressure, flow, wall shear) and hence only \emph{ratios}
@@ -206,8 +206,8 @@ that is absent from any local ratio; by the topological shielding of upstream
 signals (Proposition~\ref{thm:nogo}) it is also not transmitted from the root.
 The generation index is therefore informationally inaccessible to local control,
 \emph{independently} of how few bits it nominally encodes---it is the
-non-locality, not a Shannon channel-capacity bound, that \chE{rules out purely
-local optimization within the stated assumptions}.}
+non-locality, not a Shannon channel-capacity bound, that rules out purely
+local optimization within the stated assumptions.
 \end{proof}
 
 The vascular tree avoids this informational burden by converging to a
